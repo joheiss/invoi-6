@@ -1,0 +1,16 @@
+<div class="window">
+  <div>
+    <button mat-raised-button color="primary" (click)="onNew()">Rechnung anlegen</button>
+    <!--
+          class="btn btn--lg btn--primary">
+    -->
+  </div>
+  <div class="jo-cards">
+    <jo-invoice-card *ngFor="let summary of summaries$ | async"
+                     [summary]="summary"
+                     (copy)="onCopy($event)"
+                     (delete)="onDelete($event)"
+                     class="jo-card">
+    </jo-invoice-card>
+  </div>
+</div>

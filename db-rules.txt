@@ -1,0 +1,112 @@
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    match /user-profiles/{uid} {
+    	allow read: if hasRole('sys-admin') || isOwner(uid);
+      allow create: if hasRole('sys-admin');
+      allow delete: if hasRole('sys-admin');
+      allow update: if hasRole('sys-admin') || isOwner(uid);
+    }
+
+    match /settings/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sys-admin');
+      allow delete: if hasRole('sys-admin');
+      allow update: if hasRole('sys-admin');
+    }
+
+    match /number-ranges/{id} {
+    	allow read: if isSignedIn();
+      allow create: if hasRole('sys-admin');
+      allow delete: if hasRole('sys-admin');
+      allow update: if hasRole('sales-user');
+    }
+
+    match /receivers/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sales-user');
+      allow delete: if hasRole('sales-user') && canDeleteReceiver(id);
+      allow update: if hasRole('sales-user');
+    }
+
+    match /contracts/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sales-user');
+      allow delete: if hasRole('sales-user') && canDeleteContract(id);
+      allow update: if hasRole('sales-user');
+    }
+
+    match /invoices/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sales-user');
+      allow delete: if hasRole('sales-user') && canDeleteInvoice(id);
+      allow update: if hasRole('sales-user');
+    }
+
+    match /document-links/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sales-user');
+      allow delete: if hasRole('sales-user');
+      allow update: if hasRole('sales-user');
+    }
+
+    function isSignedIn() {
+    	return request.auth != null;
+    }
+
+    function isOwner(uid) {
+    	return request.auth.uid == uid;
+    }
+
+    function getExistingData() {
+    	return resource.data;
+    }
+
+    function getIncomingData() {
+    	return request.resource.data;
+    }
+
+    function getUserData() {
+  		return get(/databases/$(database)/documents/user-profiles/$(request.auth.uid)).data
+		}
+
+    function getUserRoles() {
+    	return getUserData().roles;
+    }
+
+    function hasRole(role) {
+    	return getUserRoles().hasAny([role]);
+    }
+
+    function getReceiverData(id) {
+  		return get(/databases/$(database)/documents/receivers/$(id)).data
+		}
+
+    function canDeleteReceiver(id) {
+    	return getReceiverData(id).isDeletable;
+    }
+
+    function getContractData(id) {
+  		return get(/databases/$(database)/documents/contracts/$(id)).data
+		}
+
+    function canDeleteContract(id) {
+    	return getContractData(id).isDeletable;
+    }
+
+    function getInvoiceData(id) {
+  		return get(/databases/$(database)/documents/invoices/$(id)).data
+		}
+
+    function canDeleteInvoice(id) {
+    	return getInvoiceData(id).status == 0;
+    }
+
+  }
+}
+
+
+match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }

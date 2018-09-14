@@ -1,0 +1,51 @@
+<form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="country-details-form">
+  <h1 mat-dialog-title>
+    <span *ngIf="data.task === 'edit'">Länderbezeichnungen pflegen</span>
+    <span *ngIf="data.task === 'new'">Neues Land anlegen</span>
+    <span *ngIf="data.task === 'translate'">Neue Übersetzung anlegen</span>
+  </h1>
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field>
+      <input matInput id="isoCode" placeholder="Land" formControlName="isoCode">
+      <mat-error *ngIf="form.get('isoCode').hasError('required')">
+        Bitte geben Sie ein Land (ISO Code) ein.
+      </mat-error>
+    </mat-form-field>
+    <div formArrayName="translations"
+         *ngFor="let translation of translations; let i = index;"
+         fxLayout="column" fxLayoutGap="1rem">
+      <div [formGroupName]="i">
+        <input matInput formControlName="langCode" hidden>
+        <div [ngClass]="{'jo-flex-row': data.task !== 'translate', 'jo-flex-col': data.task === 'translate'}">
+          <mat-form-field>
+            <input matInput placeholder="Sprache" formControlName="language" class="width--sm">
+            <mat-error *ngIf="translation.get('language').hasError('required')">
+              Bitte geben Sie eine Sprache ein.
+            </mat-error>
+            <mat-error *ngIf="translation.get('language').hasError('translationExists')">
+              Es existiert bereits eine Übersetzung für diese Sprache.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Ländername" formControlName="name"  class="width--lg">
+            <mat-error *ngIf="translation.get('name').hasError('required')">
+              Bitte geben Sie eine Bezeichnung ein.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button *ngIf="data.task === 'edit'" [disabled]="!form.valid" (click)="onSave(form)">
+      Speichern
+    </button>
+    <button mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid" (click)="onSave(form)">
+      Anlegen
+    </button>
+    <button mat-button *ngIf="data.task === 'translate'" [disabled]="!form.valid" (click)="onSave(form)">
+      Übersetzung hinzufügen
+    </button>
+    <button mat-button mat-dialog-close>Abbrechen</button>
+  </mat-dialog-actions>
+</form>

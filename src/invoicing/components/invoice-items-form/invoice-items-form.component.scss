@@ -1,0 +1,62 @@
+.table-btn {
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.table-header > .table-btn {
+  // margin-left: -4px;
+  margin-right: 1.2rem;
+}
+
+label {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.invoice-item-id {
+  width: 4.0rem;
+}
+
+.invoice-item-contractItemId {
+  width: 4.0rem;
+}
+
+.invoice-item-description {
+  width: 20.0rem;
+
+  @media only screen and (min-width: 1600px) {
+    width: 28.0rem;
+  }
+
+  @media only screen and (min-width: 1280px) {
+    width: 24.0rem;
+  }
+}
+
+.invoice-item-quantity {
+  width: 4.0rem;
+}
+
+.invoice-item-quantityUnit {
+  width: 6.0rem;
+}
+
+.invoice-item-pricePerUnit {
+  width: 6.0rem;
+}
+
+.invoice-item-netValue {
+  width: 8.0rem;
+}
+
+.invoice-item-cashDiscountAllowed {
+  width: 4.0rem;
+}
+
+.invoice-item-action {
+  width: 4.0rem;
+}
+

@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import './sass/layout';
+@import './sass/theming';
+@import "./sass/material";
+
+@import './sass/variables';
+// @import './sass/form';
+@import './sass/details';
+@import './sass/table';
+@import './sass/btn';
+@import './sass/snackbar';
+// @import './sass/checkbox';
+
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  height: 100vh;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  height: 100vh;
+}
+
+.u-mb-xs { margin-bottom: 1rem; }
+.u-mb-sm { margin-bottom: 2rem; }
+.u-mb-md { margin-bottom: 3rem; }
+.u-mb-lg { margin-bottom: 4rem; }
+.u-mb-xl { margin-bottom: 5rem; }
+
+.u-mt-xs { margin-top: 1rem; }
+.u-mt-sm { margin-top: 2rem; }
+.u-mt-md { margin-top: 3rem; }
+.u-mt-lg { margin-top: 4rem; }
+.u-mt-xl { margin-top: 5rem; }
+
+.text-right { text-align: right; }
+.text-centered { text-align: center; }
+
+.icon {
+  height: 3rem;
+  width: 3rem;
+  fill: currentColor;
+
+  &--sm {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &--lg {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+

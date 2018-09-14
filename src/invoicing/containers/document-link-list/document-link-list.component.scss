@@ -1,0 +1,74 @@
+.table-header {
+  margin-top: 3.6rem;
+  display: flex;
+
+  & > div,
+  & > label {
+    margin-right: 0;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+.doclink-table-row {
+  display: flex;
+
+  & > div,
+  & > mat-form-field {
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+.width--xs { width: 4rem; }
+.width--sm {
+  width: 8rem;
+  @media only screen and (max-width: 600px) {
+    width: 4rem;
+  }
+}
+.width--md { width: 12rem }
+.width--lg {
+  @media only screen and (max-width: 600px) {
+    width: 16rem;
+  }
+  width: 28rem;
+}
+.width--xl { width: 36rem; }
+
+div.document-link-select {
+  padding-left: 1.5rem;
+  align-self: center;
+  justify-self: center;
+}
+
+div.document-link-name {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.document-link-type {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.document-link-attachToEmail {
+  align-self: center;
+  justify-self: center;
+}
+
+/*
+.document-link-select {
+  width: 3.2rem;
+}
+
+.document-link-name {
+  width: 28.0rem;
+}
+
+.document-link-type {
+  width: 12.0rem;
+}
+
+.document-link-attachToEmail {
+  width: 3.2rem;
+}
+*/

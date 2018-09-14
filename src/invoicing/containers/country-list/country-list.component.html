@@ -1,0 +1,48 @@
+<div class="window mat-elevation-z4">
+  <div class="u-mb-md" fxLayout="row" fxLayoutAlign="space-between">
+    <button mat-raised-button color="primary" (click)="onNew()">Land hinzufügen</button>
+    <a mat-raised-button [routerLink]="['/invoicing/settings']">Zurück</a>
+  </div>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="isoCode">
+      <mat-header-cell *matHeaderCellDef class="width--md">ISO Code</mat-header-cell>
+      <mat-cell *matCellDef="let country" (click)="onSelect(country)" class="width--sm">
+        {{country.isoCode}}
+      </mat-cell>
+    </ng-container>
+    <ng-container *ngFor="let language of supportedLanguages; let i = index;">
+      <ng-container [matColumnDef]="'name_' + language">
+        <mat-header-cell *matHeaderCellDef class="width--lg" [fxHide.lt-md]="i > 0">Übersetzung ({{language}})</mat-header-cell>
+        <mat-cell *matCellDef="let country" (click)="onSelect(country)" class="width--lg" [fxHide.lt-md]="i > 0">
+          {{country.names[language]}}
+        </mat-cell>
+      </ng-container>
+    </ng-container>
+    <ng-container matColumnDef="more">
+      <mat-header-cell *matHeaderCellDef class="width--xs" fxHide.lt-md>Mehr</mat-header-cell>
+      <mat-cell *matCellDef="let country" (click)="onSelect(country)" class="width--xs" fxHide.lt-md>
+        {{getNamesCount(country)}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="task">
+      <mat-header-cell *matHeaderCellDef class="width--xs"></mat-header-cell>
+      <mat-cell *matCellDef="let country" class="width--xs">
+        <button mat-icon-button (click)="onAddTranslation(country)">
+          <mat-icon aria-label="Übersetzung hinzufügen">playlist_add</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef class="width--xs"></mat-header-cell>
+      <mat-cell *matCellDef="let country" class="width--xs">
+        <button mat-icon-button *ngIf="country.isoCode !== 'DE'"
+                mat-button
+                (click)="onDelete(country)">
+          <mat-icon color="warn" aria-label="Löschen">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

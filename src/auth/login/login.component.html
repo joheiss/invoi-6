@@ -1,0 +1,19 @@
+ <section>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
+        fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+    <mat-form-field>
+      <input type="email" matInput formControlName="email" placeholder="Benutzerkennung">
+      <mat-hint>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-hint>
+      <mat-error>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" matInput formControlName="password" placeholder="Passwort">
+      <mat-hint>Bitte geben Sie ihr Passwort ein.</mat-hint>
+      <mat-error>Bitte geben Sie ihr Passwort ein.</mat-error>
+    </mat-form-field>
+    <button *ngIf="!(isSpinning$ | async)" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Anmelden</button>
+  </form>
+  <div *ngIf="isSpinning$ | async" class="jo-overlay">
+    <mat-spinner></mat-spinner>
+  </div>
+</section>

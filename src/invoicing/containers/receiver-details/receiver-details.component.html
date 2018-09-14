@@ -1,0 +1,29 @@
+<mat-card *ngIf="receiver$ | async as receiver" class="jo-details mat-elevation-z0">
+  <mat-card-header>
+    <mat-card-title>
+      <span>Rechnungsempfänger </span><span>{{ getTitle(receiver) }}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <section>
+      <jo-receiver-form
+        [object]="receiver"
+        [isDeletable]="isDeletable$ | async"
+        [isQualForQuickInvoice]="isQualifiedForQuickInvoice$ | async"
+        [activeContracts]="activeContractsForReceiver$ | async"
+        [lastContracts]="lastContractsForReceiver$ | async"
+        [openInvoices]="openInvoicesForReceiver$ | async"
+        [lastInvoices]="lastInvoicesForReceiver$ | async"
+        [task]="task"
+        [countries]="countries$ | async"
+        (copy)="onCopy($event)"
+        (new)="onNew()"
+        (changed)="onChanged($event)"
+        (create)="onCreate($event)"
+        (delete)="onDelete($event)"
+        (update)="onUpdate($event)"
+        (quickInvoice)="onQuickInvoice($event)">
+      </jo-receiver-form>
+    </section>
+  </mat-card-content>
+</mat-card>

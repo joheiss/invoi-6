@@ -1,0 +1,26 @@
+<mat-card *ngIf="contract$ | async as contract" class="jo-details mat-elevation-z0">
+  <mat-card-header>
+    <mat-card-title>
+      <span>Vertrag </span><span>{{ getTitle(contract) }}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <section>
+      <jo-contract-form
+        [object]="contract"
+        [contractPartner]="contractPartner$ | async"
+        [receivers]="receivers$ | async"
+        [openInvoices]="openInvoices$ | async"
+        [allInvoices]="allInvoices$ | async"
+        [isChangeable]="isChangeable$ | async"
+        [task]="task"
+        (copy)="onCopy($event)"
+        (new)="onNew()"
+        (create)="onCreate($event)"
+        (delete)="onDelete($event)"
+        (update)="onUpdate($event)"
+        (quickInvoice)="onQuickInvoice($event)">
+      </jo-contract-form>
+    </section>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,28 @@
+<div> <!--  *ngIf="itemsFormArray.length > 0" -->
+  <div class="table-header" fxShow fxHide.lt-md>
+    <div class="table-btn">
+      <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd()">
+        <mat-icon aria-label="Position hinzufügen">add</mat-icon>
+      </button>
+    </div>
+    <label class="contract-item-description">Beschreibung</label>
+    <label class="contract-item-pricePerUnit">Preis</label>
+    <label class="contract-item-priceUnit">Einheit</label>
+    <label class="contract-item-cashDiscountAllowed">Skonto erlaubt?</label>
+    <label class="contract-item-action"></label>
+  </div>
+  <div>
+    <jo-contract-item-form *ngFor="let item of itemsFormArray.controls; let i = index" class="table-row table-row--editable"
+                          [itemGroup]="item"
+                          [item]="object.items[i]"
+                          [isChangeable]="isChangeable"
+                          (changed)="onChanged()"
+                          (delete)="onDelete($event)">
+    </jo-contract-item-form>
+  </div>
+  <div class="u-mt-md"fxHide fxShow.lt-md>
+    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd()">
+      Position hinzufügen
+    </button>
+  </div>
+</div>

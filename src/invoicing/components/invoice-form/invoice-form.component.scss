@@ -1,0 +1,73 @@
+#invoice-form {
+  width: 100%;
+}
+
+#main-group,
+#contract-group,
+#payment-group,
+#due-group,
+#cashDiscount-group,
+#validity-group {
+  margin-bottom: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > .form-control:not(:last-child) {
+    margin-right: 2.4rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+#totals-group,
+#totals-discounted-group {
+  margin-bottom: 1.6rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > .form-control:not(:last-child) {
+    margin-right: 2.4rem;
+  }
+}
+
+#status-group {
+  margin-bottom: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > label {
+    padding: 0 1.6rem;
+
+    @media only screen and (max-width: 600px) {
+      padding: 0 0.8rem;
+    }
+  }
+
+  font-size: 1.4rem;
+}
+
+#text-group {
+  margin-top: 3.6rem;
+  display: flex;
+  flex-direction: column;
+
+  & > mat-form-field:not(:last-child) {
+    margin-bottom: 2.4rem;
+  }
+}
+
+#netValue,
+#vatAmount,
+#grossValue,
+#cashDiscountBaseAmount,
+#cashDiscountAmount,
+#paymentAmount {
+  margin-top: 0.8rem;
+}
+
+
+width-full {
+  width: 100%;
+}

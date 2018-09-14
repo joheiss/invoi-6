@@ -1,0 +1,51 @@
+<mat-card class="jo-card">
+  <mat-card-header class="jo-card-header">
+    <div mat-card-avatar class="jo-id-avatar"
+         [ngClass]="{ 'jo-id-avatar--ok': summary?.object?.header.status === 0,
+                      'jo-id-avatar--alert': summary?.object?.header.status === 1 }">
+      {{ summary?.object.header.id }}
+    </div>
+    <mat-card-title>{{ summary?.object?.header.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="u-mt-md">
+    <div>
+      {{summary?.object?.header.status === 0 ? 'aktiv' : 'inaktiv'}}
+    </div>
+    <div class="jo-card-columns">
+      <div class="jo-card-info">
+        <div>Aktive Verträge:</div>
+        <div>{{summary?.activeContractsCount}}</div>
+        <div>Abgelaufene Verträge:</div>
+        <div>{{summary?.expiredContractsCount}}</div>
+        <div>Letzter Vertrag</div>
+        <div *ngIf="summary?.lastContractId">
+          <a [routerLink]="['/invoicing/contracts', summary?.lastContractId]">{{summary?.lastContractId}}</a>
+        </div>
+      </div>
+      <div class="jo-card-info">
+        <div>Fällige Rechnungen:</div>
+        <div class="align-right">{{summary?.dueInvoicesCount}}</div>
+        <div>Offene Rechnungen:</div>
+        <div class="align-right">{{summary?.openInvoicesCount}}</div>
+        <div>Letzte Rechnung:</div>
+        <div *ngIf="summary?.lastInvoiceId">
+          <a [routerLink]="['/invoicing/invoices', summary?.lastInvoiceId]">
+            {{summary?.lastInvoiceId}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button [routerLink]="['/invoicing/receivers', summary?.object?.header.id]">
+      Details
+    </a>
+    <button mat-button (click)="onCopy()">
+      Kopieren
+    </button>
+    <button mat-button *ngIf="summary?.deletable" (click)="onDelete()">
+      Löschen
+    </button>
+  </mat-card-actions>
+</mat-card>
+

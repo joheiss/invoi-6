@@ -1,0 +1,50 @@
+<mat-card class="jo-card">
+  <mat-card-header class="jo-card-header">
+    <div mat-card-avatar class="jo-id-avatar"
+         [ngClass]="{ 'jo-id-avatar--ok': summary?.object?.isPaid(),
+                    'jo-id-avatar--inprocess': (summary?.object?.isBilled() && !summary?.object?.isDue()) ||
+                                               (summary?.object?.isOpen() && !summary?.object?.isDue()),
+                    'jo-id-avatar--alert': summary?.object.isDue() }">
+      {{ summary?.object.header.id }}
+    </div>
+    <mat-card-title>{{ summary?.receiverName }}</mat-card-title>
+    <mat-card-subtitle>{{ summary?.object?.header.issuedAt | date }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="u-mt-md">
+    <div>
+      Vertrag:
+      <a [routerLink]="['/invoicing/contracts', summary?.object?.header.contractId]">
+        {{summary?.object?.header.contractId}}
+      </a>
+    </div>
+    <div class="jo-card-columns">
+      <div class="jo-card-info">
+        <div>Nettobetrag:</div>
+        <div class="align-right">{{summary?.object?.netValue | number: '1.2-2' }}</div>
+        <div>Umsatzsteuer:</div>
+        <div class="align-right">{{summary?.object?.vatAmount | number: '1.2-2' }}</div>
+        <div>Bruttobetrag:</div>
+        <div class="align-right">{{summary?.object?.grossValue | number: '1.2-2' }}</div>
+      </div>
+      <div class="jo-card-info">
+        <div>Zahlungsbetr.:</div>
+        <div class="align-right">{{summary?.object?.paymentAmount | number: '1.2-2' }}</div>
+        <div>Skonto bis:</div>
+        <div>{{summary?.object?.cashDiscountDate | date}}</div>
+        <div>Fällig am:</div>
+        <div>{{summary?.object?.dueDate | date}}</div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button [routerLink]="['/invoicing/invoices', summary?.object?.header.id]">
+      Details
+    </a>
+    <button mat-button (click)="onCopy()">
+      Kopieren
+    </button>
+    <button mat-button *ngIf="summary?.changeable" (click)="onDelete()">
+      Löschen
+    </button>
+  </mat-card-actions>
+</mat-card>

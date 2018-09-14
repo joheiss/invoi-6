@@ -1,0 +1,23 @@
+{
+  "name": "batches",
+  "version": "1.0.0",
+  "description": "Batch processing for invoicing",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm link",
+    "reporting-refresh": "node dist/batches/src/index.js"
+  },
+  "author": "Josef Heiss",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^9.6.0",
+    "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "firebase-admin": "^5.11.0"
+  },
+  "bin": {
+    "reporting-refresh": "dist/batches/src/index.js"
+  }
+}

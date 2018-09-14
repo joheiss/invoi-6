@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-title>Offene Rechnungen</mat-card-title>
+  <mat-card-content>
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef class="width--sm">Nr.</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" class="width--sm">
+          <a mat-button [routerLink]="['/invoicing/invoices', invoice.id]">{{invoice.id}}</a>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="receiverId">
+        <mat-header-cell *matHeaderCellDef fxHide.lt-sm class="width--sm">Kunde</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" fxHide.lt-sm class="width--sm">
+          {{invoice.receiverId}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="receiverName">
+        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Kunde</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" fxHide.lt-md>
+          {{invoice.receiverName}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="issuedAt">
+        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Datum</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" fxHide.lt-md>
+          {{invoice.issuedAt | date}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="billingPeriod">
+        <mat-header-cell *matHeaderCellDef>Leistungszeitraum</mat-header-cell>
+        <mat-cell *matCellDef="let invoice">
+          {{invoice.billingPeriod}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="netValue">
+        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Nettobetrag</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" fxHide.lt-md>
+          {{invoice.netValue | number: '1.2-2'}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="paymentAmount">
+        <mat-header-cell *matHeaderCellDef>Zahlungsbetrag</mat-header-cell>
+        <mat-cell *matCellDef="let invoice">
+          {{invoice.paymentAmount | number: '1.2-2'}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dueDate">
+        <mat-header-cell *matHeaderCellDef>Fällig am</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" [ngClass]="{ 'past-due': isPastDue(invoice) }">
+          {{invoice.dueDate | date}}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+

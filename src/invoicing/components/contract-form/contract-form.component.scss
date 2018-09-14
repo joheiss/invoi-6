@@ -1,0 +1,45 @@
+#contract-form {
+  width: 100%;
+}
+
+#main-group,
+#payment-group,
+#discount-group,
+#validity-group {
+  margin-bottom: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > .form-control:not(:last-child) {
+    margin-right: 2.4rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+  }
+}
+
+#status-group {
+  margin-bottom: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > label {
+    padding: 0 1.6rem;
+  }
+}
+
+#text-group {
+  margin-top: 3.6rem;
+  display: flex;
+  flex-direction: column;
+
+  & > mat-form-field:not(:last-child) {
+    margin-bottom: 2.4rem;
+  }
+}
+
+width-full {
+  width: 100%;
+}

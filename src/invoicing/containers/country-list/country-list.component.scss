@@ -1,0 +1,34 @@
+.table-header {
+  margin-top: 3.6rem;
+  display: flex;
+
+  & > div,
+  & > label {
+    margin-right: 0;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+.table-row {
+  display: flex;
+
+  & > div,
+  & > mat-form-field {
+    padding: 0.8rem 1.2rem;
+  }
+
+  &:nth-of-type(odd) {
+    background-color: lightgray;
+  }
+}
+
+.window {
+  margin: 2.5rem 5rem;
+}
+
+.width--xs { width: 4rem; }
+.width--sm { width: 8rem; }
+.width--md { width: 12rem }
+.width--lg { width: 28rem; }
+.width--xl { width: 36rem; }
+

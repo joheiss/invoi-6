@@ -1,0 +1,73 @@
+<form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="quick-invoice-form">
+  <mat-form-field class="width--lg">
+    <input matInput readonly placeholder="Rechnungsempfänger"
+           [value]="object.header.receiverId + ' - ' + invoiceReceiver.header.name">
+  </mat-form-field>
+  <mat-form-field class="width--lg">
+    <input matInput readonly placeholder="Vertrag"
+           [value]="object.header.contractId + ' - ' + invoiceContract.header.description">
+  </mat-form-field>
+  <mat-form-field class="width--lg">
+    <input matInput [matDatepicker]="picker"
+           formControlName="issuedAt"
+           placeholder="Ausstellungsdatum">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="form.get('issuedAt').hasError('required')">
+      Bitte geben Sie ein Ausstellungsdatum ein
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="width--lg">
+    <input matInput placeholder="Leistungszeitraum" formControlName="billingPeriod">
+    <mat-error *ngIf="form.get('billingPeriod').hasError('required')">
+      Bitte geben Sie einen Leistungszeitraum ein
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="width--sm">
+    <input matInput placeholder="Menge" formControlName="quantity">
+    <mat-error *ngIf="form.get('quantity').hasError('required')">
+      Bitte geben Sie eine Menge ein
+    </mat-error>
+    <mat-error *ngIf="form.get('quantity').hasError('pattern')">
+      Die Eingabe ist ungültig
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="width--lg">
+    <input matInput placeholder="Beschreibung" formControlName="description">
+    <mat-error *ngIf="form.get('description').hasError('required')">
+      Bitte geben Sie eine Beschreibung ein
+    </mat-error>
+  </mat-form-field>
+  <div id="totals-group" class="u-mt-md">
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="Nettobetrag" [value]="object.netValue | number: '1.2-2'">
+    </mat-form-field>
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="MwSt-Betrag" [value]="object.vatAmount | number: '1.2-2'">
+    </mat-form-field>
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="Bruttobetrag" [value]="object.grossValue | number: '1.2-2'">
+    </mat-form-field>
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="Skontobasis"
+             [value]="object.cashDiscountBaseAmount | number: '1.2-2'">
+    </mat-form-field>
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="Skontobetrag" [value]="object.cashDiscountAmount | number: '1.2-2'">
+    </mat-form-field>
+    <mat-form-field class="width--sm">
+      <input matInput readonly placeholder="Zahlungsbetrag" [value]="object.paymentAmount | number: '1.2-2'">
+    </mat-form-field>
+  </div>
+
+  <div class="jo-btn-row">
+    <button type="button" mat-raised-button (click)="onCancel()">
+      <span *ngIf="form.dirty">Abbrechen</span>
+      <span *ngIf="!form.dirty">Zurück</span>
+    </button>
+    <button type="button" mat-raised-button color="primary" (click)="onSave(form)"
+            [disabled]="!form.valid || !form.dirty">
+      Speichern
+    </button>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+
+.window {
+  margin: 2.5rem 5rem;
+}
+
+.jo-cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 5rem;
+}
+
+.jo-card {
+    transition: all 0.25s;
+
+  &:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+}

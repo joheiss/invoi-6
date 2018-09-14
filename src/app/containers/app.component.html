@@ -1,0 +1,13 @@
+<section class="jo-navi">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+      <jo-navi-sidebar [auth$]="auth$" (close)="sidenav.close()"></jo-navi-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <jo-navi-header [auth$]="auth$" [user]="user$ | async" (toggle)="sidenav.toggle()"></jo-navi-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</section>

@@ -1,0 +1,158 @@
+<form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="receiver-form">
+  <mat-tab-group (selectedTabChange)="onTabChange($event)">>
+    <mat-tab label="Details">
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn" *ngIf="hasError(['status', 'name'])">error_outline</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-radio-group id="status-group" formControlName="status" aria-label="Kunde aktiv">
+          <mat-radio-button color="primary" value="0">aktiv</mat-radio-button>
+          <mat-radio-button color="accent" value="1">inaktiv</mat-radio-button>
+        </mat-radio-group>
+        <div id="name-group">
+          <mat-form-field class="width--lg">
+            <input matInput id="name" formControlName="name" placeholder="Name">
+            <mat-error *ngIf="form.get('name').hasError('required')">
+              Bitte geben Sie einen Namen ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="width--lg">
+            <input matInput id="nameAdd" formControlName="nameAdd" placeholder="Zusatz">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Adresse
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn" *ngIf="hasError(['postalCode', 'city'])">error_outline</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div id="address-group">
+          <mat-form-field>
+            <mat-select id="country" formControlName="country" placeholder="Land">
+              <mat-option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput id="postalCode" formControlName="postalCode" placeholder="Postleitzahl">
+            <mat-error *ngIf="form.get('postalCode').hasError('required')">
+              Bitte geben Sie eine Postleitzahl ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput id="city" formControlName="city" placeholder="Ort">
+            <mat-error *ngIf="form.get('city').hasError('required')">
+              Bitte geben Sie einen Ort ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput id="street" formControlName="street" placeholder="Straße">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon color="warn" *ngIf="hasError(['email', 'phone', 'fax', 'webSite', 'logoUrl'])">
+          error_outline
+        </mat-icon>
+        Kommunikation
+      </ng-template>
+      <div id="comm-group">
+        <mat-form-field class="width--lg">
+          <input matInput type="email" id="email" formControlName="email" placeholder="E-Mail">
+          <mat-error *ngIf="form.get('email').hasError('pattern')">
+            Bitte geben Sie eine gültige E-Mail-Adresse ein
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="width--lg">
+          <input matInput id="phone" formControlName="phone" placeholder="Telefon">
+          <mat-error *ngIf="form.get('phone').hasError('pattern')">
+            Bitte geben Sie eine gültige Telefonnummer ein
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="width--lg">
+          <input matInput id="fax" formControlName="fax" placeholder="Fax">
+          <mat-error *ngIf="form.get('fax').hasError('pattern')">
+            Bitte geben Sie eine gültige Faxnummer ein
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div id="url-group">
+        <mat-form-field class="width--lg">
+          <input matInput type="url" id="webSite" formControlName="webSite" placeholder="Web Site">
+          <mat-error *ngIf="form.get('webSite').hasError('pattern')">
+            Bitte geben Sie eine gültige URL ist ungültig
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="width--lg">
+          <input matInput type="url" id="logoUrl" formControlName="logoUrl" placeholder="Logo URL">
+          <mat-error *ngIf="form.get('logoUrl').hasError('pattern')">
+            Bitte geben Sie eine gültige URL ein
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="object.header.id" label="Dokumente">
+      <section class="tables u-mt-lg">
+        <div>
+          <jo-document-link-list [object]="object"></jo-document-link-list>
+        </div>
+      </section>
+    </mat-tab>
+    <mat-tab label="Aktive Verträge" *ngIf="task === 'edit' && activeContracts?.length > 0">
+      <jo-contract-list [objects]="activeContracts"></jo-contract-list>
+    </mat-tab>
+    <mat-tab label="Letzte Verträge"
+             *ngIf="task === 'edit' && lastContracts?.length > 0 && activeContracts?.length === 0">
+      <jo-contract-list [objects]="lastContracts"></jo-contract-list>
+    </mat-tab>
+    <mat-tab label="Offene Rechnungen" *ngIf="task === 'edit' && openInvoices?.length > 0">
+      <jo-invoice-list [objects]="openInvoices"></jo-invoice-list>
+    </mat-tab>
+    <mat-tab label="Letzte Rechnungen"
+             *ngIf="task === 'edit' && lastInvoices?.length > 0 && openInvoices?.length === 0">
+      <jo-invoice-list [objects]="lastInvoices"></jo-invoice-list>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div *ngIf="tabIndex < 2" class="jo-btn-row">
+    <button type="button" mat-raised-button (click)="onCancel()">
+      <span *ngIf="form.dirty">Abbrechen</span>
+      <span *ngIf="!form.dirty">Zurück</span>
+    </button>
+    <button type="button" mat-raised-button color="warn" (click)="onDelete()"
+            *ngIf="isDeletable || !form.controls.id.value">
+      Löschen
+    </button>
+    <button type="button" mat-raised-button (click)="onNew()"
+            [disabled]="form.dirty">Neu
+    </button>
+    <button type="button" mat-raised-button (click)="onCopy()"
+            [disabled]="!form.valid || form.dirty || !object.header.id">
+      Kopieren
+    </button>
+    <button type="button" mat-raised-button color="primary" (click)="onSave(form)"
+            [disabled]="!form.valid || !form.dirty">
+      Speichern
+    </button>
+    <button type="button" *ngIf="isQualForQuickInvoice && form.valid && !form.dirty"
+            mat-raised-button color="accent" (click)="onQuickInvoice(object)">
+      Neue Rechnung
+    </button>
+  </div>
+</form>
+<div *ngIf="isSpinning$ | async" class="jo-overlay">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+
+

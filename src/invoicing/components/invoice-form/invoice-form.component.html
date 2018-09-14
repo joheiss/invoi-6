@@ -1,0 +1,264 @@
+<form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="invoice-form">
+  <mat-tab-group (selectedTabChange)="onTabChange($event)">>
+    <mat-tab label="Details">
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn"
+                      *ngIf="hasError(['status', 'issuedAt', 'receiverId', 'billingPeriod'])">
+              error_outline
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-radio-group id="status-group" formControlName="status" aria-label="Rechnungsstatus">
+          <mat-radio-button color="accent" value="0">In Bearbeitung</mat-radio-button>
+          <mat-radio-button color="primary" value="1">versandt</mat-radio-button>
+          <mat-radio-button color="primary" value="2">bezahlt</mat-radio-button>
+        </mat-radio-group>
+        <div id="main-group">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker"
+                   formControlName="issuedAt"
+                   placeholder="Ausstellungsdatum">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('issuedAt').hasError('required')">
+              Bitte geben Sie ein Ausstellungsdatum ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select formControlName="receiverId" placeholder="Rechnungsempfänger">
+              <mat-option *ngFor="let receiver of receivers" [value]="receiver.header.id">
+                {{receiver.header.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('receiverId').hasError('required')">
+              Bitte wählen Sie einen Rechnungsempfänger aus
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Leistungszeitraum" formControlName="billingPeriod">
+            <mat-error *ngIf="form.get('billingPeriod').hasError('required')">
+              Bitte geben Sie einen Leistungszeitraum ein
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel  expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Vertragsinformationen
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn" *ngIf="hasError(['contractId', 'billingMethod', 'currency', 'vatPercentage'])">
+              error_outline
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div id="contract-group">
+          <mat-form-field class="width--lg">
+            <mat-select formControlName="contractId" placeholder="Vertrag">
+              <mat-option *ngFor="let contract of contracts" [value]="contract.header.id">
+                {{contract.header.id}}: {{contract.header.startDate | date}} - {{contract.header.endDate | date}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('contractId').hasError('required')">
+              Bitte wählen Sie einen Vertrag aus
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="width--lg">
+            <mat-select id="billingMethod" formControlName="billingMethod" placeholder="Abrechnungsmethode">
+              <mat-option [value]="0">Rechnung</mat-option>
+              <mat-option [value]="1">Gutschriftverfahren</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('billingMethod').hasError('required')">
+              Bitte wählen Sie eine Abrechnunsgmethode aus
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput placeholder="Währung" formControlName="currency">
+            <mat-error *ngIf="form.get('currency').hasError('required')">
+              Bitte geben Sie eine Währung ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput placeholder="MwSt %" formControlName="vatPercentage">
+            <mat-error *ngIf="form.get('vatPercentage').hasError('required')">
+              Bitte geben Sie MwSt % ein
+            </mat-error>
+            <mat-error *ngIf="form.get('vatPercentage').hasError('pattern')">
+              Die Eingabe ist ungültig
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Zahlungsbedingungen
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn"
+                      *ngIf="hasError(['paymentTerms', 'paymentMethod', 'cashDiscountDays', 'cashDiscountPercentage', 'dueInDays'])">
+              error_outline
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div id="payment-group">
+          <mat-form-field class="width--lg">
+            <input matInput placeholder="Zahlungsbedingungen" formControlName="paymentTerms">
+            <mat-error *ngIf="form.get('paymentTerms').hasError('required')">
+              Bitte geben Sie Zahlungsbedingungen ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select formControlName="paymentMethod" placeholder="Zahlungsmethode">
+              <mat-option [value]="0">Überweisung</mat-option>
+              <mat-option [value]="1">Bankeinzug</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('paymentMethod').hasError('required')">
+              Bitte wählen Sie eine Zahlungsmethode aus
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div id="cashDiscount-group">
+          <mat-form-field class="width--md">
+            <input matInput placeholder="Skontofrist (Tage)" formControlName="cashDiscountDays">
+            <mat-error *ngIf="form.get('cashDiscountDays').hasError('required')">
+              Bitte geben Sie eine Skontofrist ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput readonly placeholder="Skontofrist" [value]="object.cashDiscountDate | date">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput placeholder="Skonto %" formControlName="cashDiscountPercentage">
+            <mat-error
+              *ngIf="form.get('cashDiscountPercentage').hasError('pattern')">
+              Bitte geben Sie einen gültigen Prozentsatz ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="width--md">
+            <input matInput placeholder="Zahlungsziel (Tage)" formControlName="dueInDays">
+            <mat-error *ngIf="form.get('dueInDays').hasError('required')">
+              Bitte geben Sie eine Zahlungsziel ein
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput readonly placeholder="Zahlungsziel" [value]="object.dueDate | date">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Positionen
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon color="warn" *ngIf="hasError(['items'])">error_outline</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="">
+          <jo-invoice-items-form
+            formArrayName="items"
+            [itemsFormArray]="form.get('items')"
+            [object]="object"
+            [contract]="invoiceContract"
+            [isChangeable]="isChangeable">
+          </jo-invoice-items-form>
+          <mat-error *ngIf="form.get('items').hasError('minItems')">
+            Bitte geben Sie mindestens eine Position ein.
+          </mat-error>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Summen
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div id="totals-group">
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="Nettobetrag" [value]="object.netValue | number: '1.2-2'">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="MwSt-Betrag" [value]="object.vatAmount | number: '1.2-2'">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="Bruttobetrag" [value]="object.grossValue | number: '1.2-2'">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="Skontobasis"
+                   [value]="object.cashDiscountBaseAmount | number: '1.2-2'">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="Skontobetrag" [value]="object.cashDiscountAmount | number: '1.2-2'">
+          </mat-form-field>
+          <mat-form-field class="width--sm">
+            <input matInput readonly placeholder="Zahlungsbetrag" [value]="object.paymentAmount | number: '1.2-2'">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-tab>
+    <mat-tab label="Texte">
+      <div id="text-group">
+        <mat-form-field class="width--full">
+        <textarea matInput formControlName="invoiceText"
+                  placeholder="Rechnungstext" matTextareaAutosize matAutosizeMinRows="1" matAutoSizeMaxRows="5">
+        </textarea>
+        </mat-form-field>
+        <mat-form-field class="width--full">
+        <textarea matInput formControlName="internalText"
+                  placeholder="interner Text" matTextareaAutosize matAutosizeMinRows="1" matAutoSizeMaxRows="5">
+        </textarea>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+    <mat-tab *ngIf="object.header.id" label="Dokumente">
+      <section class="tables u-mt-lg">
+        <div>
+          <jo-document-link-list [object]="object"></jo-document-link-list>
+        </div>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div *ngIf="tabIndex < 2" class="jo-btn-row">
+    <button type="button" mat-raised-button (click)="onCancel()">
+      <span *ngIf="form.dirty">Abbrechen</span>
+      <span *ngIf="!form.dirty">Zurück</span>
+    </button>
+    <button type="button" mat-raised-button color="warn" (click)="onDelete()"
+            *ngIf="isChangeable || !form.controls.id.value">
+      Löschen
+    </button>
+    <button type="button" mat-raised-button (click)="onNew()"
+            [disabled]="form.dirty">Neu
+    </button>
+    <button type="button" mat-raised-button (click)="onCopy()"
+            [disabled]="!form.valid || form.dirty || !object.header.id">
+      Kopieren
+    </button>
+    <button type="button" mat-raised-button (click)="onPdf()"
+            *ngIf="object.header.status === 0 && object.header.billingMethod === 0"
+            [disabled]="!form.valid || form.dirty || !object.header.id">
+      PDF erzeugen
+    </button>
+    <button type="button" mat-raised-button (click)="onEmail()"
+            *ngIf="isSendable" [disabled]="!form.valid || form.dirty || !object.header.id">
+      Senden
+    </button>
+    <button type="button" mat-raised-button color="primary" (click)="onSave(form)"
+            *ngIf="isChangeable" [disabled]="!form.valid || !form.dirty">
+      Speichern
+    </button>
+  </div>
+</form>
+<div *ngIf="isSpinning$ | async" class="jo-overlay">
+  <mat-spinner></mat-spinner>
+</div>
+

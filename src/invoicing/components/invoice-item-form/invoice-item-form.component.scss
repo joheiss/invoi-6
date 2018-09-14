@@ -1,0 +1,90 @@
+.width--xs { width: 4rem; }
+.width--sm { width: 6rem; }
+.width--sm2 { width: 8rem; }
+.width--md { width: 10rem }
+.width--lg {
+  width: 20rem;
+
+  @media only screen and (max-width: 959px) {
+    width: 28rem;
+  }
+
+  @media only screen and (min-width: 1600px) {
+    width: 28rem;
+  }
+  @media only screen and (min-width: 1280px) {
+    width: 24rem;
+  }
+}
+
+.width--xl { width: 36rem; }
+
+div.invoice-item-id {
+  align-self: flex-start;
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 100%;
+    background-color: #ccc;
+  }
+}
+
+div.invoice-item-contractItemId {
+  align-self: center;
+}
+
+div.invoice-item-description {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.invoice-item-quantity {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.invoice-item-quantityUnit {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.invoice-item-pricePerUnit {
+  align-self: center;
+}
+
+div.invoice-item-netValue {
+  align-self: center;
+  text-align: right;
+}
+
+div.invoice-item-cashDiscountAllowed {
+  align-self: center;
+  justify-self: center;
+
+  @media only screen and (max-width: 599px) {
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+
+  @media only screen and (max-width: 959px) {
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+}
+
+div.invoice-item-action {
+  align-self: center;
+}
+
+.jo-btn-row-sm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0 1rem 0;
+}
+

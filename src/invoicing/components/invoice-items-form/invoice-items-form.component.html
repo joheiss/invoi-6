@@ -1,0 +1,33 @@
+<div> <!-- *ngIf="itemsFormArray.length > 0" -->
+  <div class="table-header" fxShow fxHide.lt-md>
+    <div class="table-btn">
+      <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd()">
+        <mat-icon aria-label="Position hinzufügen">add</mat-icon>
+      </button>
+    </div>
+    <label class="invoice-item-contractItemId">Vertrags- position</label>
+    <label class="invoice-item-description">Beschreibung</label>
+    <label class="invoice-item-quantity">Menge</label>
+    <label class="invoice-item-quantityUnit">Einheit</label>
+    <label class="invoice-item-pricePerUnit">Preis</label>
+    <label class="invoice-item-netValue">Gesamt</label>
+    <label class="invoice-item-cashDiscountAllowed">Skonto erlaubt?</label>
+    <label class="invoice-item-action"></label>
+  </div>
+  <div>
+      <jo-invoice-item-form *ngFor="let item of itemsFormArray.controls; let i = index" class="table-row table-row--editable"
+        [itemGroup]="item"
+        [item]="object.items[i]"
+        [contract]="contract"
+        [isChangeable]="isChangeable"
+        [mode]="mode"
+        (changed)="onChanged()"
+        (delete)="onDelete($event)">
+      </jo-invoice-item-form>
+  </div>
+  <div class="u-mt-md"fxHide fxShow.lt-md>
+    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd()">
+      Position hinzufügen
+    </button>
+  </div>
+</div>

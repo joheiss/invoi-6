@@ -1,0 +1,90 @@
+<form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="user-details-form">
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <mat-dialog-content fxLayout="column">
+    <div class="jo-user-img-area">
+      <div *ngIf="data.user.imageUrl">
+        <img [src]="thumbnailUrl" class="jo-user-img u-mb-md">
+      </div>
+      <div *ngIf="!data.user.imageUrl">
+        <img src="assets/img/blank-profile-picture-64.jpg" class="jo-user-img u-mb-md">
+      </div>
+      <div fxLayout="column" fxLayoutGap="1rem" *ngIf="data.user.uid">
+        <button type="button" mat-raised-button (click)="onUploadImage(data.user)" class="jo-user-img-upload">
+          Bild hochladen
+        </button>
+        <button type="button" mat-raised-button *ngIf="data.user.imageUrl" (click)="onDeleteImage(data.user)" class="jo-user-img-upload">
+          Bild löschen
+        </button>
+      </div>
+    </div>
+    <mat-form-field>
+      <input matInput id="email" placeholder="E-Mail" formControlName="email">
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        Bitte geben Sie eine E-Mail-Adresse ein.
+      </mat-error>
+      <mat-error *ngIf="form.get('email').hasError('email')">
+        Bitte geben Sie eine gültige E-Mail-Adresse ein.
+      </mat-error>
+    </mat-form-field>
+    <ng-container *ngIf="data.task === 'new'" [formGroup]="passwords">
+      <mat-form-field>
+        <input type="password" matInput id="password" placeholder="Passwort" formControlName="password">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput id="confirm" placeholder="Passwort bestätigen" formControlName="confirm">
+        <mat-error *ngIf="form.get('passwords').hasError('passwordMatch')">
+          Passwort und Bestätigung sind unterschiedlich. Bitte korrigieren Sie ihre Eingaben.
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+    <mat-form-field>
+      <input matInput id="displayName" placeholder="Name" formControlName="displayName">
+      <mat-error *ngIf="form.get('displayName').hasError('required')">
+        Bitte geben Sie einen Namen ein.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="phoneNumber" placeholder="Telefon" formControlName="phoneNumber">
+      <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')">
+        Bitte geben Sie eine gültige Telefonnummer ein.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="organization" placeholder="Organisation" formControlName="organization">
+      <mat-error *ngIf="form.get('organization').hasError('required')">
+        Bitte geben Sie eine Organisation ein.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput id="roles" placeholder="Rollen" formControlName="roles">
+      <mat-error *ngIf="form.get('roles').hasError('required')">
+        Bitte geben Sie (mindestens) eine Rolle ein.
+      </mat-error>
+    </mat-form-field>
+    <div *ngIf="data.task !== 'my-profile'" class="u-mb-sm">
+      <mat-checkbox id="isLocked" color="primary" formControlName="isLocked">
+        gesperrt?
+      </mat-checkbox>
+    </div>
+    <!--
+    <mat-form-field>
+      <input matInput id="imageUrl" placeholder="Foto Url" formControlName="imageUrl">
+    </mat-form-field>
+    -->
+    <mat-form-field *ngIf="data.task !== 'my-profile'">
+      <input matInput id="uid" placeholder="Benutzerkennung" formControlName="uid">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
+      Speichern
+    </button>
+    <button mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
+      Anlegen
+    </button>
+    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid" (click)="onChangePassword(data.user)">
+      Passwort ändern
+    </button>
+  </mat-dialog-actions>
+</form>

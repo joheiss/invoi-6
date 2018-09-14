@@ -1,0 +1,14 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "shared functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josef Heiss",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^5.11.0"
+  }
+}

@@ -1,0 +1,33 @@
+<form #form="ngForm">
+  <h1 mat-dialog-title>Datei hochladen</h1>
+  <mat-dialog-content fxLayout="column">
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Datei auswählen</button>
+    <input hidden type="file" #fileInput (change)="onFileSelected($event)">
+    <mat-form-field>
+      <input matInput name="name" placeholder="Datei" [(ngModel)]="data.documentLink.name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select name="type" [(ngModel)]="data.documentLink.type" required>
+        <mat-option [value]="0">Rechnung</mat-option>
+        <mat-option [value]="1">Gutschriftsanforderung</mat-option>
+        <mat-option [value]="2">Projektvertrag</mat-option>
+        <mat-option [value]="3">Rahmenvertrag</mat-option>
+        <mat-option [value]="4">Reisekostenabrechnung</mat-option>
+        <mat-option [value]="5">Leistungsnachweis</mat-option>
+        <mat-option [value]="6">Sonstiges</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="">
+      <mat-checkbox name="attachToEmail" color="primary" [(ngModel)]="data.documentLink.attachToEmail">
+        E-Mail Anhang?
+      </mat-checkbox>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button [disabled]="!form.valid" (click)="onUpload()">Hochladen</button>
+    <button mat-button mat-dialog-close>Abbrechen</button>
+  </mat-dialog-actions>
+</form>
+
+
+

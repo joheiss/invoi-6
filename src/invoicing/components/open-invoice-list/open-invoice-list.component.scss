@@ -1,0 +1,17 @@
+@import '../../../sass/variables';
+
+mat-cell > a.mat-button {
+  min-width: 4rem;
+  padding: 0 0.5rem;
+}
+.width--sm {
+  flex: 0.5;
+}
+
+.width--lg {
+  flex: 2;
+}
+
+.past-due {
+  color: $warn-color-dark;
+}

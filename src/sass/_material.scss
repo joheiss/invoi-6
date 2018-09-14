@@ -1,0 +1,28 @@
+.mat-button-wrapper {
+  text-transform: uppercase;
+}
+
+.mat-form-field {
+
+  &.width--xs { width: 4rem; }
+  &.width--sm { width: 8rem; }
+  &.width--md { width: 12rem }
+  &.width--lg { width: 28rem; }
+  &.width--xl { width: 36rem; }
+
+  &:not(last-child) {
+    margin-right: 2rem;
+  }
+}
+
+.mat-radio-button:not(last-child) {
+  margin-right: 2.4rem;
+
+  @media only screen and (max-width: 600px) {
+    margin-right: 1.2rem;
+  }
+}
+
+.mat-radio-label-content {
+  text-transform: uppercase;
+}

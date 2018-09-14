@@ -1,0 +1,18 @@
+form {
+  padding: 2.5rem 5rem;
+}
+
+.jo-user-img-area {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.jo-user-img-upload {
+  margin-left: 1rem;
+}
+
+.jo-user-img-upload.mat-raised-button {
+  text-align: left;
+}
+

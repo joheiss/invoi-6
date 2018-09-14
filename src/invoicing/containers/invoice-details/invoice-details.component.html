@@ -1,0 +1,38 @@
+<mat-card *ngIf="invoice$ | async as invoice" class="jo-details mat-elevation-z0">
+  <mat-card-header>
+    <mat-card-title>
+      {{ getTitle(invoice) }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <section *ngIf="task !== 'quick'">
+      <jo-invoice-form
+        [object]="invoice"
+        [invoiceReceiver]="invoiceReceiver$ | async"
+        [invoiceContract]="invoiceContract$ | async"
+        [receivers]="receivers$ | async"
+        [contracts]="contracts$ | async"
+        [isChangeable]="isChangeable$ | async"
+        [isSendable]="isSendable$ | async"
+        [mode]="mode"
+        (copy)="onCopy($event)"
+        (new)="onNew()"
+        (changed)="onChanged($event)"
+        (create)="onCreate($event)"
+        (delete)="onDelete($event)"
+        (update)="onUpdate($event)"
+        (createPdf)="onCreatePdf($event)"
+        (sendEmail)="onSendEmail($event)">
+      </jo-invoice-form>
+    </section>
+    <section *ngIf="task === 'quick'">
+      <jo-quick-invoice-form
+        [object]="invoice"
+        [invoiceReceiver]="invoiceReceiver$ | async"
+        [invoiceContract]="invoiceContract$ | async"
+        (changed)="onChanged($event)"
+        (create)="onCreate($event)">
+      </jo-quick-invoice-form>
+    </section>
+  </mat-card-content>
+</mat-card>

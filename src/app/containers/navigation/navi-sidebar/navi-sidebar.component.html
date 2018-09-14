@@ -1,0 +1,47 @@
+<mat-nav-list>
+  <ng-container *ngIf="auth$ | async as auth">
+    <a *ngIf="auth?.roles.indexOf('sales-user') >= 0"
+       mat-list-item [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+       (click)="onClose()">
+      <mat-icon>account_circle</mat-icon>
+      <span class="jo-navi-caption">Überblick</span>
+    </a>
+    <a *ngIf="auth?.roles.indexOf('sales-user') >= 0"
+       mat-list-item [routerLink]="['/invoicing/receivers']" routerLinkActive="active" (click)="onClose()">
+      <mat-icon>account_circle</mat-icon>
+      <span class="jo-navi-caption">Rechnungsempfänger</span>
+    </a>
+    <a *ngIf="auth?.roles.indexOf('sales-user') >= 0"
+       mat-list-item [routerLink]="['/invoicing/contracts']" routerLinkActive="active" (click)="onClose()">
+      <mat-icon>assignment</mat-icon>
+      <span class="jo-navi-caption">Verträge</span>
+    </a>
+    <a *ngIf="auth?.roles.indexOf('sales-user') >= 0"
+       mat-list-item [routerLink]="['/invoicing/invoices']" routerLinkActive="active" (click)="onClose()">
+      <mat-icon>description</mat-icon>
+      <span class="jo-navi-caption">Rechnungen</span>
+    </a>
+
+    <a *ngIf="auth?.roles.indexOf('sys-admin') >= 0" mat-list-item
+       [routerLink]="['/invoicing/settings']" routerLinkActive="active" (click)="onClose()">
+      <mat-icon>settings</mat-icon>
+      <span class="jo-navi-caption">Einstellungen</span>
+    </a>
+    <a *ngIf="auth?.roles.indexOf('sys-admin') >= 0" mat-list-item
+       [routerLink]="['/users']" routerLinkActive="active" (click)="onClose()">
+      <mat-icon>account_circle</mat-icon>
+      <span class="jo-navi-caption">Benutzer</span>
+    </a>
+  </ng-container>
+  <a *ngIf="!(auth$ | async)"
+     mat-list-item [routerLink]="['/login']" routerLinkActive="active" (click)="onClose()">
+    <mat-icon>face</mat-icon>
+    <span class="jo-navi-caption">Anmelden</span>
+  </a>
+  <a *ngIf="auth$ | async"
+     mat-list-item [routerLink]="['/goodbye']" routerLinkActive="active" (click)="onClose()">
+    <mat-icon>cancel</mat-icon>
+    <span class="jo-navi-caption">Abmelden</span>
+  </a>
+</mat-nav-list>
+

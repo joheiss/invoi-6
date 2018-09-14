@@ -1,0 +1,66 @@
+div.width--xs { width: 4rem; }
+div.width--sm { width: 8rem; }
+div.width--md { width: 12rem }
+div.width--lg { width: 28rem; }
+div.width--xl { width: 36rem; }
+
+div.contract-item-id {
+  align-self: flex-start;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 100%;
+    background-color: #ccc;
+  }
+
+  @media only screen and (max-width: 600px) {
+    align-self: flex-start;
+  }
+
+  @media only screen and (max-width: 960px) {
+    align-self: flex-start;
+  }
+}
+
+div.contract-item-description {
+  align-self: center;
+  overflow: hidden;
+}
+
+div.contract-item-priceUnit {
+  align-self: center;
+}
+
+div.contract-item-pricePerUnit {
+  align-self: center;
+}
+
+div.contract-item-cashDiscountAllowed {
+  align-self: center;
+  justify-self: center;
+
+  @media only screen and (max-width: 599px) {
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+
+  @media only screen and (max-width: 959px) {
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+}
+
+div.contract-item-action {
+  align-self: center;
+}
+
+.jo-btn-row-sm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0 1rem 0;
+}

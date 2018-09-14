@@ -1,0 +1,32 @@
+form {
+  padding: 1rem 2rem;
+}
+
+.width--xs { width: 4rem; }
+.width--sm { width: 8rem; }
+.width--md { width: 12rem }
+.width--lg { width: 28rem; }
+.width--xl { width: 36rem; }
+
+mat-dialog-content {
+  overflow: visible;
+}
+
+.jo-flex-row {
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    margin-right: 1rem;
+  }
+}
+
+.jo-flex-col {
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+}
+
