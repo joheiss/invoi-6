@@ -3,9 +3,9 @@ import {FormArray, FormGroup} from '@angular/forms';
 import {Transaction, TransactionItem} from '../models/transaction';
 
 export abstract class DetailsItemsFormComponent<T extends Transaction> implements OnChanges {
-  @Input('itemsFormArray') itemsFormArray: FormArray;
-  @Input('object') object: T;
-  @Input('isChangeable') isChangeable: boolean;
+  @Input() itemsFormArray: FormArray;
+  @Input() object: T;
+  @Input() isChangeable: boolean;
 
   constructor(protected service: any) {
   }

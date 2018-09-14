@@ -1,16 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
 import {UserData, UserProfileData} from '../models/user';
-import {Observable} from 'rxjs/Observable';
-import {catchError, filter, map, mergeMap, take, tap} from 'rxjs/operators';
+import {from, Observable, throwError} from 'rxjs/index';
+import {catchError, map, tap} from 'rxjs/operators';
 import {AUTH_MSGS} from '../auth-error-messages';
 import {MessageContent, Messages} from '../../shared/models/message.model';
-import {_throw} from 'rxjs/observable/throw';
-import {DocumentChangeAction} from 'angularfire2/firestore/interfaces';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs/observable/of';
-import * as firebase from 'firebase/app';
-import DocumentChangeType = firebase.firestore.DocumentChangeType;
 
 @Injectable()
 export class UsersService {
@@ -24,13 +19,13 @@ export class UsersService {
     this.messages = new Messages(AUTH_MSGS);
   }
 
-  queryAll(): Observable<DocumentChangeAction[]> {
+  queryAll(): Observable<DocumentChangeAction<any>[]> {
     return this.col.stateChanges().pipe(
       catchError((err, caught) => [])
     );
   }
 
-  queryOne(uid: string): Observable<DocumentChangeAction[]> {
+  queryOne(uid: string): Observable<DocumentChangeAction<any>[]> {
     return this.col.stateChanges()
       .pipe(
         map(actions => actions.filter(action => action.payload.doc.id === uid)),
@@ -45,16 +40,16 @@ export class UsersService {
       .post<any>(url, payload)
       .pipe(
         tap(response => console.log('RESPONSE FROM CREATE USER: ', response)),
-        catchError((error: any) => _throw(error))
+        catchError((error: any) => throwError(error))
       );
   }
 
   delete(payload: UserData): Observable<any> {
     const ref = this.afs.doc<UserData>(`user-profiles/${payload.uid}`);
-    return Observable.fromPromise(
+    return from(
       ref.delete()
         .then(() => payload)
-        .catch(err => _throw(err))
+        .catch(err => throwError(err))
     );
   }
 
@@ -64,7 +59,7 @@ export class UsersService {
       .post<any>(url, payload)
       .pipe(
         tap(response => console.log('RESPONSE FROM UPDATE USER: ', response)),
-        catchError((error: any) => _throw(error))
+        catchError((error: any) => throwError(error))
       );
   }
 
@@ -72,10 +67,10 @@ export class UsersService {
     const ref = this.afs.doc<UserProfileData>(`user-profiles/${payload.uid}`);
     const updates = Object.assign({}, payload);
     delete updates['uid'];
-    return Observable.fromPromise(
+    return from(
       ref.update(updates)
         .then(() => payload)
-        .catch(err => _throw(err))
+        .catch(err => throwError(err))
     );
   }
 

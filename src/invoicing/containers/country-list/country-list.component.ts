@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsBusinessService} from '../../business-services';
 import {Country, COUNTRY_TASK_EDIT, COUNTRY_TASK_NEW_COUNTRY, COUNTRY_TASK_NEW_TRANSLATION, CountryTask} from '../../models/country';
 import {SettingData} from '../../models/setting.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/index';
 import * as _ from 'lodash';
 import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {CountryDetailsDialogComponent} from '../country-details-dialog/country-details-dialog.component';
@@ -105,7 +105,6 @@ export class CountryListComponent implements OnInit, OnDestroy {
     switch (result.task) {
       case COUNTRY_TASK_EDIT:
       case COUNTRY_TASK_NEW_TRANSLATION: {
-        // Object.keys(result.country.names).forEach(language => this.selected.names[language] = result.country.names[language]);
         this.service.update(this.countrySettings);
         break;
       }

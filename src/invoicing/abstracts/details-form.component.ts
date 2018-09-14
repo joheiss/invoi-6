@@ -1,25 +1,25 @@
 import {EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
+import {Observable, Subscription} from 'rxjs/index';
 import {MatTabChangeEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {Transaction} from '../models/transaction';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {MasterData} from '../models/master-data';
-import {Observable} from 'rxjs/Observable';
 import {AppState} from '../../app/store/reducers';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../app/store';
 import {DocumentLink} from '../models/document-link';
+import {debounceTime, distinctUntilChanged} from 'rxjs/internal/operators';
 
 export abstract class DetailsFormComponent<T extends Transaction | MasterData> implements OnInit, OnChanges, OnDestroy {
-  @Input('object') object: T;
-  @Output('copy') copy = new EventEmitter<T>();
-  @Output('changed') changed = new EventEmitter<T>();
-  @Output('new') new = new EventEmitter<any>();
-  @Output('create') create = new EventEmitter<T>();
-  @Output('update') update = new EventEmitter<T>();
-  @Output('delete') delete = new EventEmitter<T>();
+  @Input() object: T;
+  @Output() copy = new EventEmitter<T>();
+  @Output() changed = new EventEmitter<T>();
+  @Output() new = new EventEmitter<any>();
+  @Output() create = new EventEmitter<T>();
+  @Output() update = new EventEmitter<T>();
+  @Output() delete = new EventEmitter<T>();
 
   form: FormGroup;
   isSpinning$: Observable<boolean>;
@@ -112,9 +112,10 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
       if (!ctrl) {
         return;
       }
-      const subscription = ctrl.valueChanges
-        .debounceTime(400)
-        .distinctUntilChanged()
+      const subscription = ctrl.valueChanges.pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+      )
         .subscribe(change => {
           if (this.isChangeValid(ctrl)) {
             handler(change, controlName);

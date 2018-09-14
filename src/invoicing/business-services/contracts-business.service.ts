@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import {Store} from '@ngrx/store';
@@ -11,6 +11,7 @@ import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {InvoicesBusinessService} from './invoices-business.service';
 import * as fromRoot from '../../app/store';
+import {filter, map} from 'rxjs/internal/operators';
 
 
 @Injectable()
@@ -65,8 +66,10 @@ export class ContractsBusinessService {
     this.store.select(fromAuth.selectAuth)
       .subscribe(auth => this.auth = auth);
     this.store.select(fromStore.selectNumberRangeEntities)
-      .filter(entities => !!entities['contracts'])
-      .map(entities => NumberRange.createFromData(entities['contracts']).nextId)
+      .pipe(
+        filter(entities => !!entities['contracts']),
+        map(entities => NumberRange.createFromData(entities['contracts']).nextId)
+      )
       .subscribe(nextId => this.nextId = nextId);
   }
 
@@ -131,8 +134,9 @@ export class ContractsBusinessService {
   }
 
   isChangeable(): Observable<boolean> {
-    return this.getCurrent()
-      .map(contract => contract.header.isDeletable);
+    return this.getCurrent().pipe(
+      map(contract => contract.header.isDeletable)
+    );
   }
 
   isDeletable(): Observable<boolean> {

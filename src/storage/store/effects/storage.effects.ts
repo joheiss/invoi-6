@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import * as storageActions from '../actions';
-import {of} from 'rxjs/observable/of';
+import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
 import {Store} from '@ngrx/store';
 import {StorageApiService, StorageUiService} from '../../services';

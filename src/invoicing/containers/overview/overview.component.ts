@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RevenuesBusinessService} from '../../business-services';
 import {Revenue, RevenueData} from '../../models/revenue.model';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {OpenInvoiceData} from '../../models/open-invoice.model';
 
 @Component({

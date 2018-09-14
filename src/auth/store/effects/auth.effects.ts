@@ -3,7 +3,7 @@ import {Actions, Effect} from '@ngrx/effects';
 import * as authActions from '../actions/auth.actions';
 import * as usersActions from '../actions/users.actions';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
+import {of} from 'rxjs/index';
 import {AuthService} from '../../services/auth.service';
 import {ClearState} from '../../../invoicing/store/actions';
 import {Store} from '@ngrx/store';

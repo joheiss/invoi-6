@@ -8,7 +8,7 @@ export interface MessageContent {
 export class Messages {
   static readonly placeholder = '$%';
 
-  private messages: MessageMap;
+  private readonly messages: MessageMap;
 
   constructor(messages: MessageMap) {
     this.messages = Object.assign({}, {...messages }, { 'msg-not-found': `Unbekannte Nachricht: $%` });

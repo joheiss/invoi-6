@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import {InvoicingState} from '../../store/reducers/index';
 import * as fromStore from '../../store';
 import * as fromStorage from '../../../storage/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {FileUploadDialogComponent} from '../../popups/index';
 import {Transaction} from '../../models/transaction';
 import {MasterData} from '../../models/master-data';
@@ -17,7 +17,7 @@ import {DocumentLinksBusinessService} from '../../business-services/document-lin
   styleUrls: ['./document-link-list.component.scss']
 })
 export class DocumentLinkListComponent implements OnChanges {
-  @Input('object') object: Transaction | MasterData;
+  @Input() object: Transaction | MasterData;
 
   documentLinks$: Observable<DocumentLink[]>;
   fileUploadDialogRef: MatDialogRef<FileUploadDialogComponent>;

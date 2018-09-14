@@ -11,7 +11,7 @@ import {DetailsItemsFormComponent} from '../../abstracts/details-items-form.comp
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceItemsFormComponent extends DetailsItemsFormComponent<Invoice> implements OnChanges {
-  @Input('contract') contract: Contract;
+  @Input() contract: Contract;
 
   constructor(protected service: InvoicesBusinessService) {
     super(service);

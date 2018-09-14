@@ -34,6 +34,7 @@ export class InvoicesEffects {
           map(action => {
             const type = `[Invoicing] Invoice ${action.type}`;
             const payload = {...action.payload.doc.data(), id: action.payload.doc.id };
+            payload.issuedAt = payload.issuedAt.toDate();
             return { type, payload };
           })
         ))

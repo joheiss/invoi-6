@@ -1,6 +1,6 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {DecimalPipe} from '@angular/common';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export interface LocaleNumberFormattingInfo {
   decimalSeparator: string;
@@ -12,7 +12,7 @@ export interface LocaleNumberFormattingInfo {
 export class I18nUtilityService {
 
   private formattingInfo: LocaleNumberFormattingInfo;
-  private decimalSeparatorEscaped: string;
+  private readonly decimalSeparatorEscaped: string;
   private thousandSeparatorEscaped: string;
 
   constructor(@Inject(LOCALE_ID) private locale: string,

@@ -3,15 +3,12 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {UserCredentials, UserProfileData} from '../models/user';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of, from, throwError} from 'rxjs/index';
 import {catchError, filter, map, switchMap, tap} from 'rxjs/operators';
-import {fromPromise} from 'rxjs/observable/fromPromise';
-import {of} from 'rxjs/observable/of';
 import {UiService} from '../../shared/services/ui.service';
 import {AUTH_MSGS} from '../auth-error-messages';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {User} from 'firebase/app';
-import {_throw} from 'rxjs/observable/throw';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
@@ -33,7 +30,7 @@ export class AuthService {
       .pipe(
         filter(authData => !!authData),
         tap((authData: User) => authData.getIdToken().then(idToken => localStorage.setItem('id_token', idToken))),
-        switchMap(authData => fromPromise(this.col.doc(authData.uid).ref.get())
+        switchMap(authData => from(this.col.doc(authData.uid).ref.get())
           .pipe(
             map(userProfile => {
               const userData = {...userProfile.data(), uid: authData.uid};
@@ -44,7 +41,7 @@ export class AuthService {
   }
 
   login(credentials: UserCredentials): Observable<any> {
-    return Observable.fromPromise(
+    return from(
       this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(authData => authData)
         .catch(err => {
@@ -54,7 +51,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return Observable.fromPromise(this.afAuth.auth.signOut()
+    return from(this.afAuth.auth.signOut()
       .then((authData) => {
         localStorage.removeItem('id_token');
         this.uiService.openSnackBar(this.messages.getMessage('user-logged-out'));
@@ -64,7 +61,7 @@ export class AuthService {
 
   changeMyPassword(credentials: { uid: string; email?: string; oldPassword?: string, password: string }): Observable<any> {
     const cred = firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, credentials.oldPassword);
-    return Observable.fromPromise(
+    return from(
       firebase.auth().currentUser.reauthenticateWithCredential(cred)
         .then(auth => firebase.auth().currentUser.updatePassword(credentials.password))
         .catch(err => {
@@ -79,7 +76,7 @@ export class AuthService {
       .post<any>(url, payload)
       .pipe(
         tap(response => console.log('RESPONSE FROM CHANGE PASSWORD: ', response)),
-        catchError((error: any) => _throw(error))
+        catchError((error: any) => throwError(error))
       );
   }
 

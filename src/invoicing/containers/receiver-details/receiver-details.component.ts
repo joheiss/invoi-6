@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Receiver} from '../../models/receiver.model';
 import {Contract} from '../../models/contract.model';
 import {ActivatedRoute} from '@angular/router';

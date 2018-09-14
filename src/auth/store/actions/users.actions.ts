@@ -1,6 +1,5 @@
 import {Action} from '@ngrx/store';
 import {UserData, UserProfileData} from '../../models/user';
-import {UserProfilePopupData} from '../../models/user-profile-popup-data';
 
 export const QUERY_USERS = '[Auth] Users query';
 export const QUERY_ONE_USER = '[Auth] User query';

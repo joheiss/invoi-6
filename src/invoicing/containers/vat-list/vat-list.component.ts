@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingData} from '../../models/setting.model';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/index';
 import {SettingsBusinessService} from '../../business-services';
 import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {VatDetailsDialogComponent} from '../vat-details-dialog/vat-details-dialog.component';

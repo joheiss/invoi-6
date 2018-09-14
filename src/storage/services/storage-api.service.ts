@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireStorage} from 'angularfire2/storage';
-import {Observable} from 'rxjs/Observable';
+import {from, Observable} from 'rxjs/index';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {STORAGE_MSGS} from '../storage-messages';
 
@@ -42,8 +42,13 @@ export class StorageApiService {
     console.log('path: ', path);
     const ref = this.storage.ref(path);
     const task = ref.put(file, { customMetadata: metadata } );
-    task.catch(err => console.error(err));
-    return task.downloadURL();
+    return from(
+      task
+      .then(() => this.storage.ref(path).getDownloadURL())
+      .catch(err => {
+        console.error('*** Error during document upload ***');
+        console.error(err);
+    }));
   }
 
   getMessage(id: string, params?: string[]): MessageContent {

@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import * as fromStore from '../store';
 import * as fromAuth from '../../auth/store';
 import * as fromStorage from '../../storage/store';
 import {Store} from '@ngrx/store';
 import {User, UserData, UserProfileData} from '../../auth/models/user';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
-import {UserProfilePopupData} from '../models/user-profile-popup-data';
 
 
 @Injectable()

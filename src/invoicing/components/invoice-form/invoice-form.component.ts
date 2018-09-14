@@ -19,15 +19,15 @@ import {minOneItemValidator} from '../../validators/minOneItem.validator';
   styleUrls: ['./invoice-form.component.scss']
 })
 export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implements OnChanges, OnDestroy {
-  @Input('invoiceReceiver') invoiceReceiver: Receiver;
-  @Input('invoiceContract') invoiceContract: Contract;
-  @Input('receivers') receivers: Receiver[];
-  @Input('contracts') contracts: Contract[];
-  @Input('isChangeable') isChangeable: boolean;
-  @Input('isSendable') isSendable: boolean;
-  @Input('mode') mode: string;
-  @Output('createPdf') createPdf = new EventEmitter<Invoice>();
-  @Output('sendEmail') sendEmail = new EventEmitter<Invoice>();
+  @Input() invoiceReceiver: Receiver;
+  @Input() invoiceContract: Contract;
+  @Input() receivers: Receiver[];
+  @Input() contracts: Contract[];
+  @Input() isChangeable: boolean;
+  @Input() isSendable: boolean;
+  @Input() mode: string;
+  @Output() createPdf = new EventEmitter<Invoice>();
+  @Output() sendEmail = new EventEmitter<Invoice>();
 
   constructor(protected fb: FormBuilder,
               protected store: Store<AppState>,

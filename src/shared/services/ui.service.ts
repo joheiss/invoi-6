@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MessageContent} from '../models/message.model';
 import {ConfirmationDialogData} from '../models/confirmation-dialog';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {ConfirmationDialogPopupComponent} from '../popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
-import {MatSnackBarRef} from '@angular/material/snack-bar/typings/snack-bar-ref';
+import {map} from 'rxjs/internal/operators';
 
 @Injectable()
 export class UiService {
@@ -51,11 +51,12 @@ export class UiService {
         title: payload.title
       }
     });
-    return dialogRef.afterClosed().map(reply => {
-      const response = Object.assign({}, payload);
-      response.reply = reply;
-      return response;
-    });
+    return dialogRef.afterClosed().pipe(
+      map(reply => {
+        const response = Object.assign({}, payload);
+        response.reply = reply;
+        return response;
+      }));
   }
 
 }

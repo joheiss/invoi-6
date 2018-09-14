@@ -13,7 +13,6 @@ export class RevenueListComponent {
   constructor(private i18nUtility: I18nUtilityService) { }
 
   getHeaderLine(): string[] {
-    // const monthNames = ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
     const monthNames = this.i18nUtility.generateAbbrevMonthNames();
     return [
       'Jahr',

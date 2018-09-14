@@ -1,7 +1,7 @@
-import {Observable} from 'rxjs/Observable';
+import {from, Observable} from 'rxjs/index';
 import {catchError} from 'rxjs/operators';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {DocumentChangeAction} from 'angularfire2/firestore/interfaces';
+import {DocumentChangeAction} from 'angularfire2/firestore';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {INVOICING_MSGS} from '../invoicing-error-messages';
 import {BusinessObjectHeaderData} from '../models/business-object';
@@ -26,7 +26,7 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
     this.messages = new Messages(INVOICING_MSGS);
   }
 
-  queryAll(): Observable<DocumentChangeAction[]> {
+  queryAll(): Observable<DocumentChangeAction<any>[]> {
     return this.col.stateChanges()
       .pipe(
         catchError((err, caught) => [])
@@ -34,7 +34,7 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
   }
 
   create(payload: T): Observable<any> {
-    return Observable.fromPromise(
+    return from(
       this.afs.collection(this.collectionName).doc(payload.id).set(payload)
         .then(() => payload)
         .catch(err => {
@@ -46,7 +46,7 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
 
   delete(payload: T): Observable<any> {
     const ref = this.afs.doc<T>(`${this.collectionName}/${payload.id}`);
-    return Observable.fromPromise(
+    return from(
       ref.delete()
         .then(() => payload)
         .catch(err => {
@@ -59,7 +59,7 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
   update(payload: T): Observable<any> {
 
     const ref = this.afs.doc<T>(`${this.collectionName}/${payload.id}`);
-    return Observable.fromPromise(
+    return from(
       ref.update(payload)
         .then(() => payload)
         .catch(err => {

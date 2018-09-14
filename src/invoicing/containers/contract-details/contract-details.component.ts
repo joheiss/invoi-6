@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs/index';
 import {Contract} from '../../models/contract.model';
 import {Receiver} from '../../models/receiver.model';
 import {Invoice} from '../../models/invoice.model';
 import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs/observable/of';
 import {ContractsBusinessService} from '../../business-services';
 import {DetailsComponent} from '../../abstracts/details.component';
 

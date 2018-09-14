@@ -1,5 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {Invoice} from '../../models/invoice.model';
+import {Component, OnChanges} from '@angular/core';
 import {MasterListComponent} from '../../abstracts/master-list.component';
 import {OpenInvoiceData} from '../../models/open-invoice.model';
 

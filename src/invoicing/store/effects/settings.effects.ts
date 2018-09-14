@@ -27,6 +27,14 @@ export class SettingsEffects {
       map(action => {
         const type = `[Invoicing] Setting ${action.type}`;
         const payload = {...action.payload.doc.data() };
+        payload.values.forEach(value => {
+          if (value.validFrom) {
+            value.validFrom = value.validFrom.toDate();
+          }
+          if (value.validTo) {
+            value.validTo = value.validTo.toDate();
+          }
+        });
         return { type, payload };
       })
     );

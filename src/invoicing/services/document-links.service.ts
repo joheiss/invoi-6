@@ -3,8 +3,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ObjectsApiService, OrderByOption} from './objects-api.service';
 import {DocumentLink} from '../models/document-link';
 import {Observable} from 'rxjs/Observable';
-import {DocumentChangeAction} from 'angularfire2/firestore/interfaces';
+import {DocumentChangeAction} from 'angularfire2/firestore';
 import {catchError} from 'rxjs/operators';
+import {from} from 'rxjs/index';
 
 @Injectable()
 export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
@@ -16,7 +17,7 @@ export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
     super(afs, DocumentLinksService.COLLECTION_NAME, DocumentLinksService.COLLECTION_ORDERBY);
   }
 
-  queryForObject(payload): Observable<DocumentChangeAction[]> {
+  queryForObject(payload): Observable<DocumentChangeAction<any>[]> {
     console.log('QueryForObject: ', payload);
     const owner = `${payload.objectType}/${payload.id}`;
     const collection = this.afs.collection(DocumentLinksService.COLLECTION_NAME, ref => ref.where('owner', '==', owner));
@@ -27,7 +28,7 @@ export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
 
   create(payload: DocumentLink): Observable<any> {
     const {$id: removed, ...documentLink} = payload;
-    return Observable.fromPromise(
+    return from(
       this.col.add(documentLink)
         .then(ref => {
           return {$id: ref.id, ...documentLink};

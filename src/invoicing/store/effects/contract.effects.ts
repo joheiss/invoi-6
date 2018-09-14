@@ -36,6 +36,9 @@ export class ContractsEffects {
           map(action => {
             const type = `[Invoicing] Contract ${action.type}`;
             const payload = {...action.payload.doc.data(), id: action.payload.doc.id};
+            payload.issuedAt = payload.issuedAt.toDate();
+            payload.startDate = payload.startDate.toDate();
+            payload.endDate = payload.endDate.toDate();
             return { type, payload };
           })
         ))

@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs/index';
 import * as fromStore from '../store/index';
 import {Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
-import {of} from 'rxjs/observable/of';
-
 
 @Injectable()
 export class DocumentLinksBusinessService {

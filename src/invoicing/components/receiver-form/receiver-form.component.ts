@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import * as fromValidators from '../../../shared/validators';
-import {MatDialog} from '@angular/material';
 import {DetailsFormComponent} from '../../abstracts/details-form.component';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app/store/reducers';
@@ -17,15 +16,15 @@ import {Invoice} from '../../models/invoice.model';
   styleUrls: ['./receiver-form.component.scss']
 })
 export class ReceiverFormComponent extends DetailsFormComponent<Receiver> implements OnChanges {
-  @Input('isDeletable') isDeletable: boolean;
-  @Input('isQualForQuickInvoice') isQualForQuickInvoice: boolean;
-  @Input('activeContracts') activeContracts: Contract[];
-  @Input('lastContracts') lastContracts: Contract[];
-  @Input('openInvoices') openInvoices: Invoice[];
-  @Input('lastInvoices') lastInvoices: Contract[];
-  @Input('task') task: string;
-  @Input('countries') countries: any[];
-  @Output('quickInvoice') quickInvoice = new EventEmitter<Receiver>();
+  @Input() isDeletable: boolean;
+  @Input() isQualForQuickInvoice: boolean;
+  @Input() activeContracts: Contract[];
+  @Input() lastContracts: Contract[];
+  @Input() openInvoices: Invoice[];
+  @Input() lastInvoices: Contract[];
+  @Input() task: string;
+  @Input() countries: any[];
+  @Output() quickInvoice = new EventEmitter<Receiver>();
 
   constructor(protected fb: FormBuilder,
               protected store: Store<AppState>,

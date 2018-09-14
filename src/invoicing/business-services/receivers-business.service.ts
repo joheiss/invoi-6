@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Receiver, ReceiverData, ReceiverStatus} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import * as fromAuth from '../../auth/store';
@@ -53,9 +53,10 @@ export class ReceiversBusinessService {
               private store: Store<fromStore.InvoicingState>) {
     this.store.select(fromAuth.selectAuth)
       .subscribe(auth => this.auth = auth);
-    this.store.select(fromStore.selectNumberRangeEntities)
-      .filter(entities => !!entities['receivers'])
-      .map(entities => NumberRange.createFromData(entities['receivers']).nextId)
+    this.store.select(fromStore.selectNumberRangeEntities).pipe(
+      filter(entities => !!entities['receivers']),
+      map(entities => NumberRange.createFromData(entities['receivers']).nextId)
+    )
       .subscribe(nextId => this.nextId = nextId);
   }
 
@@ -118,8 +119,9 @@ export class ReceiversBusinessService {
   }
 
   isDeletable(): Observable<boolean> {
-    return this.getCurrent()
-      .map(receiver => receiver.header.isDeletable);
+    return this.getCurrent().pipe(
+      map(receiver => receiver.header.isDeletable)
+    );
   }
 
   isQualifiedForQuickInvoice(): Observable<boolean> {

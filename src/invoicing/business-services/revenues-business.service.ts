@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as fromStore from '../store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Store} from '@ngrx/store';
 import {RevenueData} from '../models/revenue.model';
 import {map} from 'rxjs/operators';

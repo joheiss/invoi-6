@@ -34,6 +34,8 @@ queryOpenInvoices$ = this.actions$
           console.log('OpenInvoice incoming Action: ', action);
           const type = `[Invoicing] OpenInvoice ${action.type}`;
           const payload = {...action.payload.doc.data(), id: action.payload.doc.id };
+          payload.issuedAt = payload.issuedAt.toDate();
+          payload.dueDate = payload.dueDate.toDate();
           return { type, payload };
         })
       ))

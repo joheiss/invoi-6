@@ -16,8 +16,8 @@ import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.serv
   styleUrls: ['./quick-invoice-form.component.scss']
 })
 export class QuickInvoiceFormComponent extends DetailsFormComponent<Invoice> implements OnChanges, OnDestroy {
-  @Input('invoiceReceiver') invoiceReceiver: Receiver;
-  @Input('invoiceContract') invoiceContract: Contract;
+  @Input() invoiceReceiver: Receiver;
+  @Input() invoiceContract: Contract;
 
   constructor(protected fb: FormBuilder,
               protected store: Store<AppState>,

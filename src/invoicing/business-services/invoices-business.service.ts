@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import {Store} from '@ngrx/store';
@@ -14,6 +14,7 @@ import {SettingsBusinessService} from './settings-business.service';
 import {Vat} from '../models/vat';
 import {map, switchMap, take} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
+import {filter} from 'rxjs/internal/operators';
 
 @Injectable()
 export class InvoicesBusinessService {
@@ -69,8 +70,9 @@ export class InvoicesBusinessService {
               private settings: SettingsBusinessService) {
     this.store.select(fromAuth.selectAuth)
       .subscribe(auth => this.auth = auth);
-    this.store.select(fromStore.selectNumberRangeEntities)
-      .filter(entities => !!entities['invoices'] && !!entities['credit-requests'])
+    this.store.select(fromStore.selectNumberRangeEntities).pipe(
+      filter(entities => !!entities['invoices'] && !!entities['credit-requests'])
+    )
       .subscribe(entities => {
         this.nextIds = [];
         this.nextIds.push(NumberRange.createFromData(entities['invoices']).nextId);

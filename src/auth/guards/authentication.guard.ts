@@ -3,8 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot
 import {AppState} from '../../app/store/reducers';
 import {Store} from '@ngrx/store';
 import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of} from 'rxjs/index';
 import * as fromStore from '../store';
 
 @Injectable()

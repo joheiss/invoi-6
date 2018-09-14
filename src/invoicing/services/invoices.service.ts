@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable, throwError} from 'rxjs/index';
 import {catchError, tap} from 'rxjs/operators';
-import {_throw} from 'rxjs/observable/throw';
 import {InvoiceData} from '../models/invoice.model';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ObjectsApiService, OrderByOption} from './objects-api.service';
@@ -24,7 +23,7 @@ export class InvoicesService extends ObjectsApiService<InvoiceData> {
       .post<InvoiceData>(url, payload)
       .pipe(
         tap(response => console.log('RESPONSE FROM CREATE PDF: ', response)),
-        catchError((error: any) =>  _throw(error))
+        catchError((error: any) =>  throwError(error))
       );
   }
 
@@ -34,7 +33,7 @@ export class InvoicesService extends ObjectsApiService<InvoiceData> {
       .post<InvoiceData>(url, payload)
       .pipe(
         tap(response => console.log('RESPONSE FROM SEND EMAIL: ', response)),
-        catchError((error: any) => _throw(error))
+        catchError((error: any) => throwError(error))
       );
   }
 }

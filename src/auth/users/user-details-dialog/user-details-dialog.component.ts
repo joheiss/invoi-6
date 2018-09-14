@@ -7,7 +7,6 @@ import {passwordValidator} from '../../validators/password.validator';
 import {REGEXP_PHONE, REGEXP_URL} from '../../../shared/validators';
 import {PasswordChangeDialogComponent} from '../../password-change-dialog/password-change-dialog.component';
 import {UsersUiService} from '../../services';
-import * as fromRoot from '../../../app/store';
 
 @Component({
   selector: 'jo-user-details-dialog',

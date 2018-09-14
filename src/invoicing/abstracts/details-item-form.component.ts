@@ -1,14 +1,15 @@
 import {EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/index';
+import {debounceTime, distinctUntilChanged} from 'rxjs/internal/operators';
 
 export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestroy {
-  @Input('itemGroup') itemGroup: FormGroup;
-  @Input('item') item: T;
-  @Input('isChangeable') isChangeable: boolean;
-  @Output('changed') changed = new EventEmitter<void>();
-  @Output('delete') delete = new EventEmitter<number>();
+  @Input() itemGroup: FormGroup;
+  @Input() item: T;
+  @Input() isChangeable: boolean;
+  @Output() changed = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<number>();
 
   protected isItemGroupBuilt = false;
   protected itemChanges: Subscription;
@@ -20,9 +21,10 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
     if (!this.isItemGroupBuilt) {
       this.buildItem();
       this.patchItem();
-      this.itemChanges = this.itemGroup.valueChanges
-        .debounceTime(400)
-        .distinctUntilChanged()
+      this.itemChanges = this.itemGroup.valueChanges.pipe(
+        debounceTime(400),
+        distinctUntilChanged()
+      )
         .subscribe(changes => {
           console.log('Listening to: ', changes);
           this.processFieldChanges(changes);

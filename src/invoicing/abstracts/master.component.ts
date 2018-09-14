@@ -1,5 +1,5 @@
 import {OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 
 export abstract class MasterComponent<T, V> implements OnInit {
 

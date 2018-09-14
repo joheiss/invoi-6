@@ -5,7 +5,6 @@ import * as fromValidators from '../../../shared/validators';
 import {Router} from '@angular/router';
 import {Receiver} from '../../models/receiver.model';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
-import {MatDialog} from '@angular/material';
 import {DetailsFormComponent} from '../../abstracts/details-form.component';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app/store/reducers';
@@ -19,13 +18,13 @@ import {minOneItemValidator} from '../../validators/minOneItem.validator';
   styleUrls: ['./contract-form.component.scss']
 })
 export class ContractFormComponent extends DetailsFormComponent<Contract> implements OnChanges, OnDestroy {
-  @Input('contractPartner') contractPartner;
-  @Input('isChangeable') isChangeable: boolean;
-  @Input('receivers') receivers: Receiver[];
-  @Input('openInvoices') openInvoices: Invoice[];
-  @Input('allInvoices') allInvoices: Invoice[];
-  @Input('task') task: string;
-  @Output('quickInvoice') quickInvoice = new EventEmitter<Contract>();
+  @Input() contractPartner;
+  @Input() isChangeable: boolean;
+  @Input() receivers: Receiver[];
+  @Input() openInvoices: Invoice[];
+  @Input() allInvoices: Invoice[];
+  @Input() task: string;
+  @Output() quickInvoice = new EventEmitter<Contract>();
 
   constructor(protected fb: FormBuilder,
               protected store: Store<AppState>,

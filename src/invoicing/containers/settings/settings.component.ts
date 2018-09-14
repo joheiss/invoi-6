@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {SettingData} from '../../models/setting.model';
 import {SettingsBusinessService} from '../../business-services';
 

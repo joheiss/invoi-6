@@ -1,7 +1,7 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import * as fromStore from '../store/index';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/index';
 import {SettingData} from '../models/setting.model';
 import {Country} from '../models/country';
 import {map, tap} from 'rxjs/operators';

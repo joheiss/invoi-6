@@ -13,9 +13,9 @@ import {DetailsItemFormComponent} from '../../abstracts/details-item-form.compon
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceItemFormComponent extends DetailsItemFormComponent<InvoiceItem> implements OnChanges, OnDestroy {
-  @Input('contract') contract: Contract;
-  @Input('isChangeable') isChangeable: boolean;
-  @Input('mode') mode: string;
+  @Input() contract: Contract;
+  @Input() isChangeable: boolean;
+  @Input() mode: string;
 
   constructor(protected utility: I18nUtilityService) {
     super(utility);
