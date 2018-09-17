@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect} from '@ngrx/effects';
+import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as uiActions from '../actions/ui.actions';
 
 import {filter, map, switchMap, tap} from 'rxjs/operators';
@@ -13,32 +13,27 @@ export class UiEffects {
   }
 
   @Effect({dispatch: false})
-  openSnackBar$ = this.actions$
-    .ofType(uiActions.OPEN_SNACKBAR)
-    .pipe(
-      map((action: uiActions.OpenSnackBar) => action.payload),
-      tap(action => this.uiService.openSnackBar(action.message)
-      )
-    );
+  openSnackBar$ = this.actions$.pipe(
+    ofType(uiActions.OPEN_SNACKBAR),
+    map((action: uiActions.OpenSnackBar) => action.payload),
+    tap(action => this.uiService.openSnackBar(action.message))
+  );
 
   @Effect({dispatch: false})
-  openUrl$ = this.actions$
-    .ofType(uiActions.OPEN_URL)
-    .pipe(
-      map((action: uiActions.OpenUrl) => action.payload),
-      tap(downloadUrl => this.uiService.openUrl(downloadUrl)
-      )
-    );
+  openUrl$ = this.actions$.pipe(
+    ofType(uiActions.OPEN_URL),
+    map((action: uiActions.OpenUrl) => action.payload),
+    tap(downloadUrl => this.uiService.openUrl(downloadUrl))
+  );
 
   @Effect()
-  openConfirmationDialog$ = this.actions$
-    .ofType(uiActions.OPEN_CONFIRMATION_DIALOG)
-    .pipe(
-      map((action: uiActions.OpenConfirmationDialog) => action.payload),
-      switchMap(payload => this.uiService.openConfirmationDialog(payload)
-        .pipe(
-          filter(payload => payload.reply),
-          map(payload => payload.do),
-        ))
-    );
+  openConfirmationDialog$ = this.actions$.pipe(
+    ofType(uiActions.OPEN_CONFIRMATION_DIALOG),
+    map((action: uiActions.OpenConfirmationDialog) => action.payload),
+    switchMap(payload => this.uiService.openConfirmationDialog(payload)
+      .pipe(
+        filter(payload => payload.reply),
+        map(payload => payload.do),
+      ))
+  );
 }

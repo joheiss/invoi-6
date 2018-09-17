@@ -5,7 +5,7 @@ export abstract class MasterComponent<T, V> implements OnInit {
 
   summaries$: Observable<V[]>;
 
-  constructor(protected service: any) {}
+  protected constructor(protected service: any) {}
 
   ngOnInit() {
     this.summaries$ = this.service.getSummary();

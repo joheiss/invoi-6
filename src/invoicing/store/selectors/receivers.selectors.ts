@@ -54,7 +54,6 @@ export const selectCurrentReceiverAsObj = createSelector(
   receiver => receiver && Receiver.createFromData(receiver)
 );
 
-
 export const selectReceiversError = createSelector(
   selectReceiverState,
   fromReceivers.selectReceiversError

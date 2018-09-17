@@ -1,6 +1,10 @@
 export async function getInvoice(db: any, id: string): Promise<any> {
   const invoiceDoc = await db.collection('invoices').doc(id).get();
-  return invoiceDoc ? invoiceDoc.data() : null;
+  const invoice = invoiceDoc ? invoiceDoc.data() : null;
+  if (invoice) {
+    invoice.issuedAt = invoice.issuedAt.toDate();
+  }
+  return invoice;
 }
 
 export async function getReceiver(db: any, id: string): Promise<any> {

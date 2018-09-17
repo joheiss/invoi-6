@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {BillingMethod, ContractSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract, ContractData, ContractItem, ContractItemData} from '../models/contract.model';
 import {Invoice} from '../models/invoice.model';
@@ -63,13 +63,13 @@ export class ContractsBusinessService {
 
   constructor(private store: Store<fromStore.InvoicingState>,
               private invoicesBusinessService: InvoicesBusinessService) {
-    this.store.select(fromAuth.selectAuth)
+    this.store.pipe(select(fromAuth.selectAuth))
       .subscribe(auth => this.auth = auth);
-    this.store.select(fromStore.selectNumberRangeEntities)
-      .pipe(
-        filter(entities => !!entities['contracts']),
-        map(entities => NumberRange.createFromData(entities['contracts']).nextId)
-      )
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
+      filter(entities => !!entities['contracts']),
+      map(entities => NumberRange.createFromData(entities['contracts']).nextId)
+    )
       .subscribe(nextId => this.nextId = nextId);
   }
 
@@ -85,8 +85,8 @@ export class ContractsBusinessService {
   copy(contract: Contract) {
     const data = Object.assign({},
       contract.data,
-      { ...ContractsBusinessService.getDefaultValues() },
-      { organization: this.auth.organization }
+      {...ContractsBusinessService.getDefaultValues()},
+      {organization: this.auth.organization}
     );
     this.store.dispatch(new fromStore.CopyContractSuccess(data));
   }
@@ -110,27 +110,27 @@ export class ContractsBusinessService {
   }
 
   getCurrent(): Observable<Contract> {
-    return this.store.select(fromStore.selectCurrentContractAsObj);
+    return this.store.pipe(select(fromStore.selectCurrentContractAsObj));
   }
 
   getInvoices(): Observable<Invoice[]> {
-    return this.store.select(fromStore.selectAllInvoicesForContractAsObjArray);
+    return this.store.pipe(select(fromStore.selectAllInvoicesForContractAsObjArray));
   }
 
   getOpenInvoices(): Observable<Invoice[]> {
-    return this.store.select(fromStore.selectOpenInvoicesForContractAsObjArray);
+    return this.store.pipe(select(fromStore.selectOpenInvoicesForContractAsObjArray));
   }
 
   getPartner(): Observable<Receiver> {
-    return this.store.select(fromStore.selectContractPartnerAsObj);
+    return this.store.pipe(select(fromStore.selectContractPartnerAsObj));
   }
 
   getReceivers(): Observable<Receiver[]> {
-    return this.store.select(fromStore.selectActiveReceiversSortedAsObjArray);
+    return this.store.pipe(select(fromStore.selectActiveReceiversSortedAsObjArray));
   }
 
   getSummary(): Observable<ContractSummary[]> {
-    return this.store.select(fromStore.selectContractSummariesAsSortedArray);
+    return this.store.pipe(select(fromStore.selectContractSummariesAsSortedArray));
   }
 
   isChangeable(): Observable<boolean> {
@@ -140,7 +140,7 @@ export class ContractsBusinessService {
   }
 
   isDeletable(): Observable<boolean> {
-    return this.isChangeable();
+    return this.store.pipe(select(fromStore.selectContractChangeable));
   }
 
   new() {
@@ -158,8 +158,8 @@ export class ContractsBusinessService {
     this.change(contract);
   }
 
-  select(id: number): Observable<ContractData> {
-    return this.store.select(fromStore.selectSelectedContract);
+  select(): Observable<ContractData> {
+    return this.store.pipe(select(fromStore.selectSelectedContract));
   }
 
   update(contract: Contract) {

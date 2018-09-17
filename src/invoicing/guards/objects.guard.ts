@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {CanActivate} from '@angular/router';
-import {Action, Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Action, select, Store} from '@ngrx/store';
+import {Observable, of} from 'rxjs/index';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 
 import * as fromStore from '../store';
 
 @Injectable()
 export abstract class ObjectsGuard implements CanActivate {
 
-  constructor(protected store: Store<fromStore.InvoicingState>) {}
+  protected constructor(protected store: Store<fromStore.InvoicingState>) {
+  }
 
   canActivate(): Observable<boolean> {
     return this.checkStore()
@@ -21,15 +21,16 @@ export abstract class ObjectsGuard implements CanActivate {
   }
 
   protected checkStore(): Observable<boolean> {
-    return this.store.select(this.getObjectLoadedSelector())
-      .pipe(
-        tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
-        filter(loaded => loaded),
-        take(1)
-      );
+    return this.store.pipe(
+      select(this.getObjectLoadedSelector()),
+      tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
+      filter(loaded => loaded),
+      take(1)
+    );
   }
 
   protected abstract getObjectLoadedSelector(): any;
+
   protected abstract getQueryAction(): Action;
 }
 

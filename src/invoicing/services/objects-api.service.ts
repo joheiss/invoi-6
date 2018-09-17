@@ -1,4 +1,4 @@
-import {from, Observable} from 'rxjs/index';
+import {from, Observable, throwError} from 'rxjs/index';
 import {catchError} from 'rxjs/operators';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {DocumentChangeAction} from 'angularfire2/firestore';
@@ -14,9 +14,9 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
   col: AngularFirestoreCollection<T>;
   messages: Messages;
 
-  constructor(protected afs: AngularFirestore,
-              protected collectionName: string,
-              protected collectionOrderBy?: OrderByOption) {
+  protected constructor(protected afs: AngularFirestore,
+                        protected collectionName: string,
+                        protected collectionOrderBy?: OrderByOption) {
     if (collectionOrderBy) {
       this.col = afs.collection(collectionName, ref => ref
         .orderBy(collectionOrderBy.fieldName, collectionOrderBy.direction));
@@ -35,25 +35,26 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
 
   create(payload: T): Observable<any> {
     return from(
-      this.afs.collection(this.collectionName).doc(payload.id).set(payload)
-        .then(() => payload)
-        .catch(err => {
-          console.error(err);
-          throw new Error(err);
-        })
-    );
+      // check if document already exists
+      this.documentExists(payload).then(exists => {
+        if (exists) {
+          throw new Error(`Document with id ${payload.id} already exists. Check number ranges.`);
+        }
+        // create document & update number range in batch write
+        return this.createDocument(payload);
+      }));
   }
 
   delete(payload: T): Observable<any> {
-    const ref = this.afs.doc<T>(`${this.collectionName}/${payload.id}`);
     return from(
-      ref.delete()
-        .then(() => payload)
-        .catch(err => {
-          console.error(err);
-          throw new Error(err);
-        })
-    );
+      // check if document exists
+      this.documentExists(payload).then(exists => {
+        if (!exists) {
+          throw new Error(`Document with id ${payload.id} does not exist.`);
+        }
+        // delete document & update number range in batch write - if necessary
+        return this.deleteDocument(payload);
+      }));
   }
 
   update(payload: T): Observable<any> {
@@ -74,5 +75,71 @@ export abstract class ObjectsApiService<T extends BusinessObjectHeaderData | Cus
       return this.messages.getMessageWithParams(id, params);
     }
     return this.messages.getMessage(id);
+  }
+
+  private createDocument(payload: T): Promise<any> {
+    const batch = this.afs.firestore.batch();
+    const docRef = this.afs.collection(this.collectionName).doc(payload.id).ref;
+    batch.set(docRef, payload);
+    const nrId = this.getNumberRangeId(payload);
+    if (nrId) {
+      const nrRef = this.afs.collection('number-ranges').doc(nrId).ref;
+      batch.update(nrRef, {lastUsedId: payload.id});
+    }
+    return batch.commit()
+      .then(() => payload)
+      .catch(err => {
+        console.error(err);
+        throw new Error(err);
+      });
+  }
+
+  private deleteDocument(payload: T): Promise<any> {
+    const doc = this.afs.firestore.doc(`${this.collectionName}/${payload.id}`);
+    const nrId = this.getNumberRangeId(payload);
+    if (nrId) {
+      const nrDoc = this.afs.firestore.doc(`number-ranges/${nrId}`);
+      const batch = this.afs.firestore.batch();
+      return nrDoc.get()
+        .then(docSnapShot => {
+          if (docSnapShot.data().lastUsedId === payload.id) {
+            const lastUsedId = (+payload.id - 1).toString();
+            batch.update(nrDoc, { lastUsedId: lastUsedId });
+          }
+          batch.delete(doc);
+          return batch.commit()
+            .then(() => payload)
+            .catch(err => {
+              console.error(err);
+              throw new Error(err);
+            });
+        });
+    } else {
+      return doc.delete()
+          .then(() => payload)
+          .catch(err => {
+            console.error(err);
+            throw new Error(err);
+          });
+    }
+  }
+
+  private async documentExists(payload: T): Promise<boolean> {
+    try {
+      return await this.afs.firestore.doc(`${this.collectionName}/${payload.id}`).get()
+        .then(docSnapShot => docSnapShot.exists);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  private getNumberRangeId(payload: T): string {
+    if (this.collectionName === 'invoices') {
+      return payload['billingMethod'] === 0 ? 'invoices' : 'credit-requests';
+    } else if (this.collectionName === 'receivers' || this.collectionName === 'contracts') {
+      return this.collectionName;
+    }
+    return null;
   }
 }

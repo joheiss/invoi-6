@@ -141,9 +141,7 @@ export class Invoice extends Transaction {
     // find gap in id numbers
     const gaps = ids.filter((id, i) => id !== i + 1);
     // free id number is either gap or max + 1
-    const id = gaps.length > 0 ? gaps[0] - 1 : ids[ids.length - 1] + 1;
-    // build item template
-    return id;
+    return gaps.length > 0 ? gaps[0] - 1 : ids[ids.length - 1] + 1;
   }
 
   public isBilled(): boolean {

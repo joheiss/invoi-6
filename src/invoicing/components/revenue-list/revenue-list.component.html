@@ -6,7 +6,7 @@
         <div *ngFor="let col of getHeaderLine()" class="table-cell table-cell--header">{{col}}</div>
       </div>
       <div *ngFor="let revenue of revenues" class="table-line">
-        <div class="table-cell table-cell--header">{{revenue.id}}</div>
+        <div class="table-cell table-cell--header">{{revenue.year}}</div>
         <div *ngFor="let month of getMonths(revenue)" class="table-cell">{{month | number: '1.0-0'}}</div>
       </div>
     </div>

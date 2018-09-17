@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs/index';
 import * as fromStore from '../store/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
 
 @Injectable()
@@ -53,15 +53,15 @@ export class DocumentLinksBusinessService {
   }
 
   getDocumentLinksForContract(): Observable<DocumentLink[]> {
-    return this.store.select(fromStore.selectDocumentLinksForContract);
+    return this.store.pipe(select(fromStore.selectDocumentLinksForContract));
   }
 
   getDocumentLinksForInvoice(): Observable<DocumentLink[]> {
-    return this.store.select(fromStore.selectDocumentLinksForInvoice);
+    return this.store.pipe(select(fromStore.selectDocumentLinksForInvoice));
   }
 
   getDocumentLinksForReceiver(): Observable<DocumentLink[]> {
-    return this.store.select(fromStore.selectDocumentLinksForReceiver);
+    return this.store.pipe(select(fromStore.selectDocumentLinksForReceiver));
   }
 
   new() {
@@ -70,7 +70,7 @@ export class DocumentLinksBusinessService {
   }
 
   query(): Observable<DocumentLink[]> {
-    return this.store.select(fromStore.selectAllDocumentLinks);
+    return this.store.pipe(select(fromStore.selectAllDocumentLinks));
   }
 
   update(documentLink: DocumentLink) {

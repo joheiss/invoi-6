@@ -1,6 +1,6 @@
 import {EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs/index';
+import {Subscription} from 'rxjs/index';
 import {MatTabChangeEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {Transaction} from '../models/transaction';
@@ -22,20 +22,18 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
   @Output() delete = new EventEmitter<T>();
 
   form: FormGroup;
-  isSpinning$: Observable<boolean>;
   changedDocumentLinks: DocumentLink[] = [];
   tabIndex = 0;
 
   protected subscriptions: { [name: string]: Subscription } = {};
 
-  constructor(protected fb: FormBuilder,
-              protected store: Store<AppState>,
-              protected router: Router,
-              protected utility?: I18nUtilityService) {
+  protected constructor(protected fb: FormBuilder,
+                        protected store: Store<AppState>,
+                        protected router: Router,
+                        protected utility?: I18nUtilityService) {
   }
 
   ngOnInit(): void {
-    this.isSpinning$ = this.store.select(fromRoot.selectIsSpinning);
     this.changedDocumentLinks = [];
   }
 

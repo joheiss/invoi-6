@@ -16,7 +16,7 @@ const INVOICING_ROUTES: Routes = [
         path: '',
         component: fromContainers.OverviewComponent,
         canActivate: [
-          fromGuards.RevenuesGuard, fromGuards.OpenInvoicesGuard
+          fromGuards.ReceiversGuard, fromGuards.ContractsGuard, fromGuards.InvoicesGuard
         ]
       },
       {

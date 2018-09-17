@@ -7,7 +7,7 @@ export abstract class DetailsItemsFormComponent<T extends Transaction> implement
   @Input() object: T;
   @Input() isChangeable: boolean;
 
-  constructor(protected service: any) {
+  protected constructor(protected service: any) {
   }
 
   ngOnChanges(changes: SimpleChanges) {

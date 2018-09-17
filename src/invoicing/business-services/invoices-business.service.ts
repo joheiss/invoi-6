@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {BillingMethod, InvoiceSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract} from '../models/contract.model';
 import {Invoice, InvoiceData, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
@@ -12,9 +12,8 @@ import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {SettingsBusinessService} from './settings-business.service';
 import {Vat} from '../models/vat';
-import {map, switchMap, take} from 'rxjs/operators';
+import {filter, map, switchMap, take} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
-import {filter} from 'rxjs/internal/operators';
 
 @Injectable()
 export class InvoicesBusinessService {
@@ -51,6 +50,7 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- STATIC METHODS      --- */
+
   /* --------------------------- */
   private static getDefaultValues(): any {
     const today = new Date();
@@ -65,12 +65,14 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- STATIC METHODS      --- */
+
   /* --------------------------- */
   constructor(private store: Store<fromStore.InvoicingState>,
               private settings: SettingsBusinessService) {
-    this.store.select(fromAuth.selectAuth)
+    this.store.pipe(select(fromAuth.selectAuth))
       .subscribe(auth => this.auth = auth);
-    this.store.select(fromStore.selectNumberRangeEntities).pipe(
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
       filter(entities => !!entities['invoices'] && !!entities['credit-requests'])
     )
       .subscribe(entities => {
@@ -120,15 +122,15 @@ export class InvoicesBusinessService {
   }
 
   getContract(): Observable<Contract> {
-    return this.store.select(fromStore.selectInvoiceContractAsObj);
+    return this.store.pipe(select(fromStore.selectInvoiceContractAsObj));
   }
 
   getContracts(): Observable<Contract[]> {
-    return this.store.select(fromStore.selectSelectableContractsForInvoiceAsObjArray);
+    return this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray));
   }
 
   getCurrent(): Observable<Invoice> {
-    const current$ = this.store.select(fromStore.selectCurrentInvoiceAsObj);
+    const current$ = this.store.pipe(select(fromStore.selectCurrentInvoiceAsObj));
     const sub = current$
       .subscribe(current => this.currentData = current.data)
       .unsubscribe();
@@ -140,27 +142,27 @@ export class InvoicesBusinessService {
   }
 
   getReceiver(): Observable<Receiver> {
-    return this.store.select(fromStore.selectInvoiceReceiverAsObj);
+    return this.store.pipe(select(fromStore.selectInvoiceReceiverAsObj));
   }
 
   getReceivers(): Observable<Receiver[]> {
-    return this.store.select(fromStore.selectActiveReceiversSortedAsObjArray);
+    return this.store.pipe(select(fromStore.selectActiveReceiversSortedAsObjArray));
   }
 
   getSummary(): Observable<InvoiceSummary[]> {
-    return this.store.select(fromStore.selectInvoiceSummariesAsSortedArray);
+    return this.store.pipe(select(fromStore.selectInvoiceSummariesAsSortedArray));
   }
 
   isChangeable(): Observable<boolean> {
-    return this.store.select(fromStore.selectInvoiceChangeable);
+    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
   }
 
   isDeletable(): Observable<boolean> {
-    return this.store.select(fromStore.selectInvoiceChangeable);
+    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
   }
 
   isSendable(): Observable<boolean> {
-    return this.store.select(fromStore.selectInvoiceSendable);
+    return this.store.pipe(select(fromStore.selectInvoiceSendable));
   }
 
   new() {
@@ -213,7 +215,7 @@ export class InvoicesBusinessService {
   }
 
   select(id: number): Observable<InvoiceData> {
-    return this.store.select(fromStore.selectSelectedInvoice);
+    return this.store.pipe(select(fromStore.selectSelectedInvoice));
   }
 
   sendEmail(invoice: Invoice) {
@@ -230,7 +232,7 @@ export class InvoicesBusinessService {
     const item = invoice.getItem(itemId);
     if (item.contractItemId) {
       console.log('Item.contractItemId: ', item.contractItemId);
-      this.store.select(fromStore.selectSelectableContractsForInvoiceAsObjArray)
+      this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray))
         .subscribe(contracts => {
           const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
           if (contract) {
@@ -253,7 +255,7 @@ export class InvoicesBusinessService {
 
   private changeContractRelatedData(invoice: Invoice): Invoice {
     console.log('Change contract related data: ', invoice);
-    this.store.select(fromStore.selectSelectableContractsForInvoiceAsObjArray)
+    this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray))
       .subscribe(contracts => {
         const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
         if (contract) {
@@ -307,8 +309,8 @@ export class InvoicesBusinessService {
   }
 
   private getVatPercentage(invoice: Invoice): Observable<number> {
-    const allReceivers$ = this.store.select(fromStore.selectReceiverEntities);
-    const allVatSettings$ = this.store.select(fromStore.selectAllVatSettings);
+    const allReceivers$ = this.store.pipe(select(fromStore.selectReceiverEntities));
+    const allVatSettings$ = this.store.pipe(select(fromStore.selectAllVatSettings));
 
     return allReceivers$.pipe(
       map(receivers => receivers[invoice.header.receiverId].address.country + '_full'),
@@ -321,7 +323,7 @@ export class InvoicesBusinessService {
               .sort((a: Vat, b: Vat) => a.validTo.getDate() - b.validTo.getDate());
             return filtered[0].percentage;
           }))),
-        take(1)
-      );
+      take(1)
+    );
   }
 }

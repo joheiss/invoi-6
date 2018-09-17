@@ -9,6 +9,6 @@
   "author": "Josef Heiss",
   "license": "ISC",
   "dependencies": {
-    "firebase-admin": "^5.11.0"
+    "firebase-admin": "^6.0.0"
   }
 }

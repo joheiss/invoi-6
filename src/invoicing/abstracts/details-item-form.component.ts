@@ -14,7 +14,7 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
   protected isItemGroupBuilt = false;
   protected itemChanges: Subscription;
 
-  constructor(protected utility: I18nUtilityService) {
+  protected constructor(protected utility: I18nUtilityService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {

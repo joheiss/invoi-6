@@ -5,8 +5,8 @@ export abstract class DetailsComponent<T> implements OnInit {
 
   task: string;
 
-  constructor(protected service: any,
-              protected route: ActivatedRoute) {}
+  protected constructor(protected service: any,
+                        protected route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap

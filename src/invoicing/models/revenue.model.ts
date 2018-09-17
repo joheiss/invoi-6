@@ -1,5 +1,11 @@
 import {ReportingHeaderData} from './reporting.model';
 
+export interface RevenuePerYearData {
+  year: number;
+  revenuePerMonth: number[];
+  revenuePerYear: number;
+}
+
 export interface RevenueData extends ReportingHeaderData {
   organization: string;
   months: { [month: string]: { [receiverId: string]: number } };

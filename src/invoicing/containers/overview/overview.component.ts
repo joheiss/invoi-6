@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RevenuesBusinessService} from '../../business-services';
-import {Revenue, RevenueData} from '../../models/revenue.model';
+import {RevenuePerYearData} from '../../models/revenue.model';
 import {Observable} from 'rxjs/index';
 import {OpenInvoiceData} from '../../models/open-invoice.model';
 
@@ -11,29 +11,14 @@ import {OpenInvoiceData} from '../../models/open-invoice.model';
 })
 export class OverviewComponent implements OnInit {
 
-  revenues$: Observable<RevenueData[]>;
+  revenues$: Observable<RevenuePerYearData[]>;
   openInvoices$: Observable<OpenInvoiceData[]>;
 
   constructor(private revenuesBusinessService: RevenuesBusinessService) { }
 
   ngOnInit() {
-    this.revenues$ = this.revenuesBusinessService.queryRecentRevenues();
-    this.openInvoices$ = this.revenuesBusinessService.queryOpenInvoices();
+    this.revenues$ = this.revenuesBusinessService.calculateTotalRevenues();
+    this.openInvoices$ = this.revenuesBusinessService.selectOpenInvoices();
   }
 
-  getHeaderLine(): string[] {
-    const monthNames = ['Jan', 'Feb', 'Mrz', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-    return [
-      'Jahr',
-      ...monthNames,
-      'Summe'
-    ];
-  }
-
-  getMonths(data: RevenueData): number[] {
-    const revenue = Revenue.createFromData(data);
-    const revs = revenue.revenueInMonths;
-    revs.push(revenue.totalRevenue);
-    return revs;
-  }
 }

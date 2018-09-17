@@ -48,7 +48,7 @@ export class ReceiverDetailsComponent extends DetailsComponent<Receiver> impleme
       this.activeContractsForReceiver$ = this.service.getActiveContracts();
       this.lastContractsForReceiver$ = this.service.getRecentContracts();
       this.openInvoicesForReceiver$ = this.service.getOpenInvoices();
-      this.lastInvoicesForReceiver$ = this.service.getOpenInvoices();
+      this.lastInvoicesForReceiver$ = this.service.getLastInvoices();
       this.isDeletable$ = this.service.isDeletable();
       this.isQualifiedForQuickInvoice$ = this.service.isQualifiedForQuickInvoice();
     }

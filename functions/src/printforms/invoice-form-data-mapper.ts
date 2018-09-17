@@ -51,7 +51,6 @@ export class InvoiceFormDataMapper {
 
     this.formData.invoiceId = this.invoice.id.toString();
     this.formData.invoiceDate = this.dateTimeFormat.format(new Date(this.invoice.issuedAt));
-    //this.formData.invoiceDate = this.dateTimeFormat.format(new Date(this.invoice.issuedAt));
     this.formData.customerId = this.receiver.id.toString();
     this.formData.billingPeriod = this.invoice.billingPeriod;
   }

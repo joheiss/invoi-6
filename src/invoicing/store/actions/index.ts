@@ -6,8 +6,6 @@ export * from './contracts.actions';
 export * from './invoices.actions';
 export * from './settings.actions';
 export * from './document-links.actions';
-export * from './revenues.actions';
-export * from './open-invoices.actions';
 
 export const CLEAR_STATE = '[Auth] clear state';
 export class ClearState implements Action {

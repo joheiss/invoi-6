@@ -1,11 +1,10 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import * as fromStore from '../store/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/index';
 import {SettingData} from '../models/setting.model';
 import {Country} from '../models/country';
-import {map, tap} from 'rxjs/operators';
-import {Vat} from '../models/vat';
+import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 
 
@@ -21,7 +20,7 @@ export class SettingsBusinessService {
   }
 
   getSettings(): Observable<SettingData[]> {
-    return this.store.select(fromStore.selectAllSettings);
+    return this.store.pipe(select(fromStore.selectAllSettings));
   }
 
   getSupportedLanguages(): string[] {
@@ -29,24 +28,24 @@ export class SettingsBusinessService {
   }
 
   getCountrySettings(): Observable<SettingData> {
-    return this.store.select(fromStore.selectAllCountrySettings);
+    return this.store.pipe(select(fromStore.selectAllCountrySettings));
   }
 
   getCountries(): Observable<Country[]> {
-    return this.store.select(fromStore.selectAllCountrySettings)
-      .pipe(
-        map(countries => {
-          const keyValues = [];
-          countries.values.forEach(country => {
-            keyValues.push({isoCode: country.isoCode, name: country.names[this.language]});
-          });
-          return keyValues;
-        })
-      );
+    return this.store.pipe(
+      select(fromStore.selectAllCountrySettings),
+      map(countries => {
+        const keyValues = [];
+        countries.values.forEach(country => {
+          keyValues.push({isoCode: country.isoCode, name: country.names[this.language]});
+        });
+        return keyValues;
+      })
+    );
   }
 
   getVatSettings(): Observable<SettingData> {
-    return this.store.select(fromStore.selectAllVatSettings);
+    return this.store.pipe(select(fromStore.selectAllVatSettings));
   }
 
   throwError(err: any) {

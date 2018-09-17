@@ -8,19 +8,37 @@ import * as receiverSelectors from './receivers.selectors';
 import * as contractSelectors from './contracts.selectors';
 import * as invoiceSelectors from './invoices.selectors';
 import * as documentLinkSelectors from './document-links.selectors';
-import {DocumentLink} from '../../models/document-link';
-import {selectInvoiceableContracts} from './contracts.selectors';
 
+export const selectAllOpenInvoicesWithReceiver = createSelector(
+  invoiceSelectors.selectAllInvoicesAsObjArray,
+  receiverSelectors.selectReceiverEntities,
+  (invoices, receivers) => {
+    return invoices
+      .filter(invoice => invoice.isOpen())
+      .map(invoice => {
+        return {
+          id: invoice.header.id,
+          issuedAt: invoice.header.issuedAt,
+          billingPeriod: invoice.header.billingPeriod,
+          receiverId: invoice.header.receiverId,
+          receiverName: receivers[invoice.header.receiverId].name,
+          netValue: invoice.netValue,
+          paymentAmount: invoice.paymentAmount,
+          dueDate: invoice.dueDate
+        };
+      });
+  }
+);
 export const selectAllContractsForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
   contractSelectors.selectAllContracts,
   (receiver, contracts) => receiver && contracts && contracts.filter(contract => contract.customerId === receiver.id)
 );
 
-export const selectAllContractsForReceiverAsObjArray = createSelector(
-  selectAllContractsForReceiver,
-  contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-);
+// export const selectAllContractsForReceiverAsObjArray = createSelector(
+//  selectAllContractsForReceiver,
+//  contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
+// );
 
 export const selectRecentContractsForReceiver = createSelector(
   selectAllContractsForReceiver,
@@ -43,16 +61,16 @@ export const selectActiveContractsForReceiverAsObjArray = createSelector(
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
 );
 
-export const selectExpiredContractsForReceiver = createSelector(
+/*export const selectExpiredContractsForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
   contractSelectors.selectExpiredContracts,
   (receiver, contracts) => receiver && contracts && contracts.filter(contract => contract.customerId === receiver.id)
-);
+);*/
 
-export const selectExpiredContractsForReceiverAsObjArray = createSelector(
+/*export const selectExpiredContractsForReceiverAsObjArray = createSelector(
   selectActiveContractsForReceiver,
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-);
+);*/
 
 export const selectInvoiceableContractsForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
@@ -65,7 +83,7 @@ export const selectInvoiceableContractsForReceiverAsObjArray = createSelector(
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
 );
 
-export const selectLastContractsForReceiver = createSelector(
+/*export const selectLastContractsForReceiver = createSelector(
   selectAllContractsForReceiver,
   contracts => {
     // console.log('selectLastContractsForReceiver: ', contracts);
@@ -80,12 +98,12 @@ export const selectLastContractsForReceiver = createSelector(
       }
     }
   }
-);
+);*/
 
-export const selectLastContractsForReceiverAsObjArray = createSelector(
+/*export const selectLastContractsForReceiverAsObjArray = createSelector(
   selectLastContractsForReceiver,
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-);
+);*/
 
 export const selectAllInvoicesForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
@@ -108,35 +126,35 @@ export const selectOpenInvoicesForReceiverAsObjArray = createSelector(
   invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
 );
 
-export const selectBilledInvoicesForReceiver = createSelector(
+/*export const selectBilledInvoicesForReceiver = createSelector(
   selectOpenInvoicesForReceiverAsObjArray,
   invoices => invoices && invoices.filter(invoice => invoice.isBilled()).map(invoice => invoice.data)
-);
+);*/
 
-export const selectBilledInvoicesForReceiverAsObjArray = createSelector(
+/*export const selectBilledInvoicesForReceiverAsObjArray = createSelector(
   selectBilledInvoicesForReceiver,
   invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);
+);*/
 
-export const selectDueInvoicesForReceiver = createSelector(
+/*export const selectDueInvoicesForReceiver = createSelector(
   selectOpenInvoicesForReceiverAsObjArray,
   invoices => invoices && invoices.filter(invoice => invoice.isDue()).map(invoice => invoice.data)
-);
+);*/
 
-export const selectDueInvoicesForReceiverAsObjArray = createSelector(
+/*export const selectDueInvoicesForReceiverAsObjArray = createSelector(
   selectDueInvoicesForReceiver,
   invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);
+);*/
 
-export const selectPaidInvoicesForReceiver = createSelector(
+/*export const selectPaidInvoicesForReceiver = createSelector(
   selectAllInvoicesForReceiverAsObjArray,
   invoices => invoices && invoices.filter(invoice => invoice.isPaid()).map(invoice => invoice.data)
-);
+);*/
 
-export const selectPaidInvoicesForReceiverAsObjArray = createSelector(
+/*export const selectPaidInvoicesForReceiverAsObjArray = createSelector(
   selectPaidInvoicesForReceiver,
   invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);
+);*/
 
 export const selectLastInvoicesForReceiver = createSelector(
   selectAllInvoicesForReceiver,
@@ -191,10 +209,10 @@ export const selectContractChangeable = createSelector(
   invoicesCount => invoicesCount === 0
 );
 
-export const selectContractDeletable = createSelector(
+/*export const selectContractDeletable = createSelector(
   selectAllInvoicesForContractCount,
   invoicesCount => invoicesCount === 0
-);
+);*/
 
 export const selectInvoiceReceiver = createSelector(
   invoiceSelectors.selectCurrentInvoice,
@@ -266,7 +284,8 @@ export const isReceiverQualifiedForQuickInvoice = createSelector(
 export const selectContractSummaries = createSelector(
   contractSelectors.selectContractEntities,
   receiverSelectors.selectReceiverEntities,
-  (contracts, receivers) => {
+  invoiceSelectors.selectInvoiceEntities,
+  (contracts, receivers, invoices) => {
     const summaries = {} as ContractSummaries;
     Object.keys(contracts)
       .forEach(contractId => {
@@ -274,10 +293,23 @@ export const selectContractSummaries = createSelector(
         summaries[contractId] = {
           object: Contract.createFromData(contracts[contractId]),
           receiverName: receiver ? receivers[contracts[contractId].customerId].name : 'Unbekannt',
-          revenue: contracts[contractId].revenue,
-          changeable: contracts[contractId].isDeletable,
-          lastInvoiceId: contracts[contractId].lastInvoiceId
+          revenue: 0,
+          changeable: false,
+          lastInvoiceId: ''
         };
+        Object.keys(invoices)
+          .filter(invoiceId => invoices[invoiceId].contractId === contractId)
+          .forEach(invoiceId => {
+            const invoice = Invoice.createFromData(invoices[invoiceId]);
+            // calculate revenue
+            summaries[contractId].revenue = summaries[contractId].revenue + invoice.netValue;
+            // get last invoice Id
+            if (invoiceId > summaries[contractId].lastInvoiceId) {
+              summaries[contractId].lastInvoiceId = invoiceId;
+            }
+          });
+        // get changeability
+        summaries[contractId].changeable = summaries[contractId].lastInvoiceId.length === 0;
       });
     return summaries;
   });
@@ -333,34 +365,48 @@ export const selectReceiverSummaries = createSelector(
       .forEach(receiverId => {
         summaries[receiverId] = {
           object: {} as Receiver,
-          deletable: receivers[receiverId].isDeletable,
+          deletable: false,
           activeContractsCount: 0,
           expiredContractsCount: 0,
-          lastContractId: receivers[receiverId].lastContractId,
+          lastContractId: '',
           dueInvoicesCount: 0,
-          openInvoicesCount: receivers[receiverId].openInvoiceIds && receivers[receiverId].openInvoiceIds.length || 0,
-          lastInvoiceId: receivers[receiverId].lastInvoiceId
+          openInvoicesCount: 0,
+          lastInvoiceId: ''
         };
         summaries[receiverId].object = Receiver.createFromData(receivers[receiverId]);
         Object.keys(contracts)
           .filter(contractId => contracts[contractId].customerId === receiverId)
           .forEach(contractId => {
             const contract = Contract.createFromData(contracts[contractId]);
+            // get counts for active and expired contracts
             if (contract.isActive() || contract.isFuture()) {
               ++summaries[receiverId].activeContractsCount;
             } else {
               ++summaries[receiverId].expiredContractsCount;
             }
+            // get last contract Id
+            if (contractId > summaries[receiverId].lastContractId) {
+              summaries[receiverId].lastContractId = contractId;
+            }
           });
-        if (receivers[receiverId].openInvoiceIds) {
-          receivers[receiverId].openInvoiceIds
-            .forEach(openInvoiceId => {
-              const invoice = Invoice.createFromData(invoices[openInvoiceId]);
-              if (invoice.isDue()) {
-                summaries[receiverId].dueInvoicesCount++;
-              }
-            });
-        }
+        Object.keys(invoices)
+          .filter(invoiceId => invoices[invoiceId].receiverId === receiverId)
+          .forEach(invoiceId => {
+            const invoice = Invoice.createFromData(invoices[invoiceId]);
+            // get counts for open and due invoices
+            if (invoice.isDue()) {
+              summaries[receiverId].dueInvoicesCount++;
+            }
+            if (invoice.isOpen()) {
+              summaries[receiverId].openInvoicesCount++;
+            }
+            // get last invoice Id
+            if (invoiceId > summaries[receiverId].lastInvoiceId) {
+              summaries[receiverId].lastInvoiceId = invoiceId;
+            }
+          });
+        // get deletable
+        summaries[receiverId].deletable =  !(summaries[receiverId].lastContractId.length || summaries[receiverId].lastInvoiceId.length);
       });
     return summaries;
   });
@@ -398,9 +444,6 @@ export const selectInvoiceSendable = createSelector(
       return false;
     }
     const links = documentLinks.filter(link => link.attachToEmail);
-    if (!links || links.length === 0) {
-      return false;
-    }
-    return true;
+    return !(!links || links.length === 0);
   }
 );

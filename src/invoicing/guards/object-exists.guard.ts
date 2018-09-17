@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate} from '@angular/router';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {combineLatest} from 'rxjs/observable/combineLatest';
@@ -32,10 +32,10 @@ export abstract class ObjectExistsGuard implements CanActivate {
 
   protected checkStore(route: ActivatedRouteSnapshot): Observable<boolean> {
     return combineLatest([
-      this.store.select(fromStore.selectNumberRangesLoaded),
-      this.store.select(fromStore.selectContractsLoaded),
-      this.store.select(fromStore.selectReceiversLoaded),
-      this.store.select(fromStore.selectInvoicesLoaded)
+      this.store.pipe(select(fromStore.selectNumberRangesLoaded)),
+      this.store.pipe(select(fromStore.selectContractsLoaded)),
+      this.store.pipe(select(fromStore.selectReceiversLoaded)),
+      this.store.pipe(select(fromStore.selectInvoicesLoaded)),
     ])
       .pipe(
         tap(results => {

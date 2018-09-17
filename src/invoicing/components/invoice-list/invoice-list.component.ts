@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {Invoice} from '../../models/invoice.model';
 import {MasterListComponent} from '../../abstracts/master-list.component';
 
@@ -15,7 +15,7 @@ export class InvoiceListComponent extends MasterListComponent<Invoice> implement
     this.dataSource.data = this.objects;
   }
 
-  isPastDue(invoice: any): boolean {
-    return invoice.dueDate < new Date();
+  isPastDue(invoice: Invoice): boolean {
+    return !invoice.isPaid() && invoice.dueDate < new Date();
   }
 }

@@ -4,7 +4,7 @@ import {Receiver, ReceiverData, ReceiverStatus} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import * as fromAuth from '../../auth/store';
 import * as fromRoot from '../../app/store';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {selectSelectedReceiver} from '../store/selectors';
 import {ReceiverSummary} from '../models/invoicing.model';
 import {Contract} from '../models/contract.model';
@@ -51,9 +51,10 @@ export class ReceiversBusinessService {
   constructor(private settings: SettingsBusinessService,
               private invoicesBusinessService: InvoicesBusinessService,
               private store: Store<fromStore.InvoicingState>) {
-    this.store.select(fromAuth.selectAuth)
+    this.store.pipe(select(fromAuth.selectAuth))
       .subscribe(auth => this.auth = auth);
-    this.store.select(fromStore.selectNumberRangeEntities).pipe(
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
       filter(entities => !!entities['receivers']),
       map(entities => NumberRange.createFromData(entities['receivers']).nextId)
     )
@@ -65,7 +66,7 @@ export class ReceiversBusinessService {
   }
 
   copy(receiver: Receiver) {
-    const data = Object.assign({}, receiver.data, ReceiversBusinessService.getDefaultValues(), { organization: this.auth.organization });
+    const data = Object.assign({}, receiver.data, ReceiversBusinessService.getDefaultValues(), {organization: this.auth.organization});
     this.store.dispatch(new fromStore.CopyReceiverSuccess(data));
   }
 
@@ -76,12 +77,12 @@ export class ReceiversBusinessService {
   }
 
   createQuickInvoice(receiver: Receiver) {
-    this.store.select(fromStore.selectInvoiceableContractsForReceiverAsObjArray)
-      .pipe(
-        map(contracts => contracts.filter(contract => contract.isInvoiceable())),
-        filter(contracts => contracts.length === 1),
-        map(contracts => this.invoicesBusinessService.newInvoiceFromContract(contracts[0]))
-      )
+    this.store.pipe(
+      select(fromStore.selectInvoiceableContractsForReceiverAsObjArray),
+      map(contracts => contracts.filter(contract => contract.isInvoiceable())),
+      filter(contracts => contracts.length === 1),
+      map(contracts => this.invoicesBusinessService.newInvoiceFromContract(contracts[0]))
+    )
       .subscribe()
       .unsubscribe();
   }
@@ -91,11 +92,11 @@ export class ReceiversBusinessService {
       do: new fromStore.DeleteReceiver(receiver.data),
       title: `Soll der Rechnungsempfänger ${receiver.header.id} wirklich gelöscht werden?`
     }));
-   // this.store.dispatch(new fromStore.DeleteReceiver(receiver.data));
+    // this.store.dispatch(new fromStore.DeleteReceiver(receiver.data));
   }
 
   getActiveContracts(): Observable<Contract[]> {
-    return this.store.select(fromStore.selectActiveContractsForReceiverAsObjArray);
+    return this.store.pipe(select(fromStore.selectActiveContractsForReceiverAsObjArray));
   }
 
   getCountries(): Observable<Country[]> {
@@ -103,29 +104,31 @@ export class ReceiversBusinessService {
   }
 
   getCurrent(): Observable<Receiver> {
-    return this.store.select(fromStore.selectCurrentReceiverAsObj);
+    return this.store.pipe(select(fromStore.selectCurrentReceiverAsObj));
   }
 
-  getRecentContracts(): Observable<Contract[]> {
-    return this.store.select(fromStore.selectRecentContractsForReceiverAsObjArray);
+  getLastInvoices(): Observable<Invoice[]> {
+    return this.store.pipe(select(fromStore.selectLastInvoicesForReceiverAsObjArray));
   }
 
   getOpenInvoices(): Observable<Invoice[]> {
-    return this.store.select(fromStore.selectOpenInvoicesForReceiverAsObjArray);
+    return this.store.pipe(select(fromStore.selectOpenInvoicesForReceiverAsObjArray));
+  }
+
+  getRecentContracts(): Observable<Contract[]> {
+    return this.store.pipe(select(fromStore.selectRecentContractsForReceiverAsObjArray));
   }
 
   getSummary(): Observable<ReceiverSummary[]> {
-    return this.store.select(fromStore.selectReceiverSummariesAsArray);
+    return this.store.pipe(select(fromStore.selectReceiverSummariesAsArray));
   }
 
   isDeletable(): Observable<boolean> {
-    return this.getCurrent().pipe(
-      map(receiver => receiver.header.isDeletable)
-    );
+    return this.store.pipe(select(fromStore.isReceiverDeletable));
   }
 
   isQualifiedForQuickInvoice(): Observable<boolean> {
-    return this.store.select(fromStore.isReceiverQualifiedForQuickInvoice);
+    return this.store.pipe(select(fromStore.isReceiverQualifiedForQuickInvoice));
   }
 
   new() {
@@ -134,11 +137,11 @@ export class ReceiversBusinessService {
   }
 
   query(): Observable<ReceiverData[]> {
-    return this.store.select(fromStore.selectAllReceivers);
+    return this.store.pipe(select(fromStore.selectAllReceivers));
   }
 
   select(id: number): Observable<ReceiverData> {
-    return this.store.select(selectSelectedReceiver);
+    return this.store.pipe(select(selectSelectedReceiver));
   }
 
   update(receiver: Receiver) {

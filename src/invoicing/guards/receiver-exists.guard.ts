@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {map, take, tap} from 'rxjs/operators';
 
@@ -15,12 +15,12 @@ export class ReceiverExistsGuard extends ObjectExistsGuard {
   }
 
   protected hasObject(id: string): Observable<boolean> {
-    return this.store.select(fromStore.selectReceiverEntities)
-      .pipe(
-        tap(entity => this.store.dispatch(new fromStore.SelectReceiver(entity[id]))),
-        map(entity => !!entity[id]),
-        take(1)
-      );
+    return this.store.pipe(
+      select(fromStore.selectReceiverEntities),
+      tap(entity => this.store.dispatch(new fromStore.SelectReceiver(entity[id]))),
+      map(entity => !!entity[id]),
+      take(1)
+    );
   }
 }
 

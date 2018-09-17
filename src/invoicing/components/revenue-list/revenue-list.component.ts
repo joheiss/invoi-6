@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Revenue, RevenueData} from '../../models/revenue.model';
+import {Revenue, RevenueData, RevenuePerYearData} from '../../models/revenue.model';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 
 @Component({
@@ -8,7 +8,7 @@ import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.serv
   styleUrls: ['./revenue-list.component.scss']
 })
 export class RevenueListComponent {
-  @Input('revenues') revenues: RevenueData[];
+  @Input() revenues: RevenuePerYearData[];
 
   constructor(private i18nUtility: I18nUtilityService) { }
 
@@ -21,10 +21,9 @@ export class RevenueListComponent {
     ];
   }
 
-  getMonths(data: RevenueData): number[] {
-    const revenue = Revenue.createFromData(data);
-    const revs = revenue.revenueInMonths;
-    revs.push(revenue.totalRevenue);
+  getMonths(data: RevenuePerYearData): number[] {
+    const revs = data.revenuePerMonth;
+    revs.push(data.revenuePerYear);
     return revs;
   }
 }

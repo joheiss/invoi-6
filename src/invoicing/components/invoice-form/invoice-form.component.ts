@@ -6,8 +6,6 @@ import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.serv
 import {Router} from '@angular/router';
 import * as fromValidators from '../../../shared/validators';
 import {Contract} from '../../models/contract.model';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 import {DetailsFormComponent} from '../../abstracts/details-form.component';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../app/store/reducers';

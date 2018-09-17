@@ -17,22 +17,22 @@ export class UiService {
     switch (message.usage) {
       case 'error': {
         config.duration = 30000;
-        config.extraClasses = ['jo-snackbar-error'];
+        config.panelClass = ['jo-snackbar-error'];
         break;
       }
       case 'info': {
         config.duration = 3000;
-        config.extraClasses = ['jo-snackbar-info'];
+        config.panelClass = ['jo-snackbar-info'];
         break;
       }
       case 'success': {
         config.duration = 3000;
-        config.extraClasses = ['jo-snackbar-success'];
+        config.panelClass = ['jo-snackbar-success'];
         break;
       }
       case 'warning': {
         config.duration = 10000;
-        config.extraClasses = ['jo-snackbar-warning'];
+        config.panelClass = ['jo-snackbar-warning'];
         break;
       }
       default:

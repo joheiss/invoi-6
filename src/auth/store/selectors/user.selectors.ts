@@ -71,5 +71,5 @@ export const selectSelectedUserAsObj = createSelector(
 export const selectMoreThanOneUserLoaded = createSelector(
   selectUsersTotal,
   selectUsersLoaded,
-  (total, loaded) => !!(loaded && total > 1)
+  (total, loaded) => (loaded && total > 1)
 );

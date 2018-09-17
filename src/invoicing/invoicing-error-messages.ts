@@ -1,6 +1,7 @@
 import {MessageMap} from '../shared/models/message.model';
 
 export const INVOICING_MSGS: MessageMap = {
+  'contract-create-fail': { text: 'Der Vertrag konnte nicht angelegt werden. [$%]', usage: 'error' },
   'contract-delete-fail': { text: 'Der Vertrag konnte nicht gelöscht werden. [$%]', usage: 'error' },
   'contract-delete-success': { text: 'Der Vertrag $% wurde gelöscht.', usage: 'success' },
   'contract-update-fail': { text: 'Der Vertrag konnte nicht geändert werden. [$%]', usage: 'error' },
@@ -11,6 +12,7 @@ export const INVOICING_MSGS: MessageMap = {
   'file-download-success': { text: 'Die Datei $% wurde heruntergeladen.', usage: 'success' },
   'file-upload-fail': { text: 'Die Datei $% konnte nicht hochgeladen werden.', usage: 'error' },
   'file-upload-success': { text: 'Die Datei $% wurde hochgeladen.', usage: 'success' },
+  'invoice-create-fail': { text: 'Die Rechnung konnte nicht angelegt werden. [$%]', usage: 'error' },
   'invoice-delete-fail': { text: 'Die Rechnung $% konnte nicht gelöscht werden.', usage: 'error' },
   'invoice-delete-success': { text: 'Die Rechnung $% wurde gelöscht.', usage: 'success' },
   'invoice-email-fail': { text: 'Die Rechnung konnte nicht per Email versandt werden.', usage: 'error' },

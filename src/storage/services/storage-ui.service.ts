@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material';
 import {ImageUploadPopupComponent} from '../popups/image-upload-popup/image-upload-popup.component';
 import {UploadPopupData} from '../models/upload-popup-data';
 import {Observable} from 'rxjs/index';
-import {filter, map} from 'rxjs/internal/operators';
+import {filter, map} from 'rxjs/operators';
 
 @Injectable()
 export class StorageUiService {

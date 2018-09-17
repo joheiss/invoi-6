@@ -18,7 +18,9 @@ export class InvoicesService extends ObjectsApiService<InvoiceData> {
   }
 
   createInvoicePDF(payload: InvoiceData): Observable<InvoiceData> {
+    console.log('*** about to invoke https-function ...');
     const url = `https://us-central1-jovisco-invoicing.cloudfunctions.net/invoicing/invoice-pdf/${payload.id}`;
+    console.log(`URL for cloud function is: ${url}`);
     return this.http
       .post<InvoiceData>(url, payload)
       .pipe(

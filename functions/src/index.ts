@@ -5,8 +5,8 @@ import * as express from 'express';
 
 import {validateFirebaseIdToken} from './auth-functions';
 import {
-  handleContractCreation, handleContractDeletion, handleContractUpdate, handleDocumentLinkDeletion,
-  handleInvoiceCreation, handleInvoiceDeletion, handleInvoiceUpdate,
+  handleContractCreation, handleContractDeletion, handleDocumentLinkDeletion,
+  handleInvoiceCreation, handleInvoiceDeletion,
   handleReceiverCreation, handleReceiverDeletion, handleUserProfileCreation, handleUserProfileDeletion, handleUserProfileUpdate
 } from './update-functions';
 import {handleInvoiceEmailSending, handleInvoicePdfCreation, handleUserCreation, handleUserUpdate} from './server-functions';
@@ -28,6 +28,7 @@ app.route('/invoice-pdf/:id').post(handleInvoicePdfCreation);
 app.route('/invoice-email/:id').post(handleInvoiceEmailSending);
 
 admin.initializeApp();
+admin.firestore().settings({ timestampsInSnapshots: true });
 
 export const invoicing = functions.https.onRequest(app);
 export const users = functions.https.onRequest(app);
@@ -48,10 +49,6 @@ export const onDeleteContract = functions.firestore
   .document('contracts/{id}')
   .onDelete(async (snap, context) => handleContractDeletion(snap, context));
 
-export const onUpdateContract = functions.firestore
-  .document('contracts/{id}')
-  .onUpdate(async (change, context) => handleContractUpdate(change, context));
-
 export const onCreateInvoice = functions.firestore
   .document('invoices/{id}')
   .onCreate(async (snap, context) => handleInvoiceCreation(snap, context));
@@ -59,10 +56,6 @@ export const onCreateInvoice = functions.firestore
 export const onDeleteInvoice = functions.firestore
   .document('invoices/{id}')
   .onDelete(async (snap, context) => handleInvoiceDeletion(snap, context));
-
-export const onUpdateInvoice = functions.firestore
-  .document('invoices/{id}')
-  .onUpdate(async (change, context) => handleInvoiceUpdate(change, context));
 
 export const onCreateUserProfile = functions.firestore
   .document('user-profiles/{id}')

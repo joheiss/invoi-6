@@ -3,6 +3,21 @@
     "predeploy": [
       "npm --prefix ./functions/ run lint",
       "npm --prefix ./functions/ run build"
+    ],
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "dist/invoi-6",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
