@@ -71,14 +71,14 @@
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
+    <button id="btn_save" mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
       Speichern
     </button>
-    <button mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
+    <button id="btn_create" mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
       Anlegen
     </button>
-    <button mat-button mat-dialog-close>Abbrechen</button>
-    <button mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid" (click)="onChangePassword(data.user)">
+    <button id="btn_cancel" mat-button mat-dialog-close>Abbrechen</button>
+    <button id="btn_changepw" mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid" (click)="onChangePassword(data.user)">
       Passwort ändern
     </button>
   </mat-dialog-actions>

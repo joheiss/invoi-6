@@ -7,7 +7,7 @@ import {MaterialModule} from '../../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {generateUserProfile} from '../../../test/test-generators';
+import {generateNewUser, generateUserProfile} from '../../../test/test-generators';
 import {By} from '@angular/platform-browser';
 import {User} from '../../models/user';
 
@@ -41,13 +41,15 @@ describe('User Details Dialog Component', () => {
           provide: UsersBusinessService,
           useValue: {
             getThumbnailUrlForSize: jest.fn(() => 'any-size'),
-            new: jest.fn()
+            new: jest.fn(),
+            create: jest.fn(),
+            updateProfile: jest.fn()
           }
         },
         {
           provide: UsersUiService,
           useValue: {
-            openUserProfilePopup: jest.fn()
+            openPasswordChangePopup: jest.fn()
           }
         }
       ]
@@ -131,15 +133,7 @@ describe('User Details Dialog Component', () => {
     it('should have all buttons except cancel disabled if form has validation errors', async () => {
       const displayName = component.form.controls['displayName'];
       displayName.setValue('');
-      await expect(component.form.valid).toBeFalsy();
-      const buttonDebugEls = fixture.debugElement.query(By.css('mat-dialog-actions')).children
-        .filter(de => !(de.nativeElement as HTMLButtonElement).disabled);
-      return expect(buttonDebugEls.length).toBe(1);
-    });
-
-    it('should have all buttons except cancel disabled if form has validation errors', async () => {
-      const displayName = component.form.controls['displayName'];
-      displayName.setValue('');
+      fixture.detectChanges();
       await expect(component.form.valid).toBeFalsy();
       const buttonDebugEls = fixture.debugElement.query(By.css('mat-dialog-actions')).children
         .filter(de => !(de.nativeElement as HTMLButtonElement).disabled);
@@ -147,13 +141,23 @@ describe('User Details Dialog Component', () => {
     });
 
     it('should have save resp. create button disabled if form is dirty', async () => {
-      const displayName = component.form.controls['displayName'];
-      displayName.setValue('Anybody Here');
-      console.log('Form: ', component.form);
+      component.form.markAsDirty();
       await expect(component.form.valid && component.form.dirty).toBeTruthy();
       const buttonDebugEls = fixture.debugElement.query(By.css('mat-dialog-actions')).children
         .filter(de => (de.nativeElement as HTMLButtonElement).disabled);
       return expect(buttonDebugEls.length).toBe(1);
+    });
+
+    it('should invoke onSave handler when save button is pressed', async () => {
+      const spy = jest.spyOn(component, 'onSave');
+      fixture.debugElement.query(By.css('#btn_save')).triggerEventHandler('click', component.form);
+      return expect(spy).toHaveBeenCalledWith(component.form);
+    });
+
+    it('should invoke oPasswordChange handler when change password button is pressed', async () => {
+      const spy = jest.spyOn(component, 'onChangePassword');
+      fixture.debugElement.query(By.css('#btn_changepw')).triggerEventHandler('click', component.data.user);
+      return expect(spy).toHaveBeenCalledWith(component.data.user);
     });
   });
 
@@ -188,6 +192,11 @@ describe('User Details Dialog Component', () => {
       return expect(errors['passwordMatch']).toBeTruthy();
     });
 
+    it('should invoke onSave handler when create button is pressed', async () => {
+      const spy = jest.spyOn(component, 'onSave');
+      fixture.debugElement.query(By.css('#btn_create')).triggerEventHandler('click', component.form);
+      return expect(spy).toHaveBeenCalledWith(component.form);
+    });
   });
 
   async function testForm(data: any) {

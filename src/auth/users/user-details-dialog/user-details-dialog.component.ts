@@ -55,11 +55,9 @@ export class UserDetailsDialogComponent implements OnInit {
     const edited = this.changeObject(form.value);
     if (edited.user.uid) {
       // update
-      console.log('Update user: ', edited);
       this.service.updateProfile(edited.user);
     } else {
       // create
-      console.log('Create user: ', edited);
       this.service.create(edited);
     }
     this.dialogRef.close(this.data.user);
