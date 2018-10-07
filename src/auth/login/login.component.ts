@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import * as fromRoot from '../../app/store/index';
 import {Store} from '@ngrx/store';
@@ -9,7 +9,7 @@ import * as fromStore from '../store';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private store: Store<fromRoot.AppState>) {}
@@ -19,10 +19,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: new FormControl('', { validators: [Validators.required, Validators.email] }),
       password: new FormControl('', { validators: [Validators.required] })
     });
-  }
-
-  ngOnDestroy(): void {
-    // this.loadingSubscription.unsubscribe();
   }
 
   onSubmit() {

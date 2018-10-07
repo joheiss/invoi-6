@@ -4,7 +4,7 @@ import * as userActions from '../actions/users.actions';
 import {catchError, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/index';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers/index';
+import {AppState} from '../../../app/store/reducers';
 import * as fromRoot from '../../../app/store/index';
 import {UsersService, UsersUiService} from '../../services';
 
@@ -24,8 +24,6 @@ export class UserEffects {
     switchMap(action => this.usersService.queryAll()),
     mergeMap(actions => actions),
     map(action => {
-      const type = `[Auth] User ${action.type}`;
-      const payload = action.payload.doc.data();
       return {type: `[Auth] User ${action.type}`, payload: {...action.payload.doc.data(), uid: action.payload.doc.id}};
     })
   );
@@ -37,8 +35,6 @@ export class UserEffects {
     switchMap(payload => this.usersService.queryOne(payload)),
     mergeMap(actions => actions),
     map(action => {
-      const type = `[Auth] User ${action.type}`;
-      const payload = action.payload.doc.data();
       return {type: `[Auth] User ${action.type}`, payload: {...action.payload.doc.data(), uid: action.payload.doc.id}};
     })
   );

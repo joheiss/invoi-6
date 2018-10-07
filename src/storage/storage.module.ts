@@ -4,6 +4,7 @@ import {SharedModule} from '../shared/shared.module';
 import {StorageApiService} from './services/storage-api.service';
 import {ImageUploadPopupComponent} from './popups/image-upload-popup/image-upload-popup.component';
 import {StorageUiService} from './services';
+import {FbStorageService} from '../shared/services/fb-storage.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {StorageUiService} from './services';
     AngularFireStorageModule
   ],
   providers: [
+    FbStorageService
   ],
   entryComponents: [
     ImageUploadPopupComponent

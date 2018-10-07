@@ -12,26 +12,28 @@
   </mat-card-header>
   <mat-card-content class="u-mt-md">
     <div>
-      Vertrag:
+      <span class="jo-card-label">Vertrag: </span>
       <a [routerLink]="['/invoicing/contracts', summary?.object?.header.contractId]">
         {{summary?.object?.header.contractId}}
       </a>
     </div>
     <div class="jo-card-columns">
       <div class="jo-card-info">
-        <div>Nettobetrag:</div>
+        <div class="jo-card-label">Nettobetrag:</div>
         <div class="align-right">{{summary?.object?.netValue | number: '1.2-2' }}</div>
-        <div>Umsatzsteuer:</div>
+        <div class="jo-card-label">Umsatzsteuer:</div>
         <div class="align-right">{{summary?.object?.vatAmount | number: '1.2-2' }}</div>
-        <div>Bruttobetrag:</div>
+        <div class="jo-card-label">Bruttobetrag:</div>
         <div class="align-right">{{summary?.object?.grossValue | number: '1.2-2' }}</div>
       </div>
       <div class="jo-card-info">
-        <div>Zahlungsbetr.:</div>
+        <div class="jo-card-label">Zahlungsbetrag:</div>
         <div class="align-right">{{summary?.object?.paymentAmount | number: '1.2-2' }}</div>
-        <div>Skonto bis:</div>
-        <div>{{summary?.object?.cashDiscountDate | date}}</div>
-        <div>Fällig am:</div>
+        <ng-container *ngIf="isCashDiscountAllowed(summary.object)">
+          <div  class="jo-card-label">Skonto bis:</div>
+          <div>{{summary?.object?.cashDiscountDate | date}}</div>
+        </ng-container>
+        <div class="jo-card-label">Fällig am:</div>
         <div>{{summary?.object?.dueDate | date}}</div>
       </div>
     </div>

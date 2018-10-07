@@ -8,8 +8,8 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./navi-sidebar.component.scss']
 })
 export class NaviSidebarComponent {
-  @Input('auth$') auth$: Observable<UserData>;
-  @Output('close') close = new EventEmitter<void>();
+  @Input() auth$: Observable<UserData>;
+  @Output() close = new EventEmitter<void>();
 
   constructor() {
   }

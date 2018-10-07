@@ -1,10 +1,11 @@
-
 .table {
   display: grid;
+  font-size: 1.2rem;
 
-  @media only screen and (max-width: 959px) {
+  @media only screen and (max-width: 1059px) {
     display: grid;
     grid-template-columns: repeat(4, calc(100% / 4));
+    font-size: 1.4rem;
   }
 }
 
@@ -16,18 +17,18 @@
     border-left: 1px solid darken(white, 25%);
   }
 
-  @media only screen and (max-width: 959px) {
+  @media only screen and (max-width: 1059px) {
     border-bottom: 1px solid darken(white, 25%);
   }
 
-  @media only screen and (min-width: 960px) {
+  @media only screen and (min-width: 1060px) {
     border-left: 1px solid darken(white, 25%);
     grid-template-columns: repeat(14,calc(100% / 14));
   }
 }
 
 div.table-line:last-of-type {
-  @media only screen and (min-width: 960px) {
+  @media only screen and (min-width: 1060px) {
     border-bottom: 1px solid darken(white, 25%);
   }
 }
@@ -42,5 +43,6 @@ div.table-line:last-of-type {
     text-align: center;
     font-size: 1.2rem;
     font-weight: lighter;
+    opacity: 0.7;
   }
 }

@@ -14,4 +14,8 @@ export class InvoiceCardComponent extends MasterCardComponent<Invoice, InvoiceSu
   constructor() {
     super();
   }
+
+  isCashDiscountAllowed(invoice: Invoice): boolean {
+    return invoice.header.cashDiscountPercentage > 0;
+  }
 }

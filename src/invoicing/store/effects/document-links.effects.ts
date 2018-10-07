@@ -1,18 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap, switchMap, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
-import {Store} from '@ngrx/store';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
+import {of} from 'rxjs/index';
 import * as documentLinksActions from '../actions/document-links.actions';
 import * as fromServices from '../../services';
-import * as fromRoot from '../../../app/store';
 
 @Injectable()
 export class DocumentLinksEffects {
 
   constructor(private actions$: Actions,
-              private documentLinksService: fromServices.DocumentLinksService,
-              private store: Store<fromRoot.AppState>) {
+              private documentLinksService: fromServices.DocumentLinksService) {
   }
 
   // FIRESTORE
@@ -24,7 +21,7 @@ export class DocumentLinksEffects {
     map(action => {
       const type = `[Invoicing] Document Link ${action.type}`;
       const payload = {...action.payload.doc.data(), id: action.payload.doc.id};
-      console.log('Query DocumentLinks: ', type, payload);
+      // console.log('Query DocumentLinks: ', type, payload);
       return {type, payload};
     })
   );
@@ -38,7 +35,7 @@ export class DocumentLinksEffects {
     map(action => {
       const type = `[Invoicing] Document Link ${action.type}`;
       const payload = {...action.payload.doc.data(), id: action.payload.doc.id};
-      console.log('Query DocumentLinks: ', type, payload);
+      // console.log('Query DocumentLinks: ', type, payload);
       return {type, payload};
     })
   );

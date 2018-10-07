@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {User} from '../models/user';
 import {UsersBusinessService} from '../business-services/users-business.service';
-import {AppState} from '../../app/store/reducers';
-import {Store} from '@ngrx/store';
 import {UsersUiService} from '../services';
 import {UserDetailsDialogComponent} from './user-details-dialog/user-details-dialog.component';
 
@@ -18,8 +16,7 @@ export class UsersComponent implements OnInit {
   dataSource = new MatTableDataSource<User>();
 
   constructor(private service: UsersBusinessService,
-              private uiService: UsersUiService,
-              private store: Store<AppState>) {}
+              private uiService: UsersUiService) {}
 
   ngOnInit() {
     this.service.getAllUsers()

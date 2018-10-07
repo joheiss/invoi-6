@@ -7,6 +7,11 @@ export const selectAllAuth = createSelector(
   fromAuth.selectAllAuth
 );
 
+export const selectAuthLoading = createSelector(
+  selectAuthState,
+  fromAuth.selectAuthLoading
+);
+
 export const selectAuth = createSelector(
   selectAllAuth,
   (auth => auth.length > 0 ? auth[0] : null)

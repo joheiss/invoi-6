@@ -91,7 +91,6 @@ export class UserDetailsDialogComponent implements OnInit {
       }, { validator: passwordValidator });
       form.addControl('passwords', this.passwords);
     }
-    console.log('Form: ', form);
     return form;
   }
 

@@ -59,7 +59,7 @@ export class PasswordChangeDialogComponent implements OnInit {
     const { passwordConfirm: { password }, oldPassword } = values;
     const changed = Object.assign({}, {
       uid: this.data.user.uid,
-      email: this.data.user.uid,
+      email: this.data.user.email,
       oldPassword: oldPassword,
       password: password
     });

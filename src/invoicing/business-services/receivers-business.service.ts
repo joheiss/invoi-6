@@ -24,11 +24,6 @@ export class ReceiversBusinessService {
     objectType: 'receivers',
     status: ReceiverStatus.active,
     logoUrl: null,
-    isDeletable: true,
-    lastContractId: null,
-    recentContractIds: null,
-    lastInvoiceId: null,
-    openInvoiceIds: null,
     address: {
       country: 'DE'
     }
@@ -40,11 +35,6 @@ export class ReceiversBusinessService {
   private static getDefaultValues(): any {
     return {
       id: undefined,
-      isDeletable: true,
-      lastContractId: null,
-      recentContractIds: null,
-      lastInvoiceId: null,
-      openInvoiceIds: null
     };
   }
 

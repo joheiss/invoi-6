@@ -1,35 +1,33 @@
 <mat-card class="jo-card">
   <mat-card-header class="jo-card-header">
     <div mat-card-avatar class="jo-id-avatar"
-         [ngClass]="{ 'jo-id-avatar--ok': summary?.object?.isActive(),
-                    'jo-id-avatar--inprocess': !summary?.object?.isActive() }">
+         [ngClass]="{ 'jo-id-avatar--active': summary?.object?.isActive(),
+                    'jo-id-avatar--expired': !summary?.object?.isActive() }">
       {{ summary?.object?.header.id }}
     </div>
     <mat-card-title>{{ summary?.object?.header.description }}</mat-card-title>
     <mat-card-subtitle>{{ summary?.receiverName}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="u-mt-md">
-    <div>
-      Vertragspartner:
-      <a [routerLink]="['/invoicing/receivers', summary?.object?.header.customerId]">
-        {{summary?.object?.header.customerId}}
-      </a>
-    </div>
     <div class="jo-card-columns">
       <div class="jo-card-info">
-        <div>Vertragsbeginn:</div>
+        <div class="jo-card-label">Vertragspartner:</div>
+        <div>
+          <a [routerLink]="['/invoicing/receivers', summary?.object?.header.customerId]">
+            {{summary?.object?.header.customerId}}
+          </a>
+        </div>
+        <div class="jo-card-label">Vertragsbeginn:</div>
         <div>{{summary?.object?.header.startDate | date }}</div>
-        <div>Vertragsende:</div>
+        <div class="jo-card-label">Vertragsende:</div>
         <div>{{summary?.object?.header.endDate | date }}</div>
-        <div></div>
-        <div></div>
       </div>
       <div class="jo-card-info">
-        <div>Budget:</div>
+        <div class="jo-card-label">Budget:</div>
         <div class="align-right">{{summary?.object?.header.budget | number: '1.0-0' }}</div>
-        <div>Umsatz:</div>
+        <div class="jo-card-label">Umsatz:</div>
         <div class="align-right">{{summary?.revenue | number: '1.0-0'}}</div>
-        <div>Letzte Rechn.:</div>
+        <div class="jo-card-label">Letzte Rechnung:</div>
         <div *ngIf="summary?.lastInvoiceId">
           <a [routerLink]="['/invoicing/invoices', summary?.lastInvoiceId]">
             {{summary?.lastInvoiceId}}

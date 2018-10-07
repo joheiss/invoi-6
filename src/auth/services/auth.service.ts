@@ -1,81 +1,68 @@
 import {Injectable} from '@angular/core';
-import * as firebase from 'firebase';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {UserCredentials, UserProfileData} from '../models/user';
-import {Observable, of, from, throwError} from 'rxjs/index';
-import {catchError, filter, map, switchMap, tap} from 'rxjs/operators';
+import {UserCredentials} from '../models/user';
+import {Observable, of, throwError} from 'rxjs/index';
+import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {UiService} from '../../shared/services/ui.service';
 import {AUTH_MSGS} from '../auth-error-messages';
 import {MessageContent, Messages} from '../../shared/models/message.model';
-import {User} from 'firebase/app';
-import {HttpClient} from '@angular/common/http';
+import {FbAuthService} from '../../shared/services/fb-auth.service';
+import {FbStoreService} from '../../shared/services/fb-store.service';
+import {FbFunctionsService} from '../../shared/services/fb-functions.service';
 
 @Injectable()
 export class AuthService {
 
-  col: AngularFirestoreCollection<UserProfileData>;
   messages: Messages;
 
-  constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
-              private http: HttpClient,
+  constructor(private fbAuth: FbAuthService,
+              private fbStore: FbStoreService,
+              private fbFunctions: FbFunctionsService,
               private uiService: UiService) {
-    this.col = this.afs.collection('user-profiles');
     this.messages = new Messages(AUTH_MSGS);
   }
 
   queryAuth(): Observable<any> {
-    return this.afAuth.authState
+    return this.fbAuth.getAuthState()
       .pipe(
         filter(authData => !!authData),
-        tap((authData: User) => authData.getIdToken().then(idToken => localStorage.setItem('id_token', idToken))),
-        switchMap(authData => from(this.col.doc(authData.uid).ref.get())
+        switchMap(authData => this.setIdToken(authData)),
+        switchMap(authData => this.fbStore.getOneUserProfile(authData.uid)
           .pipe(
             map(userProfile => {
-              const userData = {...userProfile.data(), uid: authData.uid};
-              return userData;
+              return {...userProfile.data(), uid: authData.uid};
             }),
             catchError(error => of(error))
           )));
   }
 
   login(credentials: UserCredentials): Observable<any> {
-    return from(
-      this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-        .then(authData => authData)
-        .catch(err => {
-          this.uiService.openSnackBar(this.messages.getMessage(err.code));
-          throw new Error(err);
-        }));
+      return this.fbAuth.signInWithEmailAndPassword(credentials.email, credentials.password)
+        .pipe(
+          catchError(err => {
+            this.uiService.openSnackBar(this.messages.getMessage(err.code));
+            throw new Error(err);
+          }));
   }
 
   logout(): Observable<any> {
-    return from(this.afAuth.auth.signOut()
-      .then((authData) => {
-        localStorage.removeItem('id_token');
-        this.uiService.openSnackBar(this.messages.getMessage('user-logged-out'));
-        return authData;
-      }));
-  }
-
-  changeMyPassword(credentials: { uid: string; email?: string; oldPassword?: string, password: string }): Observable<any> {
-    const cred = firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, credentials.oldPassword);
-    return from(
-      firebase.auth().currentUser.reauthenticateWithCredential(cred)
-        .then(auth => firebase.auth().currentUser.updatePassword(credentials.password))
-        .catch(err => {
-          console.error(err);
-          throw new Error(err);
+    return this.fbAuth.logout()
+      .pipe(
+        tap(() => {
+          this.removeIdToken();
+          this.uiService.openSnackBar(this.messages.getMessage('user-logged-out'));
         }));
   }
 
-  changePassword(payload: { uid: string, password: string }): Observable<any> {
-    const url = `https://us-central1-jovisco-invoicing.cloudfunctions.net/users/${payload.uid}`;
-    return this.http
-      .post<any>(url, payload)
+  changeMyPassword(credentials: { uid: string; email?: string; oldPassword?: string, password: string }): Observable<any> {
+    return this.fbAuth.changeMyPassword(credentials)
       .pipe(
-        tap(response => console.log('RESPONSE FROM CHANGE PASSWORD: ', response)),
+        catchError(err => throwError(err))
+      );
+  }
+
+  changePassword(payload: { uid: string, password: string }): Observable<any> {
+    return this.fbFunctions.changePassword(payload)
+      .pipe(
         catchError((error: any) => throwError(error))
       );
   }
@@ -85,5 +72,19 @@ export class AuthService {
       return this.messages.getMessageWithParams(id, params);
     }
     return this.messages.getMessage(id);
+  }
+
+  private removeIdToken(): void {
+    localStorage.removeItem('id_token');
+  }
+
+  setIdToken(authData: any): Observable<any> {
+    console.log('***AUTH SET ID TOKEN***');
+    return this.fbAuth.getIdToken(authData)
+      .pipe(
+        take(1),
+        tap(idToken => localStorage.setItem('id_token', idToken)),
+        map(() => authData)
+      );
   }
 }

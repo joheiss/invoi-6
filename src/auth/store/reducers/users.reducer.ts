@@ -5,7 +5,6 @@ import * as fromUsers from '../actions/users.actions';
 export interface UserState extends EntityState<UserData> {
   loading: boolean;
   loaded: boolean;
-  current?: UserData;
   error?: undefined;
 }
 
@@ -17,7 +16,6 @@ export const userAdapter: EntityAdapter<UserData> = createEntityAdapter<UserData
 const initialState: UserState = userAdapter.getInitialState({
   loading: false,
   loaded: false,
-  current: undefined,
   error: undefined
 });
 
@@ -25,11 +23,10 @@ export function userReducer(state: UserState = initialState, action: fromUsers.U
   switch (action.type) {
 
     case fromUsers.QUERY_USERS: {
-      return { ...state, loading: true, loaded: false, error: undefined, current: undefined };
+      return { ...state, loading: true, loaded: false, error: undefined };
     }
 
     case fromUsers.ADDED_USER: {
-      console.log('User ADDED: ', action.payload);
       return userAdapter.addOne(action.payload, {...state, loaded: true, loading: false, error: undefined });
     }
 
@@ -55,7 +52,6 @@ export const {
 
 export const selectUsersLoading = (state: UserState) => state.loading;
 export const selectUsersLoaded = (state: UserState) => state.loaded;
-export const selectCurrentUser = (state: UserState) => state.current;
 export const selectUsersError = (state: UserState) => state.error;
 
 

@@ -17,8 +17,7 @@ import {environment} from '../environments/environment';
 
 import {AppComponent} from './containers/app.component';
 import {HomeComponent} from './home/home.component';
-import {TestComponent} from './test/test.component';
-import {LoadComponent} from './load/load.component';
+import {ShellComponent } from './shell/shell.component';
 import {NaviHeaderComponent} from './containers/navigation/navi-header/navi-header.component';
 import {NaviSidebarComponent} from './containers/navigation/navi-sidebar/navi-sidebar.component';
 
@@ -31,11 +30,14 @@ import {storageEffects} from '../storage/store/effects';
 // -- not used in production
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
+  import {FbAuthService} from '../shared/services/fb-auth.service';
+  import {FbStoreService} from '../shared/services/fb-store.service';
+  import {FbFunctionsService} from '../shared/services/fb-functions.service';
+
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
   return function(state: AppState, action: Action): AppState {
     if (action.type === '[Auth] clear state') {
-      console.log('CLEAR STATE CALLED.');
         state = undefined;
     }
     return reducer(state, action);
@@ -50,10 +52,9 @@ registerLocaleData(localeDE);
   declarations: [
     AppComponent,
     HomeComponent,
-    TestComponent,
-    LoadComponent,
     NaviHeaderComponent,
-    NaviSidebarComponent
+    NaviSidebarComponent,
+    ShellComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -77,6 +78,9 @@ registerLocaleData(localeDE);
       useClass: CustomSerializer
     },
     ...fromGuards.guards,
+    FbAuthService,
+    FbStoreService,
+    FbFunctionsService
   ],
   bootstrap: [AppComponent]
 })

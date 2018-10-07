@@ -3,9 +3,10 @@ import {Observable} from 'rxjs/index';
 import * as fromStore from '../store';
 import * as fromAuth from '../../auth/store';
 import * as fromStorage from '../../storage/store';
-import {Store} from '@ngrx/store';
-import {User, UserData, UserProfileData} from '../../auth/models/user';
+import {select, Store} from '@ngrx/store';
+import {User, UserData, UserProfileData} from '../models/user';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
+import {first, tap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -23,16 +24,20 @@ export class UsersBusinessService {
   private auth: UserData | null;
 
   constructor(private store: Store<fromStore.IdState>) {
-    this.store.select(fromAuth.selectAuth)
-      .subscribe(auth => this.auth = auth);
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+      first(),
+      tap(auth => this.auth = auth)
+    )
+      .subscribe();
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.store.select(fromStore.selectAllUsersAsObjArray);
+    return this.store.pipe(select(fromStore.selectAllUsersAsObjArray));
   }
 
   getCurrent(): Observable<User> {
-    return this.store.select(fromStore.selectCurrentUserAsObj);
+    return this.store.pipe(select(fromStore.selectCurrentUserAsObj));
   }
 
   changePassword(credentials: { uid: string, email?: string, oldPassword?: string, password: string }) {
@@ -67,7 +72,6 @@ export class UsersBusinessService {
     const endOfSize = url.lastIndexOf('_thumb.png');
     let startOfSize = url.substring(endOfSize - 5, endOfSize).lastIndexOf('_');
     startOfSize = (endOfSize - 5) + startOfSize + 1;
-    const sizePart = url.substring(startOfSize, endOfSize);
     return url.substring(0, startOfSize) + size + url.substring(endOfSize);
   }
 
@@ -79,8 +83,8 @@ export class UsersBusinessService {
     return this.store.dispatch(new fromStore.QueryUsers());
   }
 
-  select(id: number): Observable<UserData> {
-    return this.store.select(fromStore.selectSelectedUser);
+  select(): Observable<UserData> {
+    return this.store.pipe(select(fromStore.selectSelectedUser));
   }
 
   update(userAndPassword: { user: User, password: string }) {

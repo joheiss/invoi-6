@@ -16,11 +16,11 @@ export interface ContractHeaderData extends TransactionHeaderData {
   budget?: number;
   invoiceText?: string;
   internalText?: string;
-  isDeletable?: boolean;
-  lastInvoiceId?: string;
-  revenue?: number;
-  allInvoiceIds?: string[];
-  openInvoiceIds?: string[];
+  // isDeletable?: boolean;
+  // lastInvoiceId?: string;
+  // revenue?: number;
+  // allInvoiceIds?: string[];
+  // openInvoiceIds?: string[];
 }
 
 export interface ContractItemData extends TransactionItemData {

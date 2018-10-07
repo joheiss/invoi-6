@@ -15,7 +15,7 @@ export const CHANGE_PASSWORD_FAIL = '[Auth] change password fail';
 
 export class QueryAuth implements Action {
   readonly type = QUERY_AUTH;
-  constructor(public payload?: UserData) {}
+  constructor() {}
 }
 
 export class Authenticated implements Action {

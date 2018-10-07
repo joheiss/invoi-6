@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
 import {ObjectsApiService, OrderByOption} from './objects-api.service';
 import {DocumentLink} from '../models/document-link';
-import {Observable} from 'rxjs/Observable';
-import {DocumentChangeAction} from 'angularfire2/firestore';
+import {from, Observable} from 'rxjs/index';
 import {catchError} from 'rxjs/operators';
-import {from} from 'rxjs/index';
 
 @Injectable()
 export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
@@ -18,7 +16,7 @@ export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
   }
 
   queryForObject(payload): Observable<DocumentChangeAction<any>[]> {
-    console.log('QueryForObject: ', payload);
+    // console.log('QueryForObject: ', payload);
     const owner = `${payload.objectType}/${payload.id}`;
     const collection = this.afs.collection(DocumentLinksService.COLLECTION_NAME, ref => ref.where('owner', '==', owner));
     return collection.stateChanges().pipe(

@@ -13,21 +13,21 @@
     </div>
     <div class="jo-card-columns">
       <div class="jo-card-info">
-        <div>Aktive Verträge:</div>
+        <div class="jo-card-label">Aktive Verträge:</div>
         <div>{{summary?.activeContractsCount}}</div>
-        <div>Abgelaufene Verträge:</div>
+        <div class="jo-card-label">Abgelaufene Verträge:</div>
         <div>{{summary?.expiredContractsCount}}</div>
-        <div>Letzter Vertrag</div>
+        <div class="jo-card-label">Letzter Vertrag</div>
         <div *ngIf="summary?.lastContractId">
           <a [routerLink]="['/invoicing/contracts', summary?.lastContractId]">{{summary?.lastContractId}}</a>
         </div>
       </div>
       <div class="jo-card-info">
-        <div>Fällige Rechnungen:</div>
+        <div class="jo-card-label">Fällige Rechnungen:</div>
         <div class="align-right">{{summary?.dueInvoicesCount}}</div>
-        <div>Offene Rechnungen:</div>
+        <div class="jo-card-label">Offene Rechnungen:</div>
         <div class="align-right">{{summary?.openInvoicesCount}}</div>
-        <div>Letzte Rechnung:</div>
+        <div class="jo-card-label">Letzte Rechnung:</div>
         <div *ngIf="summary?.lastInvoiceId">
           <a [routerLink]="['/invoicing/invoices', summary?.lastInvoiceId]">
             {{summary?.lastInvoiceId}}

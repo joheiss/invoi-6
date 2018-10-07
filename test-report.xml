@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts">
+    <testCase name="User Details Dialog Component should create the component" duration="1186"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show the correct title" duration="1003"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show the buttons for image upload and deletion" duration="808"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show all relevant fields for user creation within the content area" duration="943"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show the input fields for password and password confirmation" duration="797"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show the checkbox for locking the user" duration="860"/>
+    <testCase name="User Details Dialog Component show user creation dialog correctly should show the correct buttons" duration="792"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show the correct title" duration="691"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show the buttons for image upload and deletion" duration="688"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show all relevant fields for user creation within the content area" duration="769"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show the input fields for password and password confirmation" duration="709"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show the checkbox for locking the user" duration="683"/>
+    <testCase name="User Details Dialog Component show user maintenance dialog correctly should show the correct buttons" duration="737"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show the correct title" duration="657"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show the buttons for image upload and deletion" duration="665"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show all relevant fields for user creation within the content area" duration="692"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show the input fields for password and password confirmation" duration="614"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show the checkbox for locking the user" duration="865"/>
+    <testCase name="User Details Dialog Component show my-profile dialog correctly should show the correct buttons" duration="665"/>
+    <testCase name="User Details Dialog Component Form Validations - General should be invalid when not completely filled in" duration="653"/>
+    <testCase name="User Details Dialog Component Form Validations - General should have an error if display name is not entered" duration="646"/>
+    <testCase name="User Details Dialog Component Form Validations - General should have an error if phone number has an invalid format" duration="691"/>
+    <testCase name="User Details Dialog Component Form Validations - General should have an error if organization is not entered" duration="653"/>
+    <testCase name="User Details Dialog Component Form Validations - General should have an error if roles is not entered" duration="623"/>
+    <testCase name="User Details Dialog Component Form Validations - General should have all buttons except cancel disabled if form has validation errors" duration="710">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1
+Received: 2
+    at Object.<anonymous> (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:137:44)
+    at step (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:73:23)
+    at Object.next (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:40:20)
+    at fulfilled (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:7:32)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:388:26)
+    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\proxy.js:128:39)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:387:32)
+    at Zone.Object.<anonymous>.Zone.run (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:138:43)
+    at C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:872:34
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:421:31)
+    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\proxy.js:159:39)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:420:36)
+    at Zone.Object.<anonymous>.Zone.runTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:188:47)
+    at drainMicroTaskQueue (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:595:35)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]></failure>
+    </testCase>
+    <testCase name="User Details Dialog Component Form Validations - General should have all buttons except cancel disabled if form has validation errors" duration="623">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1
+Received: 2
+    at Object.<anonymous> (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:146:44)
+    at step (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:73:23)
+    at Object.next (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:40:20)
+    at fulfilled (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:7:32)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:388:26)
+    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\proxy.js:128:39)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:387:32)
+    at Zone.Object.<anonymous>.Zone.run (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:138:43)
+    at C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:872:34
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:421:31)
+    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\proxy.js:159:39)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invokeTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:420:36)
+    at Zone.Object.<anonymous>.Zone.runTask (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:188:47)
+    at drainMicroTaskQueue (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:595:35)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]></failure>
+    </testCase>
+    <testCase name="User Details Dialog Component Form Validations - General should have save resp. create button disabled if form is dirty" duration="699">
+      <failure message="Error: expect(received).toBeTruthy()"><![CDATA[Error: expect(received).toBeTruthy()
+
+Received: false
+    at Object.<anonymous> (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:153:66)
+    at step (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:73:23)
+    at Object.next (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:40:20)
+    at C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:24:71
+    at new ZoneAwarePromise (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:891:29)
+    at Object.<anonymous>.__awaiter (C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:4:12)
+    at C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts:149:74
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:388:26)
+    at ProxyZoneSpec.Object.<anonymous>.ProxyZoneSpec.onInvoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\proxy.js:128:39)
+    at ZoneDelegate.Object.<anonymous>.ZoneDelegate.invoke (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:387:32)
+    at Zone.Object.<anonymous>.Zone.run (C:\dev\ts\angular6\invoi-6\node_modules\zone.js\dist\zone.js:138:43)
+    at Object.testBody.length (C:\dev\ts\angular6\invoi-6\node_modules\jest-zone-patch\index.js:50:27)
+    at Object.asyncJestTest (C:\dev\ts\angular6\invoi-6\node_modules\jest-jasmine2\build\jasmine_async.js:108:37)
+    at resolve (C:\dev\ts\angular6\invoi-6\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
+    at new Promise (<anonymous>)
+    at mapper (C:\dev\ts\angular6\invoi-6\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
+    at promise.then (C:\dev\ts\angular6\invoi-6\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
+    at process._tickCallback (internal/process/next_tick.js:68:7)]]></failure>
+    </testCase>
+    <testCase name="User Details Dialog Component Form Validations - User Creation should have an error if email is not entered" duration="648"/>
+    <testCase name="User Details Dialog Component Form Validations - User Creation should have an error if email has incorrect format" duration="616"/>
+    <testCase name="User Details Dialog Component Form Validations - User Creation should have an error if password and confirmed password are not identical" duration="874"/>
+  </file>
+</testExecutions>

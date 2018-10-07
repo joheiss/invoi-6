@@ -34,15 +34,6 @@ export const ANONYMOUS_USER: UserData = {
 
 export class User {
 
-  public static getThumbnailUrlForSize(url: string, size: string): string {
-    const endOfSize = url.lastIndexOf('_thumb.png');
-    let startOfSize = url.substring(endOfSize - 5, endOfSize).lastIndexOf('_');
-    startOfSize = (endOfSize - 5) + startOfSize + 1;
-    const sizePart = url.substring(startOfSize, endOfSize);
-    console.log('Size part: ', sizePart);
-    return url.substring(0, startOfSize) +  size + url.substring(endOfSize);
-  }
-
   public static createFromData(data: UserData): User | undefined {
     if (data) {
       return new User(data);

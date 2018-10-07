@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/index';
+import {Observable, of} from 'rxjs/index';
 
 import * as _ from 'lodash';
 import * as fromStore from '../store';
-import {filter, map, take, tap} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
 import {AppState} from '../../app/store/reducers';
 
 @Injectable()
@@ -15,19 +15,30 @@ export class AuthorizationGuard implements CanActivate, CanLoad {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.checkAuthorization(route.data['roles']);
+    return this.checkAuthorization(route.data['roles'])
+      .pipe(
+        tap(isAuthorized => console.log('Is authorized: ', isAuthorized)),
+        switchMap(isAuthorized => of(isAuthorized)),
+        catchError(() => of(false))
+      );
   }
 
   canLoad(route: Route): Observable<boolean>  {
-    return this.checkAuthorization(route.data['roles']);
+    return this.checkAuthorization(route.data['roles'])
+      .pipe(
+        tap(isAuthorized => console.log('Is authorized: ', isAuthorized)),
+        switchMap(isAuthorized => of(isAuthorized)),
+        catchError(() => of(false))
+      );
   }
 
   private checkAuthorization(allowedRoles: string[]): Observable<boolean> {
-    return this.store.select(fromStore.selectAuth)
-      .pipe(
+    return this.store.pipe(
+      select(fromStore.selectAuth),
         filter(auth => !!auth),
-        tap(auth => console.log('AUTH ROLES: ', auth.roles, 'ALLOWED ROLES: ', allowedRoles)),
-        map(auth => auth.roles && _.intersection(allowedRoles, auth.roles).length > 0),
+        tap(auth => console.log('auth roles: ', auth.roles, 'allowed roles: ', allowedRoles)),
+        map(auth => !!(auth.roles && _.intersection(allowedRoles, auth.roles).length > 0)),
+        tap(auth => console.log),
         take(1)
       );
   }

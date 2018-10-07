@@ -23,6 +23,20 @@ service cloud.firestore {
       allow update: if hasRole('sales-user');
     }
 
+    match /revenues/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sys-admin');
+      allow delete: if hasRole('sys-admin');
+      allow update: if hasRole('sys-admin');
+    }
+
+    match /open-invoices/{id} {
+    	allow read: if hasRole('sales-user');
+      allow create: if hasRole('sys-admin');
+      allow delete: if hasRole('sys-admin');
+      allow update: if hasRole('sys-admin');
+    }
+
     match /receivers/{id} {
     	allow read: if hasRole('sales-user');
       allow create: if hasRole('sales-user');
@@ -105,8 +119,3 @@ service cloud.firestore {
 
   }
 }
-
-
-match /{allPaths=**} {
-      allow read, write: if request.auth != null;
-    }

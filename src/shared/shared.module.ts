@@ -8,7 +8,7 @@ import {I18nUtilityService} from './i18n-utility/i18n-utility.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from '../auth/interceptors/auth.interceptor';
 import {ConfirmationDialogPopupComponent} from './popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LogService} from './services/log.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     },
     DecimalPipe,
     I18nUtilityService,
-    UiService
+    UiService,
+    LogService
   ],
   entryComponents: [
     ConfirmationDialogPopupComponent

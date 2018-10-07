@@ -1,0 +1,15 @@
+.icon {
+  height: 3rem;
+  width: 3rem;
+  fill: currentColor;
+
+  &--sm {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &--lg {
+    height: 5rem;
+    width: 5rem;
+  }
+}

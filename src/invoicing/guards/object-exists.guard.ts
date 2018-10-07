@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate} from '@angular/router';
 import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {Observable, of} from 'rxjs/index';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
 
@@ -11,7 +10,7 @@ import * as fromStore from '../store';
 @Injectable()
 export abstract class ObjectExistsGuard implements CanActivate {
 
-  constructor(protected store: Store<fromStore.InvoicingState>) {}
+  protected constructor(protected store: Store<fromStore.InvoicingState>) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     console.log('ROUTE: ', route);
@@ -24,7 +23,7 @@ export abstract class ObjectExistsGuard implements CanActivate {
           return this.hasObject(route.params.id);
         }),
         catchError((err, caught) => {
-          console.log(err, caught);
+          console.error(err, caught);
           return of(false);
         })
       );
@@ -53,11 +52,12 @@ export abstract class ObjectExistsGuard implements CanActivate {
           }
           this.store.dispatch(new fromStore.QueryDocumentLinksForObject({ objectType: route.url[0].path, id: route.params.id }));
         }),
-        map(([numberRanges,
+        map(([numberRangesLoaded,
                contractsLoaded,
                receiversLoaded,
                invoicesLoaded]) =>
-          numberRanges && contractsLoaded && receiversLoaded && invoicesLoaded),
+          numberRangesLoaded && contractsLoaded && receiversLoaded && invoicesLoaded),
+        tap(loaded => console.log(`[Guard] all dependencies loaded: ${loaded}`)),
         filter(loaded => loaded),
         take(1)
       );

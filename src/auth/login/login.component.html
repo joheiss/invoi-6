@@ -1,6 +1,7 @@
  <section>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
-        fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem" autocomplete="off" novalidate
+        class="jo-login">
     <mat-form-field>
       <input type="email" matInput formControlName="email" placeholder="Benutzerkennung">
       <mat-hint>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-hint>

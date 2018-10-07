@@ -15,6 +15,7 @@ export abstract class ObjectsGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.checkStore()
       .pipe(
+        // tap(loaded => console.log(`[Guard] response from checkStore: ${loaded}`)),
         switchMap(() => of(true)),
         catchError(() => of(false))
       );
@@ -23,6 +24,7 @@ export abstract class ObjectsGuard implements CanActivate {
   protected checkStore(): Observable<boolean> {
     return this.store.pipe(
       select(this.getObjectLoadedSelector()),
+      // tap(loaded => console.log(`[Guard] Object loaded: ${loaded}`)),
       tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
       filter(loaded => loaded),
       take(1)

@@ -11,9 +11,9 @@ export interface LocaleNumberFormattingInfo {
 @Injectable()
 export class I18nUtilityService {
 
-  private formattingInfo: LocaleNumberFormattingInfo;
+  private readonly formattingInfo: LocaleNumberFormattingInfo;
   private readonly decimalSeparatorEscaped: string;
-  private thousandSeparatorEscaped: string;
+  private readonly thousandSeparatorEscaped: string;
 
   constructor(@Inject(LOCALE_ID) private locale: string,
               private decimalPipe: DecimalPipe) {
@@ -25,7 +25,7 @@ export class I18nUtilityService {
   }
 
   public fromLocalAmount(amount: any): number {
-    if (!amount) { return undefined;  }
+    if (!amount) { return 0;  }
     if (typeof amount !== 'string') { return amount; }
 
     const toBeConverted = amount

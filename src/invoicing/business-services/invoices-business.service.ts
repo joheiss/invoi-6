@@ -12,7 +12,7 @@ import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {SettingsBusinessService} from './settings-business.service';
 import {Vat} from '../models/vat';
-import {filter, map, switchMap, take} from 'rxjs/operators';
+import {filter, first, map, switchMap, take, tap} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
 
 @Injectable()
@@ -50,7 +50,6 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- STATIC METHODS      --- */
-
   /* --------------------------- */
   private static getDefaultValues(): any {
     const today = new Date();
@@ -64,13 +63,17 @@ export class InvoicesBusinessService {
   }
 
   /* --------------------------- */
-  /* --- STATIC METHODS      --- */
-
+  /* --- CONSTRUCTOR         --- */
   /* --------------------------- */
   constructor(private store: Store<fromStore.InvoicingState>,
               private settings: SettingsBusinessService) {
-    this.store.pipe(select(fromAuth.selectAuth))
+    // get current user
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+      first()
+    )
       .subscribe(auth => this.auth = auth);
+    // get number ranges for invoices & credit requests
     this.store.pipe(
       select(fromStore.selectNumberRangeEntities),
       filter(entities => !!entities['invoices'] && !!entities['credit-requests'])
@@ -104,7 +107,7 @@ export class InvoicesBusinessService {
 
   create(invoice: Invoice) {
     invoice.header.id = this.getNextId(invoice);
-    console.log('New Invoice ID: ', invoice.header.id);
+    console.log('new invoice id: ', invoice.header.id);
     invoice.header.organization = this.auth.organization;
     this.store.dispatch(new fromStore.CreateInvoice(invoice.data));
   }
@@ -130,11 +133,11 @@ export class InvoicesBusinessService {
   }
 
   getCurrent(): Observable<Invoice> {
-    const current$ = this.store.pipe(select(fromStore.selectCurrentInvoiceAsObj));
-    const sub = current$
-      .subscribe(current => this.currentData = current.data)
-      .unsubscribe();
-    return current$;
+    return this.store.pipe(
+      select(fromStore.selectCurrentInvoiceAsObj),
+      first(),
+      tap(current => this.currentData = current.data)
+    );
   }
 
   getNextId(invoice: Invoice): string {
@@ -228,34 +231,36 @@ export class InvoicesBusinessService {
   }
 
   private changeContractItemRelatedData(invoice: Invoice, itemId: number): Invoice {
-    console.log('*** changeContractItemRelatedData');
+    console.log('*** changeContractItemRelatedData ***');
     const item = invoice.getItem(itemId);
     if (item.contractItemId) {
       console.log('Item.contractItemId: ', item.contractItemId);
-      this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray))
+      this.store.pipe(
+        select(fromStore.selectSelectableContractsForInvoiceAsObjArray),
+        first()
+      )
         .subscribe(contracts => {
           const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
           if (contract) {
-            console.log('contract: ', contract);
-            console.log('type of item.contractItemId: ', typeof item.contractItemId);
             const contractItem = contract.getItem(+item.contractItemId);
             if (contractItem) {
-              console.log('contractItem: ', contractItem);
               item.description = contractItem.description;
               item.quantityUnit = contractItem.priceUnit;
               item.pricePerUnit = contractItem.pricePerUnit;
               item.cashDiscountAllowed = contractItem.cashDiscountAllowed;
             }
           }
-        })
-        .unsubscribe();
+        });
     }
     return invoice;
   }
 
   private changeContractRelatedData(invoice: Invoice): Invoice {
-    console.log('Change contract related data: ', invoice);
-    this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray))
+    console.log('*** changeContractRelatedData *** ', invoice);
+    this.store.pipe(
+      select(fromStore.selectSelectableContractsForInvoiceAsObjArray),
+      first()
+    )
       .subscribe(contracts => {
         const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
         if (contract) {
@@ -268,20 +273,26 @@ export class InvoicesBusinessService {
           invoice.header.invoiceText = contract.header.invoiceText;
           invoice.header.internalText = contract.header.internalText;
         }
-      })
-      .unsubscribe();
+      });
     return invoice;
   }
 
   private async changeReceiverRelatedData(invoice: Invoice): Promise<Invoice> {
-    console.log('Change receiver related data: ', invoice);
+    console.log('*** changeReceiverRelatedData ***: ', invoice);
     invoice.header.vatPercentage = await this.getVatPercentage(invoice).toPromise();
     return invoice;
   }
 
   private processChanges(invoice: Invoice) {
+
     const changed = difference(invoice.data, this.currentData);
-    console.log('changes found: ', changed);
+    // log changes
+    if (Object.keys(changed).length > 0) {
+      console.log('*** changes found ***: ', changed);
+      console.log('current data: ', this.currentData);
+      console.log('invoice data: ', invoice.data);
+    }
+
     Object.keys(changed)
       .forEach(key => {
         switch (key) {

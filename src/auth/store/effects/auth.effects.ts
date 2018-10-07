@@ -4,9 +4,10 @@ import * as authActions from '../actions/auth.actions';
 import * as usersActions from '../actions/users.actions';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/index';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../services';
 import {ClearState} from '../../../invoicing/store/actions';
 import {Store} from '@ngrx/store';
+import {ROOT_EFFECTS_INIT} from '@ngrx/effects';
 import * as fromRoot from '../../../app/store';
 import {AppState} from '../../../app/store/reducers';
 
@@ -19,13 +20,22 @@ export class AuthEffects {
   }
 
   @Effect()
-  queryAuth$ = this.actions$.pipe(
-    ofType(authActions.QUERY_AUTH),
-    tap(() => '*** AUTH Query Auth'),
-    map((action: authActions.QueryAuth) => action.payload),
+  initAuth$ = this.actions$.pipe(
+    ofType(ROOT_EFFECTS_INIT),
     switchMap(() => this.authService.queryAuth()
       .pipe(
-        tap(user => console.log('AUTH QUERY RESULT: ', user)),
+        tap(() => console.log(`[AuthEffects] Initialize Store`)),
+        map(user => new authActions.Authenticated(user)),
+        catchError(error => of(new authActions.NotAuthenticated(error)))
+      ))
+  );
+
+  @Effect()
+  queryAuth$ = this.actions$.pipe(
+    ofType(authActions.QUERY_AUTH),
+    switchMap(() => this.authService.queryAuth()
+      .pipe(
+        // tap(user => console.log(`auth query result:`, user)),
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
@@ -34,12 +44,11 @@ export class AuthEffects {
   @Effect()
   login$ = this.actions$.pipe(
     ofType(authActions.LOGIN),
-    tap(() => console.log('*** ABOUT TO LOGIN')),
     tap(() => this.store.dispatch(new fromRoot.StartSpinning())),
     map((action: authActions.Login) => action.payload),
     switchMap(credentials => this.authService.login(credentials)
       .pipe(
-        map(credentials => new authActions.QueryAuth()),
+        map(() => new authActions.QueryAuth()),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
   );
@@ -47,11 +56,10 @@ export class AuthEffects {
   @Effect()
   logout$ = this.actions$.pipe(
     ofType(authActions.LOGOUT),
-    tap(() => console.log('*** ABOUT TO LOGOUT')),
     map((action: authActions.Logout) => action),
     switchMap(() => this.authService.logout()
       .pipe(
-        tap(() => console.log('*** CLEAR STATE ***')),
+        tap(() => console.log(`[AuthEffects] Clear State`)),
         map(() => new ClearState()),
       ))
   );
@@ -60,18 +68,18 @@ export class AuthEffects {
   authenticated$ = this.actions$.pipe(
     ofType(authActions.AUTHENTICATED),
     map((action: authActions.Authenticated) => action.payload),
-    tap(user => console.log('*** AUTHENTICATED ***, ', user)),
+    tap(user => console.log(`authenticated with:`, user.displayName)),
     switchMap(user => [
       new usersActions.QueryOneUser(user.uid),
-      new fromRoot.Go({path: user.roles && user.roles.indexOf('sales-user') >= 0 ? ['/invoicing'] : ['']}),
-      new fromRoot.StopSpinning()
+      new fromRoot.StopSpinning(),
+      new fromRoot.LeaveLogin(user)
     ])
   );
 
   @Effect()
   notAuthenticated$ = this.actions$.pipe(
     ofType(authActions.NOT_AUTHENTICATED),
-    tap(() => console.log('*** NOT AUTHENTICATED ***')),
+    tap(() => console.log(`not authenticated`)),
     switchMap(() => [
       new fromRoot.Go({path: ['/login']}),
       new fromRoot.StopSpinning()
@@ -81,7 +89,7 @@ export class AuthEffects {
   @Effect()
   changeMyPassword$ = this.actions$.pipe(
     ofType(authActions.CHANGE_MY_PASSWORD),
-    tap(() => console.log('*** ABOUT TO CHANGE MY PASSWORD')),
+    // tap(() => console.log(`about to change my password ...`)),
     tap(() => this.store.dispatch(new fromRoot.StartSpinning())),
     map((action: authActions.ChangeMyPassword) => action.payload),
     switchMap(credentials => this.authService.changeMyPassword(credentials)
@@ -94,7 +102,7 @@ export class AuthEffects {
   @Effect()
   changeMyPasswordSuccess$ = this.actions$.pipe(
     ofType(authActions.CHANGE_MY_PASSWORD_SUCCESS),
-    tap(() => console.log('*** PW CHANGED')),
+    // tap(() => console.log(`password changed`)),
     map((action: authActions.ChangeMyPasswordSuccess) => action.payload),
     switchMap(() => [
       new fromRoot.StopSpinning(),
@@ -107,7 +115,7 @@ export class AuthEffects {
   @Effect()
   changeMyPasswordFail$ = this.actions$.pipe(
     ofType(authActions.CHANGE_MY_PASSWORD_FAIL),
-    tap(() => console.log('*** PW CHANGE ERROR')),
+    tap(() => console.error(`password change failed`)),
     map((action: authActions.ChangeMyPasswordFail) => action.payload),
     switchMap((err) => [
       new fromRoot.StopSpinning(),
@@ -120,7 +128,7 @@ export class AuthEffects {
   @Effect()
   changePassword$ = this.actions$.pipe(
     ofType(authActions.CHANGE_PASSWORD),
-    tap(() => console.log('*** ABOUT TO CHANGE PASSWORD')),
+    // tap(() => console.log(`about to change a user's password ...`)),
     tap(() => this.store.dispatch(new fromRoot.StartSpinning())),
     map((action: authActions.ChangePassword) => action.payload),
     switchMap(credentials => this.authService.changePassword(credentials)
@@ -133,7 +141,7 @@ export class AuthEffects {
   @Effect()
   changePasswordSuccess$ = this.actions$.pipe(
     ofType(authActions.CHANGE_PASSWORD_SUCCESS),
-    tap(() => console.log('*** PW CHANGED')),
+    // tap(() => console.log(`password changed`)),
     map((action: authActions.ChangePasswordSuccess) => action.payload),
     switchMap(() => [
       new fromRoot.StopSpinning(),
@@ -146,7 +154,7 @@ export class AuthEffects {
   @Effect()
   changePasswordFail$ = this.actions$.pipe(
     ofType(authActions.CHANGE_PASSWORD_FAIL),
-    tap(() => console.log('*** PW CHANGE ERROR')),
+    tap(() => console.error(`password change failed`)),
     map((action: authActions.ChangePasswordFail) => action.payload),
     switchMap((err) => [
       new fromRoot.StopSpinning(),

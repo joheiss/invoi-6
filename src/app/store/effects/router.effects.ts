@@ -34,4 +34,18 @@ export class RouterEffects {
     ofType(RouterActions.FORWARD),
     tap(() => this.location.forward())
   );
+
+  @Effect({dispatch: false})
+  leaveLogin$ = this.actions$.pipe(
+    ofType(RouterActions.LEAVE_LOGIN),
+    map((action: RouterActions.LeaveLogin) => action.payload),
+    tap(user => {
+      console.log('Logged in user: ', user);
+      console.log('current Url: ', this.router.url);
+      if (user && this.router.url.endsWith('login')) {
+          return this.router.navigate(user.roles && user.roles.indexOf('sales-user') >= 0 ? ['/invoicing'] : ['']);
+      } else {
+        return;
+      }
+    }));
 }

@@ -6,13 +6,20 @@ import {UsersComponent} from './users/users.component';
 import {AuthenticationGuard, AuthorizationGuard, UsersGuard} from './guards';
 
 const AUTH_ROUTES: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'goodbye', component: GoodbyeComponent },
-  { path: 'users', component: UsersComponent,
-    canActivate: [AuthenticationGuard, AuthorizationGuard, UsersGuard],
-    data: { roles: ['sys-admin'] }
-  }
-];
+  /*{
+    path: '',
+    component: AdminComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'goodbye', component: GoodbyeComponent },
+      {
+        path: 'users', component: UsersComponent,
+        canActivate: [AuthenticationGuard, AuthorizationGuard, UsersGuard],
+        data: { roles: ['sys-admin'] }
+      }
+    /*]*/
+  /*}*/];
 
 @NgModule({
   imports: [

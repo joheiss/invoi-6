@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as fromStore from '../store';
 import {Observable} from 'rxjs/index';
 import {select, Store} from '@ngrx/store';
-import {RevenueData, RevenuePerYearData} from '../models/revenue.model';
+import {RevenuePerYearData} from '../models/revenue.model';
 import {map} from 'rxjs/operators';
 import {OpenInvoiceData} from '../models/open-invoice.model';
 import {Invoice, InvoiceData} from '../models/invoice.model';

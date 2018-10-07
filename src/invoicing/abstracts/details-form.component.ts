@@ -124,27 +124,27 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
   }
 
   protected onSimpleHeaderAmountChanged = (value: any, controlName?: string) => {
-    console.log(`${controlName} changed: ${value}`);
+    console.log(`${controlName} changed on form: ${value}`);
     this.object.header[controlName] = this.utility.fromLocalAmount(value);
   }
 
   protected onSimpleHeaderDateChanged = (value: any, controlName?: string) => {
-    console.log(`${controlName} changed: ${value}`);
+    console.log(`${controlName} changed on form: ${value}`);
     this.object.header[controlName] = value;
   }
 
   protected onSimpleHeaderTextChanged = (value: any, controlName?: string) => {
-    console.log(`${controlName} changed: ${value}`);
+    console.log(`${controlName} changed on form: ${value}`);
     this.object.header[controlName] = value;
   }
 
   protected onSimpleHeaderNumberChanged = (value: any, controlName?: string) => {
-    console.log(`${controlName} changed: ${value}`);
+    console.log(`${controlName} changed on form: ${value}`);
     this.object.header[controlName] = +value;
   }
 
   protected onSimpleHeaderPercentageChanged = (value: any, controlName?: string) => {
-    console.log(`${controlName} changed: ${value}`);
+    console.log(`${controlName} changed on form: ${value}`);
     this.object.header[controlName] = this.utility.fromLocalPercent(value);
   }
 

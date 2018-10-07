@@ -37,7 +37,7 @@ export class ContractDetailsComponent extends DetailsComponent<Contract> impleme
   protected initializeWithData(param: string) {
     this.receivers$ = this.service.getReceivers();
     this.contractPartner$ = this.service.getPartner();
-    console.log('PARAM: ', param);
+    // console.log('PARAM: ', param);
     if (param === 'copy' || param === 'new') {
       this.task = param;
       this.contract$ = this.service.getCurrent();
@@ -47,7 +47,7 @@ export class ContractDetailsComponent extends DetailsComponent<Contract> impleme
       this.contract$ = this.service.getCurrent();
       this.openInvoices$ = this.service.getOpenInvoices();
       this.allInvoices$ = this.service.getInvoices();
-      this.isChangeable$ = this.service.isChangeable();
+      this.isChangeable$ = this.service.isDeletable();
     }
   }
 }

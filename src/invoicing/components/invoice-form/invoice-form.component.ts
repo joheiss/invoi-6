@@ -79,7 +79,8 @@ export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implemen
     const reformattedValues = {
       status: +values.status,
       vatPercentage: this.utility.fromLocalAmount(values.vatPercentage),
-      cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage)
+      cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage),
+      cashDiscountDays: +values.cashDiscountDays
     };
     const changed = Object.assign({},
       {...this.object.data},

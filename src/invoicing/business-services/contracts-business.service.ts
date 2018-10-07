@@ -133,12 +133,6 @@ export class ContractsBusinessService {
     return this.store.pipe(select(fromStore.selectContractSummariesAsSortedArray));
   }
 
-  isChangeable(): Observable<boolean> {
-    return this.getCurrent().pipe(
-      map(contract => contract.header.isDeletable)
-    );
-  }
-
   isDeletable(): Observable<boolean> {
     return this.store.pipe(select(fromStore.selectContractChangeable));
   }

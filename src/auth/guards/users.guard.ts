@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {CanActivate} from '@angular/router';
-import {Action, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs/index';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
 
 import * as fromStore from '../store';
 
 @Injectable()
-export abstract class UsersGuard implements CanActivate {
+export class UsersGuard implements CanActivate {
 
-  constructor(protected store: Store<fromStore.IdState>) {}
+  constructor(private store: Store<fromStore.IdState>) {
+  }
 
   canActivate(): Observable<boolean> {
     return this.checkStore()
@@ -19,20 +20,20 @@ export abstract class UsersGuard implements CanActivate {
       );
   }
 
-  protected checkStore(): Observable<boolean> {
-    return this.store.select(this.getObjectLoadedSelector())
-      .pipe(
-        tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
-        filter(loaded => loaded),
-        take(1)
-      );
+  private checkStore(): Observable<boolean> {
+    return this.store.pipe(
+      select(this.getObjectLoadedSelector()),
+      tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
+      filter(loaded => loaded),
+      take(1)
+    );
   }
 
-  protected getObjectLoadedSelector(): any {
+  private getObjectLoadedSelector(): any {
     return fromStore.selectMoreThanOneUserLoaded;
   }
 
-  protected getQueryAction(): Action {
+  private getQueryAction(): Action {
     return new fromStore.QueryUsers();
   }
 }

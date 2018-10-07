@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as uiActions from '../actions/ui.actions';
 
-import {filter, map, switchMap, tap} from 'rxjs/operators';
+import {filter, first, map, switchMap, tap} from 'rxjs/operators';
 import {UiService} from '../../../shared/services/ui.service';
 
 @Injectable()
@@ -32,8 +32,9 @@ export class UiEffects {
     map((action: uiActions.OpenConfirmationDialog) => action.payload),
     switchMap(payload => this.uiService.openConfirmationDialog(payload)
       .pipe(
+        first(),
         filter(payload => payload.reply),
-        map(payload => payload.do),
+        map(payload => payload.do)
       ))
   );
 }

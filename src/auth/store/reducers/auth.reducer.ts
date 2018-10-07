@@ -1,5 +1,5 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {UserData} from '../../../auth/models/user';
+import {UserData} from '../../models/user';
 import * as fromAuth from '../actions/auth.actions';
 
 export interface AuthState extends EntityState<UserData> {
@@ -31,7 +31,7 @@ export function authReducer(state: AuthState = initialState, action: fromAuth.Au
     }
 
     case fromAuth.AUTHENTICATED: {
-      console.log('AUTHENTICATED: ', action.payload);
+      // console.log('authenticated: ', action.payload.displayName);
       return authAdapter.addOne(action.payload, {...state, loading: false, loaded: true, error: undefined});
     }
 

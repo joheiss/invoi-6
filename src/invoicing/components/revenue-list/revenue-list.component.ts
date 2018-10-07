@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Revenue, RevenueData, RevenuePerYearData} from '../../models/revenue.model';
+import {RevenuePerYearData} from '../../models/revenue.model';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 
 @Component({

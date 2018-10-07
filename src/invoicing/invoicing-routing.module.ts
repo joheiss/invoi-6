@@ -1,4 +1,4 @@
- import {RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import * as fromContainers from './containers';
 import * as fromGuards from './guards';
@@ -104,4 +104,5 @@ const INVOICING_ROUTES: Routes = [
     ...fromGuards.guards
   ]
 })
-export class InvoicingRoutingModule {}
+export class InvoicingRoutingModule {
+}
