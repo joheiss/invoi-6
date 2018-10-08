@@ -25,7 +25,6 @@ export class PasswordChangeDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('DATA: ', this.data);
     if (!this.form) {
       this.form = this.buildForm();
       this.patchForm();
@@ -36,7 +35,6 @@ export class PasswordChangeDialogComponent implements OnInit {
 
   onSave(form: FormGroup) {
     const edited = this.changeObject(form.value);
-    console.log('Change password: ', edited);
     this.service.changePassword(edited);
     this.dialogRef.close();
   }
@@ -44,33 +42,29 @@ export class PasswordChangeDialogComponent implements OnInit {
   private buildForm(): FormGroup {
     const form = this.fb.group({
       email: [{ value: '', disabled: true }],
-      oldPassword: ['', this.data.task === 'my-profile' ? [Validators.required] : []],
+      oldPassword: ['', this.data.task === 'change' ? [Validators.required] : []],
     });
     this.passwordConfirm = this.fb.group({
       password: ['', [Validators.required]],
       confirm: ['', [Validators.required]]
     } , { validator: passwordValidator });
     form.addControl('passwordConfirm', this.passwordConfirm);
-    console.log('Form: ', form);
     return form;
   }
 
   private changeObject(values: any): any {
     const { passwordConfirm: { password }, oldPassword } = values;
-    const changed = Object.assign({}, {
+    return Object.assign({}, {
       uid: this.data.user.uid,
       email: this.data.user.email,
       oldPassword: oldPassword,
       password: password
     });
-    console.log('CHANGED: ', changed);
-    return changed;
   }
 
   private patchForm(): void {
     const { uid, email } = this.data.user.data;
     const patch = Object.assign({}, { uid, email, oldPassword: this.oldPassword, password: this.password, confirm: this.confirm });
-    console.log('PATCH: ', patch);
     this.form.patchValue(patch);
   }
 }

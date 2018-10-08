@@ -35,8 +35,8 @@ export class UserDetailsDialogComponent implements OnInit {
     }
   }
 
-  onChangePassword(user) {
-    const userToEdit = User.createFromData(user.data);
+  onChangePassword(user: User) {
+    const userToEdit = user;
     let popupData;
     if (this.data.task === 'my-profile') {
        popupData = { title: 'Mein Passwort ändern', task: 'change', user: userToEdit };
@@ -47,7 +47,6 @@ export class UserDetailsDialogComponent implements OnInit {
   }
 
   onDeleteImage(user: User) {
-    console.log('Delete image: ', user.imageUrl);
     this.service.deleteProfileImage(user);
   }
 
@@ -65,10 +64,6 @@ export class UserDetailsDialogComponent implements OnInit {
 
   onUploadImage(user) {
     this.service.uploadProfileImage(user);
-  }
-
-  getThumbnailUrlForSize(user: User, size: string): string {
-    return this.service.getThumbnailUrlForSize(user.imageUrl, size);
   }
 
   private buildForm(): FormGroup {
@@ -111,8 +106,7 @@ export class UserDetailsDialogComponent implements OnInit {
     if (this.passwords) {
       password = values.passwords.password;
     }
-    const changedUser = { user: User.createFromData(changed), password: password };
-    return changedUser;
+    return { user: User.createFromData(changed), password: password };
   }
 
   private patchForm(): void {

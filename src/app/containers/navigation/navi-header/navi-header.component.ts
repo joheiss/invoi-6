@@ -19,7 +19,6 @@ export class NaviHeaderComponent {
   }
 
   onMyProfile() {
-    console.log('*** USER DATA: *** ', this.user);
     const userToEdit = User.createFromData(this.user);
     const popupData = {title: 'Meine Daten', task: 'my-profile', user: userToEdit};
     this.usersUiService.openUserProfilePopup(popupData, UserDetailsDialogComponent);

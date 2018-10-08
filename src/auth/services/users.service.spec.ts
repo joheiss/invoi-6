@@ -87,4 +87,14 @@ describe('Users Service', () => {
     });
   });
 
+  describe('getMessage', () => {
+    it('should return a message content consisting of text and usage',  () => {
+      const code = 'auth/wrong-password';
+      const messageContent = service.getMessage(code);
+      expect(messageContent).toEqual({
+        text: 'Anmeldung ist fehlgeschlagen. Bitte überprüfen Sie ihre Eingaben.',
+        usage: 'error'
+      });
+    });
+  });
 });

@@ -1,7 +1,7 @@
 <div class="window mat-elevation-z4">
   <div class="u-mb-md" fxLayout="row" fxLayoutAlign="space-between">
-    <button mat-raised-button color="primary" (click)="onNew()">Benutzer hinzufügen</button>
-    <a mat-raised-button [routerLink]="['/invoicing']">Zurück</a>
+    <button id="btn_create" mat-raised-button color="primary" (click)="onNew()">Benutzer hinzufügen</button>
+    <a id="btn_back" mat-raised-button [routerLink]="['/invoicing']">Zurück</a>
   </div>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="imageUrl">

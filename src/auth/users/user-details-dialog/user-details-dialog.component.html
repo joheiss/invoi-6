@@ -9,10 +9,10 @@
         <img src="assets/img/blank-profile-picture-64.jpg" class="jo-user-img u-mb-md">
       </div>
       <div fxLayout="column" fxLayoutGap="1rem" *ngIf="data.user.uid">
-        <button type="button" mat-raised-button (click)="onUploadImage(data.user)" class="jo-user-img-upload">
+        <button id="btn_img_upload" type="button" mat-raised-button (click)="onUploadImage(data.user)" class="jo-user-img-upload">
           Bild hochladen
         </button>
-        <button type="button" mat-raised-button *ngIf="data.user.imageUrl" (click)="onDeleteImage(data.user)" class="jo-user-img-upload">
+        <button id="btn_img_delete" type="button" mat-raised-button *ngIf="data.user.imageUrl" (click)="onDeleteImage(data.user)" class="jo-user-img-upload">
           Bild löschen
         </button>
       </div>

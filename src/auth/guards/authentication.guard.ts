@@ -46,18 +46,6 @@ export class AuthenticationGuard implements CanActivate, CanLoad {
         }
       }),
       map(auth => !!auth),
-      tap(auth => console.log('authenticated: ', auth)),
       take(1));
-
-    /*
-    return this.store.pipe(
-      select(fromStore.selectAuthLoading),
-      tap(loading => console.log('Is loading: ', true)),
-      select(fromStore.selectAuth),
-      map(auth => !!auth),
-      tap(auth => console.log('authenticated: ', auth)),
-      take(1)
-    );
-    */
   }
 }

@@ -12,6 +12,9 @@
       <mat-hint>Bitte geben Sie ihr Passwort ein.</mat-hint>
       <mat-error>Bitte geben Sie ihr Passwort ein.</mat-error>
     </mat-form-field>
-    <button *ngIf="!(isSpinning$ | async)" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Anmelden</button>
+    <button id="btn_login" type="submit" mat-raised-button color="primary"
+            [disabled]="loginForm.invalid">
+      Anmelden
+    </button>
   </form>
 </section>

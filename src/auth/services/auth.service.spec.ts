@@ -45,7 +45,8 @@ describe('Auth Service', () => {
   });
 
   describe('queryAuth', async () => {
-    it('should provide the user profile of the currently logged in user', async () => {
+    it(`should invoke FbAuthService.getAuthState, FBStoreService.getOneUserProfile, setIdToken 
+    and return the current user's profile`, async () => {
 
       const spyGetAuthState = jest.spyOn(fbAuth, 'getAuthState');
       const spyGetOneUserProfile = jest.spyOn(fbStore, 'getOneUserProfile');
@@ -63,7 +64,7 @@ describe('Auth Service', () => {
   });
 
   describe('login', async () => {
-    it('should return true in case of a successful login', async () => {
+    it('should invoke FbAuthService.signInWithEmailAndPassword and return true for a successful login', async () => {
       const credentials: UserCredentials = {
         email: 'tester@test.de',
         password: 'correct'
@@ -74,7 +75,7 @@ describe('Auth Service', () => {
       return expect(service.login(credentials)).toBeObservable(expected);
     });
 
-    it('should throw an error in case of an unsuccessful login', async () => {
+    it('should invoke FbAuthService.signInWithEmailAndPassword and return false for an unsuccessful login', async () => {
       const credentials: UserCredentials = {
         email: 'tester@test.de',
         password: 'incorrect'
@@ -88,18 +89,21 @@ describe('Auth Service', () => {
   });
 
   describe('logout', async () => {
-    it('should delete the token', async () => {
+    it('should invoke FbAuthService.logout, removeIdToken and UiService.openSnackBar', async () => {
       const spyLogout = jest.spyOn(fbAuth, 'logout');
-      const spyRemoveItem = jest.spyOn(localStorage, 'removeItem');
+      // @ts-ignore
+      const spyRemoveToken = jest.spyOn(service, 'removeIdToken');
+      const spyOpenSnackBar = jest.spyOn(uiService, 'openSnackBar');
       const expected = cold('-a|', { a: true });
       await expect(service.logout()).toBeObservable(expected);
       await expect(spyLogout).toHaveBeenCalled();
-      return expect(spyRemoveItem).toHaveBeenCalledWith('id_token');
+      await expect(spyRemoveToken).toHaveBeenCalled();
+      return expect(spyOpenSnackBar).toHaveBeenCalled();
     });
   });
 
   describe('changeMyPassword', async () => {
-    it('should invoke the firebase method to change the password', async () => {
+    it(`should invoke FbAuthService.changeMyPassword to change the current user's password`, async () => {
       const credentials = {
         uid: 'abcdefgh',
         email: 'tester@test.de',
@@ -114,7 +118,7 @@ describe('Auth Service', () => {
   });
 
   describe('changePassword', async () => {
-    it('should call the firebase endpoint to change the password', async () => {
+    it('should invoke FbFunctionsService.changePassword to change the password', async () => {
       const user = generateUserProfile();
       const payload = {
         uid: user.uid,
@@ -124,6 +128,34 @@ describe('Auth Service', () => {
       const expected = cold('-a|', { a: true });
       await expect(service.changePassword(payload)).toBeObservable(expected);
       return expect(spy).toHaveBeenCalledWith(payload);
+    });
+  });
+
+  describe('getMessage', () => {
+    it('should return a message content consisting of text and usage',  () => {
+      const code = 'auth/wrong-password';
+      const messageContent = service.getMessage(code);
+      expect(messageContent).toEqual({
+        text: 'Anmeldung ist fehlgeschlagen. Bitte überprüfen Sie ihre Eingaben.',
+        usage: 'error'
+      });
+    });
+  });
+
+  describe('removeIdToken', () => {
+    it('should invoke localStorage.removeItem', () => {
+      const spy = jest.spyOn(localStorage, 'removeItem');
+      // @ts-ignore
+      service.removeIdToken();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('setIdToken', () => {
+    it('should invoke FbAuthService.getIdToken', () => {
+      const spy = jest.spyOn(fbAuth, 'getIdToken');
+      service.setIdToken('anything');
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

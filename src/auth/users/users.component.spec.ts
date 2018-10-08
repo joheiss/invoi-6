@@ -10,6 +10,7 @@ import {generateMoreUserProfiles, generateUserProfile} from '../../test/test-gen
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {User} from '../models/user';
+import {DebugElement} from '@angular/core';
 
 describe('Users Component', () => {
 
@@ -26,7 +27,12 @@ describe('Users Component', () => {
         {
           provide: UsersBusinessService,
           useValue: {
-            getAllUsers: jest.fn(() => cold('-a|', {a: [generateUserProfile(), ...generateMoreUserProfiles(3)]})),
+            getAllUsers: jest.fn(() => cold('-a|', {
+              a: [
+                User.createFromData(generateUserProfile()),
+                ...generateMoreUserProfiles(3).map(u => User.createFromData(u))
+              ]
+            })),
             new: jest.fn()
           }
         },
@@ -46,33 +52,80 @@ describe('Users Component', () => {
     uiService = TestBed.get(UsersUiService);
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
-    component.ngOnInit();
-    fixture.whenStable().then(() => fixture.detectChanges());
   });
 
   it('should create the component', async () => {
     return expect(component).toBeTruthy();
   });
 
-  it('should invoke onNew handler when create button is pressed', async () => {
-    const spy = jest.spyOn(component, 'onNew');
-    const buttonDebugEl = fixture.debugElement.query(By.css('button'));
-    buttonDebugEl.triggerEventHandler('click', null);
-    return expect(spy).toHaveBeenCalled();
+  describe('View', () => {
+    beforeEach(async () => {
+      component.dataSource.data = [
+        User.createFromData(generateUserProfile()),
+        ...generateMoreUserProfiles(3).map(u => User.createFromData(u))
+      ];
+      fixture.detectChanges();
+    });
+
+    it('should show the create and the back button', async () => {
+      let de: DebugElement;
+      de = fixture.debugElement.query(By.css('#btn_create'));
+      await expect(de).toBeTruthy();
+      de = fixture.debugElement.query(By.css('#btn_back'));
+      return expect(de).toBeTruthy();
+    });
+
+    it('should show a table with header line and 4 lines with users', async () => {
+      let de: DebugElement;
+      de = fixture.debugElement.query(By.css('mat-table'));
+      await expect(de).toBeTruthy();
+      const count = de.children.length;
+      await expect(count).toBe(5);
+      de = fixture.debugElement.query(By.css('mat-table mat-header-row'));
+      await expect(de).toBeTruthy();
+    });
+
+    it('should invoke onNew handler when create button is pressed', async () => {
+      const spy = jest.spyOn(component, 'onNew');
+      fixture.debugElement.query(By.css('#btn_create')).triggerEventHandler('click', null);
+      return expect(spy).toHaveBeenCalled();
+    });
+
+    it('should invoke onSelect handler when user is selected', async () => {
+      const spy = jest.spyOn(component, 'onSelect');
+      fixture.debugElement.query(By.css('mat-table mat-row')).triggerEventHandler('click', null);
+      return expect(spy).toHaveBeenCalled();
+    });
   });
 
-  it('should prepare new user and open popup when onNew is handled', async () => {
-    const spyNew = jest.spyOn(service, 'new');
-    const spyOpenPopup = jest.spyOn(uiService, 'openUserProfilePopup');
-    component.onNew();
-    await expect(spyNew).toHaveBeenCalled();
-    return expect(spyOpenPopup).toHaveBeenCalled();
-  });
+  describe('Controller', () => {
 
-  it('should prepare selected user and open popup when onSelect is handled', async () => {
-    const user = User.createFromData(generateUserProfile());
-    const spyOpenPopup = jest.spyOn(uiService, 'openUserProfilePopup');
-    component.onSelect(user);
-    return expect(spyOpenPopup).toHaveBeenCalled();
+    describe('ngOnInit', () => {
+
+      it('should invoke UserBusinessService.getAllUsers', async () => {
+        const spy = jest.spyOn(service, 'getAllUsers');
+        component.ngOnInit();
+        return expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('onNew', () => {
+      it('should invoke UserBusinessService.new and UsersUiService.openUserProfilePopup', async () => {
+        const spyNew = jest.spyOn(service, 'new');
+        const spyOpenPopup = jest.spyOn(uiService, 'openUserProfilePopup');
+        component.onNew();
+        await expect(spyNew).toHaveBeenCalled();
+        return expect(spyOpenPopup).toHaveBeenCalled();
+      });
+    });
+
+    describe('onSelect', () => {
+      it('should invoke UsersUiService.openUserProfilePopup', async () => {
+        const user = User.createFromData(generateUserProfile());
+        const spyOpenPopup = jest.spyOn(uiService, 'openUserProfilePopup');
+        component.onSelect(user);
+        return expect(spyOpenPopup).toHaveBeenCalled();
+      });
+    });
   });
 });

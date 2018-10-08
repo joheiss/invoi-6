@@ -9,7 +9,7 @@ export const generateAuth = (): UserInfo => {
     displayName: 'Teddy Tester',
     email: 'tester@test.de',
     phoneNumber: '+49 123 456789',
-    photoURL: '',
+    photoURL: 'https://some-image.url',
     providerId: '',
     uid: 'tester@test.de_1234567890'
   };

@@ -36,9 +36,9 @@ export class AuthorizationGuard implements CanActivate, CanLoad {
     return this.store.pipe(
       select(fromStore.selectAuth),
         filter(auth => !!auth),
-        tap(auth => console.log('auth roles: ', auth.roles, 'allowed roles: ', allowedRoles)),
+        // tap(auth => console.log('auth roles: ', auth.roles, 'allowed roles: ', allowedRoles)),
         map(auth => !!(auth.roles && _.intersection(allowedRoles, auth.roles).length > 0)),
-        tap(auth => console.log),
+        // tap(auth => console.log),
         take(1)
       );
   }

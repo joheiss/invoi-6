@@ -79,7 +79,6 @@ export class AuthService {
   }
 
   setIdToken(authData: any): Observable<any> {
-    console.log('***AUTH SET ID TOKEN***');
     return this.fbAuth.getIdToken(authData)
       .pipe(
         take(1),
