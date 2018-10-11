@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ReceiverData} from '../models/receiver.model';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {ObjectsApiService, OrderByOption} from './objects-api.service';
+import {ObjectsApiService} from './objects-api.service';
+import {OrderByOption} from '../../shared/models/order-by-option';
+import {FbStoreService} from '../../shared/services/fb-store.service';
 
 @Injectable()
 export class ReceiversService extends ObjectsApiService<ReceiverData> {
@@ -9,7 +10,7 @@ export class ReceiversService extends ObjectsApiService<ReceiverData> {
   static readonly COLLECTION_NAME = 'receivers';
   static readonly COLLECTION_ORDERBY: OrderByOption = { fieldName: 'id', direction: 'asc' };
 
-  constructor(protected afs: AngularFirestore) {
-     super(afs, ReceiversService.COLLECTION_NAME, ReceiversService.COLLECTION_ORDERBY);
+  constructor(protected fbStore: FbStoreService) {
+     super(fbStore, ReceiversService.COLLECTION_NAME, ReceiversService.COLLECTION_ORDERBY);
   }
 }

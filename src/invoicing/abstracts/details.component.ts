@@ -1,16 +1,21 @@
 import {OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {BehaviorSubject} from 'rxjs/index';
 
 export abstract class DetailsComponent<T> implements OnInit {
 
-  task: string;
+  task$: BehaviorSubject<string> = new BehaviorSubject('edit');
 
   protected constructor(protected service: any,
-                        protected route: ActivatedRoute) {}
+                        protected route: ActivatedRoute) {
+    this.route.paramMap
+      .subscribe(params => {
+        console.log('Route params changed: ', params.get('id'));
+        this.initializeWithData(params.get('id'));
+      });
+  }
 
   ngOnInit() {
-    this.route.paramMap
-      .subscribe(params => this.initializeWithData(params.get('id')));
   }
 
   onChanged(object: T) {

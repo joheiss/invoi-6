@@ -39,11 +39,11 @@ export class ContractDetailsComponent extends DetailsComponent<Contract> impleme
     this.contractPartner$ = this.service.getPartner();
     // console.log('PARAM: ', param);
     if (param === 'copy' || param === 'new') {
-      this.task = param;
+      this.task$.next(param);
       this.contract$ = this.service.getCurrent();
       this.isChangeable$ = of(true);
     } else {
-      this.task = 'edit';
+      this.task$.next('edit');
       this.contract$ = this.service.getCurrent();
       this.openInvoices$ = this.service.getOpenInvoices();
       this.allInvoices$ = this.service.getInvoices();

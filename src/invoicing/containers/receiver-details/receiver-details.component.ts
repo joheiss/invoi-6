@@ -4,7 +4,7 @@ import {Receiver} from '../../models/receiver.model';
 import {Contract} from '../../models/contract.model';
 import {ActivatedRoute} from '@angular/router';
 import {Invoice} from '../../models/invoice.model';
-import {ReceiversBusinessService} from '../../business-services/receivers-business.service';
+import {ReceiversBusinessService} from '../../business-services';
 import {DetailsComponent} from '../../abstracts/details.component';
 import {Country} from '../../models/country';
 
@@ -40,10 +40,10 @@ export class ReceiverDetailsComponent extends DetailsComponent<Receiver> impleme
   protected initializeWithData(param: string): void {
     this.countries$ = this.service.getCountries();
     if (param === 'copy' || param === 'new') {
-      this.task = param;
+      this.task$.next(param);
       this.receiver$ = this.service.getCurrent();
     } else {
-      this.task = 'edit';
+      this.task$.next('edit');
       this.receiver$ = this.service.getCurrent();
       this.activeContractsForReceiver$ = this.service.getActiveContracts();
       this.lastContractsForReceiver$ = this.service.getRecentContracts();

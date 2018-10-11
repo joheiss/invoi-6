@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, DocumentChangeAction} from 'angularfire2/firestore';
-import {ObjectsApiService, OrderByOption} from './objects-api.service';
+import {DocumentChangeAction} from 'angularfire2/firestore';
+import {ObjectsApiService} from './objects-api.service';
 import {DocumentLink} from '../models/document-link';
-import {from, Observable} from 'rxjs/index';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs/index';
+import {OrderByOption} from '../../shared/models/order-by-option';
+import {FbStoreService} from '../../shared/services/fb-store.service';
 
 @Injectable()
 export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
@@ -11,30 +12,16 @@ export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
   static readonly COLLECTION_NAME = 'document-links';
   static readonly COLLECTION_ORDERBY: OrderByOption = {fieldName: 'path', direction: 'asc'};
 
-  constructor(protected afs: AngularFirestore) {
-    super(afs, DocumentLinksService.COLLECTION_NAME, DocumentLinksService.COLLECTION_ORDERBY);
+  constructor(protected fbStore: FbStoreService) {
+    super(fbStore, DocumentLinksService.COLLECTION_NAME, DocumentLinksService.COLLECTION_ORDERBY);
   }
 
-  queryForObject(payload): Observable<DocumentChangeAction<any>[]> {
-    // console.log('QueryForObject: ', payload);
-    const owner = `${payload.objectType}/${payload.id}`;
-    const collection = this.afs.collection(DocumentLinksService.COLLECTION_NAME, ref => ref.where('owner', '==', owner));
-    return collection.stateChanges().pipe(
-      catchError((err, caught) => [])
-    );
+  queryForObject(payload: any): Observable<DocumentChangeAction<any>[]> {
+    return this.fbStore.queryAllDocumentLinksForObject(payload);
   }
 
   create(payload: DocumentLink): Observable<any> {
-    const {$id: removed, ...documentLink} = payload;
-    return from(
-      this.col.add(documentLink)
-        .then(ref => {
-          return {$id: ref.id, ...documentLink};
-        })
-        .catch(err => {
-          throw new Error(err);
-        })
-    );
+    return this.fbStore.createDocumentLink(payload);
   }
 
 }

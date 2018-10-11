@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ReceiverSummary} from '../../models/invoicing.model';
 import {Receiver} from '../../models/receiver.model';
-import {ReceiversBusinessService} from '../../business-services/receivers-business.service';
+import {ReceiversBusinessService} from '../../business-services';
 import {MasterComponent} from '../../abstracts/master.component';
 
 @Component({

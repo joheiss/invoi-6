@@ -45,7 +45,7 @@ module.exports = {
   moduleNameMapper: {
     "app/(.*)": "<rootDir>/src/app/$1",
     "auth/(.*)": "<rootDir>/src/auth/$1",
-    "invoicing/(.*)": "<rootDir>/src/invoicing/$1",
+    // "invoicing/(.*)": "<rootDir>/src/invoicing/$1",
     "shared/(.*)": "<rootDir>/src/shared/$1",
     "storage/(.*)": "<rootDir>/src/storage/$1",
     "@common/(.*)": "<rootDir>/src/app/common/$1",

@@ -13,10 +13,9 @@ import {InvoicesBusinessService} from './invoices-business.service';
 import * as fromRoot from '../../app/store';
 import {filter, map} from 'rxjs/internal/operators';
 
-
 @Injectable()
 export class ContractsBusinessService {
-  private static template = {
+  private static template: ContractData = {
     objectType: 'contracts',
     issuedAt: new Date(),
     currency: 'EUR',
@@ -26,12 +25,6 @@ export class ContractsBusinessService {
     cashDiscountDays: 0,
     cashDiscountPercentage: 0,
     dueDays: 30,
-    documentUrl: null,
-    isDeletable: true,
-    lastInvoiceId: null,
-    allInvoiceIds: null,
-    openInvoiceIds: null,
-    revenue: 0
   } as ContractData;
 
   private static itemTemplate = {
@@ -45,19 +38,14 @@ export class ContractsBusinessService {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
+    const issuedAt = new Date(year, month, today.getDate());
     const defaultStartDate = new Date(year, month + 1, 1);
     const defaultEndDate = new Date(year, month + 4, 0);
     return {
       id: undefined,
-      issuedAt: today,
+      issuedAt: issuedAt,
       startDate: defaultStartDate,
       endDate: defaultEndDate,
-      documentUrl: null,
-      isDeletable: true,
-      lastInvoiceId: null,
-      openInvoiceIds: null,
-      allInvoiceIds: null,
-      revenue: 0
     };
   }
 
@@ -98,7 +86,7 @@ export class ContractsBusinessService {
   }
 
   createQuickInvoice(contract: Contract) {
-    this.invoicesBusinessService.newInvoiceFromContract(contract);
+    return this.invoicesBusinessService.newInvoiceFromContract(contract);
   }
 
   delete(contract: Contract) {
@@ -106,7 +94,6 @@ export class ContractsBusinessService {
       do: new fromStore.DeleteContract(contract.data),
       title: `Soll der Vertrag ${contract.header.id} wirklich gelöscht werden?`
     }));
-    // this.store.dispatch(new fromStore.DeleteContract(contract.data));
   }
 
   getCurrent(): Observable<Contract> {

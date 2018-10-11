@@ -10,7 +10,6 @@ import {difference} from '../../shared/utilities/object-utilities';
 import {NumberRange} from '../models/number-range.model';
 import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
-import {SettingsBusinessService} from './settings-business.service';
 import {Vat} from '../models/vat';
 import {filter, first, map, switchMap, take, tap} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
@@ -23,7 +22,7 @@ export class InvoicesBusinessService {
   private static template = {
     objectType: 'invoices',
     billingMethod: BillingMethod.Invoice,
-    issuedAt: new Date(),
+    issuedAt: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
     status: InvoiceStatus.created,
     currency: 'EUR',
     vatPercentage: 19.0,
@@ -32,7 +31,10 @@ export class InvoicesBusinessService {
     cashDiscountDays: 0,
     cashDiscountPercentage: 0,
     dueInDays: 30,
-    documentLinks: null
+    organization: null,
+    billingPeriod: null,
+    internalText: null,
+    invoiceText: null,
   } as InvoiceData;
 
   private static itemTemplate = {
@@ -55,7 +57,7 @@ export class InvoicesBusinessService {
     const today = new Date();
     return {
       id: undefined,
-      issuedAt: today,
+      issuedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
       status: InvoiceStatus.created,
       documentUrl: null,
       documentLinks: null
@@ -65,8 +67,7 @@ export class InvoicesBusinessService {
   /* --------------------------- */
   /* --- CONSTRUCTOR         --- */
   /* --------------------------- */
-  constructor(private store: Store<fromStore.InvoicingState>,
-              private settings: SettingsBusinessService) {
+  constructor(private store: Store<fromStore.InvoicingState>) {
     // get current user
     this.store.pipe(
       select(fromAuth.selectAuth),
@@ -121,7 +122,6 @@ export class InvoicesBusinessService {
       do: new fromStore.DeleteInvoice(invoice.data),
       title: `Soll die Rechnung ${invoice.header.id} wirklich gelöscht werden?`
     }));
-    // this.store.dispatch(new fromStore.DeleteInvoice(invoice.data));
   }
 
   getContract(): Observable<Contract> {
@@ -173,7 +173,7 @@ export class InvoicesBusinessService {
     this.store.dispatch(new fromStore.NewInvoiceSuccess(data));
   }
 
-  newInvoiceFromContract(contract: Contract): void {
+  async newInvoiceFromContract(contract: Contract): Promise<void> {
     // --- prepare invoice from contract
     console.log('about to prepare invoice with receiver & contract: ', contract);
     const data = Object.assign({}, InvoicesBusinessService.template);
@@ -200,11 +200,13 @@ export class InvoicesBusinessService {
     });
     // --- get vat percentage
     const invoice = Invoice.createFromData(data);
-    this.getVatPercentage(invoice).subscribe(percentage => {
-      invoice.vatPercentage = percentage;
-      // --- navigate to invoice form
-      return this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data));
-    });
+    await this.getVatPercentage(invoice).pipe(
+      take(1),
+      tap(percentage => invoice.vatPercentage = percentage),
+      // tap(() => this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data)))
+    )
+      .subscribe();
+    return this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data));
   }
 
   newItem(invoice: Invoice): InvoiceItem {
@@ -217,7 +219,7 @@ export class InvoicesBusinessService {
     this.change(invoice);
   }
 
-  select(id: number): Observable<InvoiceData> {
+  select(): Observable<InvoiceData> {
     return this.store.pipe(select(fromStore.selectSelectedInvoice));
   }
 

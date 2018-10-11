@@ -13,7 +13,7 @@
         [openInvoices]="openInvoices$ | async"
         [allInvoices]="allInvoices$ | async"
         [isChangeable]="isChangeable$ | async"
-        [task]="task"
+        [task]="task$ | async"
         (copy)="onCopy($event)"
         (new)="onNew()"
         (create)="onCreate($event)"

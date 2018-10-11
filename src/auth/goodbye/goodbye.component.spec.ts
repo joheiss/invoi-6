@@ -13,7 +13,7 @@ describe('GoodbyeComponent', () => {
   let fixture: ComponentFixture<GoodbyeComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [GoodbyeComponent],
       providers: [
@@ -39,13 +39,16 @@ describe('GoodbyeComponent', () => {
   });
 
 
-  describe('ngOnInit()', () => {
-    it('should dispatch the Logout action in ngOnInit lifecycle event', () => {
-      const action = new Logout();
-      const store = TestBed.get(Store);
-      const spy = jest.spyOn(store, 'dispatch');
-      fixture.detectChanges();
-      return expect(spy).toHaveBeenCalledWith(action);
+  describe('Controller', () => {
+
+    describe('ngOnInit()', () => {
+      it('should dispatch the Logout action in ngOnInit lifecycle event', () => {
+        const action = new Logout();
+        const store = TestBed.get(Store);
+        const spy = jest.spyOn(store, 'dispatch');
+        fixture.detectChanges();
+        return expect(spy).toHaveBeenCalledWith(action);
+      });
     });
   });
 });

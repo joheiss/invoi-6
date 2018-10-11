@@ -2,7 +2,7 @@ import {EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '
 import {FormGroup} from '@angular/forms';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {Subscription} from 'rxjs/index';
-import {debounceTime, distinctUntilChanged} from 'rxjs/internal/operators';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestroy {
   @Input() itemGroup: FormGroup;
@@ -26,7 +26,6 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
         distinctUntilChanged()
       )
         .subscribe(changes => {
-          console.log('Listening to: ', changes);
           this.processFieldChanges(changes);
         });
     } else {
@@ -35,7 +34,9 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
   }
 
   ngOnDestroy(): void {
-    this.itemChanges.unsubscribe();
+    if (this.itemChanges) {
+      this.itemChanges.unsubscribe();
+    }
   }
 
   onDelete(itemId: number) {

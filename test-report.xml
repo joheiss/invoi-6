@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\dev\ts\angular6\invoi-6\src\auth\login\login.component.spec.ts">
-    <testCase name="LoginComponent should create the component" duration="942"/>
-    <testCase name="LoginComponent View When view is initially displayed ... should show the input fields for email and password" duration="669"/>
-    <testCase name="LoginComponent View When view is initially displayed ... should show the login button" duration="607"/>
-    <testCase name="LoginComponent View When view content is edited ... should be invalid when not completely filled in" duration="593"/>
-    <testCase name="LoginComponent View When view content is edited ... should have an error if email is not entered" duration="528"/>
-    <testCase name="LoginComponent View When view content is edited ... should have an error if email has invalid format" duration="513"/>
-    <testCase name="LoginComponent View When view content is edited ... should have an error if password is not entered" duration="563"/>
-    <testCase name="LoginComponent View When view content is edited ... should have save button disabled if form is invalid" duration="567"/>
-    <testCase name="LoginComponent View When view content is edited ... should invoke onSubmit handler when login button is pressed" duration="495"/>
-    <testCase name="LoginComponent Controller onSubmit should dispatch Login action" duration="560"/>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\invoices-business.service.spec.ts">
+    <testCase name="Invoices Business Service should create the service" duration="66"/>
+    <testCase name="Invoices Business Service should invoke newItem and change if item addition is processed" duration="157"/>
+    <testCase name="Invoices Business Service should invoke processChanges and dispatch ChangeInvoiceSuccess event if change is processed" duration="16"/>
+    <testCase name="Invoices Business Service should dispatch CopyInvoiceSuccess event if copy is processed" duration="22"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoice action if create is processed" duration="22"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoicePdf action if PDF creation is processed" duration="15"/>
+    <testCase name="Invoices Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="27"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContract is processed" duration="10"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContracts is processed" duration="14"/>
+    <testCase name="Invoices Business Service should invoke store selector if getCurrent is processed" duration="15"/>
+    <testCase name="Invoices Business Service should return the next id for an invoice" duration="12"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceiver is processed" duration="17"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceivers is processed" duration="16"/>
+    <testCase name="Invoices Business Service should invoke store selector if getSummary is processed" duration="25"/>
+    <testCase name="Invoices Business Service should invoke store selector if isChangeable is processed" duration="11"/>
+    <testCase name="Invoices Business Service should invoke store selector if isDeletable is processed" duration="12"/>
+    <testCase name="Invoices Business Service should dispatch NewInvoiceSuccess event if new is processed" duration="13"/>
+    <testCase name="Invoices Business Service should prepare a new invoice for a given contract and dispatch NewQuickInvoiceSuccess event" duration="22"/>
+    <testCase name="Invoices Business Service should invoke change if removeItem is processed" duration="28"/>
+    <testCase name="Invoices Business Service should invoke store selector if select is processed" duration="17"/>
+    <testCase name="Invoices Business Service should dispatch SendInvoiceEmail action when sendEmail is processed" duration="19"/>
+    <testCase name="Invoices Business Service should dispatch UpdateInvoice action when update is processed" duration="20"/>
   </file>
 </testExecutions>

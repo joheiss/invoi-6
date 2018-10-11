@@ -14,7 +14,7 @@
         [lastContracts]="lastContractsForReceiver$ | async"
         [openInvoices]="openInvoicesForReceiver$ | async"
         [lastInvoices]="lastInvoicesForReceiver$ | async"
-        [task]="task"
+        [task]="task$ | async"
         [countries]="countries$ | async"
         (copy)="onCopy($event)"
         (new)="onNew()"

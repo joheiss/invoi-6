@@ -5,7 +5,7 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <section *ngIf="task !== 'quick'">
+    <section *ngIf="(task$ | async) !== 'quick'">
       <jo-invoice-form
         [object]="invoice"
         [invoiceReceiver]="invoiceReceiver$ | async"
@@ -25,7 +25,7 @@
         (sendEmail)="onSendEmail($event)">
       </jo-invoice-form>
     </section>
-    <section *ngIf="task === 'quick'">
+    <section *ngIf="(task$ | async) === 'quick'">
       <jo-quick-invoice-form
         [object]="invoice"
         [invoiceReceiver]="invoiceReceiver$ | async"

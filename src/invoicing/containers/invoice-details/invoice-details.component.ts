@@ -12,7 +12,7 @@ import {DetailsComponent} from '../../abstracts/details.component';
   selector: 'jo-invoice-details',
   templateUrl: './invoice-details.component.html',
   styleUrls: ['./invoice-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceDetailsComponent extends DetailsComponent<Invoice> implements OnInit {
   invoice$: Observable<Invoice>;
@@ -52,12 +52,12 @@ export class InvoiceDetailsComponent extends DetailsComponent<Invoice> implement
     this.contracts$ = this.service.getContracts();
     this.mode = 'edit';
     if (param === 'copy' || param === 'new') {
-      this.task = param;
+      this.task$.next(param);
       this.isChangeable$ = of(true);
     } else if (param === 'quick') {
-      this.task = param;
+      this.task$.next(param);
     } else {
-      this.task = 'edit';
+      this.task$.next('edit');
       this.isChangeable$ = this.service.isChangeable();
       this.isSendable$ = this.service.isSendable();
     }

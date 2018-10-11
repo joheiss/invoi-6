@@ -10,7 +10,7 @@ import {AppState} from '../../app/store/reducers';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../app/store';
 import {DocumentLink} from '../models/document-link';
-import {debounceTime, distinctUntilChanged} from 'rxjs/internal/operators';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 export abstract class DetailsFormComponent<T extends Transaction | MasterData> implements OnInit, OnChanges, OnDestroy {
   @Input() object: T;
