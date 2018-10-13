@@ -1,9 +1,9 @@
 import {Store} from '@ngrx/store';
 import {
   generateContract,
-  generateInvoice,
+  generateInvoice, generateInvoiceData,
   generateNewInvoice,
-  generateNewInvoiceData,
+  generateNewInvoiceData, generateOtherReceiver, generateReceiver,
   generateUserProfile
 } from '../../test/test-generators';
 import {TestBed} from '@angular/core/testing';
@@ -23,6 +23,8 @@ import {
 import {OpenConfirmationDialog} from '../../app/store/actions';
 import * as fromStore from '../store';
 import {Invoice} from '../models/invoice.model';
+import {Contract} from '../models/contract.model';
+import {Receiver} from '../models/receiver.model';
 
 let store: Store<InvoicingState>;
 let service: InvoicesBusinessService;
@@ -75,8 +77,10 @@ describe('Invoices Business Service', () => {
   it('should invoke processChanges and dispatch ChangeInvoiceSuccess event if change is processed', async () => {
     const event = new ChangeInvoiceSuccess(invoice.data);
     const spy = jest.spyOn(store, 'dispatch');
+    const spyProcessChanges = jest.spyOn<any, any>(service, 'processChanges');
     service.change(invoice);
-    return expect(spy).toHaveBeenCalledWith(event);
+    await expect(spyProcessChanges).toHaveBeenCalledWith(invoice);
+    // await expect(spy).toHaveBeenCalledWith(event);
   });
 
   it('should dispatch CopyInvoiceSuccess event if copy is processed', async () => {
@@ -212,4 +216,85 @@ describe('Invoices Business Service', () => {
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
+  it('should detect change of receiver on an invoice and handle it', async () => {
+    service['getVatPercentage'] = jest.fn(() => cold('-a|', { a: 18.0 }));
+    const currentInvoice = generateInvoice();
+    service['currentData'] = currentInvoice.data;
+    const changedInvoice = generateInvoice();
+    changedInvoice.header.receiverId = '1902';
+    const expectedInvoice = generateInvoice();
+    expectedInvoice.header.receiverId = '1902';
+    expectedInvoice.header.vatPercentage = 18.0;
+    const expected = cold('-(a|)', { a: expectedInvoice });
+    expect(service['processChanges'](changedInvoice)).toBeObservable(expected);
+    // const spy = jest.spyOn(store, 'dispatch');
+    // service.change(changedInvoice);
+    // const event = new ChangeInvoiceSuccess(expectedInvoice.data);
+    // expect(spy).toHaveBeenCalledWith(event);
+  });
+
+  it('should detect change of contract on an invoice and handle it', async () => {
+    const currentContract = generateContract();
+    const otherContract = generateContract();
+    otherContract.header.id = '4902';
+    otherContract.header.invoiceText = 'anderer Text';
+    const contracts: Contract[] = [currentContract, otherContract];
+    service.getContracts = jest.fn(() => cold('-a|', { a: contracts }));
+    const currentInvoice = generateInvoice();
+    service['currentData'] = currentInvoice.data;
+    const changedInvoice = generateInvoice();
+    changedInvoice.header.contractId = '4902';
+    changedInvoice.header.internalText = 'Änderung!!!';
+    changedInvoice.items[0].pricePerUnit = 555.55;
+    changedInvoice.items = changedInvoice.items.filter(item => item.id < 4);
+    const expectedInvoice = generateInvoice();
+    expectedInvoice.header.contractId = '4902';
+    expectedInvoice.header.internalText = 'Änderung!!!';
+    expectedInvoice.items[0].pricePerUnit = 555.55;
+    expectedInvoice.items = changedInvoice.items.filter(item => item.id < 4);
+    expectedInvoice.header.invoiceText = otherContract.header.invoiceText;
+    const expected = cold('-(a|)', { a: expectedInvoice });
+    expect(service['processChanges'](changedInvoice)).toBeObservable(expected);
+  });
+
+  it('should detect change of contract id on an invoice item and handle it', async () => {
+    const currentContract = generateContract();
+    const otherContract = generateContract();
+    otherContract.header.id = '4902';
+    otherContract.header.invoiceText = 'anderer Text';
+    const contracts: Contract[] = [currentContract, otherContract];
+    service.getContracts = jest.fn(() => cold('-a|', { a: contracts }));
+    const currentInvoice = generateInvoice();
+    service['currentData'] = currentInvoice.data;
+    const changedInvoice = generateInvoice();
+    changedInvoice.items[1].contractItemId = 1;
+    const expectedInvoiceData = generateInvoiceData();
+    expectedInvoiceData.items[1].contractItemId = 1;
+    expectedInvoiceData.items[1].description = currentContract.data.items[0].description;
+    expectedInvoiceData.items[1].pricePerUnit = currentContract.data.items[0].pricePerUnit;
+    expectedInvoiceData.items[1].quantityUnit = currentContract.data.items[0].priceUnit;
+    expectedInvoiceData.items[1].cashDiscountAllowed = currentContract.data.items[0].cashDiscountAllowed;
+    const expectedInvoice = Invoice.createFromData(expectedInvoiceData);
+    const expected = cold('-(a|)', { a: expectedInvoice });
+    expect(service['processChanges'](changedInvoice)).toBeObservable(expected);
+    // const spy = jest.spyOn(store, 'dispatch');
+    // service.change(changedInvoice);
+    // const event = new ChangeInvoiceSuccess(expectedInvoice.data);
+    // expect(spy).toHaveBeenCalledWith(event);
+  });
+
+  it('should determine changes and flatten them to array of changes', () => {
+    const currentInvoice = generateInvoice();
+    service['currentData'] = currentInvoice.data;
+    const changedInvoice = generateInvoice();
+    changedInvoice.header.receiverId = '1902';
+    changedInvoice.header.contractId = '4902';
+    changedInvoice.header.invoiceText = 'Test Change invoiceText';
+    changedInvoice.items[1].contractItemId = 1;
+    changedInvoice.items = changedInvoice.items.filter(item => item.id !== 3);
+    changedInvoice.items[2].pricePerUnit = 123.45;
+    console.log('determined changes: ', service['determineChanges'](changedInvoice.data, currentInvoice.data));
+  });
+
 });
+

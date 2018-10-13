@@ -1,10 +1,10 @@
-import * as _ from 'lodash';
+import {isEqual, isObject, transform } from 'lodash';
 
 export function difference(object: Object, base: Object): Object {
   function changes(object, base): Object {
-    return _.transform(object, function (result, value, key) {
-      if (!_.isEqual(value, base[key])) {
-        result[key] = (_.isObject(value) && _.isObject(base[key])) ? changes(value, base[key]) : value;
+    return transform(object, function (result, value, key) {
+      if (!isEqual(value, base[key])) {
+        result[key] = (isObject(value) && isObject(base[key])) ? changes(value, base[key]) : value;
       }
     });
   }

@@ -1,18 +1,33 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/index';
+import {concat, Observable, of, throwError} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import {select, Store} from '@ngrx/store';
 import {BillingMethod, InvoiceSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract} from '../models/contract.model';
-import {Invoice, InvoiceData, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
+import {
+  ChangeMode,
+  Invoice,
+  INVOICE_HEADER_CONTRACT_ID_CHANGED,
+  INVOICE_HEADER_RECEIVER_ID_CHANGED,
+  INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED,
+  INVOICE_ITEM_ID_ADDED,
+  InvoiceChange,
+  InvoiceChangeAction,
+  InvoiceData,
+  InvoiceItem,
+  InvoiceItemData,
+  InvoiceStatus
+} from '../models/invoice.model';
 import {difference} from '../../shared/utilities/object-utilities';
 import {NumberRange} from '../models/number-range.model';
 import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {Vat} from '../models/vat';
-import {filter, first, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, filter, first, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
+import {isEqual} from 'lodash';
+import * as util from 'util';
 
 @Injectable()
 export class InvoicesBusinessService {
@@ -52,6 +67,7 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- STATIC METHODS      --- */
+
   /* --------------------------- */
   private static getDefaultValues(): any {
     const today = new Date();
@@ -66,6 +82,7 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- CONSTRUCTOR         --- */
+
   /* --------------------------- */
   constructor(private store: Store<fromStore.InvoicingState>) {
     // get current user
@@ -89,6 +106,7 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   /* --- INSTANCE METHODS    --- */
+
   /* --------------------------- */
   addItem(invoice: Invoice) {
     invoice.items.push(this.newItem(invoice));
@@ -96,9 +114,11 @@ export class InvoicesBusinessService {
   }
 
   change(invoice: Invoice) {
-    this.processChanges(invoice);
-    this.currentData = invoice.data;
-    this.store.dispatch(new fromStore.ChangeInvoiceSuccess(invoice.data));
+    this.processChanges(invoice).subscribe(changed => {
+      console.log('changed: ', changed);
+      this.currentData = changed.data;
+      this.store.dispatch(new fromStore.ChangeInvoiceSuccess(changed.data));
+    });
   }
 
   copy(invoice: Invoice) {
@@ -232,96 +252,81 @@ export class InvoicesBusinessService {
     this.store.dispatch(new fromStore.UpdateInvoice(invoice.data));
   }
 
-  private changeContractItemRelatedData(invoice: Invoice, itemId: number): Invoice {
+  private addContractItemRelatedData(invoice: Invoice, itemId: number): Observable<Invoice> {
+    console.log('*** addContractItemRelatedData ***');
+    const item = invoice.getItem(itemId);
+    if (!item.contractItemId) {
+      item.contractItemId = itemId;
+    }
+    return this.changeContractItemRelatedData(invoice, itemId).pipe(
+      retryWhen((err) => {
+        if (item.contractItemId > 1) {
+          item.contractItemId--;
+          return of(true);
+        } else {
+          throwError('contract_item_not_found');
+        }
+      })
+    );
+  }
+
+  private changeContractItemRelatedData(invoice: Invoice, itemId: number): Observable<Invoice> {
     console.log('*** changeContractItemRelatedData ***');
     const item = invoice.getItem(itemId);
     if (item.contractItemId) {
-      console.log('Item.contractItemId: ', item.contractItemId);
-      this.store.pipe(
-        select(fromStore.selectSelectableContractsForInvoiceAsObjArray),
-        first()
-      )
-        .subscribe(contracts => {
-          const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
-          if (contract) {
-            const contractItem = contract.getItem(+item.contractItemId);
-            if (contractItem) {
-              item.description = contractItem.description;
-              item.quantityUnit = contractItem.priceUnit;
-              item.pricePerUnit = contractItem.pricePerUnit;
-              item.cashDiscountAllowed = contractItem.cashDiscountAllowed;
-            }
-          }
-        });
+      return this.getContracts().pipe(
+        map(contracts => contracts.find(contract => contract.header.id === invoice.header.contractId)),
+        map(contract => contract.getItem(+item.contractItemId)),
+        map(contractItem => {
+          item.description = contractItem.description;
+          item.quantityUnit = contractItem.priceUnit;
+          item.pricePerUnit = contractItem.pricePerUnit;
+          item.cashDiscountAllowed = contractItem.cashDiscountAllowed;
+          return invoice;
+        }),
+        take(1),
+        catchError(() => throwError('contract_not_found'))
+      );
+    } else {
+      return of(invoice);
     }
-    return invoice;
   }
 
-  private changeContractRelatedData(invoice: Invoice): Invoice {
-    console.log('*** changeContractRelatedData *** ', invoice);
-    this.store.pipe(
-      select(fromStore.selectSelectableContractsForInvoiceAsObjArray),
-      first()
-    )
-      .subscribe(contracts => {
-        const contract = contracts.find(contract => contract.header.id === invoice.header.contractId);
-        if (contract) {
-          invoice.header.billingMethod = contract.header.billingMethod;
-          invoice.header.paymentMethod = contract.header.paymentMethod;
-          invoice.header.paymentTerms = contract.header.paymentTerms;
-          invoice.header.cashDiscountPercentage = contract.header.cashDiscountPercentage;
-          invoice.header.cashDiscountDays = contract.header.cashDiscountDays;
-          invoice.header.dueInDays = contract.header.dueDays;
-          invoice.header.invoiceText = contract.header.invoiceText;
-          invoice.header.internalText = contract.header.internalText;
-        }
-      });
-    return invoice;
+  private changeContractRelatedData(invoice: Invoice): Observable<Invoice> {
+    console.log('*** changeContractRelatedData *** ');
+    return this.getContracts().pipe(
+      map(contracts => contracts.find(contract => contract.header.id === invoice.header.contractId)),
+      map(contract => {
+        console.log('contract found: ', contract.header.id, contract.header.invoiceText);
+        invoice.header.billingMethod = contract.header.billingMethod;
+        invoice.header.paymentMethod = contract.header.paymentMethod;
+        invoice.header.paymentTerms = contract.header.paymentTerms;
+        invoice.header.cashDiscountPercentage = contract.header.cashDiscountPercentage;
+        invoice.header.cashDiscountDays = contract.header.cashDiscountDays;
+        invoice.header.dueInDays = contract.header.dueDays;
+        invoice.header.invoiceText = contract.header.invoiceText;
+        // invoice.header.internalText = contract.header.internalText;
+        return invoice;
+      }),
+      take(1),
+      catchError(() => throwError('contract_not_found'))
+    );
   }
 
-  private async changeReceiverRelatedData(invoice: Invoice): Promise<Invoice> {
-    console.log('*** changeReceiverRelatedData ***: ', invoice);
-    invoice.header.vatPercentage = await this.getVatPercentage(invoice).toPromise();
-    return invoice;
-  }
-
-  private processChanges(invoice: Invoice) {
-
-    const changed = difference(invoice.data, this.currentData);
-    // log changes
-    if (Object.keys(changed).length > 0) {
-      console.log('*** changes found ***: ', changed);
-      console.log('current data: ', this.currentData);
-      console.log('invoice data: ', invoice.data);
-    }
-
-    Object.keys(changed)
-      .forEach(key => {
-        switch (key) {
-          case 'receiverId':
-            return this.changeReceiverRelatedData(invoice);
-          case 'contractId':
-            return this.changeContractRelatedData(invoice);
-          case 'items':
-            changed[key].forEach((itemChange: Object, i: number) => {
-              console.log(`Item changed (${i}): `, itemChange);
-              const itemId = invoice.items[i].id;
-              Object.keys(itemChange).forEach(fieldName => {
-                console.log('changed item field: ', fieldName);
-                switch (fieldName) {
-                  case 'contractItemId':
-                    return this.changeContractItemRelatedData(invoice, itemId);
-                  default:
-                }
-              });
-            });
-            break;
-          default:
-        }
-      });
+  private changeReceiverRelatedData(invoice: Invoice): Observable<Invoice> {
+    console.log('*** changeReceiverRelatedData ***: ');
+    return this.getVatPercentage(invoice).pipe(
+      map(percentage => {
+        invoice.header.vatPercentage = percentage;
+        return invoice;
+      }),
+      take(1),
+      catchError(() => throwError('vat_not_found'))
+    );
   }
 
   private getVatPercentage(invoice: Invoice): Observable<number> {
+
     const allReceivers$ = this.store.pipe(select(fromStore.selectReceiverEntities));
     const allVatSettings$ = this.store.pipe(select(fromStore.selectAllVatSettings));
 
@@ -339,4 +344,104 @@ export class InvoicesBusinessService {
       take(1)
     );
   }
+
+  private processChanges(invoice: Invoice): Observable<Invoice> {
+
+    // --- determine changes
+    const changes = this.determineChanges(invoice.data, this.currentData);
+    const changeActions = changes.map(change => InvoiceChangeAction.createFromData(change, invoice));
+    const operations = changeActions.map(action => {
+      console.log('InvoiceChangeAction: ', action.type);
+      switch (action.type) {
+        case INVOICE_HEADER_RECEIVER_ID_CHANGED: {
+          console.log('handle change of receiver id');
+          return this.changeReceiverRelatedData(action.payload);
+        }
+        case INVOICE_HEADER_CONTRACT_ID_CHANGED: {
+          console.log('handle change of contract id');
+          return this.changeContractRelatedData(action.payload);
+        }
+        case INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED: {
+          console.log('handle change of contract item id');
+          return this.changeContractItemRelatedData(action.payload, +action.change.id);
+        }
+        case INVOICE_ITEM_ID_ADDED: {
+          console.log('handle addition item id');
+          return this.addContractItemRelatedData(action.payload, +action.change.id);
+        }
+        default:
+          console.log('handle other changes');
+          return of(invoice);
+      }
+    });
+
+    console.log('# operations: ', operations.length);
+    return concat(...operations).pipe(takeLast(1));
+  }
+
+  private determineChanges(changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
+
+    const changes: InvoiceChange[] = [] as InvoiceChange[];
+    // --- find differences
+    const differences = difference(changed, current);
+    if (Object.keys(differences).length === 0) {
+      return changes;
+    }
+    console.log('*** changes found ***: ', util.inspect(differences));
+
+    // --- flatten into array
+    Object.keys(differences).forEach(key => {
+      if (key === 'items') {
+        const itemChanges = this.determineItemChanges(differences[key], changed, current);
+        changes.push(...itemChanges);
+      } else {
+        const change = {mode: ChangeMode.changed, object: 'header', field: key, value: differences[key]};
+        changes.push(change);
+      }
+    });
+    return changes;
+  }
+
+  private determineItemChanges(itemChanges: any[], changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
+    const changes: InvoiceChange[] = [] as InvoiceChange[];
+
+    itemChanges.forEach((itemChange: Object, i: number) => {
+      const itemId = changed.items[i].id;
+      // --- determine change mode for item
+      let mode = ChangeMode.changed;
+      if (itemChange['id']) {
+        const defaultPos = i + 1;
+        if (itemId !== defaultPos) {
+          mode = ChangeMode.moved;
+          if (itemId > defaultPos) {
+            const change = {mode: ChangeMode.deleted, object: 'item', id: current.items[i].id};
+            changes.push(change);
+          }
+        } else {
+          mode = ChangeMode.added;
+          const change = {mode: ChangeMode.added, object: 'item', id: itemId, field: 'id', value: itemId};
+          changes.push(change);
+        }
+      }
+
+      Object.keys(itemChange).forEach(fieldName => {
+        if (fieldName !== 'id') {
+          if (mode === ChangeMode.moved) {
+            // --- ignore movements without change
+            const movedItem = changed.items.find(item => item.id === itemId);
+            const oldItem = current.items.find(item => item.id === itemId);
+            if (!isEqual(movedItem[fieldName], oldItem[fieldName])) {
+              const change = {mode: ChangeMode.changed, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
+              changes.push(change);
+            }
+          } else {
+            const change = {mode: mode, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
+            changes.push(change);
+          }
+        }
+      });
+    });
+    return changes;
+  }
+
 }

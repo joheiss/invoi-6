@@ -10,7 +10,6 @@ export abstract class DetailsComponent<T> implements OnInit {
                         protected route: ActivatedRoute) {
     this.route.paramMap
       .subscribe(params => {
-        console.log('Route params changed: ', params.get('id'));
         this.initializeWithData(params.get('id'));
       });
   }

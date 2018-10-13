@@ -8,6 +8,7 @@ import {BillingMethod, PaymentMethod} from '../invoicing/models/invoicing.model'
 import {TransactionItemData} from '../invoicing/models/transaction';
 import {DocumentLink, DocumentLinkType} from '../invoicing/models/document-link';
 import {Invoice, InvoiceData, InvoiceStatus} from '../invoicing/models/invoice.model';
+import {Receiver, ReceiverData, ReceiverStatus} from '../invoicing/models/receiver.model';
 
 export const generateAuth = (): UserInfo => {
   return {
@@ -90,6 +91,40 @@ export const generateIdState = (): IdState => {
   };
 };
 
+export const generateReceiverData = (): ReceiverData => {
+  return {
+    id: '1901',
+    objectType: 'receivers',
+    organization: 'THQ',
+    name: 'Test AG',
+    nameAdd: null,
+    logoUrl: null,
+    status: ReceiverStatus.active,
+    address: {
+      country: 'DE',
+      postalCode: '77777',
+      city: 'Testlingen',
+      street: 'Testgasse 1',
+      email: 'officium@test-ag.de',
+      phone: '+49 777 12345678',
+      fax: '+49 777 12345678',
+      webSite: null,
+    }
+  };
+};
+
+export const generateReceiver = (): Receiver => {
+  return Receiver.createFromData(generateReceiverData());
+};
+
+export const generateOtherReceiverData = (): ReceiverData => {
+  return { ...generateReceiverData(), id: '1902', name: 'Noch ein Test GmbH' };
+};
+
+export const generateOtherReceiver = (): Receiver => {
+  return Receiver.createFromData(generateOtherReceiverData());
+};
+
 export const generateContractData = (validity: number = 0): ContractData => {
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -144,6 +179,20 @@ export const generateNewContractData = (): ContractData => {
     startDate: startDate,
     endDate: endDate
   };
+};
+
+export const generateOtherReceiversContractData = (customerId: string = '1902'): ContractData => {
+  const contractData = { ...generateContractData(), customerId: customerId, description: 'Anderer Vertrag', cashDiscountDays: 10,
+    cashDiscountPercentage: 1.0, dueDays: 30, budget: 50000.00 };
+  contractData.items = contractData.items.filter(item => item.id === 1);
+  contractData.items[0].description = 'Arbeitsstunden im Projekt ABC';
+  contractData.items[0].pricePerUnit = 100.00;
+  contractData.items[0].priceUnit = 'Std.';
+  return contractData;
+};
+
+export const generateOtherReceiversContract = (customerId: string = '1902'): Contract => {
+  return Contract.createFromData(generateOtherReceiversContractData(customerId));
 };
 
 export const generateNewContract = (): Contract => {

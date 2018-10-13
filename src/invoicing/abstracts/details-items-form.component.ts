@@ -31,6 +31,7 @@ export abstract class DetailsItemsFormComponent<T extends Transaction> implement
     while (this.itemsFormArray.length > 0) {
       this.itemsFormArray.removeAt(0);
     }
+    console.log('build items: ', items);
     items.forEach(item => this.itemsFormArray.push(new FormGroup({})));
   }
 }
