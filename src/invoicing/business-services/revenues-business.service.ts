@@ -3,7 +3,7 @@ import * as fromStore from '../store';
 import {Observable} from 'rxjs/index';
 import {select, Store} from '@ngrx/store';
 import {RevenuePerYearData} from '../models/revenue.model';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 import {OpenInvoiceData} from '../models/open-invoice.model';
 import {Invoice, InvoiceData} from '../models/invoice.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
@@ -34,7 +34,8 @@ export class RevenuesBusinessService {
             return revenues;
           });
         return revenues;
-      }));
+      }),
+      take(1));
   }
 
   selectOpenInvoices(): Observable<OpenInvoiceData[]> {
@@ -42,7 +43,7 @@ export class RevenuesBusinessService {
   }
 
   private calculateIndexOfRevenueYear(year: number): number {
-    return year - this.currentYear;
+    return this.currentYear - year;
   }
 
   private calculateRevenueDate(invoice: InvoiceData): Date {

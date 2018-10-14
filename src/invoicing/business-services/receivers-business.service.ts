@@ -13,7 +13,7 @@ import {NumberRange} from '../models/number-range.model';
 import {UserData} from '../../auth/models/user';
 import {SettingsBusinessService} from './settings-business.service';
 import {Country} from '../models/country';
-import {filter, map} from 'rxjs/operators';
+import {filter, map, take} from 'rxjs/operators';
 import {InvoicesBusinessService} from './invoices-business.service';
 
 
@@ -71,10 +71,10 @@ export class ReceiversBusinessService {
       select(fromStore.selectInvoiceableContractsForReceiverAsObjArray),
       map(contracts => contracts.filter(contract => contract.isInvoiceable())),
       filter(contracts => contracts.length === 1),
-      map(contracts => this.invoicesBusinessService.newInvoiceFromContract(contracts[0]))
+      map(contracts => this.invoicesBusinessService.newInvoiceFromContract(contracts[0])),
+      take(1)
     )
-      .subscribe()
-      .unsubscribe();
+      .subscribe();
   }
 
   delete(receiver: Receiver) {
@@ -82,7 +82,6 @@ export class ReceiversBusinessService {
       do: new fromStore.DeleteReceiver(receiver.data),
       title: `Soll der Rechnungsempfänger ${receiver.header.id} wirklich gelöscht werden?`
     }));
-    // this.store.dispatch(new fromStore.DeleteReceiver(receiver.data));
   }
 
   getActiveContracts(): Observable<Contract[]> {
@@ -130,7 +129,7 @@ export class ReceiversBusinessService {
     return this.store.pipe(select(fromStore.selectAllReceivers));
   }
 
-  select(id: number): Observable<ReceiverData> {
+  select(): Observable<ReceiverData> {
     return this.store.pipe(select(selectSelectedReceiver));
   }
 

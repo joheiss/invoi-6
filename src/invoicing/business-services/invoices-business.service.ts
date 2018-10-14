@@ -155,7 +155,6 @@ export class InvoicesBusinessService {
   getCurrent(): Observable<Invoice> {
     return this.store.pipe(
       select(fromStore.selectCurrentInvoiceAsObj),
-      first(),
       tap(current => this.currentData = current.data)
     );
   }
@@ -346,7 +345,6 @@ export class InvoicesBusinessService {
   }
 
   private processChanges(invoice: Invoice): Observable<Invoice> {
-
     // --- determine changes
     const changes = this.determineChanges(invoice.data, this.currentData);
     const changeActions = changes.map(change => InvoiceChangeAction.createFromData(change, invoice));
@@ -354,28 +352,21 @@ export class InvoicesBusinessService {
       console.log('InvoiceChangeAction: ', action.type);
       switch (action.type) {
         case INVOICE_HEADER_RECEIVER_ID_CHANGED: {
-          console.log('handle change of receiver id');
           return this.changeReceiverRelatedData(action.payload);
         }
         case INVOICE_HEADER_CONTRACT_ID_CHANGED: {
-          console.log('handle change of contract id');
           return this.changeContractRelatedData(action.payload);
         }
         case INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED: {
-          console.log('handle change of contract item id');
           return this.changeContractItemRelatedData(action.payload, +action.change.id);
         }
         case INVOICE_ITEM_ID_ADDED: {
-          console.log('handle addition item id');
           return this.addContractItemRelatedData(action.payload, +action.change.id);
         }
         default:
-          console.log('handle other changes');
           return of(invoice);
       }
     });
-
-    console.log('# operations: ', operations.length);
     return concat(...operations).pipe(takeLast(1));
   }
 
@@ -387,7 +378,6 @@ export class InvoicesBusinessService {
     if (Object.keys(differences).length === 0) {
       return changes;
     }
-    console.log('*** changes found ***: ', util.inspect(differences));
 
     // --- flatten into array
     Object.keys(differences).forEach(key => {

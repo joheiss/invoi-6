@@ -1,11 +1,5 @@
 import {Store} from '@ngrx/store';
-import {
-  generateContract,
-  generateInvoice, generateInvoiceData,
-  generateNewInvoice,
-  generateNewInvoiceData, generateOtherReceiver, generateReceiver,
-  generateUserProfile
-} from '../../test/test-generators';
+import {generateContract, generateInvoice, generateInvoiceData, generateNewInvoice, generateUserProfile} from '../../test/test-generators';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {InvoicingState} from '../store/reducers';
@@ -24,7 +18,6 @@ import {OpenConfirmationDialog} from '../../app/store/actions';
 import * as fromStore from '../store';
 import {Invoice} from '../models/invoice.model';
 import {Contract} from '../models/contract.model';
-import {Receiver} from '../models/receiver.model';
 
 let store: Store<InvoicingState>;
 let service: InvoicesBusinessService;
@@ -293,7 +286,15 @@ describe('Invoices Business Service', () => {
     changedInvoice.items[1].contractItemId = 1;
     changedInvoice.items = changedInvoice.items.filter(item => item.id !== 3);
     changedInvoice.items[2].pricePerUnit = 123.45;
-    console.log('determined changes: ', service['determineChanges'](changedInvoice.data, currentInvoice.data));
+    const expected = [
+      { mode: 'changed', object: 'header', field: 'receiverId', value: '1902' },
+      { mode: 'changed', object: 'header', field: 'contractId', value: '4902' },
+      { mode: 'changed', object: 'header', field: 'invoiceText', value: 'Test Change invoiceText' },
+      { mode: 'changed', object: 'item', id: 2, field: 'contractItemId', value: 1 },
+      { mode: 'deleted', object: 'item', id: 3 },
+      { mode: 'changed', object: 'item', id: 4, field: 'pricePerUnit', value: 123.45 }
+      ];
+    expect(service['determineChanges'](changedInvoice.data, currentInvoice.data)).toEqual(expected);
   });
 
 });
