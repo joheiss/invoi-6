@@ -27,7 +27,7 @@ import {Vat} from '../models/vat';
 import {catchError, filter, first, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
 import {isEqual} from 'lodash';
-import * as util from 'util';
+import {DateUtilities} from '../../shared/utilities/date-utilities';
 
 @Injectable()
 export class InvoicesBusinessService {
@@ -37,7 +37,7 @@ export class InvoicesBusinessService {
   private static template = {
     objectType: 'invoices',
     billingMethod: BillingMethod.Invoice,
-    issuedAt: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+    issuedAt: DateUtilities.getDateOnly(),
     status: InvoiceStatus.created,
     currency: 'EUR',
     vatPercentage: 19.0,
@@ -70,13 +70,10 @@ export class InvoicesBusinessService {
 
   /* --------------------------- */
   private static getDefaultValues(): any {
-    const today = new Date();
     return {
       id: undefined,
-      issuedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-      status: InvoiceStatus.created,
-      documentUrl: null,
-      documentLinks: null
+      issuedAt: DateUtilities.getDateOnly(),
+      status: InvoiceStatus.created
     };
   }
 
@@ -88,20 +85,18 @@ export class InvoicesBusinessService {
     // get current user
     this.store.pipe(
       select(fromAuth.selectAuth),
-      first()
-    )
-      .subscribe(auth => this.auth = auth);
+    ).subscribe(auth => this.auth = auth);
     // get number ranges for invoices & credit requests
     this.store.pipe(
       select(fromStore.selectNumberRangeEntities),
-      filter(entities => !!entities['invoices'] && !!entities['credit-requests'])
-    )
-      .subscribe(entities => {
+      filter(entities => !!entities['invoices'] && !!entities['credit-requests']),
+      map(entities => {
         this.nextIds = [];
         this.nextIds.push(NumberRange.createFromData(entities['invoices']).nextId);
         this.nextIds.push(NumberRange.createFromData(entities['credit-requests']).nextId);
-        console.log('invoice next Ids: ', this.nextIds);
-      });
+        return this.nextIds;
+      })
+    ).subscribe();
   }
 
   /* --------------------------- */
@@ -128,7 +123,6 @@ export class InvoicesBusinessService {
 
   create(invoice: Invoice) {
     invoice.header.id = this.getNextId(invoice);
-    console.log('new invoice id: ', invoice.header.id);
     invoice.header.organization = this.auth.organization;
     this.store.dispatch(new fromStore.CreateInvoice(invoice.data));
   }
@@ -192,9 +186,8 @@ export class InvoicesBusinessService {
     this.store.dispatch(new fromStore.NewInvoiceSuccess(data));
   }
 
-  async newInvoiceFromContract(contract: Contract): Promise<void> {
+  newInvoiceFromContract(contract: Contract): void {
     // --- prepare invoice from contract
-    console.log('about to prepare invoice with receiver & contract: ', contract);
     const data = Object.assign({}, InvoicesBusinessService.template);
     data.receiverId = contract.header.customerId;
     data.contractId = contract.header.id;
@@ -219,13 +212,11 @@ export class InvoicesBusinessService {
     });
     // --- get vat percentage
     const invoice = Invoice.createFromData(data);
-    await this.getVatPercentage(invoice).pipe(
+    this.getVatPercentage(invoice).pipe(
       take(1),
       tap(percentage => invoice.vatPercentage = percentage),
-      // tap(() => this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data)))
-    )
-      .subscribe();
-    return this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data));
+      tap(() => this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data)))
+    ).subscribe();
   }
 
   newItem(invoice: Invoice): InvoiceItem {
@@ -243,7 +234,6 @@ export class InvoicesBusinessService {
   }
 
   sendEmail(invoice: Invoice) {
-    console.log('dispatch email action for: ', invoice.header.id);
     this.store.dispatch(new fromStore.SendInvoiceEmail(invoice.data));
   }
 
@@ -296,7 +286,6 @@ export class InvoicesBusinessService {
     return this.getContracts().pipe(
       map(contracts => contracts.find(contract => contract.header.id === invoice.header.contractId)),
       map(contract => {
-        console.log('contract found: ', contract.header.id, contract.header.invoiceText);
         invoice.header.billingMethod = contract.header.billingMethod;
         invoice.header.paymentMethod = contract.header.paymentMethod;
         invoice.header.paymentTerms = contract.header.paymentTerms;
@@ -349,7 +338,6 @@ export class InvoicesBusinessService {
     const changes = this.determineChanges(invoice.data, this.currentData);
     const changeActions = changes.map(change => InvoiceChangeAction.createFromData(change, invoice));
     const operations = changeActions.map(action => {
-      console.log('InvoiceChangeAction: ', action.type);
       switch (action.type) {
         case INVOICE_HEADER_RECEIVER_ID_CHANGED: {
           return this.changeReceiverRelatedData(action.payload);

@@ -1,13 +1,14 @@
-import {select, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {InvoicingState} from '../store/reducers';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {SettingsBusinessService} from './settings-business.service';
 import {LOCALE_ID} from '@angular/core';
-import {Country} from '../models/country';
 import {of} from 'rxjs/index';
-import * as fromStore from '../store';
 import {map, take} from 'rxjs/operators';
+import {UpdateSetting, UpdateSettingFail} from '../store/actions';
+import {SettingData} from '../models/setting.model';
+import {mockAllCountries} from '../../test/factories/mock-settings.factory';
 
 describe('Settings Business Service', () => {
 
@@ -67,7 +68,7 @@ describe('Settings Business Service', () => {
       map(countries => {
         const keyValues = [];
         countries.values.forEach(country => {
-          keyValues.push({isoCode: country.isoCode, name: country.names[this.language]});
+          keyValues.push({isoCode: country.isoCode, name: country.names[service.language]});
         });
         return keyValues;
       }),
@@ -75,18 +76,36 @@ describe('Settings Business Service', () => {
     )
       .subscribe(countries => {
         expect(countries.length).toBe(3);
+        const country = countries.find(c => c.isoCode === 'DE');
+        expect(country.name).toEqual('Deutschland');
         done();
       });
   });
+
+  it('should invoke store selector if getVatSettings is processed', () => {
+    const spy = jest.spyOn(store, 'pipe');
+    service.getVatSettings();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should dispatch UpdateSettingFail event if update on settings fails', async () => {
+    const error = new Error('settings_update_fail');
+    const action = new UpdateSettingFail(error);
+    const spy = jest.spyOn(store, 'dispatch');
+    service.throwError(error);
+    expect(spy).toHaveBeenCalledWith(action);
+  });
+
+  it('should dispatch UpdateSetting action when update is processed', async () => {
+    const setting: SettingData = {
+      id: 'anything',
+      values: { something: true }
+    };
+    const action = new UpdateSetting(setting);
+    const spy = jest.spyOn(store, 'dispatch');
+    service.update(setting);
+    expect(spy).toHaveBeenCalledWith(action);
+  });
+
 });
 
-const mockAllCountries = (): any => {
-  return {
-    id: 'countries',
-    values: [
-      {isoCode: 'AT', names: {de: 'Österreich', en: 'Austria'}},
-      {isoCode: 'CH', names: {de: 'Schweiz', en: 'Switzerland', fr: 'Suisse'}},
-      {isoCode: 'DE', names: {de: 'Deutschland', en: 'Germany', fr: 'Allemagne', it: 'Germania'}}
-    ]
-  };
-};

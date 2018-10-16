@@ -13,4 +13,12 @@ export class DateUtilities {
     mdt.subtract(days, 'days').calendar();
     return mdt.toDate();
   }
+
+  public static getDateOnly(date: Date = new Date()): Date {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  public static getEndDate(date: Date = new Date()): Date {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+  }
 }

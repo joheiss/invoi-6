@@ -1,5 +1,4 @@
 import {Store} from '@ngrx/store';
-import {generateContract, generateDocumentLink} from '../../test/test-generators';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {InvoicingState} from '../store/reducers';
@@ -11,7 +10,9 @@ import {
   UpdateDocumentLink
 } from '../store/actions';
 import {DocumentLinksBusinessService} from './document-links-business.service';
-import {DocumentLink} from '../models/document-link';
+import {DocumentLink, DocumentLinkType} from '../models/document-link';
+import {mockAllDocumentLinks, mockSingleDocumentLink} from '../../test/factories/mock-document-links.factory';
+import {mockAllInvoices} from '../../test/factories/mock-invoices.factory';
 
 let store: Store<InvoicingState>;
 let service: DocumentLinksBusinessService;
@@ -42,11 +43,17 @@ describe('Document Links Business Service', () => {
   });
 
   beforeEach(() => {
-    docLink = generateDocumentLink('contracts/4901');
+    docLink = mockSingleDocumentLink();
   });
 
   it('should create the service', async () => {
     expect(service).toBeDefined();
+  });
+
+  it('should return a meaningful template for document links', () => {
+    const template = DocumentLinksBusinessService['template'];
+    expect(template.type).toBe(DocumentLinkType.Other);
+    expect(template.attachToEmail).toBeFalsy();
   });
 
   it('should dispatch ChangeDocumentLinkSuccess event when change is processed', async () => {
@@ -70,13 +77,18 @@ describe('Document Links Business Service', () => {
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
-  it('should return all document links for a given document', async () => {
-    const contract = generateContract();
-    const expected = cold('-b|', { b: generateDocumentLink('contracts/4901') });
-    const spy = jest.spyOn(service, 'getDocumentLinksForContract');
-    store.pipe = jest.fn(() => expected);
-    await expect(service.getDocumentLinks(contract.ownerKey)).toBeObservable(expected);
-    return expect(spy).toHaveBeenCalled();
+  it('should return all document links for a given document', () => {
+    let spy = jest.spyOn(service, 'getDocumentLinksForReceiver');
+    service.getDocumentLinks('receivers/1901');
+    expect(spy).toHaveBeenCalled();
+    spy = jest.spyOn(service, 'getDocumentLinksForContract');
+    service.getDocumentLinks('contracts/4901');
+    expect(spy).toHaveBeenCalled();
+    spy = jest.spyOn(service, 'getDocumentLinksForInvoice');
+    service.getDocumentLinks('invoices/5901');
+    expect(spy).toHaveBeenCalled();
+    const expected = cold('#)', {}, new Error('Unknown owner'));
+    expect(service.getDocumentLinks('errors/9999')).toBeObservable(expected);
   });
 
   it('should dispatch NewDocumentLinkSuccess event when new is processed', async () => {

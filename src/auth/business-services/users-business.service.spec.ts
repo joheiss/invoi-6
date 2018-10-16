@@ -2,17 +2,21 @@ import {UsersBusinessService} from './users-business.service';
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
 import {IdState} from '../store/reducers';
-import {generateMoreUserProfiles, generateNewUser, generateUserProfile} from '../../test/test-generators';
 import {cold} from 'jasmine-marbles';
 import {User, UserProfileData} from '../models/user';
 import {ChangeMyPassword, ChangePassword, CreateUser, QueryUsers, UpdateUser, UpdateUserProfile} from '../store/actions';
 import {DeleteFile, UploadImage} from '../../storage/store/actions';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
+import {mockAllUsers, mockSingleUser} from '../../test/factories/mock-users.factory';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('Users Business Service', () => {
   let store: Store<IdState>;
   let service: UsersBusinessService;
-  const auth = generateUserProfile();
+  const auth = mockAuth()[0];
+  let userData: UserProfileData;
+  let user: User;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -34,6 +38,12 @@ describe('Users Business Service', () => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
+  beforeEach(() => {
+    userData = mockSingleUser();
+    user = User.createFromData(userData);
+    service['auth'] = mockAuth()[0];
+  });
+
   it('should create the service', () => {
     expect(service).toBeDefined();
     expect(store.pipe).toHaveBeenCalled();
@@ -41,7 +51,7 @@ describe('Users Business Service', () => {
 
   describe('getAllUsers', () => {
     it('should return all users as User objects', async() => {
-      const allUsers = generateMoreUserProfiles().map(user => User.createFromData(user));
+      const allUsers = mockAllUsers().map(user => User.createFromData(user));
       const expected = cold('-b|', { b: allUsers });
       store.pipe = jest.fn(() => expected);
       await expect(service.getAllUsers()).toBeObservable(expected);
@@ -51,8 +61,7 @@ describe('Users Business Service', () => {
 
   describe('getCurrent', () => {
     it('should return current user as User objects', async() => {
-      const currentUser = User.createFromData(generateUserProfile());
-      const expected = cold('-b|', { b: currentUser });
+      const expected = cold('-b|', { b: user });
       store.pipe = jest.fn(() => expected);
       await expect(service.getCurrent()).toBeObservable(expected);
       return expect(store.pipe).toHaveBeenCalled();
@@ -61,15 +70,12 @@ describe('Users Business Service', () => {
 
   describe('changePassword', () => {
     it('should dispatch ChangeMyPassword action if logged in user equals requested user', async() => {
-      const authUser = generateUserProfile();
       const credentials = {
-        uid: authUser.uid,
-        email: authUser.email,
+        uid: user.uid,
+        email: user.email,
         oldPassword: 'sagIchNicht',
         password: 'weissIchNicht'
       };
-      // @ts-ignore
-      service.auth = authUser;
       await expect(service.changePassword(credentials)).not.toBe(true);
       const spy = jest.spyOn(store, 'dispatch');
       const action = new ChangeMyPassword(credentials);
@@ -77,13 +83,10 @@ describe('Users Business Service', () => {
     });
 
     it('should dispatch ChangePassword action if logged in user is not requested user', async() => {
-      const authUser = generateUserProfile();
       const credentials = {
         uid: 'IchNicht',
         password: 'weissIchAuchNicht'
       };
-      // @ts-ignore
-      service.auth = authUser;
       await expect(service.changePassword(credentials)).not.toBe(true);
       const spy = jest.spyOn(store, 'dispatch');
       const action = new ChangePassword(credentials);
@@ -93,7 +96,12 @@ describe('Users Business Service', () => {
 
   describe('create', () => {
     it('should dispatch CreateUser action', async() => {
-      const userData = generateNewUser();
+      const userData = mockSingleUser();
+      userData.displayName = 'New User';
+      userData.email = 'new.user@test.de';
+      userData.phoneNumber = `${userData.phoneNumber}111`;
+      userData.uid = undefined;
+      userData.roles = ['auditor'];
       const user = User.createFromData(userData);
       const password = 'SagIchNicht';
       await expect(service.create({ user, password })).not.toBe(true);
@@ -106,7 +114,7 @@ describe('Users Business Service', () => {
 
   describe('deleteProfileImage', () => {
     it('should dispatch DeleteFile and UpdateUser actions', async() => {
-      const userData = { ...generateNewUser(), imageUrl: 'http://abc.defghijk.lmo/images/users/1234' };
+      const userData = { ...mockSingleUser(), imageUrl: 'http://abc.defghijk.lmo/images/users/1234' };
       const user = User.createFromData(userData);
       await expect(service.deleteProfileImage(user)).not.toBe(true);
       const filePath = 'images/users/1234';
@@ -153,7 +161,6 @@ describe('Users Business Service', () => {
 
   describe('select', () => {
     it('should return the selected user', async() => {
-      const user = generateUserProfile();
       const expected = cold('-b|', { b: user });
       store.pipe = jest.fn(() => expected);
       await expect(service.select()).toBeObservable(expected);
@@ -163,8 +170,6 @@ describe('Users Business Service', () => {
 
   describe('update', () => {
     it('should dispatch UpdateUser action', async() => {
-      const userData = generateUserProfile();
-      const user = User.createFromData(userData);
       const password = 'SagIchNicht';
       await expect(service.update({ user, password })).not.toBe(true);
       const payload = { user: userData, password: password };
@@ -176,8 +181,6 @@ describe('Users Business Service', () => {
 
   describe('update', () => {
     it('should dispatch UpdateProfile action', async() => {
-      const userData = generateUserProfile();
-      const user = User.createFromData(userData);
       await expect(service.updateProfile(user)).not.toBe(true);
       const payload = userData;
       const spy = jest.spyOn(store, 'dispatch');
@@ -188,7 +191,6 @@ describe('Users Business Service', () => {
 
   describe('uploadProfileImage', () => {
     it('should dispatch UploadImage action', async() => {
-      const user = generateUserProfile();
       const payload: UploadPopupData = {
         title: 'Profilbild hochladen',
         selectButtonCaption: 'Bild auswählen',

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs/index';
+import {Observable, of, throwError} from 'rxjs/index';
 import * as fromStore from '../store/index';
 import {select, Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
@@ -47,7 +47,7 @@ export class DocumentLinksBusinessService {
         return this.getDocumentLinksForReceiver();
       }
       default: {
-        throw new Error('Unknown owner');
+        return throwError(new Error('Unknown owner'));
       }
     }
   }

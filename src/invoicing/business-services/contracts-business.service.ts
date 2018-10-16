@@ -11,13 +11,14 @@ import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {InvoicesBusinessService} from './invoices-business.service';
 import * as fromRoot from '../../app/store';
-import {filter, map} from 'rxjs/internal/operators';
+import {filter, map, take} from 'rxjs/operators';
+import {DateUtilities} from '../../shared/utilities/date-utilities';
 
 @Injectable()
 export class ContractsBusinessService {
   private static template: ContractData = {
     objectType: 'contracts',
-    issuedAt: new Date(),
+    issuedAt: DateUtilities.getDateOnly(new Date()),
     currency: 'EUR',
     budget: 0,
     paymentMethod: PaymentMethod.BankTransfer,
@@ -38,9 +39,9 @@ export class ContractsBusinessService {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    const issuedAt = new Date(year, month, today.getDate());
-    const defaultStartDate = new Date(year, month + 1, 1);
-    const defaultEndDate = new Date(year, month + 4, 0);
+    const issuedAt = DateUtilities.getDateOnly(today);
+    const defaultStartDate = DateUtilities.getDateOnly(new Date(year, month + 1, 1));
+    const defaultEndDate = DateUtilities.getEndDate(new Date(year, month + 4, 0));
     return {
       id: undefined,
       issuedAt: issuedAt,
@@ -51,14 +52,14 @@ export class ContractsBusinessService {
 
   constructor(private store: Store<fromStore.InvoicingState>,
               private invoicesBusinessService: InvoicesBusinessService) {
-    this.store.pipe(select(fromAuth.selectAuth))
-      .subscribe(auth => this.auth = auth);
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+    ).subscribe(auth => this.auth = auth);
     this.store.pipe(
       select(fromStore.selectNumberRangeEntities),
       filter(entities => !!entities['contracts']),
-      map(entities => NumberRange.createFromData(entities['contracts']).nextId)
-    )
-      .subscribe(nextId => this.nextId = nextId);
+      map(entities => NumberRange.createFromData(entities['contracts']).nextId),
+    ).subscribe(nextId => this.nextId = nextId);
   }
 
   addItem(contract: Contract) {

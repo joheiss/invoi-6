@@ -3,13 +3,20 @@ import {Store} from '@ngrx/store';
 import {cold} from 'jasmine-marbles';
 import {InvoicesBusinessService} from './invoices-business.service';
 import {InvoicingState} from '../store/reducers';
-import {Receiver} from '../models/receiver.model';
+import {Receiver, ReceiverStatus} from '../models/receiver.model';
 import {ReceiversBusinessService} from './receivers-business.service';
 import {SettingsBusinessService} from './settings-business.service';
-import {generateReceiver, generateUserProfile} from '../../test/test-generators';
 import {ChangeReceiverSuccess, CopyReceiverSuccess, CreateReceiver, NewReceiverSuccess, UpdateReceiver} from '../store/actions';
 import {OpenConfirmationDialog} from '../../app/store/actions';
 import * as fromStore from '../store';
+import {mockSingleReceiver} from '../../test/factories/mock-receivers.factory';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {of} from 'rxjs/internal/observable/of';
+import {filter, map, take} from 'rxjs/operators';
+import {mockNumberRangeEntity} from '../../test/factories/mock-number-ranges.factory';
+import {NumberRange} from '../models/number-range.model';
+import {mockAllContracts} from '../../test/factories/mock-contracts.factory';
+import {Contract} from '../models/contract.model';
 
 describe('Receivers Business Service', () => {
 
@@ -56,14 +63,48 @@ describe('Receivers Business Service', () => {
 
   beforeEach(() => {
     // @ts-ignore
-    service.auth = {...generateUserProfile(), organization: 'THQ'};
+    service.auth = {...mockAuth()[0]};
     // @ts-ignore
     service.nextId = '1903';
-    receiver = generateReceiver();
+    receiver = Receiver.createFromData(mockSingleReceiver());
   });
 
   it('should create the service', async () => {
     expect(service).toBeDefined();
+  });
+
+  it('should return a meaningful template', () => {
+    const template = ReceiversBusinessService['template'];
+    expect(template.objectType).toEqual('receivers');
+    expect(template.status).toEqual(ReceiverStatus.active);
+    expect(template.address.country).toEqual('DE');
+  });
+
+  it('should return meaningful default values', () => {
+    const values = ReceiversBusinessService['getDefaultValues']();
+    expect(values.id).toBeUndefined();
+  });
+
+  it('should retrieve correct auth data during construction', done => {
+    of(mockAuth(['sales-user'])).pipe(
+      take(1)
+    ).subscribe(auth => {
+      expect(auth[0]).toBeTruthy();
+      expect(auth[0].uid).toEqual('991OyAr37pNsS8BGHzidmOGAGVX2');
+      expect(auth[0].isLocked).toBeFalsy();
+      done();
+    });
+  });
+
+  it('should retrieve correct number range during construction', done => {
+    of(mockNumberRangeEntity()).pipe(
+      filter(entities => !!entities['receivers']),
+      map(entities => NumberRange.createFromData(entities['receivers']).nextId),
+      take(1)
+    ).subscribe(nextId => {
+      expect(nextId).toBe('1911');
+      done();
+    });
   });
 
   it('should dispatch ChangeReceiverSuccess event if change is processed', async () => {
@@ -91,111 +132,138 @@ describe('Receivers Business Service', () => {
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
-  it('should invoke InvoiceBusinessService.newInvoiceFromContract if createQuickInvoice is processed', async () => {
-    /* no idea how to test this since all logic is within pipe
-    const contract = generateContract();
-    store.pipe = jest.fn(() => cold('-a|', { a: contract }));
+  it('should create new invoice for receiver if there is exactly one invoicable contract for the receiver', done => {
     const spy = jest.spyOn(invoices, 'newInvoiceFromContract');
-    service.createQuickInvoice(receiver);
-    return expect(spy).toHaveBeenCalledWith(contract);
-    */
-  });
+    const contracts = mockAllContracts()
+      .filter(c => c.customerId === receiver.header.id)
+      .map(c => Contract.createFromData(c));
 
-  it('should dispatch OpenConfirmationDialog action if delete is processed', async () => {
-    const action = new OpenConfirmationDialog({
-      do: new fromStore.DeleteReceiver(receiver.data),
-      title: `Soll der Rechnungsempfänger ${receiver.header.id} wirklich gelöscht werden?`
-    });
-    const spy = jest.spyOn(store, 'dispatch');
-    service.delete(receiver);
-    return expect(spy).toHaveBeenCalledWith(action);
-  });
-
-  it('should invoke store selector if getActiveContracts is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getActiveContracts();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoice SettingsBusinessService.getCountries if getCountries is processed', async () => {
-    const spy = jest.spyOn(settings, 'getCountries');
-    service.getCountries();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getCurrent is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getCurrent();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getLastInvoices is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getLastInvoices();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getOpenInvoices is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getOpenInvoices();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getRecentContracts is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getRecentContracts();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getOpenInvoices is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getSummary();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if getRecentContracts is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.getRecentContracts();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if isDeletable is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.isDeletable();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if isQualifiedForQuickInvoice is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.isQualifiedForQuickInvoice();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if query is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.query();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should invoke store selector if select is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.select();
-    return expect(spy).toHaveBeenCalled();
-  });
-
-  it('should dispatch NewReceiverSuccess event if new is processed', async () => {
-    const newReceiver = Object.assign({}, ReceiversBusinessService['template']);
-    const event = new NewReceiverSuccess(newReceiver);
-    const spy = jest.spyOn(store, 'dispatch');
-    service.new();
-    return expect(spy).toHaveBeenCalledWith(event);
-  });
-
-  it('should dispatch UpdateReceiver action when update is processed', async () => {
-    const action = new UpdateReceiver(receiver.data);
-    const spy = jest.spyOn(store, 'dispatch');
-    service.update(receiver);
-    return expect(spy).toHaveBeenCalledWith(action);
-  });
-
+    of(contracts).pipe(
+      map(contracts => contracts.filter(contract => contract.isInvoiceable())),
+      filter(contracts => contracts.length === 1),
+      map(contracts => invoices.newInvoiceFromContract(contracts[0])),
+      take(1)
+    )
+      .subscribe(() => {
+        expect(spy).toHaveBeenCalled();
+        done();
+      });
 });
+
+  it('should NOT create new invoice for receiver if there is NOT exactly one invoicable contract for the receiver', done => {
+    const spy = jest.spyOn(invoices, 'newInvoiceFromContract');
+    const contracts = mockAllContracts()
+      .map(c => Contract.createFromData(c));
+
+    of(contracts).pipe(
+      map(contracts => contracts.filter(contract => contract.isInvoiceable())),
+      filter(contracts => contracts.length === 1),
+      map(contracts => invoices.newInvoiceFromContract(contracts[0])),
+      take(1)
+    )
+      .subscribe(
+        next => console.log('should not happen'),
+        error => console.log('Error: ', error),
+        () => done()
+      );
+  });
+
+it('should dispatch OpenConfirmationDialog action if delete is processed', async () => {
+  const action = new OpenConfirmationDialog({
+    do: new fromStore.DeleteReceiver(receiver.data),
+    title: `Soll der Rechnungsempfänger ${receiver.header.id} wirklich gelöscht werden?`
+  });
+  const spy = jest.spyOn(store, 'dispatch');
+  service.delete(receiver);
+  return expect(spy).toHaveBeenCalledWith(action);
+});
+
+it('should invoke store selector if getActiveContracts is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getActiveContracts();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoice SettingsBusinessService.getCountries if getCountries is processed', async () => {
+  const spy = jest.spyOn(settings, 'getCountries');
+  service.getCountries();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getCurrent is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getCurrent();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getLastInvoices is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getLastInvoices();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getOpenInvoices is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getOpenInvoices();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getRecentContracts is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getRecentContracts();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getOpenInvoices is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getSummary();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if getRecentContracts is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.getRecentContracts();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if isDeletable is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.isDeletable();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if isQualifiedForQuickInvoice is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.isQualifiedForQuickInvoice();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if query is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.query();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should invoke store selector if select is processed', async () => {
+  const spy = jest.spyOn(store, 'pipe');
+  service.select();
+  return expect(spy).toHaveBeenCalled();
+});
+
+it('should dispatch NewReceiverSuccess event if new is processed', async () => {
+  const newReceiver = Object.assign({}, ReceiversBusinessService['template']);
+  const event = new NewReceiverSuccess(newReceiver);
+  const spy = jest.spyOn(store, 'dispatch');
+  service.new();
+  return expect(spy).toHaveBeenCalledWith(event);
+});
+
+it('should dispatch UpdateReceiver action when update is processed', async () => {
+  const action = new UpdateReceiver(receiver.data);
+  const spy = jest.spyOn(store, 'dispatch');
+  service.update(receiver);
+  return expect(spy).toHaveBeenCalledWith(action);
+});
+
+})
+;
