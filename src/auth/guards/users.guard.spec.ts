@@ -1,12 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 import {select, Store} from '@ngrx/store';
-import {generateIdState, generateIdStateWithOnlyAuthUser} from '../../test/test-generators';
 import {AppState} from '../../app/store/reducers';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {UsersGuard} from './users.guard';
+import {mockIdState, mockIdStateWithOnlyAuthUser} from '../../test/factories/mock-id-state.factory';
 
 describe('Users Guard', () => {
   let store: Store<AppState>;
@@ -39,16 +39,13 @@ describe('Users Guard', () => {
 
   describe('canActivate', async () => {
     it('should return true if users are loaded', async () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const outcome = cold('-(a|)', {a: idState});
       const spy = jest.spyOn(store, 'dispatch');
-      // @ts-ignore
-      const action = guard.getQueryAction();
+      const action = guard['getQueryAction']();
       store.pipe = jest.fn(() => outcome.pipe(
-        // @ts-ignore
-        select(guard.getObjectLoadedSelector()),
-        // @ts-ignore
-        tap(loaded => !loaded && store.dispatch(guard.getQueryAction())),
+        select(guard['getObjectLoadedSelector']()),
+        tap(loaded => !loaded && store.dispatch(guard['getQueryAction']())),
         filter(loaded => loaded),
         take(1)
       ).pipe(
@@ -61,7 +58,7 @@ describe('Users Guard', () => {
     });
 
     it('should dispatch QueryUsers action if users are not yet loaded', async () => {
-      const idState = generateIdStateWithOnlyAuthUser();
+      const idState = mockIdStateWithOnlyAuthUser();
       const outcome = cold('-(a|)', {a: idState});
       const spy = jest.spyOn(store, 'dispatch');
       // @ts-ignore
@@ -85,7 +82,7 @@ describe('Users Guard', () => {
 
   describe('checkStore', async () => {
     it('should return true if users are loaded', async () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const outcome = cold('-(a|)', {a: idState});
       const spy = jest.spyOn(store, 'dispatch');
       // @ts-ignore
@@ -104,7 +101,7 @@ describe('Users Guard', () => {
     });
 
     it('should dispatch QueryUsers action if users are not yet loaded', async () => {
-      const idState = generateIdStateWithOnlyAuthUser();
+      const idState = mockIdStateWithOnlyAuthUser();
       const outcome = cold('-(a|)', {a: idState});
       const spy = jest.spyOn(store, 'dispatch');
       // @ts-ignore

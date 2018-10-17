@@ -1,11 +1,11 @@
 import {TestBed} from '@angular/core/testing';
-import {mockState} from '../../../test/test-state';
 import {getUiState} from './index';
 import {uiReducer} from './ui.reducer';
 import {StartSpinning, StopSpinning} from '../actions';
+import {mockState} from '../../../test/factories/mock-state';
 
 describe('Ui Reducer', () => {
-  const state = mockState;
+  const state = mockState();
 
   beforeEach(() => {
     TestBed.configureTestingModule({

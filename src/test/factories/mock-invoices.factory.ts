@@ -96,7 +96,7 @@ const getBaseInvoice = (id: number, issuedAt: Date, receiverId: string, contract
       {
         id: 1, contractItemId: 1, description: 'Arbeitstage im Projekt T/E/S/T', pricePerUnit: 1.00,
         quantity: 1.0, quantityUnit: 'Tage', cashDiscountAllowed: true, vatPercentage: 19.0
-      }
+      },
     ]
   };
 };

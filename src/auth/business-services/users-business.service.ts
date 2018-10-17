@@ -6,7 +6,7 @@ import * as fromStorage from '../../storage/store';
 import {select, Store} from '@ngrx/store';
 import {User, UserData, UserProfileData} from '../models/user';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
-import {first, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 
 
 @Injectable()
@@ -26,7 +26,6 @@ export class UsersBusinessService {
   constructor(private store: Store<fromStore.IdState>) {
     this.store.pipe(
       select(fromAuth.selectAuth),
-      first(),
       tap(auth => this.auth = auth)
     )
       .subscribe();

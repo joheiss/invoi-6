@@ -6,7 +6,6 @@ import {AuthService} from '../../services';
 import {Store} from '@ngrx/store';
 import {cold, hot} from 'jasmine-marbles';
 import {ROOT_EFFECTS_INIT} from '@ngrx/effects';
-import {generateUserProfile} from '../../../test/test-generators';
 import {
   Authenticated,
   ChangeMyPassword,
@@ -24,6 +23,7 @@ import {
 import {AppState} from '../../../app/store/reducers';
 import {Go, LeaveLogin, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
 import {ClearState} from '../../../invoicing/store/actions';
+import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('Auth Effects', () => {
 
@@ -74,7 +74,7 @@ describe('Auth Effects', () => {
     it('should return an Authenticated action, with the user profile', async () => {
       const action = {type: ROOT_EFFECTS_INIT};
       actions = hot('-a', {a: action});
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const outcome = new Authenticated(user);
       const expected = cold('--c', {c: outcome});
       authService.queryAuth = jest.fn(() => cold('-b|', {b: user}));
@@ -97,7 +97,7 @@ describe('Auth Effects', () => {
     it('should return an Authenticated action, with the user profile', async () => {
       const action = new QueryAuth();
       actions = hot('-a', {a: action});
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const outcome = new Authenticated(user);
       const expected = cold('--c', {c: outcome});
       authService.queryAuth = jest.fn(() => cold('-b|', {b: user}));
@@ -158,7 +158,7 @@ describe('Auth Effects', () => {
   describe('authenticated$', () => {
 
     it('should return an array of actions containing QueryOneUser, StopSpinning and LeaveLogin action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new Authenticated(user);
       actions = hot('-a', {a: action});
       const expected = cold('-(abc)', { a: new QueryOneUser(user.uid), b: new StopSpinning(), c:  new LeaveLogin(user) });

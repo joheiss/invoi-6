@@ -5,7 +5,7 @@ export const mockAuth = (roles: string[] = ['sys-admin', 'sales-user']): UserDat
     {
       displayName: 'Test Tester',
       email: 'test.tester@test.de',
-      imageUrl: 'https://test/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: false,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',

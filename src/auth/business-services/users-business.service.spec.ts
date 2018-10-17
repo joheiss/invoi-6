@@ -7,8 +7,9 @@ import {User, UserProfileData} from '../models/user';
 import {ChangeMyPassword, ChangePassword, CreateUser, QueryUsers, UpdateUser, UpdateUserProfile} from '../store/actions';
 import {DeleteFile, UploadImage} from '../../storage/store/actions';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
-import {mockAllUsers, mockSingleUser} from '../../test/factories/mock-users.factory';
+import {mockSingleUser} from '../../test/factories/mock-users.factory';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {of} from 'rxjs/internal/observable/of';
 
 describe('Users Business Service', () => {
   let store: Store<IdState>;
@@ -49,53 +50,56 @@ describe('Users Business Service', () => {
     expect(store.pipe).toHaveBeenCalled();
   });
 
-  describe('getAllUsers', () => {
-    it('should return all users as User objects', async() => {
-      const allUsers = mockAllUsers().map(user => User.createFromData(user));
-      const expected = cold('-b|', { b: allUsers });
-      store.pipe = jest.fn(() => expected);
-      await expect(service.getAllUsers()).toBeObservable(expected);
-      return expect(store.pipe).toHaveBeenCalled();
+  it('should retrieve correct auth data during construction', done => {
+    of(mockAuth(['sales-user'])).pipe(
+    ).subscribe(auth => {
+      expect(auth[0]).toBeTruthy();
+      expect(auth[0].uid).toEqual('991OyAr37pNsS8BGHzidmOGAGVX2');
+      expect(auth[0].isLocked).toBeFalsy();
+      done();
     });
   });
 
-  describe('getCurrent', () => {
-    it('should return current user as User objects', async() => {
-      const expected = cold('-b|', { b: user });
-      store.pipe = jest.fn(() => expected);
-      await expect(service.getCurrent()).toBeObservable(expected);
-      return expect(store.pipe).toHaveBeenCalled();
-    });
+  it('should invoke store selector if getAllUsers is processed', () => {
+    const spy = jest.spyOn(store, 'pipe');
+    service.getAllUsers();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should invoke store selector if getCurrent is processed', () => {
+    const spy = jest.spyOn(store, 'pipe');
+    service.getCurrent();
+    expect(spy).toHaveBeenCalled();
   });
 
   describe('changePassword', () => {
-    it('should dispatch ChangeMyPassword action if logged in user equals requested user', async() => {
+    it('should dispatch ChangeMyPassword action if logged in user equals requested user', () => {
       const credentials = {
         uid: user.uid,
         email: user.email,
         oldPassword: 'sagIchNicht',
         password: 'weissIchNicht'
       };
-      await expect(service.changePassword(credentials)).not.toBe(true);
       const spy = jest.spyOn(store, 'dispatch');
       const action = new ChangeMyPassword(credentials);
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.changePassword(credentials);
+     expect(spy).toHaveBeenCalledWith(action);
     });
 
-    it('should dispatch ChangePassword action if logged in user is not requested user', async() => {
+    it('should dispatch ChangePassword action if logged in user is not requested user', () => {
       const credentials = {
         uid: 'IchNicht',
         password: 'weissIchAuchNicht'
       };
-      await expect(service.changePassword(credentials)).not.toBe(true);
       const spy = jest.spyOn(store, 'dispatch');
       const action = new ChangePassword(credentials);
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.changePassword(credentials);
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('create', () => {
-    it('should dispatch CreateUser action', async() => {
+    it('should dispatch CreateUser action', () => {
       const userData = mockSingleUser();
       userData.displayName = 'New User';
       userData.email = 'new.user@test.de';
@@ -104,40 +108,40 @@ describe('Users Business Service', () => {
       userData.roles = ['auditor'];
       const user = User.createFromData(userData);
       const password = 'SagIchNicht';
-      await expect(service.create({ user, password })).not.toBe(true);
+      service.create({ user, password });
       const payload = { user: userData, password: password };
       const spy = jest.spyOn(store, 'dispatch');
       const action = new CreateUser(payload);
-      return expect(spy).toHaveBeenCalledWith(action);
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('deleteProfileImage', () => {
-    it('should dispatch DeleteFile and UpdateUser actions', async() => {
+    it('should dispatch DeleteFile and UpdateUser actions', () => {
       const userData = { ...mockSingleUser(), imageUrl: 'http://abc.defghijk.lmo/images/users/1234' };
       const user = User.createFromData(userData);
-      await expect(service.deleteProfileImage(user)).not.toBe(true);
+      service.deleteProfileImage(user);
       const filePath = 'images/users/1234';
       const spy = jest.spyOn(store, 'dispatch');
       const action1 = new DeleteFile(filePath);
-      await expect(spy).toHaveBeenCalledWith(action1);
+      expect(spy).toHaveBeenCalledWith(action1);
       const payload = {user: { ...userData, imageUrl: null }, password: null };
       const action2 = new UpdateUser(payload);
-      return expect(spy).toHaveBeenCalledWith(action2);
+      expect(spy).toHaveBeenCalledWith(action2);
     });
   });
 
   describe('getThumbnailUrlForSize', () => {
-    it('should return correct URL for given size', async() => {
+    it('should return correct URL for given size', () => {
       const url = 'http://abc.defghijk.lmo/images/users/1234/image_64_thumb.png';
       const size = '99';
       const expected = 'http://abc.defghijk.lmo/images/users/1234/image_99_thumb.png';
-      return expect(service.getThumbnailUrlForSize(url, size)).toEqual(expected);
+      expect(service.getThumbnailUrlForSize(url, size)).toEqual(expected);
     });
   });
 
   describe('new', () => {
-    it('should return user template', async() => {
+    it('should return user template', () => {
       const expected: UserProfileData = {
         uid: null,
         email: null,
@@ -146,69 +150,65 @@ describe('Users Business Service', () => {
         displayName: null,
         isLocked: false
       };
-      return expect(service.new()).toEqual(expected);
+      expect(service.new()).toEqual(expected);
     });
   });
 
   describe('query', () => {
-    it('should dispatch QueryUser action', async() => {
-      await expect(service.query()).not.toBe(true);
+    it('should dispatch QueryUser action', () => {
       const spy = jest.spyOn(store, 'dispatch');
       const action = new QueryUsers();
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.query();
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
-  describe('select', () => {
-    it('should return the selected user', async() => {
-      const expected = cold('-b|', { b: user });
-      store.pipe = jest.fn(() => expected);
-      await expect(service.select()).toBeObservable(expected);
-      return expect(store.pipe).toHaveBeenCalled();
-    });
+  it('should invoke store selector if select is processed', () => {
+    const spy = jest.spyOn(store, 'pipe');
+    service.select();
+    expect(spy).toHaveBeenCalled();
   });
 
   describe('update', () => {
-    it('should dispatch UpdateUser action', async() => {
+    it('should dispatch UpdateUser action', () => {
       const password = 'SagIchNicht';
-      await expect(service.update({ user, password })).not.toBe(true);
       const payload = { user: userData, password: password };
       const spy = jest.spyOn(store, 'dispatch');
       const action = new UpdateUser(payload);
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.update({ user, password });
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('update', () => {
-    it('should dispatch UpdateProfile action', async() => {
-      await expect(service.updateProfile(user)).not.toBe(true);
+    it('should dispatch UpdateProfile action', () => {
       const payload = userData;
       const spy = jest.spyOn(store, 'dispatch');
       const action = new UpdateUserProfile(payload);
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.updateProfile(user);
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('uploadProfileImage', () => {
-    it('should dispatch UploadImage action', async() => {
+    it('should dispatch UploadImage action', () => {
       const payload: UploadPopupData = {
         title: 'Profilbild hochladen',
         selectButtonCaption: 'Bild auswählen',
         filePath: `images/users/${user.uid}`
       };
-      await expect(service.uploadProfileImage(user)).not.toBe(true);
       const spy = jest.spyOn(store, 'dispatch');
       const action = new UploadImage(payload);
-      return expect(spy).toHaveBeenCalledWith(action);
+      service.uploadProfileImage(user);
+      expect(spy).toHaveBeenCalledWith(action);
     });
   });
 
   describe('getImagePathFromUrl', () => {
-    it('should return image path from image url', async() => {
+    it('should return image path from image url', () => {
       const imageUrl = 'http://abc.defghijk.lmo/images/users/1234';
       const expected = 'images/users/1234';
-      // @ts-ignore
-      return expect(service.getImagePathFromUrl(imageUrl)).toEqual(expected);
+      expect(service['getImagePathFromUrl'](imageUrl)).toEqual(expected);
     });
   });
 });

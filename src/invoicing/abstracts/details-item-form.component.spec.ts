@@ -1,21 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ContractsBusinessService} from '../business-services';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
-import {Input, NO_ERRORS_SCHEMA} from '@angular/core';
-import {generateContract, generateNewContract} from '../../test/test-generators';
-import {Contract} from '../models/contract.model';
-import {ContractFormComponent, ContractItemFormComponent, ContractItemsFormComponent} from '../components';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../app/store/reducers';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {ContractItemFormComponent} from '../components';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {SharedModule} from '../../shared/shared.module';
-import {Receiver} from '../models/receiver.model';
-import {Invoice} from '../models/invoice.model';
 import {FormGroup} from '@angular/forms';
-import {Back} from '../../app/store/actions';
-import {Subscription} from 'rxjs/Subscription';
-import {hot} from 'jasmine-marbles';
 
 describe('Abstract Details Item Form Component', () => {
 

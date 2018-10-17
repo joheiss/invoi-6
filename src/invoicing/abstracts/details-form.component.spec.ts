@@ -3,7 +3,6 @@ import {ContractsBusinessService} from '../business-services';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {generateContract} from '../../test/test-generators';
 import {ContractFormComponent} from '../components';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app/store/reducers';
@@ -11,6 +10,8 @@ import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service
 import {SharedModule} from '../../shared/shared.module';
 import {FormGroup} from '@angular/forms';
 import {Back} from '../../app/store/actions';
+import {Contract} from '../models/contract.model';
+import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 
 describe('Abstract Details Form Component', () => {
 
@@ -66,7 +67,7 @@ describe('Abstract Details Form Component', () => {
       component['buildForm'] = jest.fn(() => new FormGroup({}));
       component['patchForm'] = jest.fn();
       component['listenToChanges'] = jest.fn();
-      component.object = generateContract();
+      component.object = Contract.createFromData(mockSingleContract());
       component.form =  new FormGroup({});
     });
 

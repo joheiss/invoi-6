@@ -1,8 +1,8 @@
 import {of} from 'rxjs/index';
-import {generateAuth} from './test-generators';
+import {mockAuth} from '../factories/mock-auth.factory';
 
 export const mockAngularFireAuth: any = {
-  authState: of({ ...generateAuth(), getIdToken: jest.fn(() => Promise.resolve('abc')) }),
+  authState: of({ ...mockAuth()[0], getIdToken: jest.fn(() => Promise.resolve('abc')) }),
   auth: {
     signInWithEmailAndPassword: jest.fn((email, password) => {
       if (password === 'correct') {
@@ -12,6 +12,6 @@ export const mockAngularFireAuth: any = {
         return Promise.reject(err);
       }
     }),
-    signOut: jest.fn(() => Promise.resolve(generateAuth()))
+    signOut: jest.fn(() => Promise.resolve(mockAuth()[0]))
   }
 };

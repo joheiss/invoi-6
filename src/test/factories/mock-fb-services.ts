@@ -1,9 +1,10 @@
-import {generateAuth, generateMoreUserProfiles, generateUserProfile} from './test-generators';
 import {cold, hot} from 'jasmine-marbles';
+import {mockAuth} from './mock-auth.factory';
+import {mockAllUsers, mockSingleUser} from './mock-users.factory';
 
 export const mockFbAuthService: any = {
   changeMyPassword: jest.fn(() => cold('-a|', { a: true })),
-  getAuthState: jest.fn(() => cold('-a|', { a: generateAuth() })),
+  getAuthState: jest.fn(() => cold('-a|', { a: mockAuth()[0] })),
   getIdToken: jest.fn(() => cold('-a|', { a: 'abcdefghijklmnopqrstuvwxyzäöü' })),
   logout: jest.fn(() => cold('-a|', { a: true })),
   signInWithEmailAndPassword: jest.fn((email, password) => {
@@ -17,12 +18,12 @@ export const mockFbAuthService: any = {
 export const mockFbStoreService: any = {
   /* --- user profiles ---*/
   getOneUserProfile: jest.fn(() => cold('-a|', { a: {
-    data: jest.fn(() => generateUserProfile())
+    data: jest.fn(() => mockSingleUser())
   }})),
-  queryAllUsers: jest.fn(() => hot('-a', { a: generateMoreUserProfiles() })),
+  queryAllUsers: jest.fn(() => hot('-a', { a: mockAllUsers() })),
   queryOneUser: jest.fn((uid: string) => cold('-b|', { b: { payload: { doc: { id: uid }}}})),
-  deleteOneUser: jest.fn(() => cold('-b|', { b: generateUserProfile() })),
-  updateOneUserProfile: jest.fn(() => cold('-b|', { b: generateUserProfile() })),
+  deleteOneUser: jest.fn(() => cold('-b|', { b: mockSingleUser() })),
+  updateOneUserProfile: jest.fn(() => cold('-b|', { b: mockSingleUser() })),
 };
 
 export const mockFbStorageService: any = {

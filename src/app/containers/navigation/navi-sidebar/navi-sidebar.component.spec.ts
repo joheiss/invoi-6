@@ -2,19 +2,17 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../../../shared/material.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {UsersUiService} from '../../../../auth/services';
 import {By} from '@angular/platform-browser';
-import {generateUserProfile} from '../../../../test/test-generators';
 import {of} from 'rxjs/index';
 import {NaviSidebarComponent} from './navi-sidebar.component';
+import {mockAuth} from '../../../../test/factories/mock-auth.factory';
 
 describe('NaviSidebarComponent', () => {
   let component: NaviSidebarComponent;
   let fixture: ComponentFixture<NaviSidebarComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule],
       declarations: [NaviSidebarComponent],
     }).compileComponents();
@@ -31,15 +29,14 @@ describe('NaviSidebarComponent', () => {
 
   describe('Menu Items', () => {
     it('should display only the login link if not authenticated', async () => {
-      const auth$ = null;
-      component.auth$ = auth$;
+      component.auth$ = null;
       fixture.detectChanges();
       const debugElems = fixture.debugElement.queryAll(By.css('a'));
       return expect(debugElems.length).toBe(1);
     });
 
     it('should display only the sales items if authenticated as sales-user', async () => {
-      const auth = generateUserProfile();
+      const auth = mockAuth()[0];
       auth.roles = ['sales-user'];
       component.auth$ = of(auth);
       fixture.detectChanges();
@@ -48,7 +45,7 @@ describe('NaviSidebarComponent', () => {
     });
 
     it('should display only the admin items if authenticated as admin user', async () => {
-      const auth = generateUserProfile();
+      const auth = mockAuth()[0];
       auth.roles = ['sys-admin'];
       component.auth$ = of(auth);
       fixture.detectChanges();

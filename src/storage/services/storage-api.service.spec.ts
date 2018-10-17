@@ -1,5 +1,5 @@
 import {TestBed} from '@angular/core/testing';
-import {mockFbStorageService} from '../../test/mock-fb-services';
+import {mockFbStorageService} from '../../test/factories/mock-fb-services';
 import {FbStorageService} from '../../shared/services/fb-storage.service';
 import {StorageApiService} from './storage-api.service';
 

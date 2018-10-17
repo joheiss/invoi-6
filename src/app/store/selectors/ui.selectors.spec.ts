@@ -1,8 +1,8 @@
 import * as fromSelectors from './ui.selectors';
-import {mockState} from '../../../test/test-state';
+import {mockState} from '../../../test/factories/mock-state';
 
 describe('Ui Selectors', () => {
-  const state = mockState;
+  const state = mockState();
 
   describe('selectIsSpinning', () => {
 

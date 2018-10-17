@@ -5,13 +5,11 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {Store} from '@ngrx/store';
-import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Login} from '../store/actions';
 import {AppState} from '../../app/store/reducers';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {User} from '../models/user';
-import {generateMoreUserProfiles} from '../../test/test-generators';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

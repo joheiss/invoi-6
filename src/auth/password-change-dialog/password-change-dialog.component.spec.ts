@@ -7,10 +7,10 @@ import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PasswordChangeDialogComponent} from './password-change-dialog.component';
 import {UsersBusinessService} from '../business-services/users-business.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {generateMoreUserProfiles, generateUserProfile} from '../../test/test-generators';
 import {User} from '../models/user';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
+import {mockAllUsers, mockSingleUser} from '../../test/factories/mock-users.factory';
 
 describe('PasswordChangeDialogComponent', () => {
   let component: PasswordChangeDialogComponent;
@@ -23,7 +23,7 @@ describe('PasswordChangeDialogComponent', () => {
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule, FormsModule, ReactiveFormsModule],
       declarations: [PasswordChangeDialogComponent],
       providers: [
-        {provide: MAT_DIALOG_DATA, useValue: {task: 'my-profile', user: User.createFromData(generateUserProfile())}},
+        {provide: MAT_DIALOG_DATA, useValue: {task: 'my-profile', user: User.createFromData(mockSingleUser())}},
         {
           provide: MatDialogRef,
           useValue: {
@@ -58,18 +58,18 @@ describe('PasswordChangeDialogComponent', () => {
     describe('When dialog is initially displayed ...', () => {
 
       describe(`When current user's password is to be changed ...`, () => {
-        return testForm({title: 'Mein Passwort ändern', task: 'change', user: User.createFromData(generateUserProfile())});
+        return testForm({title: 'Mein Passwort ändern', task: 'change', user: User.createFromData(mockSingleUser())});
       });
 
       describe(`When other user's password is to be changed ...`, () => {
-        return testForm({title: 'Passwort setzen', task: 'set', user: User.createFromData(generateMoreUserProfiles(1)[0])});
+        return testForm({title: 'Passwort setzen', task: 'set', user: User.createFromData(mockAllUsers()[1])});
       });
     });
 
     describe('When dialog content is edited ...', () => {
 
       beforeEach(async () => {
-        component.data = {title: 'Passwort setzen', task: 'set', user: User.createFromData(generateMoreUserProfiles(1)[0])};
+        component.data = {title: 'Passwort setzen', task: 'set', user: User.createFromData(mockAllUsers()[1])};
         component.form = undefined;
         component.ngOnInit();
         fixture.detectChanges();
@@ -128,7 +128,7 @@ describe('PasswordChangeDialogComponent', () => {
     describe(`When dialog content is edited to change the user's own password ...`, () => {
 
       beforeEach(async () => {
-        component.data = {title: 'Mein Passwort ändern', task: 'change', user: User.createFromData(generateUserProfile())};
+        component.data = {title: 'Mein Passwort ändern', task: 'change', user: User.createFromData(mockSingleUser())};
         component.form = undefined;
         component.ngOnInit();
         fixture.detectChanges();
@@ -148,7 +148,7 @@ describe('PasswordChangeDialogComponent', () => {
     let user;
 
     beforeEach(() => {
-      user = User.createFromData(generateUserProfile());
+      user = User.createFromData(mockSingleUser());
     });
 
 

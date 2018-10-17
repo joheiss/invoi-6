@@ -6,15 +6,15 @@ import {MaterialModule} from '../../../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {UsersUiService} from '../../../../auth/services';
 import {By} from '@angular/platform-browser';
-import {generateUserProfile} from '../../../../test/test-generators';
 import {of} from 'rxjs/index';
+import {mockAuth} from '../../../../test/factories/mock-auth.factory';
 
 describe('NaviHeaderComponent', () => {
   let component: NaviHeaderComponent;
   let fixture: ComponentFixture<NaviHeaderComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [NaviHeaderComponent],
       providers: [
@@ -40,8 +40,7 @@ describe('NaviHeaderComponent', () => {
 
   describe('Menu Items', () => {
     it('should display only the Login item if not authenticated', async () => {
-      const auth$ = null;
-      component.auth$ = auth$;
+      component.auth$ = null;
       fixture.detectChanges();
       const debugElems = fixture.debugElement.queryAll(By.css('ul'));
       await expect(debugElems.length).toBe(2);
@@ -53,7 +52,7 @@ describe('NaviHeaderComponent', () => {
     });
 
     it('should display only the sales items if authenticated as sales-user', async () => {
-      const auth = generateUserProfile();
+      const auth = mockAuth()[0];
       auth.roles = ['sales-user'];
       component.auth$ = of(auth);
       fixture.detectChanges();
@@ -67,7 +66,7 @@ describe('NaviHeaderComponent', () => {
     });
 
     it('should display only the admin items if authenticated as admin user', async () => {
-      const auth = generateUserProfile();
+      const auth = mockAuth()[0];
       auth.roles = ['sys-admin'];
       component.auth$ = of(auth);
       fixture.detectChanges();

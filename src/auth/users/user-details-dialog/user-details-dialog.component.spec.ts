@@ -7,9 +7,9 @@ import {MaterialModule} from '../../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {generateUserProfile} from '../../../test/test-generators';
 import {By} from '@angular/platform-browser';
 import {User} from '../../models/user';
+import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('User Details Dialog Component', () => {
 
@@ -29,7 +29,7 @@ describe('User Details Dialog Component', () => {
           useValue: {
             title: 'Benutzer pflegen',
             task: 'edit',
-            user: generateUserProfile()
+            user: mockSingleUser()
           }
         },
         {
@@ -77,18 +77,18 @@ describe('User Details Dialog Component', () => {
     describe('When dialog is initially displayed ...', () => {
       describe('When new user is to be created ...', () => {
 
-        return testForm({task: 'new', title: 'Benutzer anlegen', user: User.createFromData(generateUserProfile())});
+        return testForm({task: 'new', title: 'Benutzer anlegen', user: User.createFromData(mockSingleUser())});
 
       });
 
       describe('When existing user is to be edited ...', () => {
 
-        return testForm({task: 'edit', title: 'Benutzer pflegen', user: User.createFromData(generateUserProfile())});
+        return testForm({task: 'edit', title: 'Benutzer pflegen', user: User.createFromData(mockSingleUser())});
       });
 
       describe('When my own profile is to be edited ...', () => {
 
-        return testForm({task: 'my-profile', title: 'Meine Daten', user: User.createFromData(generateUserProfile())});
+        return testForm({task: 'my-profile', title: 'Meine Daten', user: User.createFromData(mockSingleUser())});
       });
     });
 
@@ -97,7 +97,7 @@ describe('User Details Dialog Component', () => {
       describe('When common fields are edited ...', () => {
 
         beforeEach(async () => {
-          component.data = {task: 'edit', title: 'Benutzer pflegen', user: User.createFromData(generateUserProfile())};
+          component.data = {task: 'edit', title: 'Benutzer pflegen', user: User.createFromData(mockSingleUser())};
           component.form = undefined;
           component.ngOnInit();
           fixture.detectChanges();
@@ -226,7 +226,7 @@ describe('User Details Dialog Component', () => {
     let user;
 
     beforeEach(() => {
-      user = User.createFromData(generateUserProfile());
+      user = User.createFromData(mockSingleUser());
     });
 
 

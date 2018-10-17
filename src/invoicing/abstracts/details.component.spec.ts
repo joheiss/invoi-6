@@ -6,10 +6,10 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {cold} from 'jasmine-marbles';
-import {generateContract} from '../../test/test-generators';
 import {Contract} from '../models/contract.model';
+import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 
 describe('Abstract Details Component', () => {
 
@@ -62,7 +62,7 @@ describe('Abstract Details Component', () => {
     let object: Contract;
 
     beforeEach(() => {
-      object = generateContract();
+      object = Contract.createFromData(mockSingleContract());
     });
 
     it('should return the id from the route params', async () => {

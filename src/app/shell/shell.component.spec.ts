@@ -11,15 +11,16 @@ import {QueryAuth} from '../../auth/store/actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersUiService} from '../../auth/services';
 import {cold, getTestScheduler, hot} from 'jasmine-marbles';
-import {generateUserProfile} from '../../test/test-generators';
 import {last} from 'rxjs/operators';
+import {mockSingleUser} from '../../test/factories/mock-users.factory';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('ShellComponent', () => {
   let component: ShellComponent;
   let fixture: ComponentFixture<ShellComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [ShellComponent, NaviHeaderComponent, NaviSidebarComponent],
       providers: [
@@ -73,7 +74,7 @@ describe('ShellComponent', () => {
 
   it('should select the current auth object', () => {
     const store = TestBed.get(Store);
-    const auth = generateUserProfile();
+    const auth = mockAuth()[0];
     store.pipe = jest.fn(() => hot('-a', {a: auth}));
     fixture.detectChanges();
     const expected = cold('-a', {a: auth});
@@ -82,7 +83,7 @@ describe('ShellComponent', () => {
 
   it('should select the currently authenticated user', () => {
     const store = TestBed.get(Store);
-    const user = generateUserProfile();
+    const user = mockSingleUser();
     store.pipe = jest.fn(() => hot('-a', {a: user}));
     fixture.detectChanges();
     const expected = cold('-a', {a: user});
@@ -92,8 +93,8 @@ describe('ShellComponent', () => {
   describe('user$', () => {
     it('should be an observable of a single UserProfile object', done => {
       const store = TestBed.get(Store);
-      const user = generateUserProfile();
-      const bullshit = { ...generateUserProfile(), displayName: 'Bullshit' };
+      const user = mockSingleUser();
+      const bullshit = { ...mockSingleUser(), displayName: 'Bullshit' };
       store.pipe = jest.fn(() => cold('-a|', {a: user}));
       fixture.detectChanges();
       component.user$.pipe(last()).subscribe(user => {

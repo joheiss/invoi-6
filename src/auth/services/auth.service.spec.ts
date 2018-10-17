@@ -3,13 +3,14 @@ import {UiService} from '../../shared/services/ui.service';
 import {AuthService} from './auth.service';
 import {MaterialModule} from '../../shared/material.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {generateUserProfile} from '../../test/test-generators';
 import {cold} from 'jasmine-marbles';
 import {UserCredentials} from '../models/user';
 import {FbAuthService} from '../../shared/services/fb-auth.service';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 import {FbFunctionsService} from '../../shared/services/fb-functions.service';
-import {mockFbAuthService, mockFbFunctionsService, mockFbStoreService} from '../../test/mock-fb-services';
+import {mockFbAuthService, mockFbFunctionsService, mockFbStoreService} from '../../test/factories/mock-fb-services';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {mockSingleUser} from '../../test/factories/mock-users.factory';
 
 describe('Auth Service', () => {
   let fbAuth: FbAuthService;
@@ -53,7 +54,7 @@ describe('Auth Service', () => {
       // @ts-ignore
       const spySetIdToken = jest.spyOn(service, 'setIdToken');
 
-      const user = generateUserProfile();
+      const user = mockAuth()[0];
       const expected = cold('---b|', {b: user});
       await expect(service.queryAuth()).toBeObservable(expected);
 
@@ -119,7 +120,7 @@ describe('Auth Service', () => {
 
   describe('changePassword', async () => {
     it('should invoke FbFunctionsService.changePassword to change the password', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const payload = {
         uid: user.uid,
         password: 'SagIchNicht'

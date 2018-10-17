@@ -1,13 +1,14 @@
 import {TestBed} from '@angular/core/testing';
 import {select, Store} from '@ngrx/store';
 import {AuthenticationGuard} from './authentication.guard';
-import {generateIdState, generateUserProfile} from '../../test/test-generators';
 import {AppState} from '../../app/store/reducers';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
 import {catchError, map, switchMap, take} from 'rxjs/operators';
 import {selectAuth} from '../store/selectors';
 import {of} from 'rxjs/index';
+import {mockIdState} from '../../test/factories/mock-id-state.factory';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('Authentication Guard', () => {
   let store: Store<AppState>;
@@ -40,7 +41,7 @@ describe('Authentication Guard', () => {
 
   describe('canActivate', async () => {
     it('should return true if user is authenticated', () => {
-      const outcome = cold('-(a|)', { a: generateIdState() });
+      const outcome = cold('-(a|)', { a: mockIdState() });
       store.pipe = jest.fn(() => outcome.pipe(
         select(selectAuth),
         map(auth => !!auth),
@@ -54,7 +55,7 @@ describe('Authentication Guard', () => {
     });
 
     it('should return false if user is not authenticated', () => {
-      const idState = { ...generateIdState(), auth: null };
+      const idState = { ...mockIdState(), auth: null };
       const outcome = cold('-(a|)', { a: idState });
       store.pipe = jest.fn(() => outcome.pipe(
         select(selectAuth),
@@ -71,7 +72,7 @@ describe('Authentication Guard', () => {
 
   describe('canLoad', async () => {
     it('should return true if user is authenticated', () => {
-      const outcome = cold('-(a|)', { a: generateIdState() });
+      const outcome = cold('-(a|)', { a: mockIdState() });
       store.pipe = jest.fn(() => outcome.pipe(
         select(selectAuth),
         map(auth => !!auth),
@@ -85,7 +86,7 @@ describe('Authentication Guard', () => {
     });
 
     it('should return false if user is not authenticated', () => {
-      const idState = { ...generateIdState(), auth: null };
+      const idState = { ...mockIdState(), auth: null };
       const outcome = cold('-(a|)', { a: idState });
       store.pipe = jest.fn(() => outcome.pipe(
         select(selectAuth),
@@ -102,12 +103,12 @@ describe('Authentication Guard', () => {
 
   describe('checkUser', async () => {
     it('should return true if user is authenticated', () => {
-      const authUser = generateUserProfile();
+      const authUser = mockAuth()[0];
       const outcome = cold('-a|', { a: authUser });
       store.pipe = jest.fn(() => outcome.pipe(map(auth => !!auth), take(1)));
       const expected = cold('-(b|)', { b: true });
       // @ts-ignore
-      return expect(guard.checkUser()).toBeObservable(expected);
+      return expect(guard['checkUser']()).toBeObservable(expected);
     });
 
     it('should return false if user is not authenticated', () => {
@@ -115,8 +116,7 @@ describe('Authentication Guard', () => {
       const outcome = cold('-a|', { a: authUser });
       store.pipe = jest.fn(() => outcome.pipe(map(auth => !!auth), take(1)));
       const expected = cold('-(b|)', { b: false });
-      // @ts-ignore
-      return expect(guard.checkUser()).toBeObservable(expected);
+      return expect(guard['checkUser']()).toBeObservable(expected);
     });
   });
 

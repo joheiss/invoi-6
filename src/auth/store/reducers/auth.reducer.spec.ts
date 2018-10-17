@@ -1,6 +1,6 @@
 import {authAdapter, authReducer, AuthState} from './auth.reducer';
 import {Authenticated, Login, Logout, NotAuthenticated, QueryAuth} from '../actions';
-import {generateUserProfile} from '../../../test/test-generators';
+import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('Auth Reducer', () => {
 
@@ -36,7 +36,7 @@ describe('Auth Reducer', () => {
 
   describe('Authenticated Event', () => {
     it('should add the authenticated user and toggle loading / loaded in state', () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new Authenticated(user);
       const result = authReducer(undefined, action);
       expect(result).toEqual({
@@ -65,7 +65,7 @@ describe('Auth Reducer', () => {
 
   describe('Logout Action', () => {
     it('should clear the state to initial State', () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new Logout();
       const someState = {
         ...initialState,

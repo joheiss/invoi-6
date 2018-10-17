@@ -5,19 +5,22 @@ import {UsersService, UsersUiService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {cold, hot} from 'jasmine-marbles';
-import {generateMoreUserProfiles, generateNewUser, generateUserProfile} from '../../../test/test-generators';
 import {
-  Authenticated, CreateUser, CreateUserFail, CreateUserSuccess,
-  QueryAuth,
+  CreateUser,
+  CreateUserFail,
+  CreateUserSuccess,
   QueryOneUser,
   QueryUsers,
   UpdateUser,
   UpdateUserFail,
-  UpdateUserProfile, UpdateUserProfileFail, UpdateUserProfileSuccess,
+  UpdateUserProfile,
+  UpdateUserProfileFail,
+  UpdateUserProfileSuccess,
   UpdateUserSuccess
 } from '../actions';
 import {UserEffects} from './user.effects';
-import {Go, LeaveLogin, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {mockAllUsers, mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('User Effects', () => {
 
@@ -78,7 +81,7 @@ describe('User Effects', () => {
     it('should return an array of user actions', async () => {
       const action = new QueryUsers();
       actions = hot('-a', {a: action});
-      const users = generateMoreUserProfiles(3);
+      const users = mockAllUsers().slice(0, 3);
       const outcome = users.map(user => {
         const type = 'Added';
         const payload = { doc: { id: user.uid, data: jest.fn(() => user) } };
@@ -97,7 +100,7 @@ describe('User Effects', () => {
   describe('queryOneUser$', () => {
 
     it('should return a single user action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new QueryOneUser(user.uid);
       actions = hot('-a', {a: action});
       const outcome = [
@@ -113,7 +116,7 @@ describe('User Effects', () => {
   describe('updateUser$', () => {
 
     it('should return an UpdateUserSuccess action and dispatch StartSpinning action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const password = 'SagIchNicht';
       const action = new UpdateUser({ user, password });
       actions = hot('-a', {a: action});
@@ -126,7 +129,7 @@ describe('User Effects', () => {
     });
 
     it('should return an UpdateUserFail action and dispatch StartSpinning action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const password = 'NichtErlaubt';
       const action = new UpdateUser({ user, password });
       actions = hot('-a', {a: action});
@@ -143,7 +146,7 @@ describe('User Effects', () => {
   describe('updateUserSuccess$', () => {
 
     it('should return an array of actions containing StopSpinning, OpenSnackBar and Go action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new UpdateUserSuccess(user);
       actions = hot('-a', {a: action});
       const message = undefined;
@@ -167,7 +170,7 @@ describe('User Effects', () => {
   describe('updateUserProfile$', () => {
 
     it('should return an UpdateUserProfileSuccess action and dispatch StartSpinning action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new UpdateUserProfile(user);
       actions = hot('-a', {a: action});
       const outcome = new UpdateUserProfileSuccess(user);
@@ -179,7 +182,7 @@ describe('User Effects', () => {
     });
 
     it('should return an UpdateUserProfileFail action and dispatch StartSpinning action', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new UpdateUserProfile(user);
       actions = hot('-a', {a: action});
       const error = new Error('Failed');
@@ -195,7 +198,7 @@ describe('User Effects', () => {
   describe('updateUserProfileSuccess$', () => {
 
     it('should return an array of actions containing StopSpinning and OpenSnackBar', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new UpdateUserProfileSuccess(user);
       actions = hot('-a', {a: action});
       const message = undefined;
@@ -219,7 +222,7 @@ describe('User Effects', () => {
   describe('createUser$', () => {
 
     it('should return a CreateUserSuccessSuccess action and dispatch StartSpinning action', async () => {
-      const user = generateNewUser();
+      const user = {...mockSingleUser(), displayName: 'New User', email: 'newuser@test.de', uid: undefined };
       const password = 'SagIchNicht';
       const action = new CreateUser({user, password});
       actions = hot('-a', {a: action});
@@ -232,7 +235,7 @@ describe('User Effects', () => {
     });
 
     it('should return a CreateUserFail action and dispatch StartSpinning action', async () => {
-      const user = generateNewUser();
+      const user = {...mockSingleUser(), displayName: 'New User', email: 'newuser@test.de', uid: undefined };
       const password = 'SagIchNicht';
       const action = new CreateUser({user, password});
       actions = hot('-a', {a: action});
@@ -249,7 +252,7 @@ describe('User Effects', () => {
   describe('createUserSuccess$', () => {
 
     it('should return an array of actions containing StopSpinning, OpenSnackBar and Go', async () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new CreateUserSuccess(user);
       actions = hot('-a', {a: action});
       const message = undefined;

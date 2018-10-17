@@ -1,7 +1,6 @@
-import {authAdapter, authReducer, AuthState} from './auth.reducer';
-import {AddedUser, Authenticated, Login, Logout, ModifiedUser, NotAuthenticated, QueryAuth, QueryUsers, RemovedUser} from '../actions';
-import {generateUserProfile} from '../../../test/test-generators';
+import {AddedUser, ModifiedUser, QueryUsers, RemovedUser} from '../actions';
 import {userAdapter, userReducer, UserState} from './users.reducer';
+import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('Users Reducer', () => {
 
@@ -30,7 +29,7 @@ describe('Users Reducer', () => {
 
   describe('AddedUser Event', () => {
     it('should toggle the loading state and add an user to the state', () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const action = new AddedUser(user);
       const result = userReducer(undefined, action);
       expect(result).toEqual({
@@ -45,7 +44,7 @@ describe('Users Reducer', () => {
 
   describe('ModifiedUser Event', () => {
     it('should update the user in the state', () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const someState = {
         ...initialState,
         entities: { [user.uid]: user },
@@ -65,7 +64,7 @@ describe('Users Reducer', () => {
 
   describe('RemovedUser Event', () => {
     it('should remove the user from the state', () => {
-      const user = generateUserProfile();
+      const user = mockSingleUser();
       const someState = {
         ...initialState,
         entities: { [user.uid]: user },

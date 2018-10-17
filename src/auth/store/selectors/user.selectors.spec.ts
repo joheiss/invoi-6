@@ -1,4 +1,3 @@
-import {mockState} from '../../../test/test-state';
 import {
   selectAllUsers,
   selectAllUsersAsObjArray,
@@ -10,27 +9,28 @@ import {
   selectUsersLoaded
 } from './user.selectors';
 import {User} from '../../models/user';
-import {generateMoreUserProfiles, generateUserProfile} from '../../../test/test-generators';
+import {mockState} from '../../../test/factories/mock-state';
+import {mockAllUsers, mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('User Selectors', () => {
 
   let state;
 
   beforeEach(() => {
-    state = mockState;
+    state = mockState();
   });
 
   describe('selectUserEntities', () => {
 
     it('should return the entities object containing 4 users', () => {
-      expect(selectUserEntities(state)).toEqual(mockState.users.entities);
+      expect(selectUserEntities(state)).toEqual(state.users.entities);
     });
   });
 
   describe('selectAllUsers', () => {
 
     it('should return an array containing all users', () => {
-      const expected = Object.keys(mockState.users.entities).map(k => mockState.users.entities[k]);
+      const expected = Object.keys(state.users.entities).map(k => state.users.entities[k]);
       expect(selectAllUsers(state)).toEqual(expected);
     });
   });
@@ -38,7 +38,7 @@ describe('User Selectors', () => {
   describe('selectAllUsersAsObjArray', () => {
 
     it('should return an array of user objects', () => {
-      const expected = Object.keys(mockState.users.entities).map(key => User.createFromData(mockState.users.entities[key]));
+      const expected = Object.keys(state.users.entities).map(key => User.createFromData(state.users.entities[key]));
       expect(selectAllUsersAsObjArray(state)).toEqual(expected);
     });
   });
@@ -46,7 +46,7 @@ describe('User Selectors', () => {
   describe('selectUsersLoaded', () => {
 
     it('should return true ', () => {
-      const expected = mockState.users.loaded;
+      const expected = state.users.loaded;
       expect(selectUsersLoaded(state)).toEqual(expected);
     });
   });
@@ -54,7 +54,7 @@ describe('User Selectors', () => {
   describe('selectCurrentUser', () => {
 
     it('should return the currently logged in user ', () => {
-      const expected = generateUserProfile();
+      const expected = mockSingleUser();
       expect(selectCurrentUser(state)).toEqual(expected);
     });
   });
@@ -62,7 +62,7 @@ describe('User Selectors', () => {
   describe('selectCurrentUserAsObj', () => {
 
     it('should return the currently logged in user as object', () => {
-      const expected = User.createFromData(generateUserProfile());
+      const expected = User.createFromData(mockSingleUser());
       expect(selectCurrentUserAsObj(state)).toEqual(expected);
     });
   });
@@ -70,7 +70,7 @@ describe('User Selectors', () => {
   describe('selectSelectedUser', () => {
 
     it('should return the currently selected user', () => {
-      const users = generateMoreUserProfiles(3);
+      const users = mockAllUsers();
       state.routerReducer.state = { url: '/users', params: { id: users[1].uid } } as any;
       const expected = users[1];
       expect(selectSelectedUser(state)).toEqual(expected);

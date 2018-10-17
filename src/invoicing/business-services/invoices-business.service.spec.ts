@@ -1,11 +1,9 @@
 import {Store} from '@ngrx/store';
-import {generateContract, generateInvoice, generateInvoiceData, generateUserProfile} from '../../test/test-generators';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {InvoicingState} from '../store/reducers';
 import {InvoicesBusinessService} from './invoices-business.service';
 import {
-  ChangeInvoiceSuccess,
   CopyInvoiceSuccess,
   CreateInvoice,
   CreateInvoicePdf,
@@ -16,7 +14,7 @@ import {
 } from '../store/actions';
 import {OpenConfirmationDialog} from '../../app/store/actions';
 import * as fromStore from '../store';
-import {Invoice, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
+import {Invoice, InvoiceData, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
 import {Contract} from '../models/contract.model';
 import {BillingMethod, PaymentMethod} from '../models/invoicing.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
@@ -26,7 +24,7 @@ import {filter, map, take} from 'rxjs/operators';
 import {mockNumberRangeEntity} from '../../test/factories/mock-number-ranges.factory';
 import {NumberRange} from '../models/number-range.model';
 import {mockSingleInvoice} from '../../test/factories/mock-invoices.factory';
-import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
+import {mockAllContracts, mockSingleContract} from '../../test/factories/mock-contracts.factory';
 
 let store: Store<InvoicingState>;
 let service: InvoicesBusinessService;
@@ -274,7 +272,8 @@ describe('Invoices Business Service', () => {
   });
 
   it('should return a new item (template)', () => {
-    const itemData = {...InvoicesBusinessService['itemTemplate'],
+    const itemData = {
+      ...InvoicesBusinessService['itemTemplate'],
       id: invoice.getNextItemId()
     } as InvoiceItemData;
     const item = InvoiceItem.createFromData(itemData);
@@ -311,11 +310,11 @@ describe('Invoices Business Service', () => {
 
   it('should detect change of receiver on an invoice and handle it', async () => {
     service['getVatPercentage'] = jest.fn(() => cold('-a|', {a: 18.0}));
-    const currentInvoice = generateInvoice();
+    const currentInvoice = Invoice.createFromData(mockSingleInvoice());
     service['currentData'] = currentInvoice.data;
-    const changedInvoice = generateInvoice();
+    const changedInvoice = Invoice.createFromData(mockSingleInvoice());
     changedInvoice.header.receiverId = '1902';
-    const expectedInvoice = generateInvoice();
+    const expectedInvoice = Invoice.createFromData(mockSingleInvoice());
     expectedInvoice.header.receiverId = '1902';
     expectedInvoice.header.vatPercentage = 18.0;
     const expected = cold('-(a|)', {a: expectedInvoice});
@@ -327,20 +326,20 @@ describe('Invoices Business Service', () => {
   });
 
   it('should detect change of contract on an invoice and handle it', async () => {
-    const currentContract = generateContract();
-    const otherContract = generateContract();
+    const currentContract = Contract.createFromData(mockSingleContract());
+    const otherContract = Contract.createFromData(mockSingleContract());
     otherContract.header.id = '4902';
     otherContract.header.invoiceText = 'anderer Text';
     const contracts: Contract[] = [currentContract, otherContract];
     service.getContracts = jest.fn(() => cold('-a|', {a: contracts}));
-    const currentInvoice = generateInvoice();
+    const currentInvoice = Invoice.createFromData(mockSingleInvoice());
     service['currentData'] = currentInvoice.data;
-    const changedInvoice = generateInvoice();
+    const changedInvoice = Invoice.createFromData(mockSingleInvoice());
     changedInvoice.header.contractId = '4902';
     changedInvoice.header.internalText = 'Änderung!!!';
     changedInvoice.items[0].pricePerUnit = 555.55;
     changedInvoice.items = changedInvoice.items.filter(item => item.id < 4);
-    const expectedInvoice = generateInvoice();
+    const expectedInvoice = Invoice.createFromData(mockSingleInvoice());
     expectedInvoice.header.contractId = '4902';
     expectedInvoice.header.internalText = 'Änderung!!!';
     expectedInvoice.items[0].pricePerUnit = 555.55;
@@ -351,17 +350,19 @@ describe('Invoices Business Service', () => {
   });
 
   it('should detect change of contract id on an invoice item and handle it', async () => {
-    const currentContract = generateContract();
-    const otherContract = generateContract();
-    otherContract.header.id = '4902';
-    otherContract.header.invoiceText = 'anderer Text';
-    const contracts: Contract[] = [currentContract, otherContract];
-    service.getContracts = jest.fn(() => cold('-a|', {a: contracts}));
-    const currentInvoice = generateInvoice();
+    const currentContract = Contract.createFromData(mockSingleContract());
+    // console.log(mockAllContracts());
+    // const otherContract = Contract.createFromData(
+    //  mockAllContracts().find(c => c.id === '4908')
+    // );
+    // otherContract.header.invoiceText = 'anderer Text';
+    // const contracts: Contract[] = [currentContract];
+    service.getContracts = jest.fn(() => cold('-a|', {a: mockAllContracts().map(c => Contract.createFromData(c))}));
+    const currentInvoice = Invoice.createFromData(mockSingleInvoiceWith4Items());
     service['currentData'] = currentInvoice.data;
-    const changedInvoice = generateInvoice();
+    const changedInvoice = Invoice.createFromData(mockSingleInvoiceWith4Items());
     changedInvoice.items[1].contractItemId = 1;
-    const expectedInvoiceData = generateInvoiceData();
+    const expectedInvoiceData = mockSingleInvoiceWith4Items();
     expectedInvoiceData.items[1].contractItemId = 1;
     expectedInvoiceData.items[1].description = currentContract.data.items[0].description;
     expectedInvoiceData.items[1].pricePerUnit = currentContract.data.items[0].pricePerUnit;
@@ -377,25 +378,48 @@ describe('Invoices Business Service', () => {
   });
 
   it('should determine changes and flatten them to array of changes', () => {
-    const currentInvoice = generateInvoice();
+    const currentInvoice = Invoice.createFromData(mockSingleInvoiceWith4Items());
     service['currentData'] = currentInvoice.data;
-    const changedInvoice = generateInvoice();
+    const changedInvoice = Invoice.createFromData(mockSingleInvoiceWith4Items());
     changedInvoice.header.receiverId = '1902';
-    changedInvoice.header.contractId = '4902';
+    changedInvoice.header.contractId = '4910';
     changedInvoice.header.invoiceText = 'Test Change invoiceText';
     changedInvoice.items[1].contractItemId = 1;
     changedInvoice.items = changedInvoice.items.filter(item => item.id !== 3);
     changedInvoice.items[2].pricePerUnit = 123.45;
     const expected = [
       {mode: 'changed', object: 'header', field: 'receiverId', value: '1902'},
-      {mode: 'changed', object: 'header', field: 'contractId', value: '4902'},
+      {mode: 'changed', object: 'header', field: 'contractId', value: '4910'},
       {mode: 'changed', object: 'header', field: 'invoiceText', value: 'Test Change invoiceText'},
       {mode: 'changed', object: 'item', id: 2, field: 'contractItemId', value: 1},
       {mode: 'deleted', object: 'item', id: 3},
       {mode: 'changed', object: 'item', id: 4, field: 'pricePerUnit', value: 123.45}
     ];
+
     expect(service['determineChanges'](changedInvoice.data, currentInvoice.data)).toEqual(expected);
   });
 
-});
+})
+;
+
+const mockSingleInvoiceWith4Items = (): InvoiceData => {
+  const invoice = mockSingleInvoice();
+  const additionalItems = [
+    {
+      id: 2, contractItemId: 2, description: 'Reisezeit im Projekt T/E/S/T', pricePerUnit: 1.00,
+      quantity: 1.0, quantityUnit: 'Std.', cashDiscountAllowed: true, vatPercentage: 19.0
+    },
+    {
+      id: 3, contractItemId: 3, description: 'km-Pauschale', pricePerUnit: 1.00,
+      quantity: 1.0, quantityUnit: 'km', cashDiscountAllowed: false, vatPercentage: 19.0
+    },
+    {
+      id: 4, contractItemId: 4, description: 'Übernachtungspauschale', pricePerUnit: 1.00,
+      quantity: 1.0, quantityUnit: 'Übernachtungen', cashDiscountAllowed: false, vatPercentage: 19.0
+    }
+  ];
+  invoice.items.push(...additionalItems);
+  console.log(invoice.items);
+  return invoice;
+};
 

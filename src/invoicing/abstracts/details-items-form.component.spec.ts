@@ -6,7 +6,8 @@ import {ContractItemsFormComponent} from '../components';
 import {SharedModule} from '../../shared/shared.module';
 import {FormArray} from '@angular/forms';
 import {ContractsBusinessService} from '../business-services';
-import {generateContract} from '../../test/test-generators';
+import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
+import {Contract} from '../models/contract.model';
 
 describe('Abstract Details Items Form Component', () => {
 
@@ -51,7 +52,7 @@ describe('Abstract Details Items Form Component', () => {
   describe('Controller', () => {
 
     beforeEach(() => {
-      component.object = generateContract();
+      component.object = Contract.createFromData(mockSingleContract());
       component.itemsFormArray = new FormArray([]);
       component['buildItems'] = jest.fn();
     });

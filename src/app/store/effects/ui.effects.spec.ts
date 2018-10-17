@@ -1,11 +1,11 @@
-import {EMPTY, Observable, of} from 'rxjs/index';
+import {Observable} from 'rxjs/index';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {UiEffects} from './ui.effects';
 import {UiService} from '../../../shared/services/ui.service';
 import {OpenConfirmationDialog, OpenSnackBar, OpenUrl} from '../actions';
 import {cold, hot} from 'jasmine-marbles';
-import {TestAction} from '../../../test/test-actions';
+import {TestAction} from '../../../test/objects/test-actions';
 
 describe('Ui Effects', () => {
   let actions: Observable<any>;

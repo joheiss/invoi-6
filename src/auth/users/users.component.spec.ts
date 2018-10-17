@@ -6,11 +6,11 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {UsersBusinessService} from '../business-services/users-business.service';
 import {UsersUiService} from '../services';
 import {cold} from 'jasmine-marbles';
-import {generateMoreUserProfiles, generateUserProfile} from '../../test/test-generators';
 import {RouterTestingModule} from '@angular/router/testing';
 import {By} from '@angular/platform-browser';
 import {User} from '../models/user';
 import {DebugElement} from '@angular/core';
+import {mockAllUsers, mockSingleUser} from '../../test/factories/mock-users.factory';
 
 describe('Users Component', () => {
 
@@ -28,10 +28,7 @@ describe('Users Component', () => {
           provide: UsersBusinessService,
           useValue: {
             getAllUsers: jest.fn(() => cold('-a|', {
-              a: [
-                User.createFromData(generateUserProfile()),
-                ...generateMoreUserProfiles(3).map(u => User.createFromData(u))
-              ]
+              a: mockAllUsers().map(u => User.createFromData(u)).slice(0, 4)
             })),
             new: jest.fn()
           }
@@ -60,10 +57,7 @@ describe('Users Component', () => {
 
   describe('View', () => {
     beforeEach(async () => {
-      component.dataSource.data = [
-        User.createFromData(generateUserProfile()),
-        ...generateMoreUserProfiles(3).map(u => User.createFromData(u))
-      ];
+      component.dataSource.data = mockAllUsers().map(u => User.createFromData(u)).slice(0, 4);
       fixture.detectChanges();
     });
 
@@ -121,7 +115,7 @@ describe('Users Component', () => {
 
     describe('onSelect', () => {
       it('should invoke UsersUiService.openUserProfilePopup', async () => {
-        const user = User.createFromData(generateUserProfile());
+        const user = User.createFromData(mockSingleUser());
         const spyOpenPopup = jest.spyOn(uiService, 'openUserProfilePopup');
         component.onSelect(user);
         return expect(spyOpenPopup).toHaveBeenCalled();

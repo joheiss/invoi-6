@@ -1,11 +1,11 @@
 import {TestBed} from '@angular/core/testing';
 import {MaterialModule} from '../../shared/material.module';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {generateUserProfile} from '../../test/test-generators';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 import {FbFunctionsService} from '../../shared/services/fb-functions.service';
-import {mockFbFunctionsService, mockFbStoreService} from '../../test/mock-fb-services';
+import {mockFbFunctionsService, mockFbStoreService} from '../../test/factories/mock-fb-services';
 import {UsersService} from './users.service';
+import {mockSingleUser} from '../../test/factories/mock-users.factory';
 
 describe('Users Service', () => {
   let fbStore: FbStoreService;
@@ -47,7 +47,7 @@ describe('Users Service', () => {
     it('should invoke the createOneUser of the Google Cloud Functions interface', async () => {
 
       const spy = jest.spyOn(fbFunctions, 'createOneUser');
-      const user = { ...generateUserProfile(), email: 'user@toBeCreated.test' };
+      const user = { ...mockSingleUser(), email: 'user@toBeCreated.test' };
       const password = 'SagIchNicht';
       const payload = { user, password };
       service.create(payload);
@@ -59,7 +59,7 @@ describe('Users Service', () => {
     it('should invoke the deleteOneUser of the FireStore interface', async () => {
 
       const spy = jest.spyOn(fbStore, 'deleteOneUser');
-      const payload = { ...generateUserProfile(), email: 'user@toBeDeleted.test', uid: 'toBeDeletedUid' };
+      const payload = { ...mockSingleUser(), email: 'user@toBeDeleted.test', uid: 'toBeDeletedUid' };
       service.delete(payload);
       return expect(spy).toHaveBeenCalledWith(payload);
     });
@@ -69,7 +69,7 @@ describe('Users Service', () => {
     it('should invoke the updateOneUser of the Google Cloud Functions interface', async () => {
 
       const spy = jest.spyOn(fbFunctions, 'updateOneUser');
-      const user = { ...generateUserProfile(), email: 'user@toBeDeleted.test', uid: 'toBeUpdatedUid' };
+      const user = { ...mockSingleUser(), email: 'user@toBeDeleted.test', uid: 'toBeUpdatedUid' };
       const password = 'SagIchNicht';
       const payload = { user, password };
       service.update(payload);
@@ -81,7 +81,7 @@ describe('Users Service', () => {
     it('should invoke the updateOneUserProfile method of the FireStore interface', async () => {
 
       const spy = jest.spyOn(fbStore, 'updateOneUserProfile');
-      const payload = { ...generateUserProfile(), roles: ['tester'], uid: 'toBeUpdatedUid' };
+      const payload = { ...mockSingleUser(), roles: ['tester'], uid: 'toBeUpdatedUid' };
       service.updateProfile(payload);
       return expect(spy).toHaveBeenCalledWith(payload);
     });

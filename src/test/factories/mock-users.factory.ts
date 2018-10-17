@@ -4,7 +4,7 @@ export const mockSingleUser = (roles: string[] = ['sys-admin', 'sales-user']): U
   return {
     displayName: 'Test Tester',
     email: 'test.tester@test.de',
-    imageUrl: 'https://test/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+    imageUrl: 'https://test.de/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
     isLocked: false,
     organization: 'THQ',
     phoneNumber: '+49 7771 234567',
@@ -18,7 +18,7 @@ export const mockAllUsers = (): UserData[] => {
     {
       displayName: 'Test Tester',
       email: 'test.tester@test.de',
-      imageUrl: 'https://test/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/991OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: false,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',
@@ -28,7 +28,7 @@ export const mockAllUsers = (): UserData[] => {
     {
       displayName: 'Auditor',
       email: 'auditor@test.de',
-      imageUrl: 'https://test/images/users/999OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/999OyAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: false,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',
@@ -38,7 +38,7 @@ export const mockAllUsers = (): UserData[] => {
     {
       displayName: 'Sales Rep',
       email: 'sales.rep@test.de',
-      imageUrl: 'https://test/images/users/9999yAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/9999yAr37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: false,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',
@@ -48,7 +48,7 @@ export const mockAllUsers = (): UserData[] => {
     {
       displayName: 'Sys Admin',
       email: 'sys.admin@test.de',
-      imageUrl: 'https://test/images/users/99999Ar37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/99999Ar37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: false,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',
@@ -58,7 +58,7 @@ export const mockAllUsers = (): UserData[] => {
     {
       displayName: 'Locked',
       email: 'locked@test.de',
-      imageUrl: 'https://test/images/users/999999r37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
+      imageUrl: 'https://test.de/images/users/999999r37pNsS8BGHzidmOGAGVX2/thumbs/Passfoto_2014_1.jpg_64_thumb.png',
       isLocked: true,
       organization: 'THQ',
       phoneNumber: '+49 7771 234567',

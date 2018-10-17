@@ -6,8 +6,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {ContractCardComponent} from '../components';
-import {InvoicingModule} from '../invoicing.module';
-import {generateContract} from '../../test/test-generators';
+import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
+import {Contract} from '../models/contract.model';
 
 describe('Abstract Master Component', () => {
 
@@ -53,14 +53,14 @@ describe('Abstract Master Component', () => {
     });
 
     it('should invoke service.copy when onCopy is processed', async () => {
-      const contract = generateContract();
+      const contract = Contract.createFromData(mockSingleContract());
       const spy = jest.spyOn(service, 'copy');
       component.onCopy(contract);
       return expect(spy).toHaveBeenCalledWith(contract);
     });
 
     it('should invoke service.delete when onDelete is processed', async () => {
-      const contract = generateContract();
+      const contract = Contract.createFromData(mockSingleContract());
       const spy = jest.spyOn(service, 'delete');
       component.onDelete(contract);
       return expect(spy).toHaveBeenCalledWith(contract);

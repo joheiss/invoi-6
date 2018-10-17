@@ -1,6 +1,5 @@
 import {TestBed} from '@angular/core/testing';
 import {select, Store} from '@ngrx/store';
-import {generateIdState, generateUserProfile} from '../../test/test-generators';
 import {AppState} from '../../app/store/reducers';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -10,6 +9,8 @@ import {catchError, filter, map, switchMap, take} from 'rxjs/operators';
 import * as _ from 'lodash';
 import {selectAuth} from '../store/selectors';
 import {of} from 'rxjs/internal/observable/of';
+import {mockIdState} from '../../test/factories/mock-id-state.factory';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('Authorization Guard', () => {
   let store: Store<AppState>;
@@ -42,7 +43,7 @@ describe('Authorization Guard', () => {
 
   describe('canActivate', async () => {
     it('should return true if user is authorized', () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const allowedRoles = ['sales-user'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -60,7 +61,7 @@ describe('Authorization Guard', () => {
     });
 
     it('should return false if user is not authenticated', () => {
-      const idState = {...generateIdState(), auth: null};
+      const idState = {...mockIdState(), auth: null};
       const allowedRoles = ['sales-user'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -78,7 +79,7 @@ describe('Authorization Guard', () => {
     });
 
     it('should return false if user is not authorized', () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const allowedRoles = ['king-of-swing'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -98,7 +99,7 @@ describe('Authorization Guard', () => {
 
   describe('canLoad', async () => {
     it('should return true if user is authorized', () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const allowedRoles = ['sales-user'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -116,7 +117,7 @@ describe('Authorization Guard', () => {
     });
 
     it('should return false if user is not authenticated', () => {
-      const idState = {...generateIdState(), auth: null};
+      const idState = {...mockIdState(), auth: null};
       const allowedRoles = ['sales-user'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -134,7 +135,7 @@ describe('Authorization Guard', () => {
     });
 
     it('should return false if user is not authorized', () => {
-      const idState = generateIdState();
+      const idState = mockIdState();
       const allowedRoles = ['king-of-swing'];
       const outcome = cold('-(a|)', {a: idState});
       store.pipe = jest.fn(() => outcome.pipe(
@@ -155,7 +156,7 @@ describe('Authorization Guard', () => {
   describe('checkAuthorization', async () => {
     it('should return true if user is authorized', () => {
       const allowedRoles = ['sales-user'];
-      const authUser = generateUserProfile();
+      const authUser = mockAuth()[0];
       const outcome = cold('-a|', {a: authUser});
       store.pipe = jest.fn(() => outcome.pipe(
         filter(auth => !!auth),
@@ -183,7 +184,7 @@ describe('Authorization Guard', () => {
 
     it('should return false if user is not authenticated', () => {
       const allowedRoles = ['king-of-swing'];
-      const authUser = generateUserProfile();
+      const authUser = mockAuth()[0];
       const outcome = cold('-a|', {a: authUser});
       store.pipe = jest.fn(() => outcome.pipe(
         filter(auth => !!auth),

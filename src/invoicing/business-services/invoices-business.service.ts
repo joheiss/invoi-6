@@ -24,7 +24,7 @@ import {NumberRange} from '../models/number-range.model';
 import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {Vat} from '../models/vat';
-import {catchError, filter, first, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
+import {catchError, filter, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
 import * as fromRoot from '../../app/store';
 import {isEqual} from 'lodash';
 import {DateUtilities} from '../../shared/utilities/date-utilities';

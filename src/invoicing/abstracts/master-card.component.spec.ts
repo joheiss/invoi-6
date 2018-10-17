@@ -4,7 +4,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {ContractCardComponent} from '../components';
-import {generateContract} from '../../test/test-generators';
+import {Contract} from '../models/contract.model';
+import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 
 describe('Abstract Master Card Component', () => {
 
@@ -32,7 +33,7 @@ describe('Abstract Master Card Component', () => {
 
     beforeEach(() => {
       component.summary = {
-        object: generateContract(),
+        object: Contract.createFromData(mockSingleContract()),
         receiverName: 'Test Receiver',
         changeable: true,
         revenue: 123456.78,

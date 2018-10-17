@@ -4,11 +4,11 @@ import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {RevenuesBusinessService} from './revenues-business.service';
 import {RevenuePerYearData} from '../models/revenue.model';
-import {generateInvoiceData} from '../../test/test-generators';
 import {Invoice, InvoiceData, InvoiceStatus} from '../models/invoice.model';
 import {BillingMethod, PaymentMethod} from '../models/invoicing.model';
 import {map, take} from 'rxjs/operators';
 import {of} from 'rxjs/index';
+import {mockSingleInvoice} from '../../test/factories/mock-invoices.factory';
 
 describe('Revenues Business Service', () => {
 
@@ -90,7 +90,7 @@ describe('Revenues Business Service', () => {
   });
 
   it('should return the revenue date which is 14 days before the invoice issue date', async () => {
-    const invoiceData = generateInvoiceData();
+    const invoiceData = mockSingleInvoice();
     invoiceData.issuedAt = new Date(2018, 0, 7);
     expect(service['calculateRevenueDate'](invoiceData)).toEqual(new Date(2017, 11, 24));
   });
@@ -106,7 +106,7 @@ describe('Revenues Business Service', () => {
   });
 
   it('should detect if an invoice belongs to a year which is relevant for the revenue matrix', async () => {
-    const invoiceData = generateInvoiceData();
+    const invoiceData = mockSingleInvoice();
     expect(service['isRecentInvoice'](invoiceData)).toBeTruthy();
     const longPastYear = new Date().getFullYear() - 4;
     invoiceData.issuedAt = new Date(longPastYear, 11, 31);

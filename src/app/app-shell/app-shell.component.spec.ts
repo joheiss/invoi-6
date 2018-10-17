@@ -4,7 +4,7 @@ import {AppShellComponent} from './app-shell.component';
 describe('App Shell Component', () => {
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       declarations: [AppShellComponent]
     }).compileComponents();
   }));

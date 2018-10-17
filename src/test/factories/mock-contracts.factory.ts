@@ -1,11 +1,11 @@
-import {BillingMethod, PaymentMethod} from '../../invoicing/models/invoicing.model';
-import {ContractData} from '../../invoicing/models/contract.model';
+import {BillingMethod, ContractSummary, PaymentMethod} from '../../invoicing/models/invoicing.model';
+import {Contract, ContractData} from '../../invoicing/models/contract.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
 export const mockSingleContract = (): ContractData => {
   const today = new Date();
   const year = today.getFullYear();
-  const id = 4901;
+  const id = 4909;
   const description = `Testvertrag ${year.toString()} - Rechnung`;
   const customerId = '1901';
   const billingMethod = BillingMethod.Invoice;
@@ -69,6 +69,16 @@ export const mockContractsEntity = (): any => {
   return entity;
 };
 
+export const mockContractSummary = (): ContractSummary => {
+  return {
+    object: Contract.createFromData(mockSingleContract()),
+    receiverName: 'Test AG',
+    changeable: false,
+    revenue: 12345.67,
+    lastInvoiceId: '5995'
+  };
+};
+
 const getBaseContract = (id: number, issuedAt: Date, description: string, customerId: string,
                          startDate: Date, endDate: Date, cashDiscount: boolean, billingMethod: BillingMethod): ContractData => {
   return {
@@ -98,4 +108,5 @@ const getBaseContract = (id: number, issuedAt: Date, description: string, custom
     ]
   };
 };
+
 
