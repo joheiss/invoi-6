@@ -73,7 +73,7 @@
           </mat-form-field>
         </div>
       </mat-expansion-panel>
-      <mat-expansion-panel>
+      <mat-expansion-panel id="pnl_paymentTerms">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Zahlungsbedingungen
@@ -188,26 +188,26 @@
     </mat-tab>
   </mat-tab-group>
   <div *ngIf="tabIndex < 2" class="jo-btn-row">
-    <button type="button" mat-raised-button (click)="onCancel()">
+    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel()">
       <span *ngIf="form.dirty">Abbrechen</span>
       <span *ngIf="!form.dirty">Zurück</span>
     </button>
-    <button type="button" mat-raised-button color="warn" (click)="onDelete()"
+    <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete()"
             *ngIf="isChangeable || !form.controls.id.value">
       Löschen
     </button>
-    <button type="button" mat-raised-button (click)="onNew()"
+    <button id="btn_new" type="button" mat-raised-button (click)="onNew()"
             [disabled]="form.dirty">Neu
     </button>
-    <button type="button" mat-raised-button (click)="onCopy()"
+    <button id="btn_copy" type="button" mat-raised-button (click)="onCopy()"
             [disabled]="!form.valid || form.dirty || !object.header.id">
       Kopieren
     </button>
-    <button type="button" mat-raised-button color="primary" (click)="onSave(form)"
+    <button id="btn_save" type="button" mat-raised-button color="primary" (click)="onSave(form)"
             *ngIf="isChangeable" [disabled]="!form.valid || !form.dirty">
       Speichern
     </button>
-    <button type="button" *ngIf="object.isInvoiceable() && form.valid && !form.dirty"
+    <button id="btn_newinvoice" type="button" *ngIf="object.isInvoiceable() && form.valid && !form.dirty"
             mat-raised-button color="accent" (click)="onQuickInvoice(object)">
       Neue Rechnung
     </button>
