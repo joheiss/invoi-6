@@ -21,7 +21,7 @@ export class ReceiverFormComponent extends DetailsFormComponent<Receiver> implem
   @Input() activeContracts: Contract[];
   @Input() lastContracts: Contract[];
   @Input() openInvoices: Invoice[];
-  @Input() lastInvoices: Contract[];
+  @Input() lastInvoices: Invoice[];
   @Input() task: string;
   @Input() countries: any[];
   @Output() quickInvoice = new EventEmitter<Receiver>();

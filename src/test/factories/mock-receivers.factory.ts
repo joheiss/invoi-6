@@ -1,4 +1,5 @@
-import {ReceiverData, ReceiverStatus} from '../../invoicing/models/receiver.model';
+import {Receiver, ReceiverData, ReceiverStatus} from '../../invoicing/models/receiver.model';
+import {ReceiverSummary} from '../../invoicing/models/invoicing.model';
 
 export const mockSingleReceiver = (): ReceiverData => {
   return getBaseReceiver('1901', 'Test AG', 'officium@test-ag.de');
@@ -20,6 +21,19 @@ export const mockReceiverEntity = (): any => {
   const entity = {};
   allReceivers.map(r => entity[r.id] = r);
   return entity;
+};
+
+export const mockReceiverSummary = (): ReceiverSummary => {
+  return {
+    object: Receiver.createFromData(mockSingleReceiver()),
+    deletable: false,
+    activeContractsCount: 1,
+    expiredContractsCount: 3,
+    lastContractId: '4909',
+    dueInvoicesCount: 1,
+    openInvoicesCount: 2,
+    lastInvoiceId: '5995'
+  };
 };
 
 const getBaseReceiver = (id: string, name: string, email: string): ReceiverData => {

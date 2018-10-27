@@ -1,6 +1,6 @@
-import {BillingMethod, PaymentMethod} from '../../invoicing/models/invoicing.model';
+import {BillingMethod, InvoiceSummary, PaymentMethod} from '../../invoicing/models/invoicing.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
-import {InvoiceData, InvoiceStatus} from '../../invoicing/models/invoice.model';
+import {Invoice, InvoiceData, InvoiceStatus} from '../../invoicing/models/invoice.model';
 
 export const mockSingleInvoice = (): InvoiceData => {
   const today = new Date();
@@ -69,6 +69,14 @@ export const mockInvoiceEntity = (): any => {
   const entity = {};
   allInvoices.map(i => entity[i.id] = i).sort((a: any, b: any) => b.issuedAt - a.issuedAt);
   return entity;
+};
+
+export const mockInvoiceSummary = (): InvoiceSummary => {
+  return {
+    object: Invoice.createFromData(mockSingleInvoice()),
+    receiverName: 'Test AG',
+    changeable: false
+  };
 };
 
 const getBaseInvoice = (id: number, issuedAt: Date, receiverId: string, contractId: string,

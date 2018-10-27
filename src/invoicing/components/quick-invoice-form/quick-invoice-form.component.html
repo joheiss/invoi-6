@@ -61,11 +61,11 @@
   </div>
 
   <div class="jo-btn-row">
-    <button type="button" mat-raised-button (click)="onCancel()">
+    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel()">
       <span *ngIf="form.dirty">Abbrechen</span>
       <span *ngIf="!form.dirty">Zurück</span>
     </button>
-    <button type="button" mat-raised-button color="primary" (click)="onSave(form)"
+    <button id="btn_save" type="button" mat-raised-button color="primary" (click)="onSave(form)"
             [disabled]="!form.valid || !form.dirty">
       Speichern
     </button>

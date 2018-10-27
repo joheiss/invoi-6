@@ -13,39 +13,39 @@
   <mat-card-content class="u-mt-md">
     <div>
       <span class="jo-card-label">Vertrag: </span>
-      <a [routerLink]="['/invoicing/contracts', summary?.object?.header.contractId]">
+      <a id="lnk_contractId" [routerLink]="['/invoicing/contracts', summary?.object?.header.contractId]">
         {{summary?.object?.header.contractId}}
       </a>
     </div>
     <div class="jo-card-columns">
       <div class="jo-card-info">
         <div class="jo-card-label">Nettobetrag:</div>
-        <div class="align-right">{{summary?.object?.netValue | number: '1.2-2' }}</div>
+        <div id="div_netValue" class="align-right">{{summary?.object?.netValue | number: '1.2-2' }}</div>
         <div class="jo-card-label">Umsatzsteuer:</div>
-        <div class="align-right">{{summary?.object?.vatAmount | number: '1.2-2' }}</div>
+        <div id="div_vatAmount" class="align-right">{{summary?.object?.vatAmount | number: '1.2-2' }}</div>
         <div class="jo-card-label">Bruttobetrag:</div>
-        <div class="align-right">{{summary?.object?.grossValue | number: '1.2-2' }}</div>
+        <div id="div_grossValue" class="align-right">{{summary?.object?.grossValue | number: '1.2-2' }}</div>
       </div>
       <div class="jo-card-info">
         <div class="jo-card-label">Zahlungsbetrag:</div>
-        <div class="align-right">{{summary?.object?.paymentAmount | number: '1.2-2' }}</div>
+        <div id="div_paymentAmount" class="align-right">{{summary?.object?.paymentAmount | number: '1.2-2' }}</div>
         <ng-container *ngIf="isCashDiscountAllowed(summary.object)">
           <div  class="jo-card-label">Skonto bis:</div>
-          <div>{{summary?.object?.cashDiscountDate | date}}</div>
+          <div id="div_cashDiscountDate">{{summary?.object?.cashDiscountDate | date}}</div>
         </ng-container>
         <div class="jo-card-label">Fällig am:</div>
-        <div>{{summary?.object?.dueDate | date}}</div>
+        <div id="div_dueDate">{{summary?.object?.dueDate | date}}</div>
       </div>
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <a mat-button [routerLink]="['/invoicing/invoices', summary?.object?.header.id]">
+    <a id="btn_details" mat-button [routerLink]="['/invoicing/invoices', summary?.object?.header.id]">
       Details
     </a>
-    <button mat-button (click)="onCopy()">
+    <button id="btn_copy" mat-button (click)="onCopy()">
       Kopieren
     </button>
-    <button mat-button *ngIf="summary?.changeable" (click)="onDelete()">
+    <button id="btn_delete" mat-button *ngIf="summary?.changeable" (click)="onDelete()">
       Löschen
     </button>
   </mat-card-actions>

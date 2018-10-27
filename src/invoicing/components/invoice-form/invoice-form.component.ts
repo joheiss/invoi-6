@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {Invoice, InvoiceData} from '../../models/invoice.model';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Receiver} from '../../models/receiver.model';
@@ -14,7 +14,8 @@ import {minOneItemValidator} from '../../validators/minOneItem.validator';
 @Component({
   selector: 'jo-invoice-form',
   templateUrl: './invoice-form.component.html',
-  styleUrls: ['./invoice-form.component.scss']
+  styleUrls: ['./invoice-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implements OnChanges, OnDestroy {
   @Input() invoiceReceiver: Receiver;
@@ -153,7 +154,6 @@ export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implemen
       paymentAmount: this.utility.toLocalAmount(this.object.paymentAmount)
     };
     const patch = Object.assign({}, {...this.object.header}, reformattedValues);
-    console.log('PATCHVALUE: ', patch);
     this.form.patchValue(patch);
     this.logErrors();
   }

@@ -93,7 +93,6 @@ export class QuickInvoiceFormComponent extends DetailsFormComponent<Invoice> imp
       paymentAmount: this.utility.toLocalAmount(this.object.paymentAmount)
     };
     const patch = Object.assign({}, {...reformattedValues});
-    console.log('PATCHVALUE: ', patch);
     this.form.patchValue(patch);
   }
 

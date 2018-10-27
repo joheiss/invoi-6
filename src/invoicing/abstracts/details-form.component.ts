@@ -13,7 +13,7 @@ import {DocumentLink} from '../models/document-link';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 export abstract class DetailsFormComponent<T extends Transaction | MasterData> implements OnInit, OnChanges, OnDestroy {
-  @Input() object: T;
+  @Input() object: T | undefined;
   @Output() copy = new EventEmitter<T>();
   @Output() changed = new EventEmitter<T>();
   @Output() new = new EventEmitter<any>();
@@ -100,7 +100,7 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
 
   protected abstract buildForm(): FormGroup;
 
-  protected abstract changeObject(values: any): T;
+  protected abstract changeObject(values: any): T | undefined;
 
   protected abstract listenToChanges();
 

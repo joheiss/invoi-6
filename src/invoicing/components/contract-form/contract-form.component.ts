@@ -40,6 +40,7 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
   onQuickInvoice(contract: Contract) {
     this.quickInvoice.emit(contract);
   }
+
   protected buildForm(): FormGroup {
     return this.fb.group({
       id: [{value: '', disabled: true}],

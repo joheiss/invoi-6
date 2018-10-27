@@ -197,7 +197,7 @@
       Löschen
     </button>
     <button id="btn_new" type="button" mat-raised-button (click)="onNew()"
-            [disabled]="form.dirty">Neu
+            [disabled]="!form.valid || form.dirty">Neu
     </button>
     <button id="btn_copy" type="button" mat-raised-button (click)="onCopy()"
             [disabled]="!form.valid || form.dirty || !object.header.id">

@@ -6,11 +6,6 @@ export interface ReceiverHeaderData extends BusinessObjectHeaderData {
   nameAdd?: string;
   logoUrl?: string;
   status?: ReceiverStatus;
-  // isDeletable?: boolean;
-  // lastContractId?: string;
-  // lastInvoiceId?: string;
-  // recentContractIds?: string[];
-  // openInvoiceIds?: string[];
 }
 
 export interface ReceiverAddressData {
