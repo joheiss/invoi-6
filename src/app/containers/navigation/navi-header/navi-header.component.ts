@@ -3,7 +3,6 @@ import {User, UserData} from '../../../../auth/models/user';
 import {Observable} from 'rxjs/Observable';
 import {UsersUiService} from '../../../../auth/services';
 import {UserDetailsDialogComponent} from '../../../../auth/users/user-details-dialog/user-details-dialog.component';
-import {filter, take, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'jo-navi-header',

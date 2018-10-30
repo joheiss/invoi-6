@@ -2,14 +2,15 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DocumentLink} from '../../models/document-link';
 import {MatDialog, MatDialogRef, MatSelectChange} from '@angular/material';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../../store/reducers/index';
+import {InvoicingState} from '../../store/reducers';
 import * as fromStore from '../../store';
 import * as fromStorage from '../../../storage/store';
 import {Observable} from 'rxjs/index';
-import {FileUploadDialogComponent} from '../../popups/index';
+import {FileUploadDialogComponent} from '../../popups';
 import {Transaction} from '../../models/transaction';
 import {MasterData} from '../../models/master-data';
-import {DocumentLinksBusinessService} from '../../business-services/document-links-business.service';
+import {DocumentLinksBusinessService} from '../../business-services';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'jo-document-link-list',
@@ -78,9 +79,9 @@ export class DocumentLinkListComponent implements OnChanges {
     this.selectAll = event.checked;
     if (this.selectAll) {
       this.selectionList = [];
-      this.documentLinks$
-        .subscribe(links => links.forEach(link => this.selectionList.push(link)))
-        .unsubscribe();
+      this.documentLinks$.pipe(
+        take(1)
+      ).subscribe(links => links.forEach(link => this.selectionList.push(link)));
     } else {
       this.selectionList = [];
     }
@@ -99,8 +100,9 @@ export class DocumentLinkListComponent implements OnChanges {
       owner: this.object.ownerKey
     };
     this.openFileUploadDialog(newDocumentLink)
-      .afterClosed()
-      .subscribe(file => {
+      .afterClosed().pipe(
+        take(1)
+    ).subscribe(file => {
         if (file) {
           const payload = {
             file: file,
@@ -114,7 +116,6 @@ export class DocumentLinkListComponent implements OnChanges {
           };
           this.store.dispatch(new fromStorage.UploadFile(payload));
           newDocumentLink.path = payload.path;
-          console.log('new document link: ', newDocumentLink);
           this.store.dispatch(new fromStore.CreateDocumentLink(newDocumentLink));
         }
       });

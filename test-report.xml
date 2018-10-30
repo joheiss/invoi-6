@@ -1,27 +1,723 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\contract-form\contract-form.component.spec.ts">
+    <testCase name="Contract Details Form Component should create the component" duration="4481"/>
+    <testCase name="Contract Details Form Component Controller should return the title" duration="1967"/>
+    <testCase name="Contract Details Form Component Controller should build and patch the form and listen to changes when the form is initially built" duration="1903"/>
+    <testCase name="Contract Details Form Component Controller should only patch the form in case of changes when the form has already been built" duration="1727"/>
+    <testCase name="Contract Details Form Component Controller should provide the correct values in the form controls" duration="1661"/>
+    <testCase name="Contract Details Form Component View when contract from is initially displayed in edit mode should show the tabs for details, texts, documents, open invoices and invoices" duration="2159"/>
+    <testCase name="Contract Details Form Component View when contract from is initially displayed in edit mode Buttons should show the buttons cancel, new, copy on the details and the text tab" duration="1933"/>
+    <testCase name="Contract Details Form Component View when contract from is initially displayed in edit mode Buttons should show the button new invoice on the details tab if the contract is invoiceable" duration="1741"/>
+    <testCase name="Contract Details Form Component View when contract from is initially displayed in edit mode Buttons should show the button delete on the details tab if the contract is deletable" duration="1975"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited should show an error if a mandatory field is not entered" duration="1838"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited should show an error if numeric field is not entered correctly" duration="1715"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited should show an error if no items have been entered" duration="1926"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited Buttons should only enable the cancel button if there are any errors on the form" duration="2005"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited Buttons should enable cancel, delete and save buttons if there are no errors on the edited form" duration="2012"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited Buttons should show the button new invoice on the details tab if the contract is invoiceable" duration="1906"/>
+    <testCase name="Contract Details Form Component View when contract form has been edited Buttons should show the button delete on the details tab if the contract is deletable" duration="1887"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\invoice-form\invoice-form.component.spec.ts">
+    <testCase name="Invoice Details Form Component should create the component" duration="3572"/>
+    <testCase name="Invoice Details Form Component Controller should return the title" duration="2183"/>
+    <testCase name="Invoice Details Form Component Controller should build and patch the form and listen to changes when the form is initially built" duration="2448"/>
+    <testCase name="Invoice Details Form Component Controller should only patch the form in case of changes when the form has already been built" duration="2120"/>
+    <testCase name="Invoice Details Form Component Controller should provide the correct values in the form controls" duration="2125"/>
+    <testCase name="Invoice Details Form Component View when invoice from is initially displayed in edit mode should show the tabs for details, texts and documents" duration="2422"/>
+    <testCase name="Invoice Details Form Component View when invoice from is initially displayed in edit mode Buttons should show the buttons cancel, new, copy on the details and the text tab" duration="2336"/>
+    <testCase name="Invoice Details Form Component View when invoice from is initially displayed in edit mode Buttons should show the button create Pdf if invoice has not yet been sent or paid" duration="2560"/>
+    <testCase name="Invoice Details Form Component View when invoice from is initially displayed in edit mode Buttons should show the button send invoice if invoice is sendable" duration="2157"/>
+    <testCase name="Invoice Details Form Component View when invoice from is initially displayed in edit mode Buttons should show the button delete if the invoice is deletable" duration="3086"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited should show an error if a mandatory field is not entered" duration="1967"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited should show an error if numeric field is not entered correctly" duration="1917"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited should show an error if no items have been entered" duration="1768"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited Buttons should only enable the cancel and delete button if there are any errors on the form" duration="2220"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited Buttons should enable cancel, delete and save buttons if there are no errors on the edited (dirty) form" duration="2270"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited Buttons should show the button send invoice if the invoice is sendable" duration="2318"/>
+    <testCase name="Invoice Details Form Component View when contract form has been edited Buttons should show the button delete on the details tab if the contract is deletable" duration="2346"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\users\user-details-dialog\user-details-dialog.component.spec.ts">
+    <testCase name="User Details Dialog Component should create the component" duration="1893"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show the correct title" duration="1784"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show the buttons for image upload and deletion" duration="1552"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show all relevant fields for user creation within the content area" duration="2455"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show / not show the input fields for password and password confirmation" duration="2275"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show the checkbox for locking the user" duration="1896"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When new user is to be created ... should show the correct buttons" duration="1376"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show the correct title" duration="1136"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show the buttons for image upload and deletion" duration="1186"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show all relevant fields for user creation within the content area" duration="1226"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show / not show the input fields for password and password confirmation" duration="1083"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show the checkbox for locking the user" duration="1066"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When existing user is to be edited ... should show the correct buttons" duration="1050"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show the correct title" duration="1244"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show the buttons for image upload and deletion" duration="1126"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show all relevant fields for user creation within the content area" duration="1099"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show / not show the input fields for password and password confirmation" duration="962"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show the checkbox for locking the user" duration="1062"/>
+    <testCase name="User Details Dialog Component View When dialog is initially displayed ... When my own profile is to be edited ... should show the correct buttons" duration="1050"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should be invalid when not completely filled in" duration="1276"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have an error if display name is not entered" duration="1091"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have an error if phone number has an invalid format" duration="1035"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have an error if organization is not entered" duration="1060"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have an error if roles is not entered" duration="1141"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have all buttons except cancel disabled if form has validation errors" duration="1055"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should have save resp. create button disabled if form is dirty" duration="978"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should invoke onUploadImage handler when upload image button is pressed" duration="1216"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should invoke onDeleteImage handler when delete image button is pressed" duration="1103"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should invoke onSave handler when save button is pressed" duration="912"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When common fields are edited ... should invoke onPasswordChange handler when change password button is pressed" duration="1007"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When fields for user creation are edited ... should have an error if email is not entered" duration="941"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When fields for user creation are edited ... should have an error if email has incorrect format" duration="1001"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When fields for user creation are edited ... should have an error if password and confirmed password are not identical" duration="1017"/>
+    <testCase name="User Details Dialog Component View When dialog content is edited ... When fields for user creation are edited ... should invoke onSave handler when create button is pressed" duration="1114"/>
+    <testCase name="User Details Dialog Component Controller ngOnInit should invoke UsersBusinessService.getThumbnailUrlForSize, buildForm and patchForm" duration="1027"/>
+    <testCase name="User Details Dialog Component Controller onChangePassword should invoke UsersUiService.openPasswordChangePopup" duration="827"/>
+    <testCase name="User Details Dialog Component Controller onDeleteImage should invoke UsersBusinessService.deleteProfileImage" duration="1053"/>
+    <testCase name="User Details Dialog Component Controller onSave should invoke changeObject and MatDialogRef.close in any case" duration="881"/>
+    <testCase name="User Details Dialog Component Controller onSave should invoke UsersBusinessService.updateProfile when editing an existing user profile" duration="927"/>
+    <testCase name="User Details Dialog Component Controller onSave should invoke UsersBusinessService.create when creating a new user profile" duration="1156"/>
+    <testCase name="User Details Dialog Component Controller onUploadImage should invoke UsersBusinessService.uploadProfileImage" duration="1065"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\receiver-form\receiver-form.component.spec.ts">
+    <testCase name="Receiver Details Form Component should create the component" duration="1812"/>
+    <testCase name="Receiver Details Form Component Controller should return the title" duration="1575"/>
+    <testCase name="Receiver Details Form Component Controller should build and patch the form and listen to changes when the form is initially built" duration="1414"/>
+    <testCase name="Receiver Details Form Component Controller should only patch the form in case of changes when the form has already been built" duration="1501"/>
+    <testCase name="Receiver Details Form Component Controller should provide the correct values in the form controls" duration="1612"/>
+    <testCase name="Receiver Details Form Component View when receiver from is initially displayed in edit mode should show the tabs for details, texts, documents, recent contracts and recent invoices" duration="1528"/>
+    <testCase name="Receiver Details Form Component View when receiver from is initially displayed in edit mode Buttons should show the buttons cancel, new, copy on the details and the text tab" duration="1599"/>
+    <testCase name="Receiver Details Form Component View when receiver from is initially displayed in edit mode Buttons should show the button new invoice on the details tab if the receiver is qualified for quick invoices" duration="1433"/>
+    <testCase name="Receiver Details Form Component View when receiver from is initially displayed in edit mode Buttons should show the button delete if the receiver is deletable" duration="1501"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited should show an error if a mandatory field is not entered" duration="1486"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited should show an error if special format field is not entered correctly" duration="1606"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited Buttons should only enable the cancel button if there are any errors on the form" duration="1318"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited Buttons should enable cancel, delete and save buttons if there are no errors on the edited form" duration="1338"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited Buttons should show the quick invoice button if the receiver is qualified for quick invoices" duration="1331"/>
+    <testCase name="Receiver Details Form Component View when contract form has been edited Buttons should show the button delete on the details tab if the contract is deletable" duration="1431"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\password-change-dialog\password-change-dialog.component.spec.ts">
+    <testCase name="PasswordChangeDialogComponent should create the component" duration="1433"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When current user&apos;s password is to be changed ... should show the correct title" duration="1248"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When current user&apos;s password is to be changed ... should show all relevant fields for password change in the content area" duration="1110"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When current user&apos;s password is to be changed ... should show the input fields for password and confirmation" duration="1109"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When current user&apos;s password is to be changed ... should show / not show the input field for the old password" duration="1081"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When current user&apos;s password is to be changed ... should show the save and cancel buttons" duration="1029"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When other user&apos;s password is to be changed ... should show the correct title" duration="1026"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When other user&apos;s password is to be changed ... should show all relevant fields for password change in the content area" duration="1126"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When other user&apos;s password is to be changed ... should show the input fields for password and confirmation" duration="905"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When other user&apos;s password is to be changed ... should show / not show the input field for the old password" duration="960"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog is initially displayed ... When other user&apos;s password is to be changed ... should show the save and cancel buttons" duration="935"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should be invalid when not completely filled in" duration="903"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should have an error if password is not entered" duration="1174"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should have an error if confirmation is not entered" duration="1172"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should have an error if password and confirmation are not identical" duration="1033"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should have save button disabled if form is invalid" duration="1001"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited ... should invoke onSave handler when save button is pressed" duration="952"/>
+    <testCase name="PasswordChangeDialogComponent View When dialog content is edited to change the user&apos;s own password ... should have an error if old password is not entered" duration="875"/>
+    <testCase name="PasswordChangeDialogComponent Controller ngOnInit should invoke buildForm and patchForm" duration="893"/>
+    <testCase name="PasswordChangeDialogComponent Controller onSave should invoke changeObject, UserBusinessService.changePassword and MatDialogRef.close" duration="964"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\details-form.component.spec.ts">
+    <testCase name="Abstract Details Form Component should create the component" duration="2253"/>
+    <testCase name="Abstract Details Form Component Controller should initialize the document link changes" duration="2139"/>
+    <testCase name="Abstract Details Form Component Controller should build and patch the form and listen to changes when the form is initially built" duration="2163"/>
+    <testCase name="Abstract Details Form Component Controller should only patch the form in case of changes when the form has already been built" duration="1865"/>
+    <testCase name="Abstract Details Form Component Controller should dispatch Back action when onCancel is handled" duration="2021"/>
+    <testCase name="Abstract Details Form Component Controller should emit copy event and reset the form when onCopy is handled" duration="2046"/>
+    <testCase name="Abstract Details Form Component Controller should emit delete event when onDelete is handled" duration="1829"/>
+    <testCase name="Abstract Details Form Component Controller should emit new event and reset the form when onNew is handled" duration="1878"/>
+    <testCase name="Abstract Details Form Component Controller should emit create event and reset the form when onSave is handled for a newly created object" duration="2431"/>
+    <testCase name="Abstract Details Form Component Controller should emit update event and reset the form when onSave is handled for an existing object" duration="2055"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\invoice-card\invoice-card.component.spec.ts">
+    <testCase name="Invoice Card Component should create the component" duration="1413"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the correct invoice id and color in id avatar" duration="1127"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the receiver&apos;s name in the card title" duration="936"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the issued at date in the card sub title" duration="985"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the contract id as a link in the card" duration="1316"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the net value" duration="1150"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the vat amount" duration="959"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the gross value" duration="1024"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the payment amount" duration="1040"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the due date" duration="1114"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the cash discount date, if cash discount is granted" duration="928"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the details button" duration="911"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should show the copy button" duration="1462"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should not show the delete button if invoice is not deletable" duration="1417"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should navigate to contract details when contract link is pressed" duration="1201"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should navigate to invoice details when details button is pressed" duration="909"/>
+    <testCase name="Invoice Card Component View When component is initially displayed should invoke onCopy handler when copy button is pressed" duration="867"/>
+    <testCase name="Invoice Card Component View When component is initially displayed for a deletable contract should show the delete button if invoice is deletable" duration="1022"/>
+    <testCase name="Invoice Card Component View When component is initially displayed for a deletable contract should invoke onDelete handler when delete button is pressed" duration="831"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\receiver-card\receiver-card.component.spec.ts">
+    <testCase name="Receiver Card Component should create the component" duration="1475"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the correct receiver id and color in id avatar" duration="1224"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the receiver&apos;s name in the card title" duration="1228"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the status description in the card sub title" duration="1042"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the number of active contracts" duration="876"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the number of expired contracts" duration="1273"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the last contract id as a link" duration="1647"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the number of due invoices" duration="1230"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the number of open invoices" duration="902"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the last invoice id as a link" duration="901"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the details button" duration="1196"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should show the copy button" duration="837"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should not show the delete button if receiver is not deletable" duration="966"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should navigate to last contract details when last contract link is pressed" duration="845"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should navigate to last invoice details when last invoice link is pressed" duration="777"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should navigate to receiver details when details button is pressed" duration="954"/>
+    <testCase name="Receiver Card Component View When component is initially displayed should invoke onCopy handler when copy button is pressed" duration="807"/>
+    <testCase name="Receiver Card Component View When component is initially displayed for a deletable contract should show the delete button if contract is deletable" duration="783"/>
+    <testCase name="Receiver Card Component View When component is initially displayed for a deletable contract should invoke onDelete handler when delete button is pressed" duration="798"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\quick-invoice-form\quick-invoice-form.component.spec.ts">
+    <testCase name="Quick Invoice Form Component should create the component" duration="2142"/>
+    <testCase name="Quick Invoice Form Component Controller should build and patch the form and listen to changes when the form is initially built" duration="2639"/>
+    <testCase name="Quick Invoice Form Component Controller should only patch the form in case of changes when the form has already been built" duration="1704"/>
+    <testCase name="Quick Invoice Form Component Controller should provide the correct values in the form controls" duration="1614"/>
+    <testCase name="Quick Invoice Form Component View when invoice from is initially displayed in edit mode should show the receiver and contract" duration="1472"/>
+    <testCase name="Quick Invoice Form Component View when invoice from is initially displayed in edit mode Buttons should show the buttons cancel and save - save disabled if form is not dirty or has errors" duration="1632"/>
+    <testCase name="Quick Invoice Form Component View when quick invoice form has been edited should show an error if a mandatory field is not entered" duration="1659"/>
+    <testCase name="Quick Invoice Form Component View when quick invoice form has been edited should show an error if numeric field is not entered correctly" duration="1428"/>
+    <testCase name="Quick Invoice Form Component View when quick invoice form has been edited Buttons should disable the save button if there are errors on the form" duration="1469"/>
+    <testCase name="Quick Invoice Form Component View when quick invoice form has been edited Buttons should only enable the save button if something has been entered and there are no errors on the form" duration="1483"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\login\login.component.spec.ts">
+    <testCase name="LoginComponent should create the component" duration="1306"/>
+    <testCase name="LoginComponent View When view is initially displayed ... should show the input fields for email and password" duration="1244"/>
+    <testCase name="LoginComponent View When view is initially displayed ... should show the login button" duration="1380"/>
+    <testCase name="LoginComponent View When view content is edited ... should be invalid when not completely filled in" duration="1092"/>
+    <testCase name="LoginComponent View When view content is edited ... should have an error if email is not entered" duration="1068"/>
+    <testCase name="LoginComponent View When view content is edited ... should have an error if email has invalid format" duration="933"/>
+    <testCase name="LoginComponent View When view content is edited ... should have an error if password is not entered" duration="966"/>
+    <testCase name="LoginComponent View When view content is edited ... should have save button disabled if form is invalid" duration="908"/>
+    <testCase name="LoginComponent View When view content is edited ... should invoke onSubmit handler when login button is pressed" duration="805"/>
+    <testCase name="LoginComponent Controller onSubmit should dispatch Login action" duration="882"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\contract-card\contract-card.component.spec.ts">
+    <testCase name="Contract Card Component should create the component" duration="1239"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the correct contract id and color in id avatar" duration="1213"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the contract description in the card title" duration="945"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the receiver&apos;s name in the card sub title" duration="893"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the customer id as a link in the card" duration="950"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the contract start date" duration="944"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the contract end date" duration="815"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the contract budget" duration="845"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the contract revenue" duration="868"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the last invoice as a link in the card" duration="1342"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the details button" duration="977"/>
+    <testCase name="Contract Card Component View When component is initially displayed should show the copy button" duration="899"/>
+    <testCase name="Contract Card Component View When component is initially displayed should not show the delete button if contract is not deletable" duration="895"/>
+    <testCase name="Contract Card Component View When component is initially displayed should navigate to receiver details when receiver link is pressed" duration="877"/>
+    <testCase name="Contract Card Component View When component is initially displayed should navigate to last invoice details when last invoice link is pressed" duration="775"/>
+    <testCase name="Contract Card Component View When component is initially displayed should navigate to contract details when details button is pressed" duration="745"/>
+    <testCase name="Contract Card Component View When component is initially displayed should invoke onCopy handler when copy button is pressed" duration="774"/>
+    <testCase name="Contract Card Component View When component is initially displayed for a deletable contract should show the delete button if contract is deletable" duration="783"/>
+    <testCase name="Contract Card Component View When component is initially displayed for a deletable contract should invoke onDelete handler when delete button is pressed" duration="904"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\details.component.spec.ts">
+    <testCase name="Abstract Details Component should create the component" duration="1166"/>
+    <testCase name="Abstract Details Component Controller should return the id from the route params" duration="957"/>
+    <testCase name="Abstract Details Component Controller should invoke service.change when onChanged is processed" duration="1076"/>
+    <testCase name="Abstract Details Component Controller should invoke service.change when onChanged is processed" duration="1624"/>
+    <testCase name="Abstract Details Component Controller should invoke service.create when onCreate is processed" duration="937"/>
+    <testCase name="Abstract Details Component Controller should invoke service.copy when onCopy is processed" duration="890"/>
+    <testCase name="Abstract Details Component Controller should invoke service.delete when onDelete is processed" duration="801"/>
+    <testCase name="Abstract Details Component Controller should invoke service.new when onNew is processed" duration="849"/>
+    <testCase name="Abstract Details Component Controller should invoke service.update when onUpdate is processed" duration="768"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\services\auth.service.spec.ts">
+    <testCase name="Auth Service should create the service" duration="1318"/>
+    <testCase name="Auth Service queryAuth should invoke FbAuthService.getAuthState, FBStoreService.getOneUserProfile, setIdToken 
+    and return the current user&apos;s profile" duration="1034"/>
+    <testCase name="Auth Service login should invoke FbAuthService.signInWithEmailAndPassword and return true for a successful login" duration="948"/>
+    <testCase name="Auth Service login should invoke FbAuthService.signInWithEmailAndPassword and return false for an unsuccessful login" duration="843"/>
+    <testCase name="Auth Service logout should invoke FbAuthService.logout, removeIdToken and UiService.openSnackBar" duration="883"/>
+    <testCase name="Auth Service changeMyPassword should invoke FbAuthService.changeMyPassword to change the current user&apos;s password" duration="864"/>
+    <testCase name="Auth Service changePassword should invoke FbFunctionsService.changePassword to change the password" duration="829"/>
+    <testCase name="Auth Service getMessage should return a message content consisting of text and usage" duration="769"/>
+    <testCase name="Auth Service removeIdToken should invoke localStorage.removeItem" duration="772"/>
+    <testCase name="Auth Service setIdToken should invoke FbAuthService.getIdToken" duration="794"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\users\users.component.spec.ts">
+    <testCase name="Users Component should create the component" duration="1457"/>
+    <testCase name="Users Component View should show the create and the back button" duration="1253"/>
+    <testCase name="Users Component View should show a table with header line and 4 lines with users" duration="1144"/>
+    <testCase name="Users Component View should invoke onNew handler when create button is pressed" duration="1129"/>
+    <testCase name="Users Component View should invoke onSelect handler when user is selected" duration="1072"/>
+    <testCase name="Users Component Controller ngOnInit should invoke UserBusinessService.getAllUsers" duration="949"/>
+    <testCase name="Users Component Controller onNew should invoke UserBusinessService.new and UsersUiService.openUserProfilePopup" duration="993"/>
+    <testCase name="Users Component Controller onSelect should invoke UsersUiService.openUserProfilePopup" duration="941"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\shell\shell.component.spec.ts">
+    <testCase name="ShellComponent should create the component" duration="1559"/>
+    <testCase name="ShellComponent ngOnInit() should dispatch the QueryAuth action in ngOnInit lifecycle event" duration="1402"/>
+    <testCase name="ShellComponent should select the current state of the spinner" duration="1479"/>
+    <testCase name="ShellComponent should select the current auth object" duration="1395"/>
+    <testCase name="ShellComponent should select the currently authenticated user" duration="1321"/>
+    <testCase name="ShellComponent user$ should be an observable of a single UserProfile object" duration="1285"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\invoice-item-form\invoice-item-form.component.spec.ts">
+    <testCase name="Invoice Item Form Component should create the component" duration="1911"/>
+    <testCase name="Invoice Item Form Component Controller should provide the correct values in the form controls" duration="1495"/>
+    <testCase name="Invoice Item Form Component View should show the delete button if contract is changeable" duration="1537"/>
+    <testCase name="Invoice Item Form Component View should show an error message if mandatory field is not filled" duration="1433"/>
+    <testCase name="Invoice Item Form Component View should show an error if numeric field is not entered correctly" duration="1340"/>
+    <testCase name="Invoice Item Form Component View should invoke onDelete if delete button is pressed" duration="1077"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\contract-item-form\contract-item-form.component.spec.ts">
+    <testCase name="Contract Item Form Component should create the component" duration="1737"/>
+    <testCase name="Contract Item Form Component Controller should provide the correct values in the form controls" duration="1400"/>
+    <testCase name="Contract Item Form Component View should show the delete button if contract is changeable" duration="1358"/>
+    <testCase name="Contract Item Form Component View should show an error message if mandatory field is not filled" duration="1259"/>
+    <testCase name="Contract Item Form Component View should show an error if numeric field is not entered correctly" duration="1093"/>
+    <testCase name="Contract Item Form Component View should invoke onDelete if delete button is pressed" duration="1064"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\containers\invoices\invoices.component.spec.ts">
+    <testCase name="Invoices Component should create the component" duration="1339"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\containers\contract-details\contract-details.component.spec.ts">
+    <testCase name="Contract Details Component should create the component" duration="1373"/>
+    <testCase name="Contract Details Component Controller should invoke service.createQuickInvoice if quick invoice is requested" duration="1030"/>
+    <testCase name="Contract Details Component Controller should return the correct title" duration="1211"/>
+    <testCase name="Contract Details Component Controller should initialize receivers and contract partner in any case" duration="1229"/>
+    <testCase name="Contract Details Component Controller should initialize contract, changeability and task in any case of new or copy" duration="950"/>
+    <testCase name="Contract Details Component Controller should additionally initialize open and all invoices in case of edit" duration="948"/>
+    <testCase name="Contract Details Component View should embed the contract form" duration="982"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\containers\settings\settings.component.spec.ts">
+    <testCase name="Settings Component should create the component" duration="1417"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\services\users.service.spec.ts">
+    <testCase name="Users Service should create the service" duration="1880"/>
+    <testCase name="Users Service queryAll should invoke the queryAllUsers method of the FireStore interface" duration="945"/>
+    <testCase name="Users Service create should invoke the createOneUser of the Google Cloud Functions interface" duration="936"/>
+    <testCase name="Users Service delete should invoke the deleteOneUser of the FireStore interface" duration="952"/>
+    <testCase name="Users Service update should invoke the updateOneUser of the Google Cloud Functions interface" duration="919"/>
+    <testCase name="Users Service updateProfile should invoke the updateOneUserProfile method of the FireStore interface" duration="824"/>
+    <testCase name="Users Service getMessage should return a message content consisting of text and usage" duration="811"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\containers\receivers\receivers.component.spec.ts">
+    <testCase name="Receivers Component should create the component" duration="1510"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\master.component.spec.ts">
+    <testCase name="Abstract Master Component should create the component" duration="1360"/>
+    <testCase name="Abstract Master Component Controller should invoke service.getSummary when ngOnInit is processed" duration="992"/>
+    <testCase name="Abstract Master Component Controller should invoke service.copy when onCopy is processed" duration="1663"/>
+    <testCase name="Abstract Master Component Controller should invoke service.delete when onDelete is processed" duration="1083"/>
+    <testCase name="Abstract Master Component Controller should invoke service.new when onNew is processed" duration="995"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\details-items-form.component.spec.ts">
+    <testCase name="Abstract Details Items Form Component should create the component" duration="1369"/>
+    <testCase name="Abstract Details Items Form Component Controller should build the items on the form" duration="1062"/>
+    <testCase name="Abstract Details Items Form Component Controller should invoke service.addItem when onAdd is handled" duration="983"/>
+    <testCase name="Abstract Details Items Form Component Controller should invoke service.change when onChanged is handled" duration="1044"/>
+    <testCase name="Abstract Details Items Form Component Controller should invoke service.removeItem and mark form as dirty when onDelete is handled" duration="997"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\containers\navigation\navi-header\navi-header.component.spec.ts">
+    <testCase name="NaviHeaderComponent should create the component" duration="1466"/>
+    <testCase name="NaviHeaderComponent Menu Items should display only the Login item if not authenticated" duration="1099"/>
+    <testCase name="NaviHeaderComponent Menu Items should display only the sales items if authenticated as sales-user" duration="1207"/>
+    <testCase name="NaviHeaderComponent Menu Items should display only the admin items if authenticated as admin user" duration="1008"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\details-item-form.component.spec.ts">
+    <testCase name="Abstract Details Item Form Component should create the component" duration="1577"/>
+    <testCase name="Abstract Details Item Form Component Controller should build and patch the item group when the item group is initially built" duration="1140"/>
+    <testCase name="Abstract Details Item Form Component Controller should only patch the item group in case of changes when the item group has already been built" duration="1233"/>
+    <testCase name="Abstract Details Item Form Component Controller should emit delete event when onDelete is handled" duration="1073"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\open-invoice-list\open-invoice-list.component.spec.ts">
+    <testCase name="Open Invoice List Component should create the component" duration="1463"/>
+    <testCase name="Open Invoice List Component Controller should provide the open invoices in the data source for the table" duration="1188"/>
+    <testCase name="Open Invoice List Component View should show a table with header line and 5 lines with open invoices" duration="1179"/>
+    <testCase name="Open Invoice List Component View should navigate to item details when contract id link button is pressed" duration="1096"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\invoice-list\invoice-list.component.spec.ts">
+    <testCase name="Invoice List Component should create the component" duration="1417"/>
+    <testCase name="Invoice List Component Controller should provide the contracts in the data source for the table" duration="1144"/>
+    <testCase name="Invoice List Component View should show a table with header line and 10 lines with invoices" duration="1240"/>
+    <testCase name="Invoice List Component View should navigate to item details when contract id link button is pressed" duration="1157"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\invoice-items-form\invoice-items-form.component.spec.ts">
+    <testCase name="Invoice Items Form Component should create the component" duration="1360"/>
+    <testCase name="Invoice Items Form Component Controller should provide the items to the form array" duration="1080"/>
+    <testCase name="Invoice Items Form Component View should show the add button if invoice is changeable" duration="1087"/>
+    <testCase name="Invoice Items Form Component View should invoke onAdd if add button is pressed" duration="1083"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\contract-list\contract-list.component.spec.ts">
+    <testCase name="Contract List Component should create the component" duration="1346"/>
+    <testCase name="Contract List Component Controller should provide the contracts in the data source for the table" duration="1146"/>
+    <testCase name="Contract List Component View should show a table with header line and 4 lines with users" duration="1101"/>
+    <testCase name="Contract List Component View should navigate to contract details when contract id link button is pressed" duration="1111"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\contract-items-form\contract-items-form.component.spec.ts">
+    <testCase name="Contract Items Form Component should create the component" duration="1292"/>
+    <testCase name="Contract Items Form Component Controller should provide the items to the form array" duration="1125"/>
+    <testCase name="Contract Items Form Component View should show the add button if contract is changeable" duration="1031"/>
+    <testCase name="Contract Items Form Component View should invoke onAdd if add button is pressed" duration="1340"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\services\ui.service.spec.ts">
+    <testCase name="UiService should create the service" duration="1380"/>
+    <testCase name="UiService openSnackBar should invoke the open method on the MatSnackBar" duration="935"/>
+    <testCase name="UiService openUrl should invoke the window.open method" duration="914"/>
+    <testCase name="UiService openConfirmationDialog should invoke the open method on the MatDialog" duration="895"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\containers\navigation\navi-sidebar\navi-sidebar.component.spec.ts">
+    <testCase name="NaviSidebarComponent should create the component" duration="1988"/>
+    <testCase name="NaviSidebarComponent Menu Items should display only the login link if not authenticated" duration="1069"/>
+    <testCase name="NaviSidebarComponent Menu Items should display only the sales items if authenticated as sales-user" duration="1177"/>
+    <testCase name="NaviSidebarComponent Menu Items should display only the admin items if authenticated as admin user" duration="1124"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\master-card.component.spec.ts">
+    <testCase name="Abstract Master Card Component should create the component" duration="1402"/>
+    <testCase name="Abstract Master Card Component Controller should emit copy event if onCopy is handled" duration="1146"/>
+    <testCase name="Abstract Master Card Component Controller should emit delete event if onDelete is handled" duration="1219"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\popups\confirmation-dialog-popup\confirmation-dialog-popup.component.spec.ts">
+    <testCase name="ConfirmationDialogPopupComponent should create the component" duration="1245"/>
+    <testCase name="ConfirmationDialogPopupComponent onYes should invoke the close method of MatDialog with true" duration="1114"/>
+    <testCase name="ConfirmationDialogPopupComponent onNo should invoke the close method of MatDialog with false" duration="1019"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\components\revenue-list\revenue-list.component.spec.ts">
+    <testCase name="Revenue List Component should create the component" duration="1354"/>
+    <testCase name="Revenue List Component Controller should provide the revenues for the recent 3 years" duration="1109"/>
+    <testCase name="Revenue List Component View should show a table with header line and 3 lines with revenues" duration="1173"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\storage\popups\image-upload-popup\image-upload-popup.component.spec.ts">
+    <testCase name="ImageUploadPopupComponent should create the component" duration="1451"/>
+    <testCase name="ImageUploadPopupComponent onImageUpload should invoke the close method of MatDialog" duration="1258"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\storage\services\storage-ui.service.spec.ts">
+    <testCase name="Storage UI Service should create the service" duration="1209"/>
+    <testCase name="Storage UI Service openImageUploadPopup should return the file path and file" duration="996"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\goodbye\goodbye.component.spec.ts">
+    <testCase name="GoodbyeComponent should create the component" duration="1350"/>
+    <testCase name="GoodbyeComponent Controller ngOnInit() should dispatch the Logout action in ngOnInit lifecycle event" duration="1009"/>
+  </file>
   <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\invoices-business.service.spec.ts">
-    <testCase name="Invoices Business Service should create the service" duration="66"/>
-    <testCase name="Invoices Business Service should invoke newItem and change if item addition is processed" duration="157"/>
-    <testCase name="Invoices Business Service should invoke processChanges and dispatch ChangeInvoiceSuccess event if change is processed" duration="16"/>
-    <testCase name="Invoices Business Service should dispatch CopyInvoiceSuccess event if copy is processed" duration="22"/>
-    <testCase name="Invoices Business Service should dispatch CreateInvoice action if create is processed" duration="22"/>
-    <testCase name="Invoices Business Service should dispatch CreateInvoicePdf action if PDF creation is processed" duration="15"/>
-    <testCase name="Invoices Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="27"/>
-    <testCase name="Invoices Business Service should invoke store selector if getContract is processed" duration="10"/>
-    <testCase name="Invoices Business Service should invoke store selector if getContracts is processed" duration="14"/>
-    <testCase name="Invoices Business Service should invoke store selector if getCurrent is processed" duration="15"/>
-    <testCase name="Invoices Business Service should return the next id for an invoice" duration="12"/>
-    <testCase name="Invoices Business Service should invoke store selector if getReceiver is processed" duration="17"/>
-    <testCase name="Invoices Business Service should invoke store selector if getReceivers is processed" duration="16"/>
-    <testCase name="Invoices Business Service should invoke store selector if getSummary is processed" duration="25"/>
-    <testCase name="Invoices Business Service should invoke store selector if isChangeable is processed" duration="11"/>
-    <testCase name="Invoices Business Service should invoke store selector if isDeletable is processed" duration="12"/>
-    <testCase name="Invoices Business Service should dispatch NewInvoiceSuccess event if new is processed" duration="13"/>
+    <testCase name="Invoices Business Service should create the service" duration="22"/>
+    <testCase name="Invoices Business Service should return a meaningful header template" duration="44"/>
+    <testCase name="Invoices Business Service should return a meaningful item template" duration="29"/>
+    <testCase name="Invoices Business Service should return meaningful default values" duration="27"/>
+    <testCase name="Invoices Business Service should retrieve correct auth data during construction" duration="20"/>
+    <testCase name="Invoices Business Service should retrieve correct number ranges during construction" duration="24"/>
+    <testCase name="Invoices Business Service should invoke newItem and change if item addition is processed" duration="234"/>
+    <testCase name="Invoices Business Service should invoke processChanges if change is processed" duration="42"/>
+    <testCase name="Invoices Business Service should dispatch CopyInvoiceSuccess event if copy is processed" duration="19"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoice action if create is processed" duration="21"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoicePdf action if PDF creation is processed" duration="14"/>
+    <testCase name="Invoices Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="15"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContract is processed" duration="14"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContracts is processed" duration="15"/>
+    <testCase name="Invoices Business Service should invoke store selector if getCurrent is processed" duration="11"/>
+    <testCase name="Invoices Business Service should return the next id for an invoice" duration="32"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceiver is processed" duration="14"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceivers is processed" duration="22"/>
+    <testCase name="Invoices Business Service should invoke store selector if getSummary is processed" duration="21"/>
+    <testCase name="Invoices Business Service should invoke store selector if isChangeable is processed" duration="17"/>
+    <testCase name="Invoices Business Service should invoke store selector if isDeletable is processed" duration="16"/>
+    <testCase name="Invoices Business Service should dispatch NewInvoiceSuccess event if new is processed" duration="19"/>
     <testCase name="Invoices Business Service should prepare a new invoice for a given contract and dispatch NewQuickInvoiceSuccess event" duration="22"/>
-    <testCase name="Invoices Business Service should invoke change if removeItem is processed" duration="28"/>
-    <testCase name="Invoices Business Service should invoke store selector if select is processed" duration="17"/>
-    <testCase name="Invoices Business Service should dispatch SendInvoiceEmail action when sendEmail is processed" duration="19"/>
-    <testCase name="Invoices Business Service should dispatch UpdateInvoice action when update is processed" duration="20"/>
+    <testCase name="Invoices Business Service should return a new item (template)" duration="37"/>
+    <testCase name="Invoices Business Service should invoke change if removeItem is processed" duration="18"/>
+    <testCase name="Invoices Business Service should invoke store selector if select is processed" duration="14"/>
+    <testCase name="Invoices Business Service should dispatch SendInvoiceEmail action when sendEmail is processed" duration="14"/>
+    <testCase name="Invoices Business Service should dispatch UpdateInvoice action when update is processed" duration="10"/>
+    <testCase name="Invoices Business Service should detect change of receiver on an invoice and handle it" duration="22"/>
+    <testCase name="Invoices Business Service should detect change of contract on an invoice and handle it" duration="20"/>
+    <testCase name="Invoices Business Service should detect change of contract id on an invoice item and handle it" duration="54"/>
+    <testCase name="Invoices Business Service should determine changes and flatten them to array of changes" duration="30"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\containers\contracts\contracts.component.spec.ts">
+    <testCase name="Contracts Component should create the component" duration="1816"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\abstracts\master-list.component.spec.ts">
+    <testCase name="Abstract Master List Component should create the component" duration="2212"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\app.server.module.spec.ts">
+    <testCase name="App Server Module should create the App Server module" duration="4"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\revenues-business.service.spec.ts">
+    <testCase name="Revenues Business Service should create the service" duration="30"/>
+    <testCase name="Revenues Business Service should calculate the revenues of the last 3 calendar years - including current year" duration="61"/>
+    <testCase name="Revenues Business Service should invoke store selector if selectOpenInvoices is processed" duration="24"/>
+    <testCase name="Revenues Business Service should return zero-based index of year" duration="21"/>
+    <testCase name="Revenues Business Service should return the revenue date which is 14 days before the invoice issue date" duration="41"/>
+    <testCase name="Revenues Business Service should initialize the revenues matrix for the recent 3 years" duration="17"/>
+    <testCase name="Revenues Business Service should detect if an invoice belongs to a year which is relevant for the revenue matrix" duration="50"/>
+    <testCase name="Revenues Business Service should generate invoices for the last 5 years" duration="17"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\receivers-business.service.spec.ts">
+    <testCase name="Receivers Business Service should create the service" duration="42"/>
+    <testCase name="Receivers Business Service should return a meaningful template" duration="31"/>
+    <testCase name="Receivers Business Service should return meaningful default values" duration="37"/>
+    <testCase name="Receivers Business Service should retrieve correct auth data during construction" duration="18"/>
+    <testCase name="Receivers Business Service should retrieve correct number range during construction" duration="67"/>
+    <testCase name="Receivers Business Service should dispatch ChangeReceiverSuccess event if change is processed" duration="20"/>
+    <testCase name="Receivers Business Service should dispatch CopyReceiverSuccess event if copy is processed" duration="20"/>
+    <testCase name="Receivers Business Service should dispatch CreateReceiver action if create is processed" duration="16"/>
+    <testCase name="Receivers Business Service should create new invoice for receiver if there is exactly one invoicable contract for the receiver" duration="20"/>
+    <testCase name="Receivers Business Service should NOT create new invoice for receiver if there is NOT exactly one invoicable contract for the receiver" duration="15"/>
+    <testCase name="Receivers Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="19"/>
+    <testCase name="Receivers Business Service should invoke store selector if getActiveContracts is processed" duration="21"/>
+    <testCase name="Receivers Business Service should invoice SettingsBusinessService.getCountries if getCountries is processed" duration="71"/>
+    <testCase name="Receivers Business Service should invoke store selector if getCurrent is processed" duration="16"/>
+    <testCase name="Receivers Business Service should invoke store selector if getLastInvoices is processed" duration="19"/>
+    <testCase name="Receivers Business Service should invoke store selector if getOpenInvoices is processed" duration="25"/>
+    <testCase name="Receivers Business Service should invoke store selector if getRecentContracts is processed" duration="15"/>
+    <testCase name="Receivers Business Service should invoke store selector if getOpenInvoices is processed" duration="12"/>
+    <testCase name="Receivers Business Service should invoke store selector if getRecentContracts is processed" duration="11"/>
+    <testCase name="Receivers Business Service should invoke store selector if isDeletable is processed" duration="19"/>
+    <testCase name="Receivers Business Service should invoke store selector if isQualifiedForQuickInvoice is processed" duration="39"/>
+    <testCase name="Receivers Business Service should invoke store selector if query is processed" duration="18"/>
+    <testCase name="Receivers Business Service should invoke store selector if select is processed" duration="14"/>
+    <testCase name="Receivers Business Service should dispatch NewReceiverSuccess event if new is processed" duration="15"/>
+    <testCase name="Receivers Business Service should dispatch UpdateReceiver action when update is processed" duration="15"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\contracts-business.service.spec.ts">
+    <testCase name="Contracts Business Service should create the service" duration="59"/>
+    <testCase name="Contracts Business Service should return a meaningful contract header template" duration="20"/>
+    <testCase name="Contracts Business Service should return a meaningful contract item template" duration="21"/>
+    <testCase name="Contracts Business Service should return meaningful default values to be used in a new contract" duration="14"/>
+    <testCase name="Contracts Business Service should retrieve correct auth data during construction" duration="14"/>
+    <testCase name="Contracts Business Service should retrieve correct number range during construction" duration="17"/>
+    <testCase name="Contracts Business Service should invoke newItem and change if item addition is processed" duration="65"/>
+    <testCase name="Contracts Business Service should dispatch ChangeContractSuccess event if change is processed" duration="30"/>
+    <testCase name="Contracts Business Service should dispatch CopyContractSuccess event if copy is processed" duration="16"/>
+    <testCase name="Contracts Business Service should dispatch CreateContract action if create is processed" duration="21"/>
+    <testCase name="Contracts Business Service should invoke InvoiceBusinessService.newInvoiceFromContract if createQuickInvoice is processed" duration="25"/>
+    <testCase name="Contracts Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="24"/>
+    <testCase name="Contracts Business Service should invoke store selector if getCurrent is processed" duration="32"/>
+    <testCase name="Contracts Business Service should invoke store selector if getInvoices is processed" duration="17"/>
+    <testCase name="Contracts Business Service should invoke store selector if getOpenInvoices is processed" duration="40"/>
+    <testCase name="Contracts Business Service should invoke store selector if getPartner is processed" duration="20"/>
+    <testCase name="Contracts Business Service should invoke store selector if getReceivers is processed" duration="17"/>
+    <testCase name="Contracts Business Service should invoke store selector if getSummary is processed" duration="13"/>
+    <testCase name="Contracts Business Service should invoke store selector if isDeletable is processed" duration="13"/>
+    <testCase name="Contracts Business Service should dispatch NewContractSuccess event if new is processed" duration="14"/>
+    <testCase name="Contracts Business Service should invoke change if removeItem is processed" duration="16"/>
+    <testCase name="Contracts Business Service should invoke store selector if select is processed" duration="12"/>
+    <testCase name="Contracts Business Service should dispatch UpdateContract action if update is processed" duration="16"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\effects\auth.effects.spec.ts">
+    <testCase name="Auth Effects should be created" duration="45"/>
+    <testCase name="Auth Effects initAuth$ should return an Authenticated action, with the user profile" duration="43"/>
+    <testCase name="Auth Effects initAuth$ should return a NotAuthenticated action, with an error" duration="30"/>
+    <testCase name="Auth Effects queryAuth$ should return an Authenticated action, with the user profile" duration="24"/>
+    <testCase name="Auth Effects queryAuth$ should return a NotAuthenticated action, with an error" duration="23"/>
+    <testCase name="Auth Effects login$ should return a QueryAuth action, and dispatch the StartSpinning action" duration="52"/>
+    <testCase name="Auth Effects login$ should return a NotAuthenticated action, and dispatch the StartSpinning action" duration="14"/>
+    <testCase name="Auth Effects logout$ should return a ClearState action" duration="24"/>
+    <testCase name="Auth Effects authenticated$ should return an array of actions containing QueryOneUser, StopSpinning and LeaveLogin action" duration="22"/>
+    <testCase name="Auth Effects notAuthenticated$ should return an array of actions containing Go and StopSpinning" duration="22"/>
+    <testCase name="Auth Effects changeMyPassword$ should return a ChangeMyPasswordSuccess action, and dispatch the StartSpinning action" duration="32"/>
+    <testCase name="Auth Effects changeMyPassword$ should return a ChangeMyPasswordFail action, and dispatch the StartSpinning action" duration="48"/>
+    <testCase name="Auth Effects changeMyPasswordSuccess$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="15"/>
+    <testCase name="Auth Effects changeMyPasswordFail$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="20"/>
+    <testCase name="Auth Effects changePassword$ should return a ChangePasswordSuccess action, and dispatch the StartSpinning action" duration="18"/>
+    <testCase name="Auth Effects changePassword$ should return a ChangePasswordFail action, and dispatch the StartSpinning action" duration="15"/>
+    <testCase name="Auth Effects changePasswordSuccess$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="14"/>
+    <testCase name="Auth Effects changePasswordFail$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="15"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\i18n-utility\i18n-utility.service.spec.ts">
+    <testCase name="I18N Utilities should create the service" duration="30"/>
+    <testCase name="I18N Utilities fromLocalAmount should convert a local amount string into a valid number" duration="35"/>
+    <testCase name="I18N Utilities toLocalAmount should convert an amount (number) into a local amount string" duration="21"/>
+    <testCase name="I18N Utilities fromLocalPercent should convert a local percentage string into a valid number" duration="24"/>
+    <testCase name="I18N Utilities toLocalPercent should convert a percentage (number) into a local percentage string" duration="25"/>
+    <testCase name="I18N Utilities toLocalISOString should convert a date to a local ISO string" duration="53"/>
+    <testCase name="I18N Utilities toLocalDateISOString should convert a date to a local ISO date string" duration="20"/>
+    <testCase name="I18N Utilities generateAbbrevMonthNames should return an array of 12 month abbreviations" duration="35"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\guards\authentication.guard.spec.ts">
+    <testCase name="Authentication Guard should create the guard" duration="62"/>
+    <testCase name="Authentication Guard canActivate should return true if user is authenticated" duration="40"/>
+    <testCase name="Authentication Guard canActivate should return false if user is not authenticated" duration="34"/>
+    <testCase name="Authentication Guard canLoad should return true if user is authenticated" duration="74"/>
+    <testCase name="Authentication Guard canLoad should return false if user is not authenticated" duration="52"/>
+    <testCase name="Authentication Guard checkUser should return true if user is authenticated" duration="38"/>
+    <testCase name="Authentication Guard checkUser should return false if user is not authenticated" duration="38"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\business-services\users-business.service.spec.ts">
+    <testCase name="Users Business Service should create the service" duration="58"/>
+    <testCase name="Users Business Service should retrieve correct auth data during construction" duration="53"/>
+    <testCase name="Users Business Service should invoke store selector if getAllUsers is processed" duration="20"/>
+    <testCase name="Users Business Service should invoke store selector if getCurrent is processed" duration="84"/>
+    <testCase name="Users Business Service changePassword should dispatch ChangeMyPassword action if logged in user equals requested user" duration="20"/>
+    <testCase name="Users Business Service changePassword should dispatch ChangePassword action if logged in user is not requested user" duration="28"/>
+    <testCase name="Users Business Service create should dispatch CreateUser action" duration="26"/>
+    <testCase name="Users Business Service deleteProfileImage should dispatch DeleteFile and UpdateUser actions" duration="28"/>
+    <testCase name="Users Business Service getThumbnailUrlForSize should return correct URL for given size" duration="23"/>
+    <testCase name="Users Business Service new should return user template" duration="20"/>
+    <testCase name="Users Business Service query should dispatch QueryUser action" duration="21"/>
+    <testCase name="Users Business Service should invoke store selector if select is processed" duration="55"/>
+    <testCase name="Users Business Service update should dispatch UpdateUser action" duration="73"/>
+    <testCase name="Users Business Service update should dispatch UpdateProfile action" duration="13"/>
+    <testCase name="Users Business Service uploadProfileImage should dispatch UploadImage action" duration="14"/>
+    <testCase name="Users Business Service getImagePathFromUrl should return image path from image url" duration="46"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\guards\authorization.guard.spec.ts">
+    <testCase name="Authorization Guard should create the guard" duration="48"/>
+    <testCase name="Authorization Guard canActivate should return true if user is authorized" duration="37"/>
+    <testCase name="Authorization Guard canActivate should return false if user is not authenticated" duration="36"/>
+    <testCase name="Authorization Guard canActivate should return false if user is not authorized" duration="62"/>
+    <testCase name="Authorization Guard canLoad should return true if user is authorized" duration="43"/>
+    <testCase name="Authorization Guard canLoad should return false if user is not authenticated" duration="47"/>
+    <testCase name="Authorization Guard canLoad should return false if user is not authorized" duration="47"/>
+    <testCase name="Authorization Guard checkAuthorization should return true if user is authorized" duration="35"/>
+    <testCase name="Authorization Guard checkAuthorization should throw an error if user is not authorized" duration="26"/>
+    <testCase name="Authorization Guard checkAuthorization should return false if user is not authenticated" duration="57"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\settings-business.service.spec.ts">
+    <testCase name="Settings Business Service should create the service" duration="44"/>
+    <testCase name="Settings Business Service should invoke store selector if getSettings is processed" duration="29"/>
+    <testCase name="Settings Business Service should return the supported languages from environment" duration="29"/>
+    <testCase name="Settings Business Service should invoke store selector if getCountrySettings is processed" duration="57"/>
+    <testCase name="Settings Business Service should return country settings" duration="18"/>
+    <testCase name="Settings Business Service should invoke store selector if getVatSettings is processed" duration="14"/>
+    <testCase name="Settings Business Service should dispatch UpdateSettingFail event if update on settings fails" duration="21"/>
+    <testCase name="Settings Business Service should dispatch UpdateSetting action when update is processed" duration="28"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\effects\user.effects.spec.ts">
+    <testCase name="User Effects should be created" duration="40"/>
+    <testCase name="User Effects queryUsers$ should return an array of user actions" duration="32"/>
+    <testCase name="User Effects queryOneUser$ should return a single user action" duration="24"/>
+    <testCase name="User Effects updateUser$ should return an UpdateUserSuccess action and dispatch StartSpinning action" duration="24"/>
+    <testCase name="User Effects updateUser$ should return an UpdateUserFail action and dispatch StartSpinning action" duration="27"/>
+    <testCase name="User Effects updateUserSuccess$ should return an array of actions containing StopSpinning, OpenSnackBar and Go action" duration="25"/>
+    <testCase name="User Effects updateUserFail$ should return an array of actions containing StopSpinning, OpenSnackBar and Go action" duration="80"/>
+    <testCase name="User Effects updateUserProfile$ should return an UpdateUserProfileSuccess action and dispatch StartSpinning action" duration="24"/>
+    <testCase name="User Effects updateUserProfile$ should return an UpdateUserProfileFail action and dispatch StartSpinning action" duration="28"/>
+    <testCase name="User Effects updateUserProfileSuccess$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="19"/>
+    <testCase name="User Effects updateUserProfileFail$ should return an array of actions containing StopSpinning and OpenSnackBar" duration="20"/>
+    <testCase name="User Effects createUser$ should return a CreateUserSuccessSuccess action and dispatch StartSpinning action" duration="50"/>
+    <testCase name="User Effects createUser$ should return a CreateUserFail action and dispatch StartSpinning action" duration="22"/>
+    <testCase name="User Effects createUserSuccess$ should return an array of actions containing StopSpinning, OpenSnackBar and Go" duration="73"/>
+    <testCase name="User Effects createUserFail$ should return an array of actions containing StopSpinning, OpenSnackBar and Go" duration="20"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\store\effects\router.effects.spec.ts">
+    <testCase name="Router Effects effects should be created" duration="61"/>
+    <testCase name="Router Effects Go should be defined" duration="65"/>
+    <testCase name="Router Effects Back should be defined" duration="32"/>
+    <testCase name="Router Effects Forward should be defined" duration="26"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\guards\users.guard.spec.ts">
+    <testCase name="Users Guard should create the guard" duration="54"/>
+    <testCase name="Users Guard canActivate should return true if users are loaded" duration="26"/>
+    <testCase name="Users Guard canActivate should dispatch QueryUsers action if users are not yet loaded" duration="19"/>
+    <testCase name="Users Guard checkStore should return true if users are loaded" duration="39"/>
+    <testCase name="Users Guard checkStore should dispatch QueryUsers action if users are not yet loaded" duration="56"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\invoicing\business-services\document-links-business.service.spec.ts">
+    <testCase name="Document Links Business Service should create the service" duration="38"/>
+    <testCase name="Document Links Business Service should return a meaningful template for document links" duration="33"/>
+    <testCase name="Document Links Business Service should dispatch ChangeDocumentLinkSuccess event when change is processed" duration="22"/>
+    <testCase name="Document Links Business Service should dispatch CreateDocumentLink action when create is processed" duration="24"/>
+    <testCase name="Document Links Business Service should dispatch DeleteDocumentLink action when delete is processed" duration="67"/>
+    <testCase name="Document Links Business Service should return all document links for a given document" duration="40"/>
+    <testCase name="Document Links Business Service should dispatch NewDocumentLinkSuccess event when new is processed" duration="42"/>
+    <testCase name="Document Links Business Service should invoke store selector if query is processed" duration="20"/>
+    <testCase name="Document Links Business Service should dispatch UpdateDocumentLink action when update is processed" duration="21"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\store\effects\ui.effects.spec.ts">
+    <testCase name="Ui Effects should be created" duration="25"/>
+    <testCase name="Ui Effects OpenSnackBar should invoke UiService to open snackbar" duration="22"/>
+    <testCase name="Ui Effects OpenUrl should invoke UiService to open URL" duration="18"/>
+    <testCase name="Ui Effects OpenConfirmationDialog should invoke UiService to open confirmation dialog and return Do-Action on confirmation" duration="26"/>
+    <testCase name="Ui Effects OpenConfirmationDialog should invoke UiService to open confirmation dialog and return nothing on cancellation" duration="44"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\app-routing.module.spec.ts">
+    <testCase name="App Routing Module should create the App Routing module" duration="2"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\reducers\users.reducer.spec.ts">
+    <testCase name="Users Reducer undefined action should return the default state" duration="4"/>
+    <testCase name="Users Reducer QueryUsers Action should toggle the loading state" duration="2"/>
+    <testCase name="Users Reducer AddedUser Event should toggle the loading state and add an user to the state" duration="2"/>
+    <testCase name="Users Reducer ModifiedUser Event should update the user in the state" duration="2"/>
+    <testCase name="Users Reducer RemovedUser Event should remove the user from the state" duration="5"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\storage\services\storage-api.service.spec.ts">
+    <testCase name="Storage Api Service should create the service" duration="33"/>
+    <testCase name="Storage Api Service delete should invoke the deleteFile method of the FireStorage interface" duration="22"/>
+    <testCase name="Storage Api Service download should invoke the downloadFile method of the FireStorage interface" duration="14"/>
+    <testCase name="Storage Api Service getMetadata should invoke the getMetadata method of the FireStorage interface" duration="26"/>
+    <testCase name="Storage Api Service updateMetadata should invoke the updateMetadata method of the FireStorage interface" duration="16"/>
+    <testCase name="Storage Api Service upload should invoke the uploadFile method of the FireStorage interface" duration="18"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\auth.module.spec.ts">
+    <testCase name="AuthModule should create the module" duration="4"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\app-shell\app-shell.component.spec.ts">
+    <testCase name="App Shell Component should create the component" duration="61"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\app.module.spec.ts">
+    <testCase name="AppModule should create the App module" duration="5"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\containers\app.component.spec.ts">
+    <testCase name="AppComponent should create the app" duration="70"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\storage\storage.module.spec.ts">
+    <testCase name="StorageModule should create the module" duration="4"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\store\reducers\ui.reducer.spec.ts">
+    <testCase name="Ui Reducer undefined action should return the current state" duration="5"/>
+    <testCase name="Ui Reducer StartSpinning action should set isSpinning to true" duration="3"/>
+    <testCase name="Ui Reducer StopSpinning action should set isSpinning to true" duration="2"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\material.module.spec.ts">
+    <testCase name="MaterialModule should create the Material module" duration="2"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\home\home.component.spec.ts">
+    <testCase name="HomeComponent should create the component" duration="37"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\utilities\date-utilties.spec.ts">
+    <testCase name="Date Utilities should return the correct date when adding days to a date" duration="3"/>
+    <testCase name="Date Utilities should return the correct date when subtracting days from a date" duration="2"/>
+    <testCase name="Date Utilities should return a date with time is 00:00:00:000" duration="1"/>
+    <testCase name="Date Utilities should return a date with time is 23:59:59:999" duration="0"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\shared.module.spec.ts">
+    <testCase name="SharedModule should create the Shared module" duration="4"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\selectors\user.selectors.spec.ts">
+    <testCase name="User Selectors selectUserEntities should return the entities object containing 4 users" duration="5"/>
+    <testCase name="User Selectors selectAllUsers should return an array containing all users" duration="1"/>
+    <testCase name="User Selectors selectAllUsersAsObjArray should return an array of user objects" duration="2"/>
+    <testCase name="User Selectors selectUsersLoaded should return true " duration="1"/>
+    <testCase name="User Selectors selectCurrentUser should return the currently logged in user " duration="1"/>
+    <testCase name="User Selectors selectCurrentUserAsObj should return the currently logged in user as object" duration="2"/>
+    <testCase name="User Selectors selectSelectedUser should return the currently selected user" duration="1"/>
+    <testCase name="User Selectors selectMoreThanOneUserLoaded should return true" duration="1"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\utilities\object-utilties.spec.ts">
+    <testCase name="Object Utilities should return the difference between two objects" duration="5"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\shared\services\log.service.spec.ts">
+    <testCase name="LogService should create the logger" duration="28"/>
+    <testCase name="LogService should print a line to the console" duration="22"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\validators\password.validator.spec.ts">
+    <testCase name="Password Validator should return an error if password and confirmation do not match" duration="6"/>
+    <testCase name="Password Validator should return no error if password and confirmation match" duration="2"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\reducers\auth.reducer.spec.ts">
+    <testCase name="Auth Reducer undefined action should return the default state" duration="5"/>
+    <testCase name="Auth Reducer QueryAuth Action should toggle the loading state" duration="2"/>
+    <testCase name="Auth Reducer Login Action should toggle the loading state" duration="1"/>
+    <testCase name="Auth Reducer Authenticated Event should add the authenticated user and toggle loading / loaded in state" duration="1"/>
+    <testCase name="Auth Reducer NotAuthenticated Event should keep the state as is, set error and toggle loaded" duration="1"/>
+    <testCase name="Auth Reducer Logout Action should clear the state to initial State" duration="0"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\app\store\selectors\ui.selectors.spec.ts">
+    <testCase name="Ui Selectors selectIsSpinning should return true or false" duration="2"/>
+  </file>
+  <file path="C:\dev\ts\angular6\invoi-6\src\auth\store\selectors\auth.selectors.spec.ts">
+    <testCase name="Auth Selectors selectAllAuth should return the authenticated user" duration="2"/>
+    <testCase name="Auth Selectors selectAuthLoading should return the current loading state" duration="1"/>
+    <testCase name="Auth Selectors selectAuth should return the current authenticated user" duration="0"/>
   </file>
 </testExecutions>

@@ -20,7 +20,6 @@ export class VatDetailsDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
               private dialogRef: MatDialogRef<VatDetailsDialogComponent>,
-              private service: SettingsBusinessService,
               private utility: I18nUtilityService) {
   }
 
@@ -65,9 +64,7 @@ export class VatDetailsDialogComponent implements OnInit {
     const reformattedValues = {
       percentage: this.utility.toLocalPercent(this.data.vat.percentage)
     };
-    console.log('Reformatted values: ', reformattedValues);
     const patch = Object.assign({}, {...this.data.vat}, {...reformattedValues});
-    console.log('patch: ', patch);
     this.form.patchValue(patch);
   }
 }

@@ -15,8 +15,7 @@ export class CountryDetailsDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
-              private dialogRef: MatDialogRef<CountryDetailsDialogComponent>,
-              private service: SettingsBusinessService) {
+              private dialogRef: MatDialogRef<CountryDetailsDialogComponent>) {
   }
 
   ngOnInit(): void {
@@ -69,9 +68,7 @@ export class CountryDetailsDialogComponent implements OnInit {
   }
 
   private changeObject(values: any): any {
-    console.log('Form values: ', values);
     const changed = Object.assign({}, this.data.country);
-    console.log('INITIAL: ', changed);
     if (values.isoCode && values.isoCode.length >= 2) {
       changed.isoCode = values.isoCode;
     }
@@ -82,7 +79,6 @@ export class CountryDetailsDialogComponent implements OnInit {
         changed.names[translation.langCode] = translation.name;
       }
     });
-    console.log('CHANGED: ', changed);
     return changed;
   }
 
@@ -91,7 +87,6 @@ export class CountryDetailsDialogComponent implements OnInit {
   }
 
   private patchForm(): void {
-    console.log('Form values: ', this.form);
     let patch: any;
     patch = Object.assign({}, {isoCode: this.data.country.isoCode, translations: []});
     if (this.data.task !== COUNTRY_TASK_NEW_TRANSLATION) {

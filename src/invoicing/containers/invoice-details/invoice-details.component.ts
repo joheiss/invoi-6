@@ -35,7 +35,6 @@ export class InvoiceDetailsComponent extends DetailsComponent<Invoice> implement
   }
 
   onSendEmail(invoice: Invoice) {
-    console.log('invoke send email service for: ', invoice.header.id);
     this.service.sendEmail(invoice);
   }
 

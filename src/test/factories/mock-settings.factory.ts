@@ -1,7 +1,12 @@
 import {DateUtilities} from '../../shared/utilities/date-utilities';
+import {Country} from '../../invoicing/models/country';
 
 export const mockAllSettings = (): any => {
   return [mockAllCountries(), mockAllVatSettings()];
+};
+
+export const mockSingleCountry = (): Country => {
+  return {isoCode: 'DE', names: {de: 'Deutschland', en: 'Germany', fr: 'Allemagne', it: 'Germania'}} as Country;
 };
 
 export const mockAllCountries = (): any => {
@@ -13,6 +18,12 @@ export const mockAllCountries = (): any => {
       {isoCode: 'DE', names: {de: 'Deutschland', en: 'Germany', fr: 'Allemagne', it: 'Germania'}}
     ]
   };
+};
+
+export const mockSingleVatSetting = (): any => {
+  const validFrom = DateUtilities.getDateOnly(new Date(2015, 0, 1));
+  const validTo = DateUtilities.getDateOnly(new Date(9999, 11, 31));
+  return {percentage: 19, taxCode: 'DE_full', validFrom: validFrom, validTo: validTo};
 };
 
 export const mockAllVatSettings = (): any => {
@@ -29,7 +40,7 @@ export const mockAllVatSettings = (): any => {
       {percentage: 0, taxCode: 'DE_none', validFrom: validFrom, validTo: validTo},
       {percentage: 7, taxCode: 'DE_reduced', validFrom: validFrom, validTo: validTo},
       {percentage: 13, taxCode: 'AT_special', validFrom: validFrom, validTo: validTo}
-    ]
+    ].sort((a, b) => a.taxCode.localeCompare(b.taxCode))
   };
 };
 

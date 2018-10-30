@@ -38,15 +38,15 @@
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button *ngIf="data.task === 'edit'" [disabled]="!form.valid" (click)="onSave(form)">
+    <button id="btn_save" mat-button *ngIf="data.task === 'edit'" [disabled]="!form.valid" (click)="onSave(form)">
       Speichern
     </button>
-    <button mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid" (click)="onSave(form)">
+    <button id="btn_create" mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid" (click)="onSave(form)">
       Anlegen
     </button>
-    <button mat-button *ngIf="data.task === 'period'" [disabled]="!form.valid" (click)="onSave(form)">
+    <button id="btn_addPeriod" mat-button *ngIf="data.task === 'period'" [disabled]="!form.valid" (click)="onSave(form)">
       Periode hinzufügen
     </button>
-    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button id="btn_cancel" mat-button mat-dialog-close>Abbrechen</button>
   </mat-dialog-actions>
 </form>

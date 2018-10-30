@@ -3,10 +3,11 @@ import {SettingData} from '../../models/setting.model';
 import {Subscription} from 'rxjs/index';
 import {SettingsBusinessService} from '../../business-services';
 import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {VatDetailsDialogComponent} from '../vat-details-dialog/vat-details-dialog.component';
+import {VatDetailsDialogComponent} from '..';
 import {Vat, VAT_TASK_EDIT, VAT_TASK_NEW_PERIOD, VAT_TASK_NEW_TAXCODE, VatTask} from '../../models/vat';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {DateUtilities} from '../../../shared/utilities/date-utilities';
 
 @Component({
   selector: 'jo-vat-list',
@@ -44,7 +45,10 @@ export class VatListComponent implements OnInit, OnDestroy {
 
   onAddPeriod(vat: Vat) {
     this.selectedVat = vat;
-    const vatToCopy = Object.assign({}, vat, {validFrom: new Date(), validTo: new Date(9999, 11, 31)}) as Vat;
+    const vatToCopy = Object.assign({}, vat, {
+      validFrom: DateUtilities.getDateOnly(),
+      validTo: DateUtilities.getDateOnly(new Date(9999, 11, 31))
+    }) as Vat;
     this.openDetailsDialog(VAT_TASK_NEW_PERIOD, vatToCopy);
   }
 
@@ -58,7 +62,10 @@ export class VatListComponent implements OnInit, OnDestroy {
 
   onNew() {
     this.selectedVat = null;
-    const vatToCreate = Object.assign({}, {validFrom: new Date(), validTo: new Date(9999, 11, 31)}) as Vat;
+    const vatToCreate = Object.assign({}, {
+      validFrom: DateUtilities.getDateOnly(),
+      validTo: DateUtilities.getDateOnly(new Date(9999, 11, 31))
+    }) as Vat;
     this.openDetailsDialog(VAT_TASK_NEW_TAXCODE, vatToCreate);
   }
 
