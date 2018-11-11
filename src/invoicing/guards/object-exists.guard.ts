@@ -13,7 +13,6 @@ export abstract class ObjectExistsGuard implements CanActivate {
   protected constructor(protected store: Store<fromStore.InvoicingState>) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    console.log('ROUTE: ', route);
     return this.checkStore(route)
       .pipe(
         switchMap(() => {

@@ -24,8 +24,8 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button [disabled]="!form.valid" (click)="onUpload()">Hochladen</button>
-    <button mat-button mat-dialog-close>Abbrechen</button>
+    <button id="btn_upload" mat-button [disabled]="!form.valid" (click)="onUpload()">Hochladen</button>
+    <button id="btn_cancel" mat-button mat-dialog-close>Abbrechen</button>
   </mat-dialog-actions>
 </form>
 

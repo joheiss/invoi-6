@@ -6,7 +6,7 @@ import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
 import * as receiverActions from '../actions/receivers.actions';
 import * as fromServices from '../../services';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {selectAuth} from '../../../auth/store/selectors';
 import {UserData} from '../../../auth/models/user';
 
@@ -26,7 +26,7 @@ export class ReceiversEffects {
   queryReceivers$ = this.actions$.pipe(
     ofType(receiverActions.QUERY_RECEIVERS),
     map((action: receiverActions.QueryReceivers) => action.payload),
-    switchMap(() => this.store.select(selectAuth)
+    switchMap(() => this.store.pipe(select(selectAuth))
       .pipe(
         filter(auth => !!auth),
         tap(auth => this.auth = auth),

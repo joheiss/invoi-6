@@ -1,6 +1,12 @@
 import {BillingMethod, InvoiceSummary, PaymentMethod} from '../../invoicing/models/invoicing.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 import {Invoice, InvoiceData, InvoiceStatus} from '../../invoicing/models/invoice.model';
+import {invoiceAdapter, InvoiceState} from '../../invoicing/store/reducers/invoices.reducer';
+
+export const mockInvoicesState = (): InvoiceState => {
+  const state = invoiceAdapter.getInitialState();
+  return invoiceAdapter.addMany(mockAllInvoices(), {...state, loading: false, loaded: true, current: undefined});
+};
 
 export const mockSingleInvoice = (): InvoiceData => {
   const today = new Date();
@@ -64,7 +70,7 @@ export const mockInvoiceIds = (): string[] => {
   return allContracts.map(i => i.id).sort((a, b) => b.localeCompare(a));
 };
 
-export const mockInvoiceEntity = (): any => {
+export const mockInvoicesEntity = (): any => {
   const allInvoices = mockAllInvoices();
   const entity = {};
   allInvoices.map(i => entity[i.id] = i).sort((a: any, b: any) => b.issuedAt - a.issuedAt);

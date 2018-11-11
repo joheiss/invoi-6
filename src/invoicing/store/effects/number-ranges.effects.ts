@@ -25,7 +25,7 @@ export class NumberRangesEffects {
   );
 
   @Effect()
-  updateNumberRange = this.actions$.pipe(
+  updateNumberRange$ = this.actions$.pipe(
     ofType(numberRangesActions.UPDATE_NUMBER_RANGE),
     map((action: numberRangesActions.UpdateNumberRange) => action),
     switchMap(data => this.numberRangesService.update(data)),

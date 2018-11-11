@@ -1,5 +1,11 @@
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 import {Country} from '../../invoicing/models/country';
+import {settingAdapter, SettingState} from '../../invoicing/store/reducers/settings.reducer';
+
+export const mockSettingsState = (): SettingState => {
+  const state = settingAdapter.getInitialState();
+  return settingAdapter.addMany(mockAllSettings(), {...state, loading: false, loaded: true, current: undefined, error: undefined});
+};
 
 export const mockAllSettings = (): any => {
   return [mockAllCountries(), mockAllVatSettings()];

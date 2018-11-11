@@ -1,6 +1,12 @@
 import {BillingMethod, ContractSummary, PaymentMethod} from '../../invoicing/models/invoicing.model';
 import {Contract, ContractData} from '../../invoicing/models/contract.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
+import {contractAdapter, ContractState} from '../../invoicing/store/reducers/contracts.reducer';
+
+export const mockContractsState = (): ContractState => {
+  const state = contractAdapter.getInitialState();
+  return contractAdapter.addMany(mockAllContracts(), {...state, loading: false, loaded: true, current: undefined});
+};
 
 export const mockSingleContract = (): ContractData => {
   const today = new Date();

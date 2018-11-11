@@ -5,7 +5,7 @@ import * as contractActions from '../actions/contracts.actions';
 import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {selectAuth} from '../../../auth/store/selectors';
 import {UserData} from '../../../auth/models/user';
 
@@ -25,7 +25,7 @@ export class ContractsEffects {
   queryContracts$ = this.actions$.pipe(
     ofType(contractActions.QUERY_CONTRACTS),
     map((action: contractActions.QueryContracts) => action.payload),
-    switchMap(() => this.store.select(selectAuth)
+    switchMap(() => this.store.pipe(select(selectAuth))
       .pipe(
         filter(auth => !!auth),
         tap(auth => this.auth = auth),

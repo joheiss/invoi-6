@@ -226,7 +226,6 @@ export class CreateInvoicePdfFail implements Action {
 export class CreateInvoicePdfSuccess implements Action {
   readonly type = CREATE_INVOICE_PDF_SUCCESS;
   constructor(public payload: InvoiceData) {
-    console.log('ACTION: ', this.type, 'PAYLOAD: ', payload);
   }
 }
 

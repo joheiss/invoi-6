@@ -21,7 +21,6 @@ export class DocumentLinksEffects {
     map(action => {
       const type = `[Invoicing] Document Link ${action.type}`;
       const payload = {...action.payload.doc.data(), id: action.payload.doc.id};
-      // console.log('Query DocumentLinks: ', type, payload);
       return {type, payload};
     })
   );
@@ -35,7 +34,6 @@ export class DocumentLinksEffects {
     map(action => {
       const type = `[Invoicing] Document Link ${action.type}`;
       const payload = {...action.payload.doc.data(), id: action.payload.doc.id};
-      // console.log('Query DocumentLinks: ', type, payload);
       return {type, payload};
     })
   );

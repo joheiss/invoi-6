@@ -1,4 +1,5 @@
 import {NumberRangeData} from '../../invoicing/models/number-range.model';
+import {numberRangeAdapter, NumberRangeState} from '../../invoicing/store/reducers/number-ranges.reducer';
 
 export const mockAllNumberRanges = (): NumberRangeData[] => {
   return [
@@ -19,4 +20,9 @@ export const mockNumberRangeEntity = (): any => {
   const entity = {};
   allNumberRanges.map(nr => entity[nr.id] = nr);
   return entity;
+};
+
+export const mockNumberRangesState = (): NumberRangeState => {
+  const numberRangesState = numberRangeAdapter.getInitialState();
+  return numberRangeAdapter.addMany(mockAllNumberRanges(), {...numberRangesState, loading: false, loaded: true, error: undefined});
 };

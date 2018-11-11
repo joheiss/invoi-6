@@ -2,6 +2,12 @@ import {DocumentLink, DocumentLinkType} from '../../invoicing/models/document-li
 import {mockAllInvoices} from './mock-invoices.factory';
 import {mockAllContracts} from './mock-contracts.factory';
 import {mockAllReceivers} from './mock-receivers.factory';
+import {documentLinkAdapter, DocumentLinkState} from '../../invoicing/store/reducers/document-links.reducer';
+
+export const mockDocumentLinksState = (): DocumentLinkState => {
+  const state = documentLinkAdapter.getInitialState();
+  return documentLinkAdapter.addMany(mockAllDocumentLinks(), {...state, loading: false, loaded: true, error: undefined});
+};
 
 export const mockSingleDocumentLink = (): DocumentLink => {
   const $id = 1000001;

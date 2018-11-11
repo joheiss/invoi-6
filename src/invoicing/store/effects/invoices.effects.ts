@@ -5,7 +5,7 @@ import * as invoiceActions from '../actions/invoices.actions';
 import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import * as fromRoot from '../../../app/store';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {selectAuth} from '../../../auth/store/selectors';
 import {UserData} from '../../../auth/models/user';
 
@@ -23,7 +23,7 @@ export class InvoicesEffects {
   queryInvoices$ = this.actions$.pipe(
     ofType(invoiceActions.QUERY_INVOICES),
     map((action: invoiceActions.QueryInvoices) => action.payload),
-    switchMap(() => this.store.select(selectAuth)
+    switchMap(() => this.store.pipe(select(selectAuth))
       .pipe(
         filter(auth => !!auth),
         tap(auth => this.auth = auth),

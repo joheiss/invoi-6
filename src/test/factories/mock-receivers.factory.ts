@@ -1,5 +1,11 @@
 import {Receiver, ReceiverData, ReceiverStatus} from '../../invoicing/models/receiver.model';
 import {ReceiverSummary} from '../../invoicing/models/invoicing.model';
+import {receiverAdapter, ReceiverState} from '../../invoicing/store/reducers/receivers.reducer';
+
+export const mockReceiversState = (): ReceiverState => {
+  const state = receiverAdapter.getInitialState();
+  return receiverAdapter.addMany(mockAllReceivers(), {...state, loading: false, loaded: true, current: undefined, error: undefined});
+};
 
 export const mockSingleReceiver = (): ReceiverData => {
   return getBaseReceiver('1901', 'Test AG', 'officium@test-ag.de');
@@ -16,7 +22,7 @@ export const mockReceiverIds = (): string[] => {
   return mockAllReceivers().map(r => r.id);
 };
 
-export const mockReceiverEntity = (): any => {
+export const mockReceiversEntity = (): any => {
   const allReceivers = mockAllReceivers();
   const entity = {};
   allReceivers.map(r => entity[r.id] = r);

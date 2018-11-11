@@ -1,6 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DocumentLink} from '../../models/document-link';
 
 @Component({
   selector: 'jo-file-upload-dialog',
@@ -20,7 +19,6 @@ export class FileUploadDialogComponent {
   }
 
   onUpload() {
-    console.log('updated documentLink: ', this.data.documentLink);
     this.dialogRef.close(this.file);
   }
 }
