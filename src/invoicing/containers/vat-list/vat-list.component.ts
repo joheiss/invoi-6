@@ -3,7 +3,7 @@ import {SettingData} from '../../models/setting.model';
 import {Subscription} from 'rxjs/index';
 import {SettingsBusinessService} from '../../business-services';
 import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {VatDetailsDialogComponent} from '..';
+import {VatDetailsDialogComponent} from '../vat-details-dialog/vat-details-dialog.component';
 import {Vat, VAT_TASK_EDIT, VAT_TASK_NEW_PERIOD, VAT_TASK_NEW_TAXCODE, VatTask} from '../../models/vat';
 import * as _ from 'lodash';
 import * as moment from 'moment';

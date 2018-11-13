@@ -45,7 +45,7 @@ export class StorageEffects {
   deleteFileFail$ = this.actions$.pipe(
     ofType(storageActions.DELETE_FILE_FAIL),
     map((action: storageActions.DeleteFileFail) => action.payload),
-    tap(err => console.log('DELETE FAIL RESPONSE: ', err)),
+    tap(err => console.error('DELETE FAIL RESPONSE: ', err)),
     switchMap(err => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.storageService.getMessage(err.code)})
@@ -84,7 +84,7 @@ export class StorageEffects {
     ofType(storageActions.DOWNLOAD_FILE_FAIL),
     tap(() => console.log('AT DOWNLOAD FILE FAIL')),
     map((action: storageActions.DownloadFileFail) => action.payload),
-    tap(payload => console.log('FILE DOWNLOAD FAIL: ', payload)),
+    tap(payload => console.error('FILE DOWNLOAD FAIL: ', payload)),
     switchMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.storageService.getMessage('file-download-fail')})
@@ -118,7 +118,7 @@ export class StorageEffects {
   @Effect()
   getMetadataFileFail$ = this.actions$.pipe(
     ofType(storageActions.GET_METADATA_FILE_FAIL),
-    tap(() => console.log('AT GET METADATA FILE FAIL')),
+    tap(() => console.error('AT GET METADATA FILE FAIL')),
     map((action: storageActions.GetMetadataFileFail) => action.payload),
     switchMap(error => [
       new fromRoot.StopSpinning(),
@@ -155,7 +155,7 @@ export class StorageEffects {
   @Effect()
   updateMetadataFileFail$ = this.actions$.pipe(
     ofType(storageActions.UPDATE_METADATA_FILE_FAIL),
-    tap(() => console.log('AT UPDATE METADATA FILE FAIL')),
+    tap(() => console.error('AT UPDATE METADATA FILE FAIL')),
     map((action: storageActions.GetMetadataFileFail) => action.payload),
     switchMap(error => [
       new fromRoot.StopSpinning(),
@@ -193,7 +193,7 @@ export class StorageEffects {
   uploadFileFail$ = this.actions$.pipe(
     ofType(storageActions.UPLOAD_FILE_FAIL),
     map((action: storageActions.UploadFileFail) => action.payload),
-    tap(payload => console.log('UPLOAD FILE FAIL: ', payload)),
+    tap(payload => console.error('UPLOAD FILE FAIL: ', payload)),
     switchMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
@@ -233,7 +233,7 @@ export class StorageEffects {
   uploadImageFail$ = this.actions$.pipe(
     ofType(storageActions.UPLOAD_IMAGE_FAIL),
     map((action: storageActions.UploadImageFail) => action.payload),
-    tap(payload => console.log('UPLOAD IMAGE FAIL: ', payload)),
+    tap(payload => console.error('UPLOAD IMAGE FAIL: ', payload)),
     switchMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({

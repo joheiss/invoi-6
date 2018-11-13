@@ -17,16 +17,6 @@ export const selectAllDocumentLinks = createSelector(
   fromDocumentLinks.selectAllDocumentLinks
 );
 
-export const selectAllDocumentLinksAsObjArray = createSelector(
-  selectAllDocumentLinks,
- documentLinks => documentLinks.map(documentLink => documentLink)
-);
-
-export const selectDocumentLinksLoading = createSelector(
-  selectDocumentLinksState,
-  fromDocumentLinks.selectDocumentLinksLoading
-);
-
 export const selectDocumentLinksLoaded = createSelector(
   selectDocumentLinksState,
   fromDocumentLinks.selectDocumentLinksLoaded

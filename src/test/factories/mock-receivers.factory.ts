@@ -4,7 +4,12 @@ import {receiverAdapter, ReceiverState} from '../../invoicing/store/reducers/rec
 
 export const mockReceiversState = (): ReceiverState => {
   const state = receiverAdapter.getInitialState();
-  return receiverAdapter.addMany(mockAllReceivers(), {...state, loading: false, loaded: true, current: undefined, error: undefined});
+  return receiverAdapter.addMany(mockAllReceivers(), {
+    ...state,
+    loading: false,
+    loaded: true,
+    current: { isDirty: false, receiver: mockSingleReceiver() },
+    error: undefined});
 };
 
 export const mockSingleReceiver = (): ReceiverData => {

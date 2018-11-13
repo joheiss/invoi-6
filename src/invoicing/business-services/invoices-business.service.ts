@@ -178,7 +178,7 @@ export class InvoicesBusinessService {
   }
 
   isSendable(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.selectInvoiceSendable));
+    return this.store.pipe(select(fromStore.isInvoiceSendable));
   }
 
   new() {

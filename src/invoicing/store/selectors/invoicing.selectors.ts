@@ -8,6 +8,7 @@ import * as receiverSelectors from './receivers.selectors';
 import * as contractSelectors from './contracts.selectors';
 import * as invoiceSelectors from './invoices.selectors';
 import * as documentLinkSelectors from './document-links.selectors';
+import {DocumentLinkType} from '../../models/document-link';
 
 export const selectAllOpenInvoicesWithReceiver = createSelector(
   invoiceSelectors.selectAllInvoicesAsObjArray,
@@ -35,11 +36,6 @@ export const selectAllContractsForReceiver = createSelector(
   (receiver, contracts) => receiver && contracts && contracts.filter(contract => contract.customerId === receiver.id)
 );
 
-// export const selectAllContractsForReceiverAsObjArray = createSelector(
-//  selectAllContractsForReceiver,
-//  contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-// );
-
 export const selectRecentContractsForReceiver = createSelector(
   selectAllContractsForReceiver,
   (contracts) => contracts && contracts.sort((a, b) => b.id.localeCompare(a.id)).slice(0, 5)
@@ -61,17 +57,6 @@ export const selectActiveContractsForReceiverAsObjArray = createSelector(
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
 );
 
-/*export const selectExpiredContractsForReceiver = createSelector(
-  receiverSelectors.selectCurrentReceiver,
-  contractSelectors.selectExpiredContracts,
-  (receiver, contracts) => receiver && contracts && contracts.filter(contract => contract.customerId === receiver.id)
-);*/
-
-/*export const selectExpiredContractsForReceiverAsObjArray = createSelector(
-  selectActiveContractsForReceiver,
-  contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-);*/
-
 export const selectInvoiceableContractsForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
   contractSelectors.selectInvoiceableContracts,
@@ -82,28 +67,6 @@ export const selectInvoiceableContractsForReceiverAsObjArray = createSelector(
   selectInvoiceableContractsForReceiver,
   contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
 );
-
-/*export const selectLastContractsForReceiver = createSelector(
-  selectAllContractsForReceiver,
-  contracts => {
-    // console.log('selectLastContractsForReceiver: ', contracts);
-    if (contracts && contracts.length > 0) {
-      const lastId = contracts
-        .map(contract => contract.id)
-        .reduce((last: string, curr: string) => last.localeCompare(curr) >= 0 ? last : curr, '');
-      if (lastId) {
-        return contracts.filter(contract => contract.id === lastId);
-      } else {
-        return [];
-      }
-    }
-  }
-);*/
-
-/*export const selectLastContractsForReceiverAsObjArray = createSelector(
-  selectLastContractsForReceiver,
-  contracts => contracts && contracts.map(contract => Contract.createFromData(contract))
-);*/
 
 export const selectAllInvoicesForReceiver = createSelector(
   receiverSelectors.selectCurrentReceiver,
@@ -125,36 +88,6 @@ export const selectOpenInvoicesForReceiverAsObjArray = createSelector(
   selectOpenInvoicesForReceiver,
   invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
 );
-
-/*export const selectBilledInvoicesForReceiver = createSelector(
-  selectOpenInvoicesForReceiverAsObjArray,
-  invoices => invoices && invoices.filter(invoice => invoice.isBilled()).map(invoice => invoice.data)
-);*/
-
-/*export const selectBilledInvoicesForReceiverAsObjArray = createSelector(
-  selectBilledInvoicesForReceiver,
-  invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);*/
-
-/*export const selectDueInvoicesForReceiver = createSelector(
-  selectOpenInvoicesForReceiverAsObjArray,
-  invoices => invoices && invoices.filter(invoice => invoice.isDue()).map(invoice => invoice.data)
-);*/
-
-/*export const selectDueInvoicesForReceiverAsObjArray = createSelector(
-  selectDueInvoicesForReceiver,
-  invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);*/
-
-/*export const selectPaidInvoicesForReceiver = createSelector(
-  selectAllInvoicesForReceiverAsObjArray,
-  invoices => invoices && invoices.filter(invoice => invoice.isPaid()).map(invoice => invoice.data)
-);*/
-
-/*export const selectPaidInvoicesForReceiverAsObjArray = createSelector(
-  selectPaidInvoicesForReceiver,
-  invoices => invoices && invoices.map(invoice => Invoice.createFromData(invoice))
-);*/
 
 export const selectLastInvoicesForReceiver = createSelector(
   selectAllInvoicesForReceiver,
@@ -209,11 +142,6 @@ export const selectContractChangeable = createSelector(
   invoicesCount => invoicesCount === 0
 );
 
-/*export const selectContractDeletable = createSelector(
-  selectAllInvoicesForContractCount,
-  invoicesCount => invoicesCount === 0
-);*/
-
 export const selectInvoiceReceiver = createSelector(
   invoiceSelectors.selectCurrentInvoice,
   receiverSelectors.selectReceiverEntities,
@@ -240,13 +168,11 @@ export const selectSelectableContractsForInvoice = createSelector(
   selectInvoiceContract,
   contractSelectors.selectInvoiceableContracts,
   (invoiceContract, contracts) => {
-    // console.log('selectSelectableContractsForInvoice: ', invoiceContract, contracts);
+    console.log('selectSelectableContractsForInvoice: ', invoiceContract, contracts);
     if (!invoiceContract || contracts.findIndex(contract => contract.id === invoiceContract.id) >= 0) {
       return contracts;
     } else {
-      const extended = contracts;
-      extended.push(invoiceContract);
-      return extended;
+      return [invoiceContract, ...contracts];
     }
   });
 
@@ -337,7 +263,7 @@ export const selectInvoiceSummaries = createSelector(
         summaries[invoiceId] = {
           object: Invoice.createFromData(invoices[invoiceId]),
           receiverName: receiver ? receiver.name : 'Unbekannt',
-          changeable: invoices[invoiceId].status == InvoiceStatus.created
+          changeable: invoices[invoiceId].status === InvoiceStatus.created.valueOf()
         };
       });
     return summaries;
@@ -436,14 +362,14 @@ export const selectDocumentLinksForReceiver = createSelector(
   (receiver, documentLinks) => documentLinks.filter(documentLink => documentLink.owner === `receivers/${receiver.id}`)
 );
 
-export const selectInvoiceSendable = createSelector(
+export const isInvoiceSendable = createSelector(
   invoiceSelectors.selectCurrentInvoice,
   selectDocumentLinksForInvoice,
   (invoice, documentLinks) => {
     if (invoice.status > 0) {
       return false;
     }
-    const links = documentLinks.filter(link => link.attachToEmail);
+    const links = documentLinks.filter(link => link.attachToEmail && link.type === DocumentLinkType.Invoice.valueOf());
     return !(!links || links.length === 0);
   }
 );

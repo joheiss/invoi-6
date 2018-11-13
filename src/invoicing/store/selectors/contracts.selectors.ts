@@ -7,11 +7,7 @@ import {Receiver} from '../../models/receiver.model';
 
 export const selectContractState = createSelector(
   fromFeature.selectInvoicingState,
-  (state: fromFeature.InvoicingState) => state.contracts);
-
-export const selectContractIds = createSelector(
-  selectContractState,
-  fromContracts.selectContractIds
+  (state: fromFeature.InvoicingState) => state.contracts
 );
 
 export const selectContractEntities = createSelector(
@@ -27,16 +23,6 @@ export const selectAllContracts = createSelector(
 export const selectAllContractsAsObjArray = createSelector(
   selectAllContracts,
   contracts => contracts.map(contract => Contract.createFromData(contract))
-);
-
-export const selectContractsTotal = createSelector(
-  selectContractState,
-  fromContracts.selectContractsTotal
-);
-
-export const selectContractsLoading = createSelector(
-  selectContractState,
-  fromContracts.selectContractsLoading
 );
 
 export const selectContractsLoaded = createSelector(
@@ -60,24 +46,9 @@ export const selectSelectedContract = createSelector(
   (entity, router) => router.state && entity[router.state.params.id]
 );
 
-export const selectSelectedContractAsObj = createSelector(
-  selectSelectedContract,
-  contract => contract && Receiver.createFromData(contract)
-);
-
-export const selectContractsError = createSelector(
-  selectContractState,
-  fromContracts.selectContractsError
-);
-
 export const selectActiveContracts = createSelector(
   selectAllContractsAsObjArray,
   contracts => contracts.filter(contract => contract.isActive() || contract.isFuture()).map(contract => contract.data)
-);
-
-export const selectActiveContractsAsObjArray = createSelector(
-  selectActiveContracts,
-  contracts => contracts.map(contract => Contract.createFromData(contract))
 );
 
 export const selectInvoiceableContracts = createSelector(
@@ -85,18 +56,8 @@ export const selectInvoiceableContracts = createSelector(
   contracts => contracts.filter(contract => contract.isInvoiceable() || contract.isFuture()).map(contract => contract.data)
 );
 
-export const selectInvoiceableContractsAsObjArray = createSelector(
-  selectInvoiceableContracts,
-  contracts => contracts.map(contract => Contract.createFromData(contract))
-);
-
 export const selectExpiredContracts = createSelector(
   selectAllContractsAsObjArray,
   contracts => contracts.filter(contract => !contract.isActive() && !contract.isFuture()).map(contract => contract.data)
-);
-
-export const selectExpiredContractsAsObjArray = createSelector(
-  selectExpiredContracts,
-  contracts => contracts.map(contract => Contract.createFromData(contract))
 );
 

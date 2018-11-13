@@ -5,7 +5,12 @@ import {contractAdapter, ContractState} from '../../invoicing/store/reducers/con
 
 export const mockContractsState = (): ContractState => {
   const state = contractAdapter.getInitialState();
-  return contractAdapter.addMany(mockAllContracts(), {...state, loading: false, loaded: true, current: undefined});
+  return contractAdapter.addMany(mockAllContracts(), {
+    ...state,
+    loading: false,
+    loaded: true,
+    current: { isDirty: false, contract: mockSingleContract() }
+  });
 };
 
 export const mockSingleContract = (): ContractData => {

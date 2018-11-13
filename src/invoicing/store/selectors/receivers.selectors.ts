@@ -29,16 +29,6 @@ export const selectAllReceiversAsObjArray = createSelector(
   receivers => receivers.map(receiver => Receiver.createFromData(receiver))
 );
 
-export const selectReceiversTotal = createSelector(
-  selectReceiverState,
-  fromReceivers.selectReceiversTotal
-);
-
-export const selectReceiversLoading = createSelector(
-  selectReceiverState,
-  fromReceivers.selectReceiversLoading
-);
-
 export const selectReceiversLoaded = createSelector(
   selectReceiverState,
   fromReceivers.selectReceiversLoaded)
@@ -54,20 +44,10 @@ export const selectCurrentReceiverAsObj = createSelector(
   receiver => receiver && Receiver.createFromData(receiver)
 );
 
-export const selectReceiversError = createSelector(
-  selectReceiverState,
-  fromReceivers.selectReceiversError
-);
-
 export const selectSelectedReceiver = createSelector(
   selectReceiverEntities,
   fromRoot.getRouterState,
   (entity, router) => router.state && entity[router.state.params.id]
-);
-
-export const selectSelectedReceiverAsObj = createSelector(
-  selectSelectedReceiver,
-  receiver => receiver && Receiver.createFromData(receiver)
 );
 
 export const selectAllReceiversSorted = createSelector(

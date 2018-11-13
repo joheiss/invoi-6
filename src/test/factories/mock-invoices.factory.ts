@@ -5,7 +5,12 @@ import {invoiceAdapter, InvoiceState} from '../../invoicing/store/reducers/invoi
 
 export const mockInvoicesState = (): InvoiceState => {
   const state = invoiceAdapter.getInitialState();
-  return invoiceAdapter.addMany(mockAllInvoices(), {...state, loading: false, loaded: true, current: undefined});
+  return invoiceAdapter.addMany(mockAllInvoices(), {
+    ...state,
+    loading: false,
+    loaded: true,
+    current: { isDirty: false, invoice: mockSingleInvoice() }
+  });
 };
 
 export const mockSingleInvoice = (): InvoiceData => {

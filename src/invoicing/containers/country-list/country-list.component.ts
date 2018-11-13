@@ -5,7 +5,7 @@ import {SettingData} from '../../models/setting.model';
 import {Subscription} from 'rxjs/index';
 import * as _ from 'lodash';
 import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {CountryDetailsDialogComponent} from '..';
+import {CountryDetailsDialogComponent} from '../country-details-dialog/country-details-dialog.component';
 
 @Component({
   selector: 'jo-country-list',
