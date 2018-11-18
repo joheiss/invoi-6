@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {User} from 'firebase';
-import {from, Observable, of, throwError} from 'rxjs/index';
-import * as firebase from 'firebase';
+import {auth} from 'firebase';
+import {User} from 'firebase/auth';
+import {from, Observable} from 'rxjs/index';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable()
 export class FbAuthService {
@@ -11,10 +11,10 @@ export class FbAuthService {
   }
 
   changeMyPassword(credentials: { uid: string; email?: string; oldPassword?: string, password: string }): Observable<any> {
-    const cred = firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, credentials.oldPassword);
+    const cred = auth.EmailAuthProvider.credential(auth().currentUser.email, credentials.oldPassword);
     return from(
-      firebase.auth().currentUser.reauthenticateWithCredential(cred)
-        .then(() => firebase.auth().currentUser.updatePassword(credentials.password))
+      auth().currentUser.reauthenticateWithCredential(cred)
+        .then(() => auth().currentUser.updatePassword(credentials.password))
     );
   }
 

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {
+  DateAdapter, MAT_DATE_FORMATS,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -12,7 +13,7 @@ import {
   MatSelectModule, MatSidenavModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule,
 
 } from '@angular/material';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [

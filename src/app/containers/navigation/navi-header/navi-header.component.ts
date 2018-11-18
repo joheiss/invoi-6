@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User, UserData} from '../../../../auth/models/user';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs/observable';
 import {UsersUiService} from '../../../../auth/services';
 import {UserDetailsDialogComponent} from '../../../../auth/users/user-details-dialog/user-details-dialog.component';
 

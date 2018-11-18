@@ -85,6 +85,7 @@ export class InvoicesBusinessService {
     // get current user
     this.store.pipe(
       select(fromAuth.selectAuth),
+      take(1)
     ).subscribe(auth => this.auth = auth);
     // get number ranges for invoices & credit requests
     this.store.pipe(
@@ -95,7 +96,8 @@ export class InvoicesBusinessService {
         this.nextIds.push(NumberRange.createFromData(entities['invoices']).nextId);
         this.nextIds.push(NumberRange.createFromData(entities['credit-requests']).nextId);
         return this.nextIds;
-      })
+      }),
+      take(1)
     ).subscribe();
   }
 

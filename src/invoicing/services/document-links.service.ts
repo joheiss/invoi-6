@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DocumentChangeAction} from 'angularfire2/firestore';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 import {ObjectsApiService} from './objects-api.service';
 import {DocumentLink} from '../models/document-link';
 import {Observable} from 'rxjs/index';

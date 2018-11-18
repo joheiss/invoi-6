@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
@@ -13,7 +12,6 @@ import localeDeExtra from '@angular/common/locales/extra/de';
 import {ContractItemFormComponent} from '..';
 import {mockI18nUtility} from '../../../test/objects/mock-i18n-utility';
 import {By} from '@angular/platform-browser';
-import {DetailsItemFormComponent} from '../../abstracts/details-item-form.component';
 
 describe('Contract Item Form Component', () => {
 

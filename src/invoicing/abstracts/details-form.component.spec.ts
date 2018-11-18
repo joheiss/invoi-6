@@ -12,6 +12,8 @@ import {FormGroup} from '@angular/forms';
 import {Back} from '../../app/store/actions';
 import {Contract} from '../models/contract.model';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 describe('Abstract Details Form Component', () => {
 
@@ -27,6 +29,9 @@ describe('Abstract Details Form Component', () => {
       declarations: [ContractFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter },
         {
           provide: ContractsBusinessService,
           useValue: {

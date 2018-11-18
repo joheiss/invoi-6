@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot} from '@angular/router';
 import {AppState} from '../../app/store/reducers';
 import {select, Store} from '@ngrx/store';
-import {catchError, delay, first, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs/index';
 import * as fromStore from '../store';
 

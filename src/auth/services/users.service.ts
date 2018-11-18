@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DocumentChangeAction} from 'angularfire2/firestore';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 import {UserData, UserProfileData} from '../models/user';
 import {Observable, throwError} from 'rxjs/index';
 import {catchError, map} from 'rxjs/operators';

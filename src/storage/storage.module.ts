@@ -1,5 +1,5 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {AngularFireStorageModule} from 'angularfire2/storage';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 import {SharedModule} from '../shared/shared.module';
 import {StorageApiService} from './services/storage-api.service';
 import {ImageUploadPopupComponent} from './popups/image-upload-popup/image-upload-popup.component';

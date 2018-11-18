@@ -18,6 +18,8 @@ import {DatePipe, DecimalPipe, registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
 import {QuickInvoiceFormComponent} from './quick-invoice-form.component';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 describe('Quick Invoice Form Component', () => {
 
@@ -35,6 +37,9 @@ describe('Quick Invoice Form Component', () => {
       declarations: [QuickInvoiceFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter },
         DecimalPipe,
         DatePipe,
         {

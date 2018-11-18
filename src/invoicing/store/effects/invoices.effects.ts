@@ -3,7 +3,7 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as fromServices from '../../services';
 import * as invoiceActions from '../actions/invoices.actions';
 import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
+import {of} from 'rxjs';
 import * as fromRoot from '../../../app/store';
 import {select, Store} from '@ngrx/store';
 import {selectAuth} from '../../../auth/store/selectors';

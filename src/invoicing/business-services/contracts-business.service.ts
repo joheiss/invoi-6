@@ -11,7 +11,7 @@ import * as fromAuth from '../../auth/store';
 import {UserData} from '../../auth/models/user';
 import {InvoicesBusinessService} from './invoices-business.service';
 import * as fromRoot from '../../app/store';
-import {filter, map, take} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
 @Injectable()

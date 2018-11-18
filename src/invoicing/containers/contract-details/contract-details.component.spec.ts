@@ -137,6 +137,11 @@ describe('Contract Details Component', () => {
 
   describe('View', () => {
 
+    beforeEach(() => {
+      component.contract$ = of(Contract.createFromData((mockSingleContract())));
+      fixture.detectChanges();
+    });
+
     it('should embed the contract form', async () => {
       const de = fixture.debugElement.query(By.css('jo-contract-form'));
       expect(de).toBeTruthy();

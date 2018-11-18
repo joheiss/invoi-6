@@ -1,5 +1,5 @@
 import {from, Observable} from 'rxjs/index';
-import {DocumentChangeAction} from 'angularfire2/firestore';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {INVOICING_MSGS} from '../invoicing-error-messages';
 import {BusinessObjectHeaderData} from '../models/business-object';

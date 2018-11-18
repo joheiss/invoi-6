@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection, DocumentChangeAction} from '@angular/fire/firestore';
 import {from, Observable, throwError} from 'rxjs/index';
 import {UserData, UserProfileData} from '../../auth/models/user';
 import {catchError} from 'rxjs/operators';

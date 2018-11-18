@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {By} from '@angular/platform-browser';
 import {SharedModule} from '../../../shared/shared.module';
 import {VatDetailsDialogComponent} from './vat-details-dialog.component';
@@ -11,6 +11,7 @@ import {mockSingleVatSetting} from '../../../test/factories/mock-settings.factor
 import {Vat} from '../../models/vat';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 describe('VAT Details Dialog Component', () => {
 
@@ -26,6 +27,9 @@ describe('VAT Details Dialog Component', () => {
       imports: [NoopAnimationsModule, SharedModule, FormsModule, ReactiveFormsModule],
       declarations: [VatDetailsDialogComponent],
       providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+        { provide: DateAdapter, useClass: MomentDateAdapter },
         DecimalPipe,
         {
           provide: MAT_DIALOG_DATA,
