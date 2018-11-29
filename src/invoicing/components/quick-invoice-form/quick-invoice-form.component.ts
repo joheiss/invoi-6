@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {DetailsFormComponent} from '../../abstracts/details-form.component';
 import {Invoice, InvoiceData} from '../../models/invoice.model';
 import {Contract} from '../../models/contract.model';
@@ -13,7 +13,8 @@ import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.serv
 @Component({
   selector: 'jo-quick-invoice-form',
   templateUrl: './quick-invoice-form.component.html',
-  styleUrls: ['./quick-invoice-form.component.scss']
+  styleUrls: ['./quick-invoice-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuickInvoiceFormComponent extends DetailsFormComponent<Invoice> implements OnChanges, OnDestroy {
   @Input() invoiceReceiver: Receiver;

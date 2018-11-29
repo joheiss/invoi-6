@@ -17,7 +17,9 @@ import {filter, map, take} from 'rxjs/operators';
 import {InvoicesBusinessService} from './invoices-business.service';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ReceiversBusinessService {
 
   private static template: ReceiverData = {

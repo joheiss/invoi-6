@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {Receiver, ReceiverData} from '../../models/receiver.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -13,7 +13,8 @@ import {Invoice} from '../../models/invoice.model';
 @Component({
   selector: 'jo-receiver-form',
   templateUrl: './receiver-form.component.html',
-  styleUrls: ['./receiver-form.component.scss']
+  styleUrls: ['./receiver-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReceiverFormComponent extends DetailsFormComponent<Receiver> implements OnChanges {
   @Input() isDeletable: boolean;

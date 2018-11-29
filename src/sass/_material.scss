@@ -26,3 +26,12 @@
 .mat-radio-label-content {
   text-transform: uppercase;
 }
+
+div.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+.mat-expansion-panel-header {
+  font-size: 1.2rem;
+}

@@ -1,10 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {SharedModule} from '../shared/shared.module';
-import {StorageApiService} from './services/storage-api.service';
 import {ImageUploadPopupComponent} from './popups/image-upload-popup/image-upload-popup.component';
-import {StorageUiService} from './services';
-import {FbStorageService} from '../shared/services/fb-storage.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +12,7 @@ import {FbStorageService} from '../shared/services/fb-storage.service';
     AngularFireStorageModule
   ],
   providers: [
-    FbStorageService
+    // FbStorageService
   ],
   entryComponents: [
     ImageUploadPopupComponent
@@ -26,8 +23,8 @@ export class StorageModule {
     return {
       ngModule: StorageModule,
       providers: [
-        StorageApiService,
-        StorageUiService
+        // StorageApiService,
+        // StorageUiService
       ]
     };
   }

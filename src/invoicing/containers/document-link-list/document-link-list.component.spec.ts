@@ -119,7 +119,7 @@ describe('Document Link List', () => {
       const actionDeleteDocumentLink = new DeleteDocumentLink(documentLink);
       const actionDeleteFile = new DeleteFile(documentLink.path);
       const spy = jest.spyOn(store, 'dispatch');
-      component.onDeleteSelected();
+      component.onDeleteSelected(new Event('click'));
       expect(spy).toHaveBeenCalledWith(actionDeleteDocumentLink);
       expect(spy).toHaveBeenCalledWith(actionDeleteFile);
     });
@@ -129,7 +129,7 @@ describe('Document Link List', () => {
       component.selectionList.push(documentLink);
       const action = new DownloadFile(documentLink.path);
       const spy = jest.spyOn(store, 'dispatch');
-      component.onDownloadSelected();
+      component.onDownloadSelected(new Event('click'));
       expect(spy).toHaveBeenCalledWith(action);
     });
 
@@ -178,7 +178,7 @@ describe('Document Link List', () => {
       const actionUploadFile = new UploadFile(payload);
       const actionCreateDocumentLink = new CreateDocumentLink({...newDocumentLink, path: `${component.getFilePath()}/${file.name}`});
       const spy = jest.spyOn(store, 'dispatch');
-      component.onUpload();
+      component.onUpload(new Event('click'));
       expect(spy).toHaveBeenCalledWith(actionUploadFile);
       expect(spy).toHaveBeenCalledWith(actionCreateDocumentLink);
     });

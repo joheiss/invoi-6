@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SettingsBusinessService} from '../../business-services';
 import * as moment from 'moment';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 import * as fromValidators from '../../../shared/validators';
@@ -10,7 +9,8 @@ import {Vat, VAT_TASK_NEW_TAXCODE} from '../../models/vat';
 @Component({
   selector: 'jo-vat-details-dialog',
   templateUrl: './vat-details-dialog.component.html',
-  styleUrls: ['./vat-details-dialog.component.scss']
+  styleUrls: ['./vat-details-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VatDetailsDialogComponent implements OnInit {
 

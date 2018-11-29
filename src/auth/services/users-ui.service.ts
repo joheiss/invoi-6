@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {UserProfilePopupData} from '../models/user-profile-popup-data';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersUiService {
 
   constructor(private dialog: MatDialog) {}

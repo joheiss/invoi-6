@@ -94,7 +94,7 @@ describe('Country List Component', () => {
     it('should open the details dialog if new button is pressed', () => {
       const countryToCreate = { names: { de: null, en: null } };
       const spy = jest.spyOn<any, any>(component, 'openDetailsDialog');
-      component.onNew();
+      component.onNew(new Event('click'));
       expect(spy).toHaveBeenCalledWith('new', countryToCreate);
     });
 

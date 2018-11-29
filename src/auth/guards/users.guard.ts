@@ -6,7 +6,9 @@ import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
 
 import * as fromStore from '../store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersGuard implements CanActivate {
 
   constructor(private store: Store<fromStore.IdState>) {

@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {from, Observable} from 'rxjs/index';
+import {Observable} from 'rxjs/index';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {STORAGE_MSGS} from '../storage-messages';
 import {FbStorageService} from '../../shared/services/fb-storage.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageApiService {
 
   messages: Messages;

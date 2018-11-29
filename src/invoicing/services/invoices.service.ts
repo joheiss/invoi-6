@@ -6,7 +6,9 @@ import {OrderByOption} from '../../shared/models/order-by-option';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 import {FbFunctionsService} from '../../shared/services/fb-functions.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InvoicesService extends ObjectsApiService<InvoiceData> {
 
   static readonly COLLECTION_NAME = 'invoices';

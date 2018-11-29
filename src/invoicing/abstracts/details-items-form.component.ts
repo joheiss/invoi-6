@@ -14,8 +14,9 @@ export abstract class DetailsItemsFormComponent<T extends Transaction> implement
     this.buildItems(this.object.items);
   }
 
-  onAdd(): void {
+  onAdd(event?: Event): void {
     this.service.addItem(this.object);
+    if (event) event.stopPropagation();
   }
 
   onChanged() {

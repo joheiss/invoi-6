@@ -6,7 +6,9 @@ import {UserData} from '../../auth/models/user';
 import {InvoiceData} from '../../invoicing/models/invoice.model';
 import {catchError, tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FbFunctionsService {
 
   constructor(private http: HttpClient) {

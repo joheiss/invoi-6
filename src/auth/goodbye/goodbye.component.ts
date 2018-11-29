@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../app/store';
 import * as fromStore from '../store';
@@ -6,7 +6,8 @@ import * as fromStore from '../store';
 @Component({
   selector: 'jo-goodbye',
   templateUrl: './goodbye.component.html',
-  styleUrls: ['./goodbye.component.scss']
+  styleUrls: ['./goodbye.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GoodbyeComponent implements OnInit {
 

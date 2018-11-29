@@ -39,7 +39,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/dist/',
-    'src/app/*.{js}'
+    'src/app/*.{js}',
+    '/cypress/**'
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   moduleNameMapper: {

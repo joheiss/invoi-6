@@ -8,7 +8,9 @@ export interface LocaleNumberFormattingInfo {
   numberOfDecimals: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class I18nUtilityService {
 
   private readonly formattingInfo: LocaleNumberFormattingInfo;

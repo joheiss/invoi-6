@@ -1,10 +1,11 @@
-import {Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'jo-user-image-upload-popup',
   templateUrl: './image-upload-popup.component.html',
-  styleUrls: ['./image-upload-popup.component.scss']
+  styleUrls: ['./image-upload-popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageUploadPopupComponent {
   file: any;

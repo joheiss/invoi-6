@@ -6,31 +6,34 @@
   </div>
   <div class="jo-navi-brand">
     <a routerLink="/">
-      <img src="assets/img/jovisco_nur_logo_klein_transparent.png" alt="Logo">
+      <img src="/assets/img/jovisco_nur_logo_klein_transparent.png" alt="Logo">
     </a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end">
     <div fxShow fxHide.lt-md>
       <ul fxLayout fxLayoutGap="3rem" class="jo-navi-items">
         <ng-container *ngIf="auth$ | async as auth">
+          <!--
           <li *ngIf="auth?.roles?.indexOf('sales-user') >= 0">
+          -->
+          <li *joIfAuthorizedForSales="auth">
             <a [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               Überblick
             </a>
           </li>
-          <li *ngIf="auth?.roles?.indexOf('sales-user') >= 0">
+          <li *joIfAuthorizedForSales="auth">
             <a [routerLink]="['/invoicing/receivers']" routerLinkActive="active"> Rechnungsempfänger</a>
           </li>
-          <li *ngIf="auth?.roles?.indexOf('sales-user') >= 0">
+          <li *joIfAuthorizedForSales="auth">
             <a [routerLink]="['/invoicing/contracts']" routerLinkActive="active">Verträge</a>
           </li>
-          <li *ngIf="auth?.roles?.indexOf('sales-user') >= 0">
+          <li *joIfAuthorizedForSales="auth">
             <a [routerLink]="['/invoicing/invoices']" routerLinkActive="active">Rechnungen</a>
           </li>
-          <li *ngIf="auth?.roles?.indexOf('sys-admin') >= 0">
+          <li *joIfAuthorizedForAdmin="auth">
             <a [routerLink]="['/invoicing/settings']" routerLinkActive="active">Einstellungen</a>
           </li>
-          <li *ngIf="auth?.roles?.indexOf('sys-admin') >= 0">
+          <li *joIfAuthorizedForAdmin="auth">
             <a [routerLink]="['/users']" routerLinkActive="active">Benutzer</a>
           </li>
         </ng-container>

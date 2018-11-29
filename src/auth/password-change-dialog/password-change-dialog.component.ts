@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {passwordValidator} from '../validators/password.validator';
 import {UsersBusinessService} from '../business-services/users-business.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -8,7 +8,8 @@ import {UserDetailsDialogComponent} from '../users/user-details-dialog/user-deta
 @Component({
   selector: 'jo-password-change-dialog',
   templateUrl: './password-change-dialog.component.html',
-  styleUrls: ['./password-change-dialog.component.scss']
+  styleUrls: ['./password-change-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordChangeDialogComponent implements OnInit {
 

@@ -8,7 +8,9 @@ import {OpenInvoiceData} from '../models/open-invoice.model';
 import {Invoice, InvoiceData} from '../models/invoice.model';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RevenuesBusinessService {
 
   private currentYear = new Date().getFullYear();

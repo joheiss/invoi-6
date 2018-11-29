@@ -228,27 +228,27 @@
   </mat-tab-group>
 
   <div *ngIf="tabIndex < 2" class="jo-btn-row">
-    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel()">
+    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel($event)">
       <span *ngIf="form.dirty">Abbrechen</span>
       <span *ngIf="!form.dirty">Zurück</span>
     </button>
-    <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete()"
+    <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete($event)"
             *ngIf="isChangeable || !form.controls.id.value">
       Löschen
     </button>
-    <button id="btn_new" type="button" mat-raised-button (click)="onNew()"
+    <button id="btn_new" type="button" mat-raised-button (click)="onNew($event)"
             [disabled]="!form.valid || form.dirty">Neu
     </button>
-    <button id="btn_copy" type="button" mat-raised-button (click)="onCopy()"
+    <button id="btn_copy" type="button" mat-raised-button (click)="onCopy($event)"
             [disabled]="!form.valid || form.dirty || !object.header.id">
       Kopieren
     </button>
-    <button id="btn_createPdf" type="button" mat-raised-button (click)="onPdf()"
+    <button id="btn_createPdf" type="button" mat-raised-button (click)="onPdf($event)"
             *ngIf="object.header.status === 0 && object.header.billingMethod === 0"
             [disabled]="!form.valid || form.dirty || !object.header.id">
       PDF erzeugen
     </button>
-    <button id="btn_send" type="button" mat-raised-button (click)="onEmail()"
+    <button id="btn_send" type="button" mat-raised-button (click)="onEmail($event)"
             *ngIf="isSendable" [disabled]="!form.valid || form.dirty || !object.header.id">
       Senden
     </button>

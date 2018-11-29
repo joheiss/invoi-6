@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingData} from '../../models/setting.model';
 import {Subscription} from 'rxjs/index';
 import {SettingsBusinessService} from '../../business-services';
@@ -12,7 +12,8 @@ import {DateUtilities} from '../../../shared/utilities/date-utilities';
 @Component({
   selector: 'jo-vat-list',
   templateUrl: './vat-list.component.html',
-  styleUrls: ['./vat-list.component.scss']
+  styleUrls: ['./vat-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VatListComponent implements OnInit, OnDestroy {
   vatSettings: SettingData;

@@ -1,10 +1,11 @@
-import {Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'jo-file-upload-dialog',
   templateUrl: './file-upload-dialog.component.html',
-  styleUrls: ['./file-upload-dialog.component.scss']
+  styleUrls: ['./file-upload-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileUploadDialogComponent {
   file: any;

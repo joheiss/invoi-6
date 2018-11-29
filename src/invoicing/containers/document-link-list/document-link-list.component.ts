@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DocumentLink} from '../../models/document-link';
 import {MatDialog, MatDialogRef, MatSelectChange} from '@angular/material';
 import {Store} from '@ngrx/store';
@@ -10,12 +10,13 @@ import {FileUploadDialogComponent} from '../../popups';
 import {Transaction} from '../../models/transaction';
 import {MasterData} from '../../models/master-data';
 import {DocumentLinksBusinessService} from '../../business-services';
-import {take} from 'rxjs/operators';
+import {take, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'jo-document-link-list',
   templateUrl: './document-link-list.component.html',
-  styleUrls: ['./document-link-list.component.scss']
+  styleUrls: ['./document-link-list.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DocumentLinkListComponent implements OnChanges {
   @Input() object: Transaction | MasterData;
@@ -47,22 +48,24 @@ export class DocumentLinkListComponent implements OnChanges {
   }
 
   onAttachToEmailChanged(documentLink: DocumentLink) {
-    this.service.update({ ...documentLink, attachToEmail: !documentLink.attachToEmail });
+    this.service.update({...documentLink, attachToEmail: !documentLink.attachToEmail});
   }
 
-  onDeleteSelected() {
+  onDeleteSelected(event: Event) {
     this.selectionList.forEach(documentLink => {
       this.store.dispatch(new fromStore.DeleteDocumentLink(documentLink));
       this.store.dispatch(new fromStorage.DeleteFile(documentLink.path));
     });
     this.selectionList = [];
     this.selectAll = false;
+    event.stopPropagation();
   }
 
-  onDownloadSelected() {
+  onDownloadSelected(event: Event) {
     this.selectionList.forEach(documentLink => this.store.dispatch(new fromStorage.DownloadFile(documentLink.path)));
     this.selectionList = [];
     this.selectAll = false;
+    event.stopPropagation();
   }
 
   onToggleSelect(documentLink) {
@@ -88,10 +91,10 @@ export class DocumentLinkListComponent implements OnChanges {
   }
 
   onTypeChanged(event: MatSelectChange, documentLink: DocumentLink) {
-    this.service.update({ ...documentLink, type: +event.value });
+    this.service.update({...documentLink, type: +event.value});
   }
 
-  onUpload() {
+  onUpload(event: Event) {
     const newDocumentLink: DocumentLink = {
       name: undefined,
       type: 6,
@@ -101,24 +104,25 @@ export class DocumentLinkListComponent implements OnChanges {
     };
     this.openFileUploadDialog(newDocumentLink)
       .afterClosed().pipe(
-        take(1)
+      take(1),
+      tap(() => event.stopPropagation())
     ).subscribe(file => {
-        if (file) {
-          const payload = {
-            file: file,
-            path: `${this.getFilePath()}/${file.name}`,
-            metadata: {
-              name: newDocumentLink.name,
-              type: newDocumentLink.type,
-              attachToEmail: newDocumentLink.attachToEmail,
-              owner: this.object.ownerKey
-            }
-          };
-          this.store.dispatch(new fromStorage.UploadFile(payload));
-          newDocumentLink.path = payload.path;
-          this.store.dispatch(new fromStore.CreateDocumentLink(newDocumentLink));
-        }
-      });
+      if (file) {
+        const payload = {
+          file: file,
+          path: `${this.getFilePath()}/${file.name}`,
+          metadata: {
+            name: newDocumentLink.name,
+            type: newDocumentLink.type,
+            attachToEmail: newDocumentLink.attachToEmail,
+            owner: this.object.ownerKey
+          }
+        };
+        this.store.dispatch(new fromStorage.UploadFile(payload));
+        newDocumentLink.path = payload.path;
+        this.store.dispatch(new fromStore.CreateDocumentLink(newDocumentLink));
+      }
+    });
   }
 
   protected openFileUploadDialog(newDocumentLink: DocumentLink): MatDialogRef<FileUploadDialogComponent> {

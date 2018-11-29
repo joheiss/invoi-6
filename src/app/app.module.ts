@@ -1,7 +1,7 @@
-  import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import localeDE from '@angular/common/locales/de';
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {Action, ActionReducer, MetaReducer, StoreModule} from '@ngrx/store';
@@ -17,22 +17,17 @@ import {environment} from '../environments/environment';
 
 import {AppComponent} from './containers/app.component';
 import {HomeComponent} from './home/home.component';
-import {ShellComponent } from './shell/shell.component';
+import {ShellComponent} from './shell/shell.component';
 import {NaviHeaderComponent} from './containers/navigation/navi-header/navi-header.component';
 import {NaviSidebarComponent} from './containers/navigation/navi-sidebar/navi-sidebar.component';
 
 import {CustomSerializer, reducers, rootEffects} from './store';
-import * as fromGuards from '../auth/guards';
 import {AppState} from './store/reducers';
 import {authEffects} from '../auth/store/effects';
 import {storageEffects} from '../storage/store/effects';
-
 // -- not used in production
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
-  import {FbAuthService} from '../shared/services/fb-auth.service';
-  import {FbStoreService} from '../shared/services/fb-store.service';
-  import {FbFunctionsService} from '../shared/services/fb-functions.service';
 
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
@@ -77,10 +72,10 @@ registerLocaleData(localeDE);
       provide: RouterStateSerializer,
       useClass: CustomSerializer
     },
-    ...fromGuards.guards,
-    FbAuthService,
-    FbStoreService,
-    FbFunctionsService
+    // ...fromGuards.guards,
+    // FbAuthService,
+    // FbStoreService,
+    // FbFunctionsService
   ],
   bootstrap: [AppComponent]
 })

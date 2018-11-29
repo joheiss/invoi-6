@@ -40,6 +40,15 @@
   }
 }
 
+div.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+textarea.mat-input-element {
+  overflow: hidden;
+}
+
 width-full {
   width: 100%;
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {Contract, ContractData} from '../../models/contract.model';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as fromValidators from '../../../shared/validators';
@@ -15,7 +15,8 @@ import {minOneItemValidator} from '../../validators/minOneItem.validator';
 @Component({
   selector: 'jo-contract-form',
   templateUrl: './contract-form.component.html',
-  styleUrls: ['./contract-form.component.scss']
+  styleUrls: ['./contract-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContractFormComponent extends DetailsFormComponent<Contract> implements OnChanges, OnDestroy {
   @Input() contractPartner;

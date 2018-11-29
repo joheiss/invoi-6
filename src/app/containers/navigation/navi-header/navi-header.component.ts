@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {User, UserData} from '../../../../auth/models/user';
 import {Observable} from 'rxjs/observable';
 import {UsersUiService} from '../../../../auth/services';
@@ -7,7 +7,8 @@ import {UserDetailsDialogComponent} from '../../../../auth/users/user-details-di
 @Component({
   selector: 'jo-navi-header',
   templateUrl: './navi-header.component.html',
-  styleUrls: ['./navi-header.component.scss']
+  styleUrls: ['./navi-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NaviHeaderComponent {
   @Input() auth$: Observable<UserData>;

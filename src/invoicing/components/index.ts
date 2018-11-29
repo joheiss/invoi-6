@@ -13,8 +13,12 @@ import {InvoiceItemFormComponent} from './invoice-item-form/invoice-item-form.co
 import {QuickInvoiceFormComponent} from './quick-invoice-form/quick-invoice-form.component';
 import {RevenueListComponent} from './revenue-list/revenue-list.component';
 import {OpenInvoiceListComponent} from './open-invoice-list/open-invoice-list.component';
+import {CardAvatarComponent} from './card-avatar/card-avatar.component';
+import {CardButtonsComponent} from './card-buttons/card-buttons.component';
 
 export const components: any[] = [
+  CardAvatarComponent,
+  CardButtonsComponent,
   ContractListComponent,
   ContractFormComponent,
   ContractItemsFormComponent,
@@ -32,7 +36,8 @@ export const components: any[] = [
   OpenInvoiceListComponent
 ];
 
-export * from './receiver-card/receiver-card.component';
+export * from './card-avatar/card-avatar.component';
+export * from './card-buttons/card-buttons.component';
 export * from './receiver-form/receiver-form.component';
 export * from './contract-list/contract-list.component';
 export * from './contract-form/contract-form.component';

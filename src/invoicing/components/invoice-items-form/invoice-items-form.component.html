@@ -25,7 +25,7 @@
       </jo-invoice-item-form>
   </div>
   <div class="u-mt-md"fxHide fxShow.lt-md>
-    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd()">
+    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)">
       Position hinzufügen
     </button>
   </div>

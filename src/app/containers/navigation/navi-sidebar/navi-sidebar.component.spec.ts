@@ -6,6 +6,8 @@ import {By} from '@angular/platform-browser';
 import {of} from 'rxjs/index';
 import {NaviSidebarComponent} from './navi-sidebar.component';
 import {mockAuth} from '../../../../test/factories/mock-auth.factory';
+import {IfAuthorizedForAdminDirective} from '../../../../auth/directives/if-authorized-for-admin.directive';
+import {IfAuthorizedForSalesDirective} from '../../../../auth/directives/if-authorized-for-sales.directive';
 
 describe('NaviSidebarComponent', () => {
   let component: NaviSidebarComponent;
@@ -14,7 +16,7 @@ describe('NaviSidebarComponent', () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule],
-      declarations: [NaviSidebarComponent],
+      declarations: [NaviSidebarComponent, IfAuthorizedForAdminDirective, IfAuthorizedForSalesDirective],
     }).compileComponents();
   }));
 

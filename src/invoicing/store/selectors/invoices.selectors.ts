@@ -72,7 +72,7 @@ export const selectPaidInvoices = createSelector(
 
 export const selectInvoiceChangeable = createSelector(
   selectSelectedInvoice,
-  invoice => invoice && invoice.status == InvoiceStatus.created
+  invoice => invoice && invoice.status !== InvoiceStatus.paid.valueOf()
 );
 
 

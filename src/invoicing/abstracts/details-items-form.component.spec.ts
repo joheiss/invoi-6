@@ -65,7 +65,7 @@ describe('Abstract Details Items Form Component', () => {
 
     it('should invoke service.addItem when onAdd is handled', async () => {
       const spy = jest.spyOn(service, 'addItem');
-      await component.onAdd();
+      await component.onAdd(new Event('click'));
       return expect(spy).toHaveBeenCalledWith(component.object);
     });
 

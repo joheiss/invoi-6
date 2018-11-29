@@ -8,7 +8,9 @@ import {MessageContent, Messages} from '../../shared/models/message.model';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 import {FbFunctionsService} from '../../shared/services/fb-functions.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersService {
 
   messages: Messages;

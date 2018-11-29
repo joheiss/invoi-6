@@ -105,28 +105,28 @@ describe('Abstract Details Form Component', () => {
     it('should dispatch Back action when onCancel is handled', async () => {
       const action = new Back();
       const spy = spyOn(store, 'dispatch');
-      component.onCancel();
+      component.onCancel(new Event('click'));
       return expect(spy).toHaveBeenCalledWith(action);
     });
 
     it('should emit copy event and reset the form when onCopy is handled', async() => {
       const spy = jest.spyOn(component.copy, 'emit');
       const spyReset = jest.spyOn(component.form, 'reset');
-      component.onCopy();
+      component.onCopy(new Event('click'));
       await expect(spy).toHaveBeenCalledWith(component.object);
       return expect(spyReset).toHaveBeenCalled();
     });
 
     it('should emit delete event when onDelete is handled', async() => {
       const spy = jest.spyOn(component.delete, 'emit');
-      component.onDelete();
+      component.onDelete(new Event('click'));
       return expect(spy).toHaveBeenCalledWith(component.object);
     });
 
     it('should emit new event and reset the form when onNew is handled', async() => {
       const spy = jest.spyOn(component.new, 'emit');
       const spyReset = jest.spyOn(component.form, 'reset');
-      component.onNew();
+      component.onNew(new Event('click'));
       await expect(spy).toHaveBeenCalled();
       return expect(spyReset).toHaveBeenCalled();
     });

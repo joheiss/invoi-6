@@ -41,8 +41,8 @@ export const metaReducers: MetaReducer<any>[] = [clearState];
     ...fromPopups.popups
   ],
   providers: [
-    ...fromBusinessServices.businessServices,
-    ...fromServices.services,
+    // ...fromBusinessServices.businessServices,
+   // ...fromServices.services,
   ],
   entryComponents: [
     FileUploadDialogComponent,

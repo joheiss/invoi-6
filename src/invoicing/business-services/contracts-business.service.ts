@@ -14,7 +14,9 @@ import * as fromRoot from '../../app/store';
 import {filter, map} from 'rxjs/operators';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ContractsBusinessService {
   private static template: ContractData = {
     objectType: 'contracts',

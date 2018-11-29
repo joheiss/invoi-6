@@ -1,11 +1,12 @@
-import {Component, OnChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnChanges} from '@angular/core';
 import {Contract} from '../../models/contract.model';
 import {MasterListComponent} from '../../abstracts/master-list.component';
 
 @Component({
   selector: 'jo-contract-list',
   templateUrl: './contract-list.component.html',
-  styleUrls: ['./contract-list.component.scss']
+  styleUrls: ['./contract-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContractListComponent extends MasterListComponent<Contract> implements OnChanges {
 

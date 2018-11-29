@@ -1,13 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SettingsBusinessService} from '../../business-services';
 import {COUNTRY_TASK_EDIT, COUNTRY_TASK_NEW_COUNTRY, COUNTRY_TASK_NEW_TRANSLATION} from '../../models/country';
 
 @Component({
   selector: 'jo-country-details-dialog',
   templateUrl: './country-details-dialog.component.html',
-  styleUrls: ['./country-details-dialog.component.scss']
+  styleUrls: ['./country-details-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryDetailsDialogComponent implements OnInit {
 

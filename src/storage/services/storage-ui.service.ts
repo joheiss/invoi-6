@@ -5,7 +5,9 @@ import {UploadPopupData} from '../models/upload-popup-data';
 import {Observable} from 'rxjs/index';
 import {filter, map} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageUiService {
   file: any;
 

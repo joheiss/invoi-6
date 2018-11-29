@@ -6,14 +6,12 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {UsersComponent} from './users/users.component';
 import {Action, ActionReducer, MetaReducer} from '@ngrx/store';
-import {AuthService} from './services/auth.service';
-import {UsersService} from './services';
 import {IdState} from './store/reducers';
 import {UserDetailsDialogComponent} from './users/user-details-dialog/user-details-dialog.component';
-import {UsersBusinessService} from './business-services/users-business.service';
 import {StorageModule} from '../storage/storage.module';
-import {UsersUiService} from './services/users-ui.service';
 import {PasswordChangeDialogComponent} from './password-change-dialog/password-change-dialog.component';
+import {IfAuthorizedForSalesDirective} from './directives/if-authorized-for-sales.directive';
+import {IfAuthorizedForAdminDirective} from './directives/if-authorized-for-admin.directive';
 
 export function clearState(reducer: ActionReducer<IdState>): ActionReducer<IdState> {
   return function(state: IdState, action: Action): IdState {
@@ -32,7 +30,9 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
     GoodbyeComponent,
     UsersComponent,
     UserDetailsDialogComponent,
-    PasswordChangeDialogComponent
+    PasswordChangeDialogComponent,
+    IfAuthorizedForSalesDirective,
+    IfAuthorizedForAdminDirective
   ],
   imports: [
     SharedModule,
@@ -41,14 +41,18 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
     StorageModule
   ],
   providers: [
-    AuthService,
-    UsersService,
-    UsersUiService,
-    UsersBusinessService,
+    // AuthService,
+    // UsersService,
+    // UsersUiService,
+    // UsersBusinessService,
   ],
   entryComponents: [
     UserDetailsDialogComponent,
     PasswordChangeDialogComponent
+  ],
+  exports: [
+    IfAuthorizedForSalesDirective,
+    IfAuthorizedForAdminDirective
   ]
 })
 export class AuthModule {}

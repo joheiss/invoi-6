@@ -29,7 +29,9 @@ import * as fromRoot from '../../app/store';
 import {isEqual} from 'lodash';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InvoicesBusinessService {
   /* ------------------------- */
   /* --- STATIC ATTRIBUTES --- */

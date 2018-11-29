@@ -51,22 +51,26 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
     Object.values(this.subscriptions).forEach(subscription => subscription.unsubscribe);
   }
 
-  onCancel() {
+  onCancel(event: Event) {
     this.store.dispatch(new fromRoot.Back());
+    event.stopPropagation();
   }
 
-  onCopy() {
+  onCopy(event: Event) {
     this.copy.emit(this.object);
     this.form.reset();
+    event.stopPropagation();
   }
 
-  onDelete() {
+  onDelete(event: Event) {
     this.delete.emit(this.object);
+    event.stopPropagation();
   }
 
-  onNew() {
+  onNew(event: Event) {
     this.new.emit();
     this.form.reset();
+    event.stopPropagation();
   }
 
   onSave(form: FormGroup) {

@@ -6,7 +6,9 @@ import {Observable} from 'rxjs/index';
 import {ConfirmationDialogPopupComponent} from '../popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
 import {map} from 'rxjs/internal/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UiService {
 
   constructor(private snackBar: MatSnackBar,

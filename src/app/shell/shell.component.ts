@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import * as fromStore from '../store';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/observable';
@@ -9,7 +9,8 @@ import * as authActions from '../../auth/store/actions';
 @Component({
   selector: 'jo-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShellComponent implements OnInit {
 

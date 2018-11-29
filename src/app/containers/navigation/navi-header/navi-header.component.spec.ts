@@ -8,6 +8,8 @@ import {UsersUiService} from '../../../../auth/services';
 import {By} from '@angular/platform-browser';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../../test/factories/mock-auth.factory';
+import {IfAuthorizedForAdminDirective} from '../../../../auth/directives/if-authorized-for-admin.directive';
+import {IfAuthorizedForSalesDirective} from '../../../../auth/directives/if-authorized-for-sales.directive';
 
 describe('NaviHeaderComponent', () => {
   let component: NaviHeaderComponent;
@@ -16,7 +18,7 @@ describe('NaviHeaderComponent', () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
-      declarations: [NaviHeaderComponent],
+      declarations: [NaviHeaderComponent, IfAuthorizedForAdminDirective, IfAuthorizedForSalesDirective],
       providers: [
         {
           provide: UsersUiService,

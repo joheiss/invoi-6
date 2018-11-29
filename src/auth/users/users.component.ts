@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {User} from '../models/user';
 import {UsersBusinessService} from '../business-services/users-business.service';
@@ -8,7 +8,8 @@ import {UserDetailsDialogComponent} from './user-details-dialog/user-details-dia
 @Component({
   selector: 'jo-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersComponent implements OnInit {
   users: User[];

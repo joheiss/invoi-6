@@ -6,7 +6,9 @@ import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs/index';
 import * as fromStore from '../store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationGuard implements CanActivate, CanLoad {
 
   constructor(private store: Store<AppState>) {

@@ -1,11 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {RevenuePerYearData} from '../../models/revenue.model';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 
 @Component({
   selector: 'jo-revenue-list',
   templateUrl: './revenue-list.component.html',
-  styleUrls: ['./revenue-list.component.scss']
+  styleUrls: ['./revenue-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RevenueListComponent {
   @Input() revenues: RevenuePerYearData[];

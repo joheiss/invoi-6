@@ -49,11 +49,6 @@ describe('Contract Card Component', () => {
         fixture.detectChanges();
       });
 
-      it('should show the correct contract id and color in id avatar', async () => {
-        const div = fixture.debugElement.query(By.css('mat-card-header div.jo-id-avatar--active')).nativeElement as HTMLDivElement;
-        return expect(div.lastChild.textContent).toContain(component.summary.object.header.id);
-      });
-
       it('should show the contract description in the card title', async () => {
         const div = fixture.debugElement.query(By.css('mat-card-title')).nativeElement as HTMLDivElement;
         return expect(div.textContent).toContain(component.summary.object.header.description);
@@ -94,22 +89,6 @@ describe('Contract Card Component', () => {
         return expect(a.textContent).toContain(component.summary.lastInvoiceId);
       });
 
-      it(`should show the details button`, async () => {
-        const a = fixture.debugElement.query(By.css('#btn_details'));
-        return expect(a).toBeDefined();
-      });
-
-      it(`should show the copy button`, async () => {
-        const btn = fixture.debugElement.query(By.css('#btn_copy'));
-        return expect(btn).toBeDefined();
-      });
-
-      it(`should not show the delete button if contract is not deletable`, async () => {
-        component.summary.changeable = false;
-        const btn = fixture.debugElement.query(By.css('#btn_delete'));
-        return expect(btn).toBeFalsy();
-      });
-
       it('should navigate to receiver details when receiver link is pressed', async () => {
         const href = fixture.debugElement.query(By.css('#lnk_customerid')).nativeElement.getAttribute('href');
         return expect(href).toEqual(`/invoicing/receivers/${component.summary.object.header.customerId}`);
@@ -120,35 +99,6 @@ describe('Contract Card Component', () => {
         return expect(href).toEqual(`/invoicing/invoices/${component.summary.lastInvoiceId}`);
       });
 
-      it('should navigate to contract details when details button is pressed', async () => {
-        const href = fixture.debugElement.query(By.css('#btn_details')).nativeElement.getAttribute('href');
-        return expect(href).toEqual(`/invoicing/contracts/${component.summary.object.header.id}`);
-      });
-
-      it('should invoke onCopy handler when copy button is pressed', async () => {
-        const spy = jest.spyOn(component, 'onCopy');
-        fixture.debugElement.query(By.css('#btn_copy')).triggerEventHandler('click', null);
-        return expect(spy).toHaveBeenCalled();
-      });
-    });
-
-    describe('When component is initially displayed for a deletable contract', () => {
-
-      beforeEach(() => {
-        component.summary = {...mockContractSummary(), changeable: true };
-        fixture.detectChanges();
-      });
-
-      it(`should show the delete button if contract is deletable`, async () => {
-        const btn = fixture.debugElement.query(By.css('#btn_delete'));
-        return expect(btn).toBeTruthy();
-      });
-
-      it('should invoke onDelete handler when delete button is pressed', async () => {
-        const spy = jest.spyOn(component, 'onDelete');
-        fixture.debugElement.query(By.css('#btn_delete')).triggerEventHandler('click', null);
-        return expect(spy).toHaveBeenCalled();
-      });
     });
   });
 });

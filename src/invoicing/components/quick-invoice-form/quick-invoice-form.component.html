@@ -61,7 +61,7 @@
   </div>
 
   <div class="jo-btn-row">
-    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel()">
+    <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel($event)">
       <span *ngIf="form.dirty">Abbrechen</span>
       <span *ngIf="!form.dirty">Zurück</span>
     </button>

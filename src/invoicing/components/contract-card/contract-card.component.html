@@ -1,10 +1,6 @@
- <mat-card class="jo-card">
+<mat-card class="jo-card">
   <mat-card-header class="jo-card-header">
-    <div mat-card-avatar class="jo-id-avatar"
-         [ngClass]="{ 'jo-id-avatar--active': summary?.object?.isActive(),
-                    'jo-id-avatar--expired': !summary?.object?.isActive() }">
-      {{ summary?.object?.header.id }}
-    </div>
+    <jo-card-avatar [object]="summary?.object"></jo-card-avatar>
     <mat-card-title>{{ summary?.object?.header.description }}</mat-card-title>
     <mat-card-subtitle>{{ summary?.receiverName}}</mat-card-subtitle>
   </mat-card-header>
@@ -18,7 +14,7 @@
           </a>
         </div>
         <div class="jo-card-label">Vertragsbeginn:</div>
-        <div id="div_contractstart" >{{summary?.object?.header.startDate | date }}</div>
+        <div id="div_contractstart">{{summary?.object?.header.startDate | date }}</div>
         <div class="jo-card-label">Vertragsende:</div>
         <div id="div_contractend">{{summary?.object?.header.endDate | date }}</div>
       </div>
@@ -37,14 +33,11 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <a id="btn_details" mat-button [routerLink]="['/invoicing/contracts', summary?.object?.header.id]">
-      Details
-    </a>
-    <button id="btn_copy" mat-button (click)="onCopy()">
-      Kopieren
-    </button>
-    <button id="btn_delete" mat-button *ngIf="summary?.changeable" (click)="onDelete()">
-      Löschen
-    </button>
+    <jo-card-buttons
+      [object]="summary.object"
+      [isDeletable]="summary.changeable"
+      (copy)="onCopy($event)"
+      (delete)="onDelete($event)">
+    </jo-card-buttons>
   </mat-card-actions>
 </mat-card>

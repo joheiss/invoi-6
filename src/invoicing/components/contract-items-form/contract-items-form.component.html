@@ -1,7 +1,7 @@
 <div> <!--  *ngIf="itemsFormArray.length > 0" -->
   <div class="table-header" fxShow fxHide.lt-md>
     <div class="table-btn">
-      <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd()">
+      <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd($event)">
         <mat-icon aria-label="Position hinzufügen">add</mat-icon>
       </button>
     </div>
@@ -21,7 +21,7 @@
     </jo-contract-item-form>
   </div>
   <div class="u-mt-md"fxHide fxShow.lt-md>
-    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd()">
+    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)">
       Position hinzufügen
     </button>
   </div>

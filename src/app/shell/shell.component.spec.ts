@@ -14,6 +14,8 @@ import {cold, getTestScheduler, hot} from 'jasmine-marbles';
 import {last} from 'rxjs/operators';
 import {mockSingleUser} from '../../test/factories/mock-users.factory';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {IfAuthorizedForSalesDirective} from '../../auth/directives/if-authorized-for-sales.directive';
+import {IfAuthorizedForAdminDirective} from '../../auth/directives/if-authorized-for-admin.directive';
 
 describe('ShellComponent', () => {
   let component: ShellComponent;
@@ -22,7 +24,10 @@ describe('ShellComponent', () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
-      declarations: [ShellComponent, NaviHeaderComponent, NaviSidebarComponent],
+      declarations: [
+        ShellComponent, NaviHeaderComponent, NaviSidebarComponent,
+        IfAuthorizedForSalesDirective, IfAuthorizedForAdminDirective
+      ],
       providers: [
         {
           provide: Store,

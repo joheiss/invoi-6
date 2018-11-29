@@ -8,6 +8,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {ContractCardComponent} from '../components';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 import {Contract} from '../models/contract.model';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('Abstract Master Component', () => {
 
@@ -18,6 +19,7 @@ describe('Abstract Master Component', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ContractsComponent, ContractCardComponent],
       providers: [
         {
@@ -68,7 +70,7 @@ describe('Abstract Master Component', () => {
 
     it('should invoke service.new when onNew is processed', async () => {
       const spy = jest.spyOn(service, 'new');
-      component.onNew();
+      component.onNew(new Event('click'));
       return expect(spy).toHaveBeenCalled();
     });
   });

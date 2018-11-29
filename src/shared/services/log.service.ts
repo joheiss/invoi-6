@@ -11,7 +11,9 @@ export enum LogLevel {
   Off = 9
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LogService {
 
   private level: LogLevel = environment.logLevel;

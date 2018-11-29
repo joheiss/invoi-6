@@ -6,7 +6,9 @@ import {catchError} from 'rxjs/operators';
 import {OrderByOption} from '../models/order-by-option';
 import {DocumentLink} from '../../invoicing/models/document-link';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FbStoreService {
 
   collections: { [key: string]: AngularFirestoreCollection<any> } = {};

@@ -1,0 +1,33 @@
+@import '../../../sass/variables';
+
+.jo-id-avatar {
+  width: 7rem;
+  height: 7rem;
+  background-color: #ccc;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+
+  &--active {
+    background-color:  $primary-color-dark;
+  }
+  &--expired {
+    background-color: $background-color-dark;
+  }
+  &--future {
+    background-color: $accent-color-dark;
+  }
+  &--alert {
+    background-color: $warn-color-dark;
+  }
+  &--ok {
+    background-color:  $primary-color-dark;
+  }
+  &--inprocess {
+    background-color: $accent-color-dark;
+  }
+
+}

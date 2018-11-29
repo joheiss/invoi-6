@@ -9,7 +9,9 @@ import {UploadPopupData} from '../../storage/models/upload-popup-data';
 import {tap} from 'rxjs/operators';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersBusinessService {
 
   private static template: UserData = {

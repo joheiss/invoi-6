@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User, UserData} from '../../models/user';
@@ -11,7 +11,8 @@ import {UsersUiService} from '../../services';
 @Component({
   selector: 'jo-user-details-dialog',
   templateUrl: './user-details-dialog.component.html',
-  styleUrls: ['./user-details-dialog.component.scss']
+  styleUrls: ['./user-details-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserDetailsDialogComponent implements OnInit {
   form: FormGroup;

@@ -6,7 +6,9 @@ import {Observable} from 'rxjs/index';
 import {OrderByOption} from '../../shared/models/order-by-option';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DocumentLinksService extends ObjectsApiService<DocumentLink> {
 
   static readonly COLLECTION_NAME = 'document-links';

@@ -1,16 +1,16 @@
 <div class="mat-elevation-z0">
   <div *ngIf="!isAnythingSelected()">
-    <button id="btn_upload" mat-raised-button color="primary" (click)="onUpload()">
+    <button id="btn_upload" mat-raised-button color="primary" (click)="onUpload($event)">
       <mat-icon>file_upload</mat-icon>
       &nbsp;Hochladen
     </button>
   </div>
   <div *ngIf="isAnythingSelected()">
-    <button id="btn_download" mat-raised-button color="primary" (click)="onDownloadSelected()">
+    <button id="btn_download" mat-raised-button color="primary" (click)="onDownloadSelected($event)">
       <mat-icon>file_download</mat-icon>
       &nbsp;Herunterladen
     </button>
-    <button id="btn_delete" mat-raised-button color="warn" (click)="onDeleteSelected()">
+    <button id="btn_delete" mat-raised-button color="warn" (click)="onDeleteSelected($event)">
       <mat-icon>delete_forever</mat-icon>
       &nbsp;Löschen
     </button>

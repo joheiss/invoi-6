@@ -8,7 +8,9 @@ import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../app/store/reducers';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthorizationGuard implements CanActivate, CanLoad {
 
   constructor(private store: Store<AppState>) {

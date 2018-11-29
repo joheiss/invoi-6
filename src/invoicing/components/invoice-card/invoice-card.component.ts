@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnChanges, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnChanges} from '@angular/core';
 import {InvoiceSummary} from '../../models/invoicing.model';
 import {Invoice} from '../../models/invoice.model';
 import {MasterCardComponent} from '../../abstracts/master-card.component';

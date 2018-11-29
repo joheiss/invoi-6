@@ -2,7 +2,9 @@ import {Injectable} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {from, Observable} from 'rxjs/index';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FbStorageService {
 
   constructor(private afStorage: AngularFireStorage) {

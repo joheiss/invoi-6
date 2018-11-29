@@ -8,7 +8,9 @@ import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SettingsBusinessService {
 
   language: string;

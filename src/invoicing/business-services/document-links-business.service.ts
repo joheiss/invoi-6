@@ -4,7 +4,9 @@ import * as fromStore from '../store/index';
 import {select, Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DocumentLinksBusinessService {
 
   private static template: DocumentLink = {

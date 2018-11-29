@@ -4,7 +4,9 @@ import {User} from 'firebase/auth';
 import {from, Observable} from 'rxjs/index';
 import {AngularFireAuth} from '@angular/fire/auth';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FbAuthService {
 
   constructor(private afAuth: AngularFireAuth) {

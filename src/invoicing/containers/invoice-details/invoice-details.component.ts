@@ -12,7 +12,7 @@ import {DetailsComponent} from '../../abstracts/details.component';
   selector: 'jo-invoice-details',
   templateUrl: './invoice-details.component.html',
   styleUrls: ['./invoice-details.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceDetailsComponent extends DetailsComponent<Invoice> implements OnInit {
   invoice$: Observable<Invoice>;

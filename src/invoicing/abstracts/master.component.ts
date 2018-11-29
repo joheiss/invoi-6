@@ -19,7 +19,9 @@ export abstract class MasterComponent<T, V> implements OnInit {
     this.service.delete(object);
   }
 
-  onNew() {
+  onNew(event: Event) {
     this.service.new();
+    event.stopPropagation();
+
   }
 }

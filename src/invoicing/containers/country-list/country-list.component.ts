@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsBusinessService} from '../../business-services';
 import {Country, COUNTRY_TASK_EDIT, COUNTRY_TASK_NEW_COUNTRY, COUNTRY_TASK_NEW_TRANSLATION, CountryTask} from '../../models/country';
 import {SettingData} from '../../models/setting.model';
@@ -10,7 +10,8 @@ import {CountryDetailsDialogComponent} from '../country-details-dialog/country-d
 @Component({
   selector: 'jo-country-list',
   templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.scss']
+  styleUrls: ['./country-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryListComponent implements OnInit, OnDestroy {
   countrySettings: SettingData;
@@ -59,11 +60,12 @@ export class CountryListComponent implements OnInit, OnDestroy {
     this.service.update(this.countrySettings);
   }
 
-  onNew() {
+  onNew(event: Event) {
     this.selected = null;
     const countryToCreate = { names: { } } as Country;
     this.supportedLanguages.forEach(language => countryToCreate.names[language] = null);
     this.openDetailsDialog(COUNTRY_TASK_NEW_COUNTRY, countryToCreate);
+    event.stopPropagation();
   }
 
   onSelect(country: Country) {
