@@ -3,7 +3,7 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as fromServices from '../../services';
 import * as invoiceActions from '../actions/invoices.actions';
 import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
 import {select, Store} from '@ngrx/store';
 import {selectAuth} from '../../../auth/store/selectors';
@@ -183,7 +183,7 @@ export class InvoicesEffects {
     map((action: invoiceActions.CreateInvoicePdf) => action.payload),
     switchMap(invoice => this.invoicesService.createInvoicePDF(invoice)
       .pipe(
-        tap(() => this.store.dispatch(new fromRoot.StopSpinning())),
+        // tap(() => this.store.dispatch(new fromRoot.StopSpinning())),
         map(invoice => new invoiceActions.CreateInvoicePdfSuccess(invoice)),
         catchError(error => of(new invoiceActions.CreateInvoicePdfFail(error)))
       ))
@@ -195,7 +195,7 @@ export class InvoicesEffects {
     tap(error => console.error(error)),
     map((action: invoiceActions.CreateInvoicePdfFail) => action.payload),
     switchMap(error => [
-      // new fromRoot.StopSpinning(),
+      new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-failed')})
     ])
   );
@@ -206,7 +206,7 @@ export class InvoicesEffects {
     tap(() => console.log('*** CreateInvoicePdfSuccess')),
     map((action: invoiceActions.CreateInvoicePdfSuccess) => action.payload),
     switchMap(invoice => [
-      // new fromRoot.StopSpinning(),
+      new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-created')})
     ])
   );

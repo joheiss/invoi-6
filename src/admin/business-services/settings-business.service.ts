@@ -1,5 +1,5 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
-import * as fromStore from '../store/index';
+import * as fromStore from '../../invoicing/store';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/index';
 import {SettingData} from '../models/setting.model';

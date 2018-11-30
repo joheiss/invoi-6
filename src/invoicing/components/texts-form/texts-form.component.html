@@ -1,0 +1,12 @@
+<div id="text-group" [formGroup]="textsFormGroup">
+  <mat-form-field class="width--full">
+        <textarea matInput id="invoiceText" formControlName="invoiceText" placeholder="Rechnungstext"
+                  matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5">
+        </textarea>
+  </mat-form-field>
+  <mat-form-field class="width--full">
+        <textarea matInput id="internalText" formControlName="internalText" placeholder="interner Text"
+                  matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5">
+        </textarea>
+  </mat-form-field>
+</div>

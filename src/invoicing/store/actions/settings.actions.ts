@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {SettingData} from '../../models/setting.model';
+import {SettingData} from '../../../admin/models/setting.model';
 
 // FIRESTORE
 export const QUERY_SETTINGS = '[Invoicing] Settings query';

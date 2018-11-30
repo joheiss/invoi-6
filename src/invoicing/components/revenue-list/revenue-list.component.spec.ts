@@ -5,7 +5,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {RevenueListComponent} from './revenue-list.component';
-import {mockAllRevenues} from '../../../test/factories/mock-revenues.factory';
+import {mockAllRevenuesPerYear} from '../../../test/factories/mock-revenues.factory';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 
 describe('Revenue List Component', () => {
@@ -38,7 +38,7 @@ describe('Revenue List Component', () => {
   describe('Controller', () => {
 
     beforeEach(() => {
-      component.revenues = mockAllRevenues();
+      component.revenues = mockAllRevenuesPerYear();
     });
 
     it('should provide the revenues for the recent 3 years', async () => {
@@ -49,7 +49,7 @@ describe('Revenue List Component', () => {
   describe('View', () => {
 
     beforeEach(() => {
-      component.revenues = mockAllRevenues();
+      component.revenues = mockAllRevenuesPerYear();
       fixture.detectChanges();
     });
 

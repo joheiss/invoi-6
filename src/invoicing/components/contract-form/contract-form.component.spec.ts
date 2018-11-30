@@ -181,8 +181,6 @@ describe('Contract Details Form Component', () => {
       expected = decimalPipe.transform(component.object.header.cashDiscountPercentage, '1.1-2', 'de-DE');
       expect(component.form.controls['cashDiscountPercentage'].value).toEqual(expected);
       expect(component.form.controls['dueDays'].value).toEqual(component.object.header.dueDays);
-      expect(component.form.controls['internalText'].value).toEqual(component.object.header.internalText);
-      expect(component.form.controls['invoiceText'].value).toEqual(component.object.header.invoiceText);
     });
   });
 

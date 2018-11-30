@@ -5,7 +5,7 @@ import {InvoicesBusinessService} from './invoices-business.service';
 import {InvoicingState} from '../store/reducers';
 import {Receiver, ReceiverStatus} from '../models/receiver.model';
 import {ReceiversBusinessService} from './receivers-business.service';
-import {SettingsBusinessService} from './settings-business.service';
+import {SettingsBusinessService} from '../../admin/business-services/settings-business.service';
 import {ChangeReceiverSuccess, CopyReceiverSuccess, CreateReceiver, NewReceiverSuccess, UpdateReceiver} from '../store/actions';
 import {OpenConfirmationDialog} from '../../app/store/actions';
 import * as fromStore from '../store';

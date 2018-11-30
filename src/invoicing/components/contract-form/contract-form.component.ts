@@ -59,14 +59,16 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
       cashDiscountPercentage: ['', [Validators.pattern(fromValidators.REGEXP_AMOUNT)]],
       dueDays: ['', [Validators.required, Validators.pattern(fromValidators.REGEXP_DIGITS)]],
       documentUrl: ['', [Validators.pattern(fromValidators.REGEXP_URL)]],
-      invoiceText: [''],
-      internalText: [''],
+      texts: this.fb.group({
+        invoiceText: [''],
+        internalText: [''],
+      }),
       items: new FormArray([], [minOneItemValidator])
     }, [{ validator: endDateValidator }]);
   }
 
   protected changeObject(values: any): Contract {
-    const {items: items, ...header} = values;
+    const {items: items, texts: texts, ...header} = values;
     const reformattedItemValues = items.map(item => Object.assign({}, item, {
       pricePerUnit: this.utility.fromLocalAmount(item.pricePerUnit)
     }));
@@ -77,6 +79,7 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
     const changed = Object.assign({},
       {...this.object.data},
       {...header},
+      {...texts},
       {...reformattedValues},
       {items: reformattedItemValues}) as ContractData;
     const changedContract = Contract.createFromData(changed);
@@ -98,8 +101,8 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
     this.listenToFieldChanges('cashDiscountPercentage', this.onSimpleHeaderPercentageChanged);
     this.listenToFieldChanges('cashDiscountDays', this.onSimpleHeaderNumberChanged);
     this.listenToFieldChanges('dueDays', this.onSimpleHeaderNumberChanged);
-    this.listenToFieldChanges('invoiceText', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('internalText', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('texts.invoiceText', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('texts.internalText', this.onSimpleHeaderTextChanged);
     this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
   }
 
@@ -111,7 +114,9 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
       cashDiscountPercentage: this.utility.toLocalPercent(this.object.header.cashDiscountPercentage),
       budget: this.utility.toLocalAmount(this.object.header.budget),
     };
-    const patch = Object.assign({}, {...this.object.header}, reformattedValues);
+    const { invoiceText, internalText, ...header } = this.object.header;
+    const texts = { invoiceText,  internalText };
+    const patch = Object.assign({}, {...header}, reformattedValues, { texts: texts });
     this.form.patchValue(patch);
   }
 

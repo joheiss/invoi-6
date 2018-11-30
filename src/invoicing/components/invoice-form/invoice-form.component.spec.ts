@@ -183,8 +183,6 @@ describe('Invoice Details Form Component', () => {
       expected = decimalPipe.transform(component.object.header.cashDiscountPercentage, '1.1-2',  'de-DE');
       expect(component.form.controls['cashDiscountPercentage'].value).toEqual(expected);
       expect(component.form.controls['dueInDays'].value).toEqual(component.object.header.dueInDays);
-      expect(component.form.controls['internalText'].value).toEqual(component.object.header.internalText);
-      expect(component.form.controls['invoiceText'].value).toEqual(component.object.header.invoiceText);
     });
   });
 
@@ -201,8 +199,6 @@ describe('Invoice Details Form Component', () => {
       component.mode = 'edit';
       component.form = undefined;
       component.ngOnChanges({});
-      // component.form.controls['items'].clearVaidators();
-      // fixture.detectChanges();
     });
 
     describe('when invoice from is initially displayed in edit mode', () => {

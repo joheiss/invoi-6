@@ -8,12 +8,11 @@ import {InvoicingRoutingModule} from './invoicing-routing.module';
 import {effects, reducers} from './store';
 import * as fromComponents from './components';
 import * as fromContainers from './containers';
-import {CountryDetailsDialogComponent, VatDetailsDialogComponent} from './containers';
 import * as fromPopups from './popups';
 import {FileUploadDialogComponent} from './popups';
-import * as fromServices from './services';
-import * as fromBusinessServices from './business-services';
 import {InvoicingState} from './store/reducers';
+import {AdminModule} from '../admin/admin.module';
+import { TextsFormComponent } from './components/texts-form/texts-form.component';
 
 
 export function clearState(reducer: ActionReducer<InvoicingState>): ActionReducer<InvoicingState> {
@@ -31,6 +30,7 @@ export const metaReducers: MetaReducer<any>[] = [clearState];
   imports: [
     SharedModule,
     StorageModule,
+    AdminModule,
     InvoicingRoutingModule,
     StoreModule.forFeature('invoicing', reducers, { metaReducers }),
     EffectsModule.forFeature(effects)
@@ -45,9 +45,7 @@ export const metaReducers: MetaReducer<any>[] = [clearState];
    // ...fromServices.services,
   ],
   entryComponents: [
-    FileUploadDialogComponent,
-    VatDetailsDialogComponent,
-    CountryDetailsDialogComponent
+    FileUploadDialogComponent
   ]
 })
 export class InvoicingModule { }

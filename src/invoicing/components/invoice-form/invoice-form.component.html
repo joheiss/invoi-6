@@ -1,52 +1,40 @@
 <form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="invoice-form">
   <mat-tab-group (selectedTabChange)="onTabChange($event)">>
     <mat-tab label="Details">
-      <mat-expansion-panel expanded="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-          </mat-panel-title>
-          <mat-panel-description>
-            <mat-icon color="warn"
-                      *ngIf="hasError(['status', 'issuedAt', 'receiverId', 'billingPeriod'])">
-              error_outline
-            </mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-radio-group id="status-group" formControlName="status" aria-label="Rechnungsstatus">
-          <mat-radio-button color="accent" value="0">In Bearbeitung</mat-radio-button>
-          <mat-radio-button color="primary" value="1">versandt</mat-radio-button>
-          <mat-radio-button color="primary" value="2">bezahlt</mat-radio-button>
-        </mat-radio-group>
-        <div id="main-group">
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker"
-                   formControlName="issuedAt"
-                   placeholder="Ausstellungsdatum">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.get('issuedAt').hasError('required')">
-              Bitte geben Sie ein Ausstellungsdatum ein
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select formControlName="receiverId" placeholder="Rechnungsempfänger">
-              <mat-option *ngFor="let receiver of receivers" [value]="receiver.header.id">
-                {{receiver.header.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('receiverId').hasError('required')">
-              Bitte wählen Sie einen Rechnungsempfänger aus
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Leistungszeitraum" formControlName="billingPeriod">
-            <mat-error *ngIf="form.get('billingPeriod').hasError('required')">
-              Bitte geben Sie einen Leistungszeitraum ein
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel  expanded="true">
+      <mat-radio-group id="status-group" formControlName="status" aria-label="Rechnungsstatus">
+        <mat-radio-button color="accent" value="0">In Bearbeitung</mat-radio-button>
+        <mat-radio-button color="primary" value="1">versandt</mat-radio-button>
+        <mat-radio-button color="primary" value="2">bezahlt</mat-radio-button>
+      </mat-radio-group>
+      <div id="main-group">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker"
+                 formControlName="issuedAt"
+                 placeholder="Ausstellungsdatum">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('issuedAt').hasError('required')">
+            Bitte geben Sie ein Ausstellungsdatum ein
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="receiverId" placeholder="Rechnungsempfänger">
+            <mat-option *ngFor="let receiver of receivers" [value]="receiver.header.id">
+              {{receiver.header.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('receiverId').hasError('required')">
+            Bitte wählen Sie einen Rechnungsempfänger aus
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Leistungszeitraum" formControlName="billingPeriod">
+          <mat-error *ngIf="form.get('billingPeriod').hasError('required')">
+            Bitte geben Sie einen Leistungszeitraum ein
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-expansion-panel expanded="false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Vertragsinformationen
@@ -205,18 +193,11 @@
       </mat-expansion-panel>
     </mat-tab>
     <mat-tab label="Texte">
-      <div id="text-group">
-        <mat-form-field class="width--full">
-        <textarea matInput formControlName="invoiceText"
-                  placeholder="Rechnungstext" matTextareaAutosize matAutosizeMinRows="1" matAutoSizeMaxRows="5">
-        </textarea>
-        </mat-form-field>
-        <mat-form-field class="width--full">
-        <textarea matInput formControlName="internalText"
-                  placeholder="interner Text" matTextareaAutosize matAutosizeMinRows="1" matAutoSizeMaxRows="5">
-        </textarea>
-        </mat-form-field>
-      </div>
+      <jo-texts-form-component
+        [textsFormGroup]="form.get('texts')"
+        [object]="object"
+        [isChangeable]="isChangeable">
+      </jo-texts-form-component>
     </mat-tab>
     <mat-tab *ngIf="object.header.id" label="Dokumente">
       <section class="tables u-mt-lg">

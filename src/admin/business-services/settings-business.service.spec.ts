@@ -1,12 +1,12 @@
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../../invoicing/store/reducers';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {SettingsBusinessService} from './settings-business.service';
 import {LOCALE_ID} from '@angular/core';
 import {of} from 'rxjs/index';
 import {map, take} from 'rxjs/operators';
-import {UpdateSetting, UpdateSettingFail} from '../store/actions';
+import {UpdateSetting, UpdateSettingFail} from '../../invoicing/store/actions';
 import {SettingData} from '../models/setting.model';
 import {mockAllCountries} from '../../test/factories/mock-settings.factory';
 

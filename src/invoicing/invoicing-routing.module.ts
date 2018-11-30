@@ -2,13 +2,15 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import * as fromContainers from './containers';
 import * as fromGuards from './guards';
+import {SettingsGuard} from '../admin/guards';
+import {CountryListComponent, SettingsComponent} from './containers';
 
 const INVOICING_ROUTES: Routes = [
   {
     path: '',
     component: fromContainers.InvoicingComponent,
     canActivate: [
-      fromGuards.NumberRangesGuard, fromGuards.SettingsGuard,
+      fromGuards.NumberRangesGuard, fromGuards.RevenuesGuard, SettingsGuard,
       fromGuards.ReceiversGuard, fromGuards.ContractsGuard, fromGuards.InvoicesGuard
     ],
     children: [
@@ -23,7 +25,7 @@ const INVOICING_ROUTES: Routes = [
         path: 'receivers',
         component: fromContainers.ReceiversComponent,
         canActivate: [
-          fromGuards.NumberRangesGuard, fromGuards.SettingsGuard,
+          fromGuards.NumberRangesGuard, SettingsGuard,
           fromGuards.ReceiversGuard, fromGuards.ContractsGuard, fromGuards.InvoicesGuard
         ]
       },
@@ -38,7 +40,7 @@ const INVOICING_ROUTES: Routes = [
         path: 'contracts',
         component: fromContainers.ContractsComponent,
         canActivate: [
-          fromGuards.NumberRangesGuard, fromGuards.SettingsGuard,
+          fromGuards.NumberRangesGuard, SettingsGuard,
           fromGuards.ContractsGuard, fromGuards.ReceiversGuard, fromGuards.InvoicesGuard
         ]
       },
@@ -57,7 +59,7 @@ const INVOICING_ROUTES: Routes = [
         path: 'invoices',
         component: fromContainers.InvoicesComponent,
         canActivate: [
-          fromGuards.NumberRangesGuard, fromGuards.SettingsGuard,
+          fromGuards.NumberRangesGuard, SettingsGuard,
           fromGuards.ContractsGuard, fromGuards.ReceiversGuard, fromGuards.InvoicesGuard
         ]
       },
@@ -70,23 +72,23 @@ const INVOICING_ROUTES: Routes = [
       },
       {
         path: 'settings',
-        component: fromContainers.SettingsComponent,
+        component: SettingsComponent,
         canActivate: [
-          fromGuards.SettingsGuard
+          SettingsGuard
         ]
       },
       {
         path: 'settings/countries',
-        component: fromContainers.CountryListComponent,
+        component: CountryListComponent,
         canActivate: [
-          fromGuards.SettingsGuard
+          SettingsGuard
         ]
       },
       {
         path: 'settings/vats',
         component: fromContainers.VatListComponent,
         canActivate: [
-          fromGuards.SettingsGuard
+          SettingsGuard
         ]
       }
     ]
@@ -101,7 +103,8 @@ const INVOICING_ROUTES: Routes = [
     RouterModule
   ],
   providers: [
-    ...fromGuards.guards
+    ...fromGuards.guards,
+    SettingsGuard
   ]
 })
 export class InvoicingRoutingModule {

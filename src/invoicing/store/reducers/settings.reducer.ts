@@ -1,5 +1,5 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-import {SettingData} from '../../models/setting.model';
+import {SettingData} from '../../../admin/models/setting.model';
 import * as fromSettings from '../actions/settings.actions';
 
 export interface SettingSingle {

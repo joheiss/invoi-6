@@ -6,7 +6,7 @@ import * as express from 'express';
 import {validateFirebaseIdToken} from './auth-functions';
 import {
   handleContractCreation, handleContractDeletion, handleDocumentLinkDeletion,
-  handleInvoiceCreation, handleInvoiceDeletion,
+  handleInvoiceCreation, handleInvoiceDeletion, handleInvoiceUpdate,
   handleReceiverCreation, handleReceiverDeletion, handleUserProfileCreation, handleUserProfileDeletion, handleUserProfileUpdate
 } from './update-functions';
 import {handleInvoiceEmailSending, handleInvoicePdfCreation, handleUserCreation, handleUserUpdate} from './server-functions';
@@ -56,6 +56,10 @@ export const onCreateInvoice = functions.firestore
 export const onDeleteInvoice = functions.firestore
   .document('invoices/{id}')
   .onDelete(async (snap, context) => handleInvoiceDeletion(snap, context));
+
+export const onUpdateInvoice = functions.firestore
+  .document('invoices/{id}')
+  .onUpdate(async (change, context) => handleInvoiceUpdate(change, context));
 
 export const onCreateUserProfile = functions.firestore
   .document('user-profiles/{id}')

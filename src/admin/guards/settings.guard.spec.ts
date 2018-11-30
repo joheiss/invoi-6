@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../../invoicing/store/reducers';
 import {SettingsGuard} from './settings.guard';
 
 describe('Settings Guard', () => {

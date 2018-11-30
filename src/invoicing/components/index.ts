@@ -15,6 +15,7 @@ import {RevenueListComponent} from './revenue-list/revenue-list.component';
 import {OpenInvoiceListComponent} from './open-invoice-list/open-invoice-list.component';
 import {CardAvatarComponent} from './card-avatar/card-avatar.component';
 import {CardButtonsComponent} from './card-buttons/card-buttons.component';
+import {TextsFormComponent} from './texts-form/texts-form.component';
 
 export const components: any[] = [
   CardAvatarComponent,
@@ -33,7 +34,8 @@ export const components: any[] = [
   InvoiceCardComponent,
   QuickInvoiceFormComponent,
   RevenueListComponent,
-  OpenInvoiceListComponent
+  OpenInvoiceListComponent,
+  TextsFormComponent
 ];
 
 export * from './card-avatar/card-avatar.component';
@@ -52,3 +54,4 @@ export * from './invoice-card/invoice-card.component';
 export * from './quick-invoice-form/quick-invoice-form.component';
 export * from './revenue-list/revenue-list.component';
 export * from './open-invoice-list/open-invoice-list.component';
+export * from './texts-form/texts-form.component';

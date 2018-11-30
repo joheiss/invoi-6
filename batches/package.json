@@ -10,12 +10,12 @@
   "author": "Josef Heiss",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^8.9.4",
-    "typescript": "^2.9.2"
+    "@types/node": "^10.12.10",
+    "typescript": "^3.1.6"
   },
   "dependencies": {
     "commander": "^2.15.1",
-    "firebase-admin": "^6.0.0"
+    "firebase-admin": "^6.3.0"
   },
   "bin": {
     "reporting-refresh": "dist/batches/src/index.js"

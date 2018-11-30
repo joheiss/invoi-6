@@ -8,7 +8,7 @@
 #due-group,
 #cashDiscount-group,
 #validity-group {
-  margin-bottom: 1.6rem;
+  // margin-bottom: 1.2rem;
   display: flex;
   flex-wrap: wrap;
 
@@ -21,9 +21,13 @@
   }
 }
 
+#main-group {
+  padding: 0 2.4rem;
+}
+
 #totals-group,
 #totals-discounted-group {
-  margin-bottom: 1.6rem;
+  // margin-bottom: 1.6rem;
   display: flex;
   flex-wrap: wrap;
 
@@ -33,7 +37,9 @@
 }
 
 #status-group {
+  margin-top: 2.4rem;
   margin-bottom: 2.4rem;
+  padding: 0 2.4rem;
   display: flex;
   flex-wrap: wrap;
 
@@ -48,16 +54,6 @@
   font-size: 1.4rem;
 }
 
-#text-group {
-  margin-top: 3.6rem;
-  display: flex;
-  flex-direction: column;
-
-  & > mat-form-field:not(:last-child) {
-    margin-bottom: 2.4rem;
-  }
-}
-
 #netValue,
 #vatAmount,
 #grossValue,
@@ -65,10 +61,6 @@
 #cashDiscountAmount,
 #paymentAmount {
   margin-top: 0.8rem;
-}
-
-textarea.mat-input-element {
-  overflow: hidden;
 }
 
 width-full {

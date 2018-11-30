@@ -5,6 +5,7 @@ import * as fromContracts from './contracts.reducer';
 import * as fromInvoices from './invoices.reducer';
 import * as fromDocumentLinks from './document-links.reducer';
 import * as fromSettings from './settings.reducer';
+import * as fromRevenues from './revenues.reducer';
 
 export interface InvoicingState {
   numberRanges: fromNumberRanges.NumberRangeState;
@@ -13,6 +14,7 @@ export interface InvoicingState {
   invoices: fromInvoices.InvoiceState;
   documentLinks: fromDocumentLinks.DocumentLinkState;
   settings: fromSettings.SettingState;
+  revenues: fromRevenues.RevenueState;
 }
 
 export const reducers: ActionReducerMap<InvoicingState> = {
@@ -21,7 +23,8 @@ export const reducers: ActionReducerMap<InvoicingState> = {
   contracts: fromContracts.contractReducer,
   invoices: fromInvoices.invoiceReducer,
   documentLinks: fromDocumentLinks.documentLinkReducer,
-  settings: fromSettings.settingReducer
+  settings: fromSettings.settingReducer,
+  revenues: fromRevenues.revenueReducer
 };
 
 export const selectInvoicingState = createFeatureSelector<InvoicingState>('invoicing');

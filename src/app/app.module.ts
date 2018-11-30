@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
 import localeDE from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
 import {registerLocaleData} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
@@ -41,7 +42,7 @@ export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppS
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [clearState, storeFreeze] : [clearState];
 
-registerLocaleData(localeDE);
+registerLocaleData(localeDE, 'de-DE', localeDeExtra);
 
 @NgModule({
   declarations: [

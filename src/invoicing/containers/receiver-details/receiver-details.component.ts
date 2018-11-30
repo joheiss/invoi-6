@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Invoice} from '../../models/invoice.model';
 import {ReceiversBusinessService} from '../../business-services';
 import {DetailsComponent} from '../../abstracts/details.component';
-import {Country} from '../../models/country';
+import {Country} from '../../../admin/models/country';
 
 @Component({
   selector: 'jo-receiver-details',

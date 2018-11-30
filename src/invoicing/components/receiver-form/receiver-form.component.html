@@ -1,30 +1,21 @@
 <form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="receiver-form">
   <mat-tab-group (selectedTabChange)="onTabChange($event)">>
     <mat-tab label="Details">
-      <mat-expansion-panel expanded="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-          </mat-panel-title>
-          <mat-panel-description>
-            <mat-icon color="warn" *ngIf="hasError(['status', 'name'])">error_outline</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-radio-group id="status-group" formControlName="status" aria-label="Kunde aktiv">
-          <mat-radio-button color="primary" value="0">aktiv</mat-radio-button>
-          <mat-radio-button color="accent" value="1">inaktiv</mat-radio-button>
-        </mat-radio-group>
-        <div id="name-group">
-          <mat-form-field class="width--lg">
-            <input matInput id="name" formControlName="name" placeholder="Name">
-            <mat-error *ngIf="form.get('name').hasError('required')">
-              Bitte geben Sie einen Namen ein
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="width--lg">
-            <input matInput id="nameAdd" formControlName="nameAdd" placeholder="Zusatz">
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
+      <mat-radio-group id="status-group" formControlName="status" aria-label="Kunde aktiv">
+        <mat-radio-button color="primary" value="0">aktiv</mat-radio-button>
+        <mat-radio-button color="accent" value="1">inaktiv</mat-radio-button>
+      </mat-radio-group>
+      <div id="name-group">
+        <mat-form-field class="width--lg">
+          <input matInput id="name" formControlName="name" placeholder="Name">
+          <mat-error *ngIf="form.get('name').hasError('required')">
+            Bitte geben Sie einen Namen ein
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="width--lg">
+          <input matInput id="nameAdd" formControlName="nameAdd" placeholder="Zusatz">
+        </mat-form-field>
+      </div>
       <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
           <mat-panel-title>

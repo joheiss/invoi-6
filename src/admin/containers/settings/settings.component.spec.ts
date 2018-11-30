@@ -2,11 +2,11 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {SharedModule} from '../../../shared/shared.module';
-import {SettingsBusinessService} from '../../business-services';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {cold} from 'jasmine-marbles';
 import {SettingsComponent} from './settings.component';
+import {SettingsBusinessService} from '../../business-services';
 
 describe('Settings Component', () => {
 

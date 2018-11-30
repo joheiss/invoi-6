@@ -1,3 +1,5 @@
+@import 'variables';
+
 .mat-button-wrapper {
   text-transform: uppercase;
 }
@@ -32,6 +34,8 @@ div.mat-tab-body-content {
   overflow: hidden;
 }
 
-.mat-expansion-panel-header {
+.mat-expansion-panel-header-title {
   font-size: 1.2rem;
+  color: $primary-color;
 }
+

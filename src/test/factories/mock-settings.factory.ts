@@ -1,5 +1,5 @@
 import {DateUtilities} from '../../shared/utilities/date-utilities';
-import {Country} from '../../invoicing/models/country';
+import {Country} from '../../admin/models/country';
 import {settingAdapter, SettingState} from '../../invoicing/store/reducers/settings.reducer';
 
 export const mockSettingsState = (): SettingState => {

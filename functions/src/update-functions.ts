@@ -2,6 +2,11 @@ import * as admin from 'firebase-admin';
 import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
 import {Change} from 'firebase-functions/lib/cloud-functions';
 import {EventContext} from 'firebase-functions';
+import {calcDiscountedNetValue, calcRevenuePeriod} from '../../shared/src/calculations';
+import moment = require('moment');
+import * as _ from 'lodash';
+import {getRevenues} from '../../shared/src/getters';
+import {setRevenues} from '../../shared/src/setters';
 
 export async function handleReceiverCreation(snap: DocumentSnapshot, context: EventContext): Promise<any> {
   return updateNumberRange('receivers', context);
@@ -36,7 +41,9 @@ export async function handleInvoiceCreation(snap: DocumentSnapshot, context: Eve
     if (snap.data().billingMethod === 1) {
       rangeId = 'credit-requests';
     }
-    return updateNumberRange(rangeId, context);
+    await updateNumberRange(rangeId, context);
+    // update revenue reporting
+    return updateRevenueReporting(snap.data(), null);
   } catch (err) {
     console.error(err);
   }
@@ -51,7 +58,24 @@ export async function handleInvoiceDeletion(snap: DocumentSnapshot, context: Eve
     }
     await resetNumberRange(rangeId, context);
     // delete assigned document links
-    return deleteDocumentLinksForOwner(`${snap.data().objectType}/${context.params.id}`);
+    await deleteDocumentLinksForOwner(`${snap.data().objectType}/${context.params.id}`);
+    // update revenue reporting
+    return updateRevenueReporting(null, snap.data());
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function handleInvoiceUpdate(change: Change<DocumentSnapshot>, context: EventContext): Promise<any> {
+  try {
+    // get old and new state
+    const newInvoice = change.after.data();
+    const oldInvoice = change.before.data();
+
+    if (isInvoiceUpdateRelevantForRevenue(newInvoice, oldInvoice)) {
+      await updateRevenueReporting(newInvoice, oldInvoice);
+    }
+    return true;
   } catch (err) {
     console.error(err);
   }
@@ -84,7 +108,6 @@ export async function handleDocumentLinkDeletion(snap: DocumentSnapshot, context
   try {
     const documentLink = snap.data();
     // delete document from storage
-    console.log('File to delete: ', documentLink.path);
     const bucket = admin.storage().bucket();
     const file = bucket.file(documentLink.path);
     return file.delete();
@@ -100,6 +123,26 @@ async function deleteDocumentLinksForOwner(owner: string): Promise<any> {
   const batch = admin.firestore().batch();
   docs.forEach(doc => batch.delete(doc.ref));
   return batch.commit();
+}
+
+function isInvoiceUpdateRelevantForRevenue(newInvoice, oldInvoice): boolean {
+  if (_.isEqual(newInvoice, oldInvoice)) {
+    return false;
+  }
+  // only status changes and changes in document date, receiver and discounted value are currently relevant for the receiver
+  if (newInvoice.status !== oldInvoice.status) {
+    return true;
+  }
+  if (newInvoice.issuedAt !== oldInvoice.issuedAt) {
+    return true;
+  }
+  if (newInvoice.receiverId !== oldInvoice.receiverId) {
+    return true;
+  }
+  if (calcDiscountedNetValue(newInvoice) !== calcDiscountedNetValue(oldInvoice)) {
+    return true;
+  }
+  return false;
 }
 
 async function resetNumberRange(rangeId: string, context: EventContext): Promise<any> {
@@ -133,6 +176,67 @@ async function updateAuth(uid: string, userProfile: any): Promise<any> {
   } catch (err) {
     throw new Error(err);
   }
+}
+async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise<any> {
+  const db = admin.firestore();
+  const values = {
+    new: { year: null, month: null, receiverId: null, organization: null, revenue: 0 },
+    old: { year: null, month: null, receiverId: null, organization: null, revenue: 0 },
+  };
+  if (newInvoice) {
+    // get new values
+    const period: { year: number, month: number} = calcRevenuePeriod(moment(newInvoice.issuedAt));
+    values.new.year = period.year.toString();
+    values.new.month = period.month.toString();
+    values.new.receiverId = newInvoice.receiverId;
+    values.new.organization = newInvoice.organization;
+    values.new.revenue = calcDiscountedNetValue(newInvoice);
+  }
+  if (oldInvoice) {
+    // get old values
+    const period: { year: number, month: number} = calcRevenuePeriod(moment(oldInvoice.issuedAt));
+    values.old.year = period.year.toString();
+    values.old.month = period.month.toString();
+    values.old.receiverId = oldInvoice.receiverId;
+    values.old.organization = oldInvoice.organization;
+    values.old.revenue = calcDiscountedNetValue(oldInvoice);
+  }
+  if (values.new.year) {
+    const docId = `${values.new.year}_${values.new.organization}`;
+    let revenues = await getRevenues(db, docId);
+    if (!revenues) {
+      // create entirely new revenue entry
+      revenues = {
+        id: values.new.year,
+        organization: values.new.organization,
+        months: {[values.new.month]: {[values.new.receiverId]: values.new.revenue}}
+      };
+    } else if (!revenues.months[values.new.month]) {
+      // create new entry for month
+      revenues.months[values.new.month] = {[values.new.receiverId]: values.new.revenue};
+    } else if (!revenues.months[values.new.month][values.new.receiverId]) {
+      // create new entry for receiver
+      revenues.months[values.new.month][values.new.receiverId] = values.new.revenue;
+    } else {
+      // add to existing entry
+      revenues.months[values.new.month][values.new.receiverId] += values.new.revenue;
+    }
+    await setRevenues(db, revenues);
+  }
+
+  if (values.old.year) {
+    const docId = `${values.old.year}_${values.old.organization}`;
+    const revenues = await getRevenues(db, docId);
+    if (revenues && revenues.months[values.old.month] && revenues.months[values.old.month][values.old.receiverId]) {
+      // correct old entry
+      revenues.months[values.old.month][values.old.receiverId] = Math.max(
+        revenues.months[values.old.month][values.old.receiverId] - values.old.revenue,
+        0
+      );
+      await setRevenues(db, revenues);
+    }
+  }
+  return true;
 }
 
 

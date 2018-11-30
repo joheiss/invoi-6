@@ -301,7 +301,7 @@ describe('Invoices Effects', () => {
   });
 
   describe('createInvoicePdf$', () => {
-    it('should return a CreateInvoicePdfSuccess action and dispatch StartSpinning and StopSpinning', async () => {
+    it('should return a CreateInvoicePdfSuccess action and dispatch StartSpinning', async () => {
       const invoice = mockSingleInvoice();
       const action = new CreateInvoicePdf(invoice);
       actions = hot('-a', {a: action});
@@ -310,12 +310,11 @@ describe('Invoices Effects', () => {
       invoicesService.createInvoicePDF = jest.fn(() => cold('-b|', {b: invoice}));
       const spy = jest.spyOn(store, 'dispatch');
       await expect(effects.createInvoicePdf$).toBeObservable(expected);
-      await expect(spy).toHaveBeenCalledWith(new StartSpinning());
-      return expect(spy).toHaveBeenCalledWith(new StopSpinning());
+      return expect(spy).toHaveBeenCalledWith(new StartSpinning());
 
     });
 
-    it('should return a CreateInvoicePdfFail action and dispatch StartSpinning and StopSpinning', async () => {
+    it('should return a CreateInvoicePdfFail action and dispatch StartSpinning', async () => {
       const invoice = mockSingleInvoice();
       const action = new CreateInvoicePdf(invoice);
       actions = hot('-a', {a: action});
@@ -336,8 +335,9 @@ describe('Invoices Effects', () => {
       const action = new CreateInvoicePdfSuccess(invoice);
       actions = hot('-a', {a: action});
       const message = undefined;
-      const expected = cold('-(a)', {
-        a: new OpenSnackBar({message}),
+      const expected = cold('-(ab)', {
+        a: new StopSpinning(),
+        b: new OpenSnackBar({message}),
       });
       return expect(effects.createInvoicePdfSuccess$).toBeObservable(expected);
     });
@@ -350,8 +350,9 @@ describe('Invoices Effects', () => {
       const action = new CreateInvoicePdfFail(invoice);
       actions = hot('-a', {a: action});
       const message = undefined;
-      const expected = cold('-(a)', {
-        a: new OpenSnackBar({message}),
+      const expected = cold('-(ab)', {
+        a: new StopSpinning(),
+        b: new OpenSnackBar({message}),
       });
       return expect(effects.createInvoicePdfFail$).toBeObservable(expected);
     });

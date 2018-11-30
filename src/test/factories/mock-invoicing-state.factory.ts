@@ -5,6 +5,7 @@ import {mockInvoicesState} from './mock-invoices.factory';
 import {mockDocumentLinksState} from './mock-document-links.factory';
 import {mockSettingsState} from './mock-settings.factory';
 import {InvoicingState} from '../../invoicing/store/reducers';
+import {mockRevenuesState} from './mock-revenues.factory';
 
 export const mockInvoicingState = (): InvoicingState => {
   return {
@@ -13,7 +14,8 @@ export const mockInvoicingState = (): InvoicingState => {
     contracts: mockContractsState(),
     invoices: mockInvoicesState(),
     documentLinks: mockDocumentLinksState(),
-    settings: mockSettingsState()
+    settings: mockSettingsState(),
+    revenues: mockRevenuesState()
   };
 };
 

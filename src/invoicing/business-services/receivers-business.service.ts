@@ -11,8 +11,8 @@ import {Contract} from '../models/contract.model';
 import {Invoice} from '../models/invoice.model';
 import {NumberRange} from '../models/number-range.model';
 import {UserData} from '../../auth/models/user';
-import {SettingsBusinessService} from './settings-business.service';
-import {Country} from '../models/country';
+import {SettingsBusinessService} from '../../admin/business-services/settings-business.service';
+import {Country} from '../../admin/models/country';
 import {filter, map, take} from 'rxjs/operators';
 import {InvoicesBusinessService} from './invoices-business.service';
 

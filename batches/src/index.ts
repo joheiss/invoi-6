@@ -2,7 +2,7 @@
 
 import * as admin from 'firebase-admin';
 import * as args from 'commander';
-import {calcDueDate, calcNetValue, calcPaymentAmount, calcRevenuePeriod} from '../../shared/src/calculations';
+import {calcDiscountedNetValue, calcDueDate, calcNetValue, calcPaymentAmount, calcRevenuePeriod} from '../../shared/src/calculations';
 import {getReceiver} from '../../shared/src/getters';
 import * as moment from 'moment';
 import {firestore, } from 'firebase';
@@ -97,7 +97,7 @@ function mapRevenue(doc: firestore.DocumentSnapshot): RevenueExtract {
     organization: doc.data().organization,
     month: period.month.toString(),
     receiverId: doc.data().receiverId,
-    netValue: calcNetValue(doc.data())
+    netValue: calcDiscountedNetValue(doc.data())
   };
 }
 
