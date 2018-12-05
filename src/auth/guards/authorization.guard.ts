@@ -1,16 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot} from '@angular/router';
 import {Observable, of} from 'rxjs/index';
-
 import * as _ from 'lodash';
 import * as fromStore from '../store';
 import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../app/store/reducers';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthorizationGuard implements CanActivate, CanLoad {
 
   constructor(private store: Store<AppState>) {
@@ -38,9 +35,7 @@ export class AuthorizationGuard implements CanActivate, CanLoad {
     return this.store.pipe(
       select(fromStore.selectAuth),
         filter(auth => !!auth),
-        // tap(auth => console.log('auth roles: ', auth.roles, 'allowed roles: ', allowedRoles)),
         map(auth => !!(auth.roles && _.intersection(allowedRoles, auth.roles).length > 0)),
-        // tap(auth => console.log),
         take(1)
       );
   }

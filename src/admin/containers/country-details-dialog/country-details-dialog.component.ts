@@ -51,9 +51,9 @@ export class CountryDetailsDialogComponent implements OnInit {
   private addLanguages(): FormGroup[] {
     const groups = [];
     if (this.data.task === COUNTRY_TASK_EDIT) {
-      Object.keys(this.data.country.names).forEach(language => groups.push(this.addLanguage()));
+      Object.keys(this.data.country.names).forEach(() => groups.push(this.addLanguage()));
     } else if (this.data.task === COUNTRY_TASK_NEW_COUNTRY) {
-      this.data.supportedLanguages.forEach(language => groups.push(this.addLanguage()));
+      this.data.supportedLanguages.forEach(() => groups.push(this.addLanguage()));
     } else {
       groups.push(this.addLanguage(false));
     }

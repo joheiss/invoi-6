@@ -32,10 +32,7 @@ export class VatListComponent implements OnInit, OnDestroy {
     this.subscription = this.service.getVatSettings()
       .subscribe(setting => {
         this.vatSettings = _.cloneDeep(setting);
-        this.vatSettings.values.sort((a, b) => {
-          const result = a.taxCode.localeCompare(b.taxCode);
-          return result === 0 ? b.validTo.getDate() - a.validTo.getDate() : result;
-        });
+        this.vatSettings.values.sort((a, b) => this.sortByTaxCodeAndValidTo(a, b ));
         this.dataSource.data = this.vatSettings.values;
       });
   }
@@ -77,13 +74,9 @@ export class VatListComponent implements OnInit, OnDestroy {
   }
 
   private openDetailsDialog(task: VatTask, newVat: Vat): MatDialogRef<VatDetailsDialogComponent> {
+    const dimensions = this.calculateDialogDimensions(task, newVat);
     this.detailsDialogRef = this.dialog.open(VatDetailsDialogComponent, {
-      height: '90%',
-      width: '66%',
-      minHeight: '45rem',
-      minWidth: '36rem',
-      maxHeight: '50rem',
-      maxWidth: '48rem',
+      ...dimensions,
       data: {task: task, vat: newVat}
     });
     this.detailsDialogRef.afterClosed().subscribe(result => {
@@ -96,31 +89,56 @@ export class VatListComponent implements OnInit, OnDestroy {
     return this.detailsDialogRef;
   }
 
+  private calculateDialogDimensions(task: string, vat: Vat): any {
+    return {
+      height: '90%',
+      width: '66%',
+      minHeight: '45rem',
+      minWidth: '36rem',
+      maxHeight: '50rem',
+      maxWidth: '48rem',
+    };
+  }
+
+  private createTaxCode(input: any): void {
+    const records = this.vatSettings.values.find(entry => entry.taxCode === input.vat.taxCode);
+    if (records) {
+      this.service.throwError({message: `Der Steuercode ${input.vat.taxCode} existiert bereits.`});
+    } else {
+      this.vatSettings.values.push(input.vat);
+      this.service.update(this.vatSettings);
+    }
+  }
+
+  private createValidityPeriod(input: any): void {
+    this.selectedVat.validTo = moment(input.vat.validFrom).subtract(1, 'days').toDate();
+    this.vatSettings.values.push(input.vat);
+    this.service.update(this.vatSettings);
+  }
+
+  private sortByTaxCodeAndValidTo(a: Vat, b: Vat): number {
+      const result = a.taxCode.localeCompare(b.taxCode);
+      return result ===  0 ? b.validTo.getDate() - a.validTo.getDate() : result;
+  }
+
+  private updateTaxPercentage(input: any): void {
+    this.selectedVat.validFrom = input.vat.validFrom;
+    this.selectedVat.validTo = input.vat.validTo;
+    this.selectedVat.percentage = input.vat.percentage;
+    this.service.update(this.vatSettings);
+  }
+
   private updateVat(result: any): void {
     switch (result.task) {
-      case VAT_TASK_EDIT: {
-        this.selectedVat.validFrom = result.vat.validFrom;
-        this.selectedVat.validTo = result.vat.validTo;
-        this.selectedVat.percentage = result.vat.percentage;
-        this.service.update(this.vatSettings);
+      case VAT_TASK_EDIT:
+        this.updateTaxPercentage(result);
         break;
-      }
-      case VAT_TASK_NEW_TAXCODE: {
-        const records = this.vatSettings.values.find(entry => entry.taxCode === result.vat.taxCode);
-        if (records) {
-          this.service.throwError({ message: `Der Steuercode ${result.vat.taxCode} existiert bereits.`});
-        } else {
-          this.vatSettings.values.push(result.vat);
-          this.service.update(this.vatSettings);
-        }
+      case VAT_TASK_NEW_TAXCODE:
+        this.createTaxCode(result);
         break;
-      }
-      case VAT_TASK_NEW_PERIOD: {
-        this.selectedVat.validTo = moment(result.vat.validFrom).subtract(1, 'days').toDate();
-        this.vatSettings.values.push(result.vat);
-        this.service.update(this.vatSettings);
+      case VAT_TASK_NEW_PERIOD:
+        this.createValidityPeriod(result);
         break;
-      }
     }
   }
 }

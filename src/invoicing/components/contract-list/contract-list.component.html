@@ -15,19 +15,22 @@
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef class="width--lg">Beschreibung</mat-header-cell>
       <mat-cell *matCellDef="let contract" class="width--lg">
-        {{contract.header.description}}
+        <span fxHide.lt-md>{{contract.header.description}}</span>
+        <span fxHide.gt-sm>{{getShortenedDescription(contract.header.description)}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="startDate">
       <mat-header-cell *matHeaderCellDef>Gültig ab</mat-header-cell>
       <mat-cell *matCellDef="let contract">
-        {{contract.header.startDate | date}}
+        <span fxHide.lt-md>{{contract.header.startDate | date}}</span>
+        <span fxHide.gt-sm>{{contract.header.startDate | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="endDate">
       <mat-header-cell *matHeaderCellDef>Gültig bis</mat-header-cell>
       <mat-cell *matCellDef="let contract">
-        {{contract.header.endDate | date}}
+        <span fxHide.lt-md>{{contract.header.endDate | date}}</span>
+        <span fxHide.gt-sm>{{contract.header.endDate | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="budget">

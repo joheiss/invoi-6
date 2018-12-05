@@ -8,10 +8,7 @@ import {User, UserData, UserProfileData} from '../models/user';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
 import {tap} from 'rxjs/operators';
 
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsersBusinessService {
 
   private static template: UserData = {
@@ -29,8 +26,7 @@ export class UsersBusinessService {
     this.store.pipe(
       select(fromAuth.selectAuth),
       tap(auth => this.auth = auth)
-    )
-      .subscribe();
+    ).subscribe();
   }
 
   getAllUsers(): Observable<User[]> {

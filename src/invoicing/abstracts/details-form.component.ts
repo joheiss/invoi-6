@@ -51,35 +51,33 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
     Object.values(this.subscriptions).forEach(subscription => subscription.unsubscribe);
   }
 
-  onCancel(event: Event) {
+  onCancel(event?: Event) {
     this.store.dispatch(new fromRoot.Back());
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
-  onCopy(event: Event) {
+  onCopy(event?: Event) {
     this.copy.emit(this.object);
     this.form.reset();
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
-  onDelete(event: Event) {
+  onDelete(event?: Event) {
     this.delete.emit(this.object);
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
-  onNew(event: Event) {
+  onNew(event?: Event) {
     this.new.emit();
     this.form.reset();
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
   onSave(form: FormGroup) {
     const edited = this.changeObject(form.value);
-    if (edited.header.id) {
-      // update
+    if (this.existsObject(edited)) {
       this.update.emit(edited);
     } else {
-      // create
       this.create.emit(edited);
     }
     this.form.reset();
@@ -111,19 +109,9 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
   protected listenToFieldChanges(controlName: string, handler: Function) {
     if (!this.subscriptions[controlName]) {
       const ctrl = this.form.get(controlName);
-      if (!ctrl) {
-        return;
-      }
-      const subscription = ctrl.valueChanges.pipe(
-        debounceTime(400),
-        distinctUntilChanged()
-      )
-        .subscribe(change => {
-          if (this.isChangeValid(ctrl)) {
-            handler(change, controlName);
-          }
-        });
-      this.subscriptions[controlName] = subscription;
+      if (!ctrl) return;
+
+      this.subscriptions[controlName] = this.listenToValueChanges(ctrl, controlName, handler);
     }
   }
 
@@ -154,6 +142,20 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
 
   protected abstract patchForm();
 
+  private existsObject(object: T): boolean {
+    return !!object.header.id;
+  }
+
+  private listenToValueChanges(ctrl: AbstractControl, controlName: string, handler: Function): Subscription {
+    return ctrl.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe(change => {
+      if (this.isChangeValid(ctrl)) {
+        handler(change, controlName);
+      }
+    });
+  }
 }
 
 

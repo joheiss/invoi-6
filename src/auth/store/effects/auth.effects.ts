@@ -3,7 +3,7 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as authActions from '../actions/auth.actions';
 import * as usersActions from '../actions/users.actions';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {of} from 'rxjs/index';
+import {defer, of} from 'rxjs/index';
 import {AuthService} from '../../services';
 import {ClearState} from '../../../invoicing/store/actions';
 import {Store} from '@ngrx/store';
@@ -20,7 +20,7 @@ export class AuthEffects {
   }
 
   @Effect()
-  initAuth$ = this.actions$.pipe(
+  initAuth$ = defer(() => this.actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
     switchMap(() => this.authService.queryAuth()
       .pipe(
@@ -28,7 +28,7 @@ export class AuthEffects {
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
-  );
+  ));
 
   @Effect()
   queryAuth$ = this.actions$.pipe(

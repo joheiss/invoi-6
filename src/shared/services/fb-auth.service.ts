@@ -3,9 +3,10 @@ import {auth} from 'firebase';
 import {User} from 'firebase/auth';
 import {from, Observable} from 'rxjs/index';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {SharedModule} from '../shared.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class FbAuthService {
 

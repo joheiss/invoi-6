@@ -1,6 +1,7 @@
 import {Inject, Injectable, LOCALE_ID} from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import * as moment from 'moment';
+import {SharedModule} from '../shared.module';
 
 export interface LocaleNumberFormattingInfo {
   decimalSeparator: string;
@@ -9,7 +10,7 @@ export interface LocaleNumberFormattingInfo {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class I18nUtilityService {
 
@@ -68,7 +69,7 @@ export class I18nUtilityService {
 
     if (tz === 0) {
       tzs = 'Z';
-    }// Zulu time == UTC
+    }
 
     return d.getFullYear() + '-'
       + pad(d.getMonth() + 1) + '-'

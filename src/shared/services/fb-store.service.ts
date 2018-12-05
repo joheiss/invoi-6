@@ -5,9 +5,10 @@ import {UserData, UserProfileData} from '../../auth/models/user';
 import {catchError} from 'rxjs/operators';
 import {OrderByOption} from '../models/order-by-option';
 import {DocumentLink} from '../../invoicing/models/document-link';
+import {SharedModule} from '../shared.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class FbStoreService {
 

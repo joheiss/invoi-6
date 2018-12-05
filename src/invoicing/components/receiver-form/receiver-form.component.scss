@@ -1,5 +1,16 @@
+@import '../../../sass/variables';
+
 #receiver-form {
   width: 100%;
+
+  @media only screen and (max-width: $media-sm) {
+    .mat-tab-label { height: 4.8rem; font-size: 1.4rem; }
+    .mat-tab-label-content { font-size: 1.4rem; }
+    .mat-radio-label-content { font-size: 1.4rem; }
+    .mat-card-content { font-size: 1.6rem; }
+    .mat-card-subtitle { font-size: 1.6rem; }
+    mat-expansion-panel-header { height: 6.4rem !important; }
+  }
 }
 
 #address-group,
@@ -12,8 +23,9 @@
     margin-right: 2.4rem;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: $media-sm) {
     flex-direction: column;
+    font-size: 1.6rem;
   }
 }
 
@@ -31,6 +43,10 @@
   & > label {
     padding: 0 1.6rem;
   }
+
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
 }
 #comm-group,
 #url-group {
@@ -40,6 +56,10 @@
 
   & > mat-form-field:not(:last-child) {
     margin-bottom: 2.4rem;
+  }
+
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
   }
 }
 
@@ -53,3 +73,4 @@
   justify-content: center;
   align-items: center;
 }
+

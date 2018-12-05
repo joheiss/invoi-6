@@ -8,5 +8,9 @@
   & > button {
     margin-top: 1.6rem;
   }
+
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
 }
 

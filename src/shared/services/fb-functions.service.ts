@@ -5,9 +5,10 @@ import {environment} from '../../environments/environment';
 import {UserData} from '../../auth/models/user';
 import {InvoiceData} from '../../invoicing/models/invoice.model';
 import {catchError, tap} from 'rxjs/operators';
+import {SharedModule} from '../shared.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class FbFunctionsService {
 

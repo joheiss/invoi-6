@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/index';
 import {map, take, tap} from 'rxjs/operators';
 
 import * as fromStore from '../store';

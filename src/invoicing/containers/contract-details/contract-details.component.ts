@@ -37,7 +37,7 @@ export class ContractDetailsComponent extends DetailsComponent<Contract> impleme
   protected initializeWithData(param: string) {
     this.receivers$ = this.service.getReceivers();
     this.contractPartner$ = this.service.getPartner();
-    // console.log('PARAM: ', param);
+
     if (param === 'copy' || param === 'new') {
       this.task$.next(param);
       this.contract$ = this.service.getCurrent();

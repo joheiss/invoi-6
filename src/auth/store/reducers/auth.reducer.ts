@@ -31,7 +31,6 @@ export function authReducer(state: AuthState = initialState, action: fromAuth.Au
     }
 
     case fromAuth.AUTHENTICATED: {
-      // console.log('authenticated: ', action.payload.displayName);
       return authAdapter.addOne(action.payload, {...state, loading: false, loaded: true, error: undefined});
     }
 

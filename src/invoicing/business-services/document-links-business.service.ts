@@ -4,9 +4,7 @@ import * as fromStore from '../store/index';
 import {select, Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DocumentLinksBusinessService {
 
   private static template: DocumentLink = {
@@ -33,24 +31,18 @@ export class DocumentLinksBusinessService {
   }
 
   getDocumentLinks(owner: string): Observable<DocumentLink[]> {
-    const ownerSplit = owner.split('/');
-    if (ownerSplit.length !== 2) {
-      return of([]);
-    }
-    const collectionName = ownerSplit[0];
+    const collectionName = this.getCollectionNameFromOwner(owner);
+    if (!collectionName) return of([]);
+
     switch (collectionName) {
-      case 'contracts': {
+      case 'contracts':
         return this.getDocumentLinksForContract();
-      }
-      case 'invoices': {
+      case 'invoices':
         return this.getDocumentLinksForInvoice();
-      }
-      case 'receivers': {
+      case 'receivers':
         return this.getDocumentLinksForReceiver();
-      }
-      default: {
+      default:
         return throwError(new Error('Unknown owner'));
-      }
     }
   }
 
@@ -77,5 +69,13 @@ export class DocumentLinksBusinessService {
 
   update(documentLink: DocumentLink) {
     this.store.dispatch(new fromStore.UpdateDocumentLink(documentLink));
+  }
+
+  private getCollectionNameFromOwner(owner: string): string {
+    const ownerSplit = owner.split('/');
+    if (ownerSplit.length !== 2) {
+      return undefined;
+    }
+    return ownerSplit[0];
   }
 }

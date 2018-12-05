@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {LoginComponent} from './login/login.component';
 import {GoodbyeComponent} from './goodbye/goodbye.component';
 import {AngularFireAuthModule} from '@angular/fire/auth';
@@ -12,6 +12,9 @@ import {StorageModule} from '../storage/storage.module';
 import {PasswordChangeDialogComponent} from './password-change-dialog/password-change-dialog.component';
 import {IfAuthorizedForSalesDirective} from './directives/if-authorized-for-sales.directive';
 import {IfAuthorizedForAdminDirective} from './directives/if-authorized-for-admin.directive';
+import {AuthService, services, UsersService, UsersUiService} from './services';
+import {businessServices} from './business-services';
+import {guards} from './guards';
 
 export function clearState(reducer: ActionReducer<IdState>): ActionReducer<IdState> {
   return function(state: IdState, action: Action): IdState {
@@ -37,22 +40,37 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
   imports: [
     SharedModule,
     AngularFireAuthModule,
-    AuthRoutingModule,
-    StorageModule
+    StorageModule,
+    AuthRoutingModule
   ],
   providers: [
-    // AuthService,
-    // UsersService,
-    // UsersUiService,
-    // UsersBusinessService,
+    ...businessServices,
+    ...services,
+    ...guards
   ],
   entryComponents: [
     UserDetailsDialogComponent,
     PasswordChangeDialogComponent
   ],
   exports: [
+    LoginComponent,
+    GoodbyeComponent,
+    UsersComponent,
+    UserDetailsDialogComponent,
+    PasswordChangeDialogComponent,
     IfAuthorizedForSalesDirective,
     IfAuthorizedForAdminDirective
-  ]
+    ]
 })
-export class AuthModule {}
+export class AuthModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        ...businessServices,
+        ...services,
+        ...guards
+      ]
+    };
+  }
+}

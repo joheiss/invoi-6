@@ -12,4 +12,8 @@ export class ContractListComponent extends MasterListComponent<Contract> impleme
 
   displayedColumns = ['id', 'issuedAt', 'description', 'startDate', 'endDate', 'budget'];
 
+  getShortenedDescription(description): string {
+    const length = description.length;
+    return length > 15 ? description.substring(0, 15) + '...' : description;
+  }
 }

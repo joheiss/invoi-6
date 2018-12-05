@@ -75,12 +75,7 @@ export class CountryListComponent implements OnInit, OnDestroy {
   }
 
   private openDetailsDialog(task: CountryTask, country: Country): MatDialogRef<CountryDetailsDialogComponent> {
-    const languageCount = task !== 'translate' ? Object.keys(country.names).length || 0 : 3;
-    const minHeight = 25 + (languageCount + 1) * 6;
-    const dimensions = {
-      height: minHeight + 'rem',
-      width: '48rem'
-    };
+    const dimensions = this.calculateDialogDimensions(task, country);
     const data = {
       supportedLanguages: this.supportedLanguages,
       task: task,
@@ -100,6 +95,15 @@ export class CountryListComponent implements OnInit, OnDestroy {
       }
     });
     return this.detailsDialogRef;
+  }
+
+  private calculateDialogDimensions(task: string, country: Country): any {
+    const languageCount = task !== 'translate' ? Object.keys(country.names).length || 0 : 3;
+    const minHeight = 25 + (languageCount + 1) * 6;
+    return {
+      height: minHeight + 'rem',
+      width: '48rem'
+    };
   }
 
   private updateCountry(result: any): void {

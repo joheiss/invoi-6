@@ -1,5 +1,12 @@
+@import '../../../sass/variables';
+
 form {
   padding: 1rem 2rem;
+  font-size: 1.6rem;
+}
+
+h1 {
+  font-size: 1.8rem;
 }
 
 .width--xs { width: 4rem; }
@@ -18,6 +25,16 @@ mat-dialog-content {
 
   & > * {
     margin-right: 1rem;
+  }
+
+  @media only screen and (max-width: $media-sm) {
+    flex-direction: column;
+  }
+}
+
+.mat-button {
+  @media only screen and (max-width: $media-sm) {
+    padding: 0;
   }
 }
 

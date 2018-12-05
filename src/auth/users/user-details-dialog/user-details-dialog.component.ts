@@ -37,13 +37,7 @@ export class UserDetailsDialogComponent implements OnInit {
   }
 
   onChangePassword(user: User) {
-    const userToEdit = user;
-    let popupData;
-    if (this.data.task === 'my-profile') {
-       popupData = { title: 'Mein Passwort ändern', task: 'change', user: userToEdit };
-    } else {
-      popupData = { title: 'Passwort setzen', task: 'set', user: userToEdit };
-    }
+    const popupData = this.buildDialogData(user);
     this.uiService.openPasswordChangePopup(popupData, PasswordChangeDialogComponent);
   }
 
@@ -53,11 +47,9 @@ export class UserDetailsDialogComponent implements OnInit {
 
   onSave(form: FormGroup) {
     const edited = this.changeObject(form.value);
-    if (edited.user.uid) {
-      // update
+    if (this.existsUser(edited)) {
       this.service.updateProfile(edited.user);
     } else {
-      // create
       this.service.create(edited);
     }
     this.dialogRef.close(this.data.user);
@@ -79,26 +71,15 @@ export class UserDetailsDialogComponent implements OnInit {
       isLocked: [{ value: '', disabled: this.data.task === 'my-profile' }]
     });
     if (this.data.task === 'new') {
-      this.passwords = this.fb.group({
-        password: ['', [Validators.required]],
-        confirm: ['', [Validators.required]]
-      }, { validator: passwordValidator });
-      form.addControl('passwords', this.passwords);
+      this.addPasswordsFormGroup(form);
     }
     return form;
   }
 
   private changeObject(values: any): { user: User, password: string} {
     const { passwords,  ...user} = values;
-    let roles;
-    if (this.data.task !== 'my-profile') {
-      roles = typeof(values.roles) === 'string' ? values.roles.replace(' ', '').split(',') : values.roles;
-    } else {
-      roles = this.data.user.roles;
-    }
-    const reformattedValues = {
-      roles: roles
-    };
+    const roles = this.getRolesFromInput(values);
+    const reformattedValues = { roles: roles };
     const changed = Object.assign({},
       {...this.data.user.data},
       {...user},
@@ -111,10 +92,36 @@ export class UserDetailsDialogComponent implements OnInit {
   }
 
   private patchForm(): void {
-    const reformattedValues = {
-      roles: this.data.user.roles
-    };
+    const reformattedValues = { roles: this.data.user.roles };
     const patch = Object.assign({}, {...this.data.user.data, reformattedValues });
     this.form.patchValue(patch);
+  }
+
+  private addPasswordsFormGroup(form: FormGroup): void {
+    this.passwords = this.fb.group({
+      password: ['', [Validators.required]],
+      confirm: ['', [Validators.required]]
+    }, { validator: passwordValidator });
+    form.addControl('passwords', this.passwords);
+  }
+
+  private buildDialogData(user: User): any {
+    if (this.data.task === 'my-profile') {
+      return { title: 'Mein Passwort ändern', task: 'change', user: user };
+    } else {
+     return { title: 'Passwort setzen', task: 'set', user: user };
+    }
+  }
+
+  private existsUser(edited: any): boolean {
+    return !!edited.user.uid;
+  }
+
+  private getRolesFromInput(values: any): string[] {
+    if (this.data.task !== 'my-profile') {
+      return typeof(values.roles) === 'string' ? values.roles.replace(' ', '').split(',') : values.roles;
+    } else {
+      return this.data.user.roles;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
+import {SharedModule} from '../shared.module';
 
 export enum LogLevel {
   All = 0,
@@ -12,7 +13,7 @@ export enum LogLevel {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class LogService {
 

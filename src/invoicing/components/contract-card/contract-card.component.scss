@@ -7,10 +7,27 @@
   box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
   transition: all 0.25s;
 
-  @media only screen and (max-width: 1279px) {
+  @media only screen and (max-width: $media-md) {
     width: 40rem;
     padding: 1rem 2rem;
     margin: 0.75rem 1.5rem 0.75rem 0;
+  }
+  @media only screen and (max-width: $media-sm) {
+    width: 40rem;
+    padding: 1rem 2rem;
+    margin: 0.75rem;
+
+    .mat-card-title { font-size: 1.8rem; line-height: 2rem; }
+    .u-mt-md { margin-top: 1.5rem; }
+    .mat-card-subtitle { font-size: 1.6rem }
+    .mat-card-content { font-size: 1.6rem }
+    .jo-card-label { font-size: 1.3rem }
+  }
+  @media only screen and (max-width: $media-xs) {
+    width: 100%;
+    flex: 0 0 100%;
+    padding: 1rem 2rem;
+    margin: 0.75rem;
   }
 }
 

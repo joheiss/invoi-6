@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
@@ -14,9 +14,7 @@ import * as fromRoot from '../../app/store';
 import {filter, map} from 'rxjs/operators';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ContractsBusinessService {
   private static template: ContractData = {
     objectType: 'contracts',
@@ -41,27 +39,18 @@ export class ContractsBusinessService {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    const issuedAt = DateUtilities.getDateOnly(today);
-    const defaultStartDate = DateUtilities.getDateOnly(new Date(year, month + 1, 1));
-    const defaultEndDate = DateUtilities.getEndDate(new Date(year, month + 4, 0));
     return {
       id: undefined,
-      issuedAt: issuedAt,
-      startDate: defaultStartDate,
-      endDate: defaultEndDate,
+      issuedAt: DateUtilities.getDateOnly(today),
+      startDate: DateUtilities.getDateOnly(new Date(year, month + 1, 1)),
+      endDate: DateUtilities.getEndDate(new Date(year, month + 4, 0))
     };
   }
 
   constructor(private store: Store<fromStore.InvoicingState>,
               private invoicesBusinessService: InvoicesBusinessService) {
-    this.store.pipe(
-      select(fromAuth.selectAuth),
-    ).subscribe(auth => this.auth = auth);
-    this.store.pipe(
-      select(fromStore.selectNumberRangeEntities),
-      filter(entities => !!entities['contracts']),
-      map(entities => NumberRange.createFromData(entities['contracts']).nextId),
-    ).subscribe(nextId => this.nextId = nextId);
+    this.setLoggedInUserFromAuth();
+    this.setNextIdFromNumberRange();
   }
 
   addItem(contract: Contract) {
@@ -150,4 +139,17 @@ export class ContractsBusinessService {
     this.store.dispatch(new fromStore.UpdateContract(contract.data));
   }
 
+  private setLoggedInUserFromAuth(): void {
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+    ).subscribe(auth => this.auth = auth);
+  }
+
+  private setNextIdFromNumberRange(): void {
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
+      filter(entities => !!entities['contracts']),
+      map(entities => NumberRange.createFromData(entities['contracts']).nextId),
+    ).subscribe(nextId => this.nextId = nextId);
+  }
 }

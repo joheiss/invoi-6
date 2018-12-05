@@ -12,8 +12,9 @@ import * as fromPopups from './popups';
 import {FileUploadDialogComponent} from './popups';
 import {InvoicingState} from './store/reducers';
 import {AdminModule} from '../admin/admin.module';
-import { TextsFormComponent } from './components/texts-form/texts-form.component';
-
+import {businessServices} from './business-services';
+import {services} from './services';
+import {guards} from './guards';
 
 export function clearState(reducer: ActionReducer<InvoicingState>): ActionReducer<InvoicingState> {
   return function(state: InvoicingState, action: Action): InvoicingState {
@@ -41,8 +42,9 @@ export const metaReducers: MetaReducer<any>[] = [clearState];
     ...fromPopups.popups
   ],
   providers: [
-    // ...fromBusinessServices.businessServices,
-   // ...fromServices.services,
+    ...businessServices,
+    ...services,
+    ...guards
   ],
   entryComponents: [
     FileUploadDialogComponent

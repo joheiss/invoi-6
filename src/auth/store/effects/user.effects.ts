@@ -21,7 +21,7 @@ export class UserEffects {
   @Effect()
   queryUsers$ = this.actions$.pipe(
     ofType(userActions.QUERY_USERS),
-    switchMap(action => this.usersService.queryAll()),
+    switchMap(() => this.usersService.queryAll()),
     mergeMap(actions => actions),
     map(action => {
       return {type: `[Auth] User ${action.type}`, payload: {...action.payload.doc.data(), uid: action.payload.doc.id}};

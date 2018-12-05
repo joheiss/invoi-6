@@ -7,10 +7,7 @@ import {Country} from '../models/country';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SettingsBusinessService {
 
   language: string;
@@ -36,13 +33,7 @@ export class SettingsBusinessService {
   getCountries(): Observable<Country[]> {
     return this.store.pipe(
       select(fromStore.selectAllCountrySettings),
-      map(countries => {
-        const keyValues = [];
-        countries.values.forEach(country => {
-          keyValues.push({isoCode: country.isoCode, name: country.names[this.language]});
-        });
-        return keyValues;
-      })
+      map(countries => this.mapCountriesToArray(countries))
     );
   }
 
@@ -56,5 +47,13 @@ export class SettingsBusinessService {
 
   update(setting: SettingData) {
     this.store.dispatch(new fromStore.UpdateSetting(setting));
+  }
+
+  private mapCountriesToArray(countries: SettingData): Country[] {
+    const keyValues = [];
+    countries.values.forEach(country => {
+      keyValues.push({isoCode: country.isoCode, name: country.names[this.language]});
+    });
+    return keyValues;
   }
 }

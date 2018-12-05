@@ -1,15 +1,41 @@
 @import '../../../sass/variables';
 
-mat-cell > a.mat-button {
-  min-width: 4rem;
-  padding: 0 0.5rem;
+mat-cell {
+  & > a.mat-button {
+    min-width: 4rem;
+    padding: 0 0.5rem;
+  }
+
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
+
+  &:first-of-type {
+    @media only screen and (max-width: $media-sm) {
+      padding-left: 1rem;
+    }
+  }
+
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
 }
+
+mat-header-cell:first-of-type {
+  @media only screen and (max-width: $media-sm) {
+    padding-left: 1rem;
+  }
+}
+
 .width--sm {
-  flex: 0.5;
+  flex: 1;
 }
 
 .width--lg {
   flex: 2;
+  @media only screen and (max-width: $media-sm) {
+    padding-left: 0.5rem;
+  }
 }
 
 .past-due {

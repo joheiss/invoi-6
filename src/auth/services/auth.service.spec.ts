@@ -51,8 +51,7 @@ describe('Auth Service', () => {
 
       const spyGetAuthState = jest.spyOn(fbAuth, 'getAuthState');
       const spyGetOneUserProfile = jest.spyOn(fbStore, 'getOneUserProfile');
-      // @ts-ignore
-      const spySetIdToken = jest.spyOn(service, 'setIdToken');
+      const spySetIdToken = jest.spyOn<any, any>(service, 'setIdToken');
 
       const user = mockAuth()[0];
       const expected = cold('---b|', {b: user});
@@ -155,7 +154,7 @@ describe('Auth Service', () => {
   describe('setIdToken', () => {
     it('should invoke FbAuthService.getIdToken', () => {
       const spy = jest.spyOn(fbAuth, 'getIdToken');
-      service.setIdToken('anything');
+      service['setIdToken']('anything');
       expect(spy).toHaveBeenCalled();
     });
   });

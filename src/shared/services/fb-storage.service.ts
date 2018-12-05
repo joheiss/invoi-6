@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {from, Observable} from 'rxjs/index';
+import {SharedModule} from '../shared.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class FbStorageService {
 

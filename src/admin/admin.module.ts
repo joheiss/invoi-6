@@ -2,17 +2,25 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import * as fromContainers from './containers';
 import {CountryDetailsDialogComponent, VatDetailsDialogComponent} from './containers';
-import {RouterModule} from '@angular/router';
+import {AdminRoutingModule} from './admin-routing.module';
+import {businessServices} from './business-services';
+import {services} from './services';
+import {guards} from './guards';
 
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule
+    AdminRoutingModule
   ],
   declarations: [
     ...fromContainers.containers,
   ],
-  entryComponents: [
+  providers: [
+    ...businessServices,
+    ...services,
+    ...guards
+  ],
+    entryComponents: [
     CountryDetailsDialogComponent,
     VatDetailsDialogComponent
   ]

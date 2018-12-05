@@ -66,7 +66,7 @@
         gesperrt?
       </mat-checkbox>
     </div>
-    <mat-form-field *ngIf="data.task !== 'my-profile'">
+    <mat-form-field *ngIf="data.task !== 'my-profile'" fxHide.lt-sm>
       <input matInput id="uid" placeholder="Benutzerkennung" formControlName="uid">
     </mat-form-field>
   </mat-dialog-content>

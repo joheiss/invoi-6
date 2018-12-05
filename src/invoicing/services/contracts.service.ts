@@ -4,9 +4,7 @@ import {ObjectsApiService} from './objects-api.service';
 import {OrderByOption} from '../../shared/models/order-by-option';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ContractsService extends ObjectsApiService<ContractData> {
 
   static readonly COLLECTION_NAME = 'contracts';

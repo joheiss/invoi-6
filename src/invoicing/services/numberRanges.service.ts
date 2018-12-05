@@ -3,9 +3,7 @@ import {NumberRangeData} from '../models/number-range.model';
 import {ObjectsApiService} from './objects-api.service';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NumberRangesService extends ObjectsApiService<NumberRangeData> {
 
   static readonly COLLECTION_NAME = 'number-ranges';

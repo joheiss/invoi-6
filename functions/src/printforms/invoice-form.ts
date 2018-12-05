@@ -25,7 +25,6 @@ export class InvoiceForm extends BaseForm {
 
     public print(): void {
 
-
         this.printAddress();
         this.printSubject();
         this.printReference();

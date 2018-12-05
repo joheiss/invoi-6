@@ -20,7 +20,8 @@
       <mat-checkbox [checked]="selectAll" (change)="onToggleSelectAll($event)"></mat-checkbox>
     </div>
     <label class="document-link-name width--lg">Datei</label>
-    <label class="document-link-type width--lg">Dokumentenart</label>
+    <label class="document-link-type width--lg" fxHide.lt-md>Dokumentenart</label>
+    <label class="document-link-type width--lg" fxHide.gt-sm>Art</label>
     <label class="document-link-attachToEmail width--sm">Versenden?</label>
   </div>
 </div>

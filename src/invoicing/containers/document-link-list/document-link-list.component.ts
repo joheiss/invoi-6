@@ -51,21 +51,21 @@ export class DocumentLinkListComponent implements OnChanges {
     this.service.update({...documentLink, attachToEmail: !documentLink.attachToEmail});
   }
 
-  onDeleteSelected(event: Event) {
+  onDeleteSelected(event?: Event) {
     this.selectionList.forEach(documentLink => {
       this.store.dispatch(new fromStore.DeleteDocumentLink(documentLink));
       this.store.dispatch(new fromStorage.DeleteFile(documentLink.path));
     });
     this.selectionList = [];
     this.selectAll = false;
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
-  onDownloadSelected(event: Event) {
+  onDownloadSelected(event?: Event) {
     this.selectionList.forEach(documentLink => this.store.dispatch(new fromStorage.DownloadFile(documentLink.path)));
     this.selectionList = [];
     this.selectAll = false;
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
   onToggleSelect(documentLink) {

@@ -5,12 +5,8 @@ import {select, Store} from '@ngrx/store';
 import {RevenueData, RevenuePerYearData} from '../models/revenue.model';
 import {map, take} from 'rxjs/operators';
 import {OpenInvoiceData} from '../models/open-invoice.model';
-import {Invoice, InvoiceData} from '../models/invoice.model';
-import {DateUtilities} from '../../shared/utilities/date-utilities';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RevenuesBusinessService {
 
   private currentYear = new Date().getFullYear();

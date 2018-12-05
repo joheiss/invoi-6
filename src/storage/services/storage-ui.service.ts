@@ -4,9 +4,10 @@ import {ImageUploadPopupComponent} from '../popups/image-upload-popup/image-uplo
 import {UploadPopupData} from '../models/upload-popup-data';
 import {Observable} from 'rxjs/index';
 import {filter, map} from 'rxjs/operators';
+import {StorageModule} from '../storage.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: StorageModule
 })
 export class StorageUiService {
   file: any;

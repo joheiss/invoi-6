@@ -9,9 +9,7 @@ import {FbAuthService} from '../../shared/services/fb-auth.service';
 import {FbStoreService} from '../../shared/services/fb-store.service';
 import {FbFunctionsService} from '../../shared/services/fb-functions.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
   messages: Messages;
@@ -80,7 +78,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
   }
 
-  setIdToken(authData: any): Observable<any> {
+  private setIdToken(authData: any): Observable<any> {
     return this.fbAuth.getIdToken(authData)
       .pipe(
         take(1),

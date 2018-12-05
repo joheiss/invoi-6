@@ -1,3 +1,5 @@
+@import '../../../sass/variables';
+
 .table-header {
   margin-top: 3.6rem;
   display: flex;
@@ -24,11 +26,37 @@
 
 .window {
   margin: 2.5rem 5rem;
+  @media only screen and (max-width: $media-sm) {
+    margin: 0.5rem 1rem;
+  }
 }
 
-.width--xs { width: 4rem; }
-.width--sm { width: 8rem; }
-.width--md { width: 12rem }
-.width--lg { width: 28rem; }
-.width--xl { width: 36rem; }
+.width--xs {
+  width: 4rem;
+}
 
+.width--sm {
+  width: 8rem;
+}
+
+.width--md {
+  width: 12rem
+}
+
+.width--lg {
+  width: 28rem;
+  flex: 3;
+  @media only screen and (max-width: $media-sm) {
+    padding-left: 0.5rem;
+  }
+}
+
+.width--xl {
+  width: 36rem;
+}
+
+mat-cell {
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
+}

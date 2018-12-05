@@ -21,13 +21,7 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
     if (!this.isItemGroupBuilt) {
       this.buildItem();
       this.patchItem();
-      this.itemChanges = this.itemGroup.valueChanges.pipe(
-        debounceTime(400),
-        distinctUntilChanged()
-      )
-        .subscribe(changes => {
-          this.processFieldChanges(changes);
-        });
+      this.itemChanges = this.listenToValueChanges();
     } else {
       this.patchItem();
     }
@@ -44,19 +38,16 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
   }
 
   protected abstract buildItem(): void;
+
   protected abstract isImmediateChangeNeeded(fieldName: string): boolean;
+
   protected abstract patchItem(): void;
 
   protected processFieldChanges(changes: Object): void {
     let changed = false;
     let immediateChangeNeeded = false;
     Object.keys(changes).forEach(key => {
-      let newValue;
-      if (typeof this.item[key] === 'number' && typeof changes[key] === 'string') {
-        newValue = this.utility.fromLocalAmount(changes[key]);
-      } else {
-        newValue = changes[key];
-      }
+      const newValue = this.getChangedValue(changes, key);
       if (newValue !== this.item[key]) {
         this.itemGroup.get(key).updateValueAndValidity();
         if (this.itemGroup.get(key).valid) {
@@ -69,5 +60,22 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
     if (changed && immediateChangeNeeded) {
       this.changed.emit();
     }
+  }
+
+  private getChangedValue(changes: Object, key: string): any {
+    if (typeof this.item[key] === 'number' && typeof changes[key] === 'string') {
+      return this.utility.fromLocalAmount(changes[key]);
+    } else {
+      return changes[key];
+    }
+  }
+
+  private listenToValueChanges(): Subscription {
+    return this.itemGroup.valueChanges.pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    ).subscribe(changes => {
+      this.processFieldChanges(changes);
+    });
   }
 }

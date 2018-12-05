@@ -35,15 +35,15 @@ export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implemen
     super(fb, store, router, utility);
   }
 
-  onEmail(event: Event) {
+  onEmail(event?: Event) {
     this.sendEmail.emit(this.object);
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
-  onPdf(event: Event) {
+  onPdf(event?: Event) {
     this.createPdf.emit(this.object);
     // this.form.reset();
-    event.stopPropagation();
+    if (event) event.stopPropagation();
   }
 
   getFormTitle(): string {

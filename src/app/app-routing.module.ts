@@ -1,11 +1,9 @@
 import {NgModule} from '@angular/core';
-import {AuthenticationGuard, AuthorizationGuard, UsersGuard} from '../auth/guards';
+import {AuthenticationGuard, AuthorizationGuard} from '../auth/guards';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ShellComponent} from './shell/shell.component';
-import {LoginComponent} from '../auth/login/login.component';
-import {GoodbyeComponent} from '../auth/goodbye/goodbye.component';
-import {UsersComponent} from '../auth/users/users.component';
+import {AUTH_ROUTES} from '../auth/auth-routing.module';
 
 const APP_ROUTES: Routes = [
   { path: '', component: ShellComponent,
@@ -17,13 +15,7 @@ const APP_ROUTES: Routes = [
         canLoad: [AuthenticationGuard, AuthorizationGuard],
         data: { roles: ['sales-user'] }
       },
-      { path: 'login', component: LoginComponent },
-      { path: 'goodbye', component: GoodbyeComponent },
-      {
-        path: 'users', component: UsersComponent,
-        canActivate: [AuthenticationGuard, AuthorizationGuard, UsersGuard],
-        data: { roles: ['sys-admin'] }
-      },
+      ...AUTH_ROUTES,
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
@@ -37,10 +29,6 @@ const APP_ROUTES: Routes = [
   ],
   exports: [
     RouterModule
-  ],
-  providers: [
-    AuthenticationGuard,
-    AuthorizationGuard
   ]
 })
 export class AppRoutingModule {}

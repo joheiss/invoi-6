@@ -3,9 +3,10 @@ import {Observable} from 'rxjs/index';
 import {MessageContent, Messages} from '../../shared/models/message.model';
 import {STORAGE_MSGS} from '../storage-messages';
 import {FbStorageService} from '../../shared/services/fb-storage.service';
+import {StorageModule} from '../storage.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: StorageModule
 })
 export class StorageApiService {
 

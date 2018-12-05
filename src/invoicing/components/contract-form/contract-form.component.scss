@@ -1,5 +1,16 @@
+@import '../../../sass/variables';
+
 #contract-form {
   width: 100%;
+
+  @media only screen and (max-width: $media-sm) {
+    .mat-tab-label { height: 4.8rem; font-size: 1.4rem; }
+    .mat-tab-label-content { font-size: 1.4rem; }
+    .mat-radio-label-content { font-size: 1.4rem; }
+    .mat-card-content { font-size: 1.6rem; }
+    .mat-card-subtitle { font-size: 1.6rem; }
+    mat-expansion-panel-header { height: 6.4rem !important; }
+  }
 }
 
 #main-group,
@@ -14,9 +25,10 @@
     margin-right: 2.4rem;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: $media-sm) {
     flex-direction: column;
     margin-bottom: 1.2rem;
+    font-size: 1.6rem;
   }
 }
 

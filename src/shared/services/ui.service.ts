@@ -5,9 +5,10 @@ import {ConfirmationDialogData} from '../models/confirmation-dialog';
 import {Observable} from 'rxjs/index';
 import {ConfirmationDialogPopupComponent} from '../popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
 import {map} from 'rxjs/internal/operators';
+import {SharedModule} from '../shared.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: SharedModule
 })
 export class UiService {
 

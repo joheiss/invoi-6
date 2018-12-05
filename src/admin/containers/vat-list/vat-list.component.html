@@ -19,7 +19,8 @@
     <ng-container matColumnDef="validTo">
       <mat-header-cell *matHeaderCellDef class="width--md">Gültig bis</mat-header-cell>
       <mat-cell *matCellDef="let vat" class="width--md">
-        {{vat.validTo | date}}
+        <span fxHide.lt-md>{{vat.validTo | date}}</span>
+        <span fxHide.gt-sm>{{vat.validTo | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="percentage">

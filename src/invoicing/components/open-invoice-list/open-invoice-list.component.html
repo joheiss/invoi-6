@@ -27,7 +27,10 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="billingPeriod">
-        <mat-header-cell *matHeaderCellDef>Leistungszeitraum</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <span fxHide.lt-md>Leistungszeitraum</span>
+          <span fxHide.gt-sm>Zeitraum</span>
+        </mat-header-cell>
         <mat-cell *matCellDef="let invoice">
           {{invoice.billingPeriod}}
         </mat-cell>
@@ -39,7 +42,10 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="paymentAmount">
-        <mat-header-cell *matHeaderCellDef>Zahlungsbetrag</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <span fxHide.lt-md>Zahlungsbetrag</span>
+          <span fxHide.gt-sm>Betrag</span>
+        </mat-header-cell>
         <mat-cell *matCellDef="let invoice">
           {{invoice.paymentAmount | number: '1.2-2'}}
         </mat-cell>
@@ -47,7 +53,8 @@
       <ng-container matColumnDef="dueDate">
         <mat-header-cell *matHeaderCellDef>Fällig am</mat-header-cell>
         <mat-cell *matCellDef="let invoice" [ngClass]="{ 'past-due': isPastDue(invoice) }">
-          {{invoice.dueDate | date}}
+          <span fxHide.lt-md>{{invoice.dueDate | date}}</span>
+          <span fxHide.gt-sm>{{invoice.dueDate | date: 'dd.MM.yy'}}</span>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

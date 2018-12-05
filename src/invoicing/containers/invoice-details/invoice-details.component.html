@@ -1,7 +1,8 @@
 <mat-card *ngIf="invoice$ | async as invoice" class="jo-details mat-elevation-z0">
   <mat-card-header>
     <mat-card-title>
-      {{ getTitle(invoice) }}
+      <span fxHide.lt-md>{{ getTitle(invoice) }}</span>
+      <span fxHide.gt-sm>{{ getShortenedTitle(invoice) }}</span>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>

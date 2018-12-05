@@ -1,5 +1,16 @@
+@import '../../../sass/variables';
+
 .window {
   margin: 2.5rem 5rem;
+  @media only screen and (max-width: $media-sm) {
+    margin: 0.5rem 1rem;
+  }
+}
+
+mat-cell {
+  @media only screen and (max-width: $media-sm) {
+    font-size: 1.6rem;
+  }
 }
 
 .mat-row:hover {
@@ -8,4 +19,10 @@
 
 a {
   cursor: pointer;
+}
+
+.width--md {
+  @media only screen and (max-width: $media-sm) {
+    padding-left: 0.5rem;
+  }
 }

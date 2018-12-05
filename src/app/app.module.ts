@@ -29,6 +29,7 @@ import {storageEffects} from '../storage/store/effects';
 // -- not used in production
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
+import {AuthRoutingModule} from '../auth/auth-routing.module';
 
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
@@ -56,9 +57,9 @@ registerLocaleData(localeDE, 'de-DE', localeDeExtra);
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     SharedModule,
-    AuthModule,
-    StorageModule.forRoot(),
     AppRoutingModule,
+    AuthModule.forRoot(),
+    StorageModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase), /*, 'jovisco-invoicing'), */
     AngularFirestoreModule.enablePersistence(),
     StoreModule.forRoot(reducers, { metaReducers }),

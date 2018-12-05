@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import * as fromContainers from './containers';
 import * as fromGuards from './guards';
 import {SettingsGuard} from '../admin/guards';
-import {CountryListComponent, SettingsComponent} from './containers';
 
 const INVOICING_ROUTES: Routes = [
   {
@@ -70,27 +69,6 @@ const INVOICING_ROUTES: Routes = [
           fromGuards.InvoiceExistsGuard
         ]
       },
-      {
-        path: 'settings',
-        component: SettingsComponent,
-        canActivate: [
-          SettingsGuard
-        ]
-      },
-      {
-        path: 'settings/countries',
-        component: CountryListComponent,
-        canActivate: [
-          SettingsGuard
-        ]
-      },
-      {
-        path: 'settings/vats',
-        component: fromContainers.VatListComponent,
-        canActivate: [
-          SettingsGuard
-        ]
-      }
     ]
   },
 ];

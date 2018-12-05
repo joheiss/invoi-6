@@ -17,9 +17,7 @@ import {filter, map, take} from 'rxjs/operators';
 import {InvoicesBusinessService} from './invoices-business.service';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ReceiversBusinessService {
 
   private static template: ReceiverData = {
@@ -35,22 +33,14 @@ export class ReceiversBusinessService {
   private auth: UserData;
 
   private static getDefaultValues(): any {
-    return {
-      id: undefined,
-    };
+    return { id: undefined  };
   }
 
   constructor(private settings: SettingsBusinessService,
               private invoicesBusinessService: InvoicesBusinessService,
               private store: Store<fromStore.InvoicingState>) {
-    this.store.pipe(select(fromAuth.selectAuth))
-      .subscribe(auth => this.auth = auth);
-    this.store.pipe(
-      select(fromStore.selectNumberRangeEntities),
-      filter(entities => !!entities['receivers']),
-      map(entities => NumberRange.createFromData(entities['receivers']).nextId)
-    )
-      .subscribe(nextId => this.nextId = nextId);
+    this.setLoggedInUserFromAuth();
+    this.setNextIdFromNumberRange();
   }
 
   change(receiver: Receiver) {
@@ -138,4 +128,18 @@ export class ReceiversBusinessService {
   update(receiver: Receiver) {
     this.store.dispatch(new fromStore.UpdateReceiver(receiver.data));
   }
+
+  private setLoggedInUserFromAuth(): void {
+    this.store.pipe(select(fromAuth.selectAuth))
+      .subscribe(auth => this.auth = auth);
+  }
+
+  private setNextIdFromNumberRange(): void {
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
+      filter(entities => !!entities['receivers']),
+      map(entities => NumberRange.createFromData(entities['receivers']).nextId)
+    ).subscribe(nextId => this.nextId = nextId);
+  }
+
 }

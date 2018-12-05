@@ -3,12 +3,9 @@ import {CanActivate} from '@angular/router';
 import {Action, select, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs/index';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
-
 import * as fromStore from '../store';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UsersGuard implements CanActivate {
 
   constructor(private store: Store<fromStore.IdState>) {
