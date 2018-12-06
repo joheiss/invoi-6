@@ -33,7 +33,7 @@ export class ReceiverDetailsComponent extends DetailsComponent<Receiver> impleme
     this.service.createQuickInvoice(receiver);
   }
 
-  protected getTitle(object: Receiver): string {
+  getTitle(object: Receiver): string {
     return object.header.id ? `${object.header.id} - ${object.header.name}` : `[neu]`;
   }
 

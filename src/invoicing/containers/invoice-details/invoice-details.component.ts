@@ -38,12 +38,12 @@ export class InvoiceDetailsComponent extends DetailsComponent<Invoice> implement
     this.service.sendEmail(invoice);
   }
 
-  private getShortenedTitle(object: Invoice): string {
+  getShortenedTitle(object: Invoice): string {
     const docName = object.header.billingMethod === 0 ? 'Rechnung' : 'Gutschriftsanforderung';
     return object.header.id ? `${object.header.id} - ${object.header.billingPeriod}` : `${docName} [neu]`;
   }
 
-  protected getTitle(object: Invoice): string {
+  getTitle(object: Invoice): string {
     const docName = object.header.billingMethod === 0 ? 'Rechnung' : 'Gutschriftsanforderung';
     return object.header.id ? `${docName} ${object.header.id} - ${object.header.billingPeriod}` : `${docName} [neu]`;
   }

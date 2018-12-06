@@ -30,7 +30,7 @@ export class ContractDetailsComponent extends DetailsComponent<Contract> impleme
     this.service.createQuickInvoice(contract);
   }
 
-  protected getTitle(object: Contract): string {
+ getTitle(object: Contract): string {
     return object.header.id ? `${object.header.id} - ${object.header.description }` : `[neu]`;
   }
 
