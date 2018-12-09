@@ -1,7 +1,11 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 
+<mat-dialog-content>
+  <p *ngIf="data.text">{{data.text}}</p>
+</mat-dialog-content>
+
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="onYes()">Ja</button>
-  <button mat-button mat-dialog-close (click)="onNo()">Nein</button>
+  <button mat-button mat-dialog-close (click)="onYes()"><span i18n>Ja</span></button>
+  <button mat-button mat-dialog-close (click)="onNo()"><span i18n>Nein</span></button>
 </mat-dialog-actions>
 

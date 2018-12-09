@@ -2,27 +2,27 @@
   <div *ngIf="!isAnythingSelected()">
     <button id="btn_upload" mat-raised-button color="primary" (click)="onUpload($event)">
       <mat-icon>file_upload</mat-icon>
-      &nbsp;Hochladen
+      &nbsp;<span i18n>Hochladen</span>
     </button>
   </div>
   <div *ngIf="isAnythingSelected()">
     <button id="btn_download" mat-raised-button color="primary" (click)="onDownloadSelected($event)">
       <mat-icon>file_download</mat-icon>
-      &nbsp;Herunterladen
+      &nbsp;<span i18n>Herunterladen</span>
     </button>
     <button id="btn_delete" mat-raised-button color="warn" (click)="onDeleteSelected($event)">
       <mat-icon>delete_forever</mat-icon>
-      &nbsp;Löschen
+      &nbsp;<span i18n>Löschen</span>
     </button>
   </div>
   <div class="table-header">
     <div class="document-link-select width--sm">
       <mat-checkbox [checked]="selectAll" (change)="onToggleSelectAll($event)"></mat-checkbox>
     </div>
-    <label class="document-link-name width--lg">Datei</label>
-    <label class="document-link-type width--lg" fxHide.lt-md>Dokumentenart</label>
-    <label class="document-link-type width--lg" fxHide.gt-sm>Art</label>
-    <label class="document-link-attachToEmail width--sm">Versenden?</label>
+    <label class="document-link-name width--lg" i18n>Datei</label>
+    <label class="document-link-type width--lg" fxHide.lt-md i18n>Dokumentenart</label>
+    <label class="document-link-type width--lg" fxHide.gt-sm i18n>Art</label>
+    <label class="document-link-attachToEmail width--sm" i18n>Versenden?</label>
   </div>
 </div>
 <div *ngFor="let documentLink of documentLinks$ | async">
@@ -31,18 +31,18 @@
     <div class="document-link-select width--sm">
       <mat-checkbox [checked]="isSelected(documentLink)" (change)="onToggleSelect(documentLink)"></mat-checkbox>
     </div>
-    <div class="document-link-name width--lg">
+    <div class="document-link-name width--lg" (click)="onToggleSelect(documentLink)">
       {{documentLink.name}}
     </div>
     <mat-form-field class="document-link-type width--lg">
       <mat-select [value]="documentLink.type" (selectionChange)="onTypeChanged($event, documentLink)">
-        <mat-option [value]="0">Rechnung</mat-option>
-        <mat-option [value]="1">Gutschriftsanforderung</mat-option>
-        <mat-option [value]="2">Projektvertrag</mat-option>
-        <mat-option [value]="3">Rahmenvertrag</mat-option>
-        <mat-option [value]="4">Reisekostenabrechnung</mat-option>
-        <mat-option [value]="5">Leistungsnachweis</mat-option>
-        <mat-option [value]="6">Sonstiges</mat-option>
+        <mat-option [value]="0" i18n>Rechnung</mat-option>
+        <mat-option [value]="1" i18n>Gutschriftsanforderung</mat-option>
+        <mat-option [value]="2" i18n>Projektvertrag</mat-option>
+        <mat-option [value]="3" i18n>Rahmenvertrag</mat-option>
+        <mat-option [value]="4" i18n>Reisekostenabrechnung</mat-option>
+        <mat-option [value]="5" i18n>Leistungsnachweis</mat-option>
+        <mat-option [value]="6" i18n>Sonstiges</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="document-link-attachToEmail width--sm">

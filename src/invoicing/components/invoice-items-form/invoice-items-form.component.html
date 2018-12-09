@@ -5,13 +5,13 @@
         <mat-icon aria-label="Position hinzufügen">add</mat-icon>
       </button>
     </div>
-    <label class="invoice-item-contractItemId">Vertrags- position</label>
-    <label class="invoice-item-description">Beschreibung</label>
-    <label class="invoice-item-quantity">Menge</label>
-    <label class="invoice-item-quantityUnit">Einheit</label>
-    <label class="invoice-item-pricePerUnit">Preis</label>
-    <label class="invoice-item-netValue">Gesamt</label>
-    <label class="invoice-item-cashDiscountAllowed">Skonto erlaubt?</label>
+    <label class="invoice-item-contractItemId" i18n>Vertrags- position</label>
+    <label class="invoice-item-description" i18n>Beschreibung</label>
+    <label class="invoice-item-quantity" i18n>Menge</label>
+    <label class="invoice-item-quantityUnit" i18n>Einheit</label>
+    <label class="invoice-item-pricePerUnit" i18n>Preis</label>
+    <label class="invoice-item-netValue" i18n>Gesamt</label>
+    <label class="invoice-item-cashDiscountAllowed" i18n>Skonto erlaubt?</label>
     <label class="invoice-item-action"></label>
   </div>
   <div>
@@ -25,7 +25,7 @@
       </jo-invoice-item-form>
   </div>
   <div class="u-mt-md"fxHide fxShow.lt-md>
-    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)">
+    <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)" i18n>
       Position hinzufügen
     </button>
   </div>

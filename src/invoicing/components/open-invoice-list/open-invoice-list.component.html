@@ -1,57 +1,57 @@
 <mat-card>
-  <mat-card-title>Offene Rechnungen</mat-card-title>
+  <mat-card-title i18n>Offene Rechnungen</mat-card-title>
   <mat-card-content>
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef class="width--sm">Nr.</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="width--sm" i18n>Nr.</mat-header-cell>
         <mat-cell *matCellDef="let invoice" class="width--sm">
           <a mat-button [routerLink]="['/invoicing/invoices', invoice.id]">{{invoice.id}}</a>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="receiverId">
-        <mat-header-cell *matHeaderCellDef fxHide.lt-sm class="width--sm">Kunde</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide.lt-sm class="width--sm" i18n>Kunde</mat-header-cell>
         <mat-cell *matCellDef="let invoice" fxHide.lt-sm class="width--sm">
           {{invoice.receiverId}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="receiverName">
-        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Kunde</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Kunde</mat-header-cell>
         <mat-cell *matCellDef="let invoice" fxHide.lt-md>
           {{invoice.receiverName}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="issuedAt">
-        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Datum</mat-header-cell>
-        <mat-cell *matCellDef="let invoice" fxHide.lt-md>
+        <mat-header-cell *matHeaderCellDef i18n>Datum</mat-header-cell>
+        <mat-cell *matCellDef="let invoice">
           {{invoice.issuedAt | date}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="billingPeriod">
         <mat-header-cell *matHeaderCellDef>
-          <span fxHide.lt-md>Leistungszeitraum</span>
-          <span fxHide.gt-sm>Zeitraum</span>
+          <span fxHide.lt-md i18n>Leistungszeitraum</span>
+          <span fxHide.gt-sm i18n>Zeitraum</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let invoice">
           {{invoice.billingPeriod}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="netValue">
-        <mat-header-cell *matHeaderCellDef fxHide.lt-md>Nettobetrag</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef i18n fxHide.lt-md>Nettobetrag</mat-header-cell>
         <mat-cell *matCellDef="let invoice" fxHide.lt-md>
           {{invoice.netValue | number: '1.2-2'}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="paymentAmount">
         <mat-header-cell *matHeaderCellDef>
-          <span fxHide.lt-md>Zahlungsbetrag</span>
-          <span fxHide.gt-sm>Betrag</span>
+          <span fxHide.lt-md i18n>Zahlungsbetrag</span>
+          <span fxHide.gt-sm i18n>Betrag</span>
         </mat-header-cell>
         <mat-cell *matCellDef="let invoice">
           {{invoice.paymentAmount | number: '1.2-2'}}
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="dueDate">
-        <mat-header-cell *matHeaderCellDef>Fällig am</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef i18n>Fällig am</mat-header-cell>
         <mat-cell *matCellDef="let invoice" [ngClass]="{ 'past-due': isPastDue(invoice) }">
           <span fxHide.lt-md>{{invoice.dueDate | date}}</span>
           <span fxHide.gt-sm>{{invoice.dueDate | date: 'dd.MM.yy'}}</span>

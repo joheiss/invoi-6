@@ -9,7 +9,8 @@ import * as fromStore from '../store';
 @Injectable()
 export abstract class ObjectExistsGuard implements CanActivate {
 
-  protected constructor(protected store: Store<fromStore.InvoicingState>) {}
+  protected constructor(protected store: Store<fromStore.InvoicingState>) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.checkStore(route)
@@ -48,12 +49,13 @@ export abstract class ObjectExistsGuard implements CanActivate {
           if (!results[3]) {
             this.store.dispatch(new fromStore.QueryInvoices());
           }
-          this.store.dispatch(new fromStore.QueryDocumentLinksForObject({ objectType: route.url[0].path, id: route.params.id }));
+          this.store.dispatch(new fromStore.QueryDocumentLinksForObject({objectType: route.url[0].path, id: route.params.id}));
         }),
         map(([numberRangesLoaded,
                contractsLoaded,
                receiversLoaded,
-               invoicesLoaded]) =>
+               invoicesLoaded
+             ]) =>
           numberRangesLoaded && contractsLoaded && receiversLoaded && invoicesLoaded),
         tap(loaded => console.log(`[Guard] all dependencies loaded: ${loaded}`)),
         filter(loaded => loaded),

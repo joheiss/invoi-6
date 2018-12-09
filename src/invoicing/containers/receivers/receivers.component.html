@@ -1,6 +1,8 @@
 <div class="window">
   <div>
-    <button mat-raised-button color="primary" (click)="onNew($event)">Rechnungsempfänger anlegen</button>
+    <button mat-raised-button color="primary" (click)="onNew($event)">
+      <span i18n>Rechnungsempfänger anlegen</span>
+    </button>
   </div>
   <div class="jo-cards">
     <jo-receiver-card *ngFor="let summary of summaries$ | async"

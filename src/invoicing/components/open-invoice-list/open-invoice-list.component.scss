@@ -1,6 +1,7 @@
 @import '../../../sass/variables';
 
 mat-cell {
+
   & > a.mat-button {
     min-width: 4rem;
     padding: 0 0.5rem;
@@ -15,17 +16,17 @@ mat-cell {
       padding-left: 1rem;
     }
   }
+}
 
-  @media only screen and (max-width: $media-sm) {
-    font-size: 1.6rem;
+mat-header-cell {
+
+  &:first-of-type {
+    @media only screen and (max-width: $media-sm) {
+      padding-left: 1rem;
+    }
   }
 }
 
-mat-header-cell:first-of-type {
-  @media only screen and (max-width: $media-sm) {
-    padding-left: 1rem;
-  }
-}
 
 .width--sm {
   flex: 1;
@@ -41,3 +42,4 @@ mat-header-cell:first-of-type {
 .past-due {
   color: $warn-color-dark;
 }
+

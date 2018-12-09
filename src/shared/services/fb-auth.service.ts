@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {auth} from 'firebase';
 import {User} from 'firebase/auth';
-import {from, Observable} from 'rxjs/index';
+import {from, Observable, of} from 'rxjs/index';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {SharedModule} from '../shared.module';
+import {catchError, first} from 'rxjs/operators';
+import {auth} from 'firebase/app';
 
 @Injectable({
   providedIn: SharedModule
@@ -22,7 +23,10 @@ export class FbAuthService {
   }
 
   getAuthState(): Observable<User | null> {
-    return this.afAuth.authState;
+    return this.afAuth.authState.pipe(
+      first(),
+      catchError(() => of(null))
+    );
   }
 
   getIdToken(authData: User): Observable<string> {
@@ -39,7 +43,9 @@ export class FbAuthService {
 
   signInWithEmailAndPassword(email: string, password: string): Observable<boolean> {
     return from(
-      this.afAuth.auth.signInWithEmailAndPassword(email, password).then(authData => !!authData)
+      this.afAuth.auth.setPersistence(auth.Auth.Persistence.SESSION)
+        .then(() => this.afAuth.auth.signInWithEmailAndPassword(email, password))
+        .then(authData => !!authData)
     );
   }
 }

@@ -1,8 +1,10 @@
-import {OnInit} from '@angular/core';
+import {AfterViewInit, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/index';
 
-export abstract class DetailsComponent<T> implements OnInit {
+export abstract class DetailsComponent<T> implements OnInit, AfterViewInit {
+
+  @ViewChild('detailsForm') formComponent: any;
 
   task$: BehaviorSubject<string> = new BehaviorSubject('edit');
 
@@ -15,6 +17,10 @@ export abstract class DetailsComponent<T> implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    console.log('Form Component: ', this.formComponent);
   }
 
   onChanged(object: T) {
@@ -42,5 +48,6 @@ export abstract class DetailsComponent<T> implements OnInit {
   }
 
   protected abstract getTitle(object: T): string;
+
   protected abstract initializeWithData(params: string): void;
 }

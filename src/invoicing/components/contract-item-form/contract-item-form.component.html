@@ -10,32 +10,32 @@
   </div>
   <div fxShow fxHide.lt-md class="contract-item-id width--xs"><div>{{itemGroup.get('id').value}}</div></div>
   <mat-form-field class="width--lg">
-    <mat-label fxHide fxShow.lt-md>Beschreibung</mat-label>
+    <mat-label fxHide fxShow.lt-md i18n>Beschreibung</mat-label>
     <input matInput formControlName="description">
-    <mat-error *ngIf="itemGroup.get('description').hasError('required')">
+    <mat-error *ngIf="itemGroup.get('description').hasError('required')" i18n>
       Bitte geben Sie eine Beschreibung ein
     </mat-error>
   </mat-form-field>
   <mat-form-field class="width--sm">
-    <mat-label fxHide fxShow.lt-md>Preis pro Einheit</mat-label>
+    <mat-label fxHide fxShow.lt-md i18n>Preis pro Einheit</mat-label>
     <input matInput formControlName="pricePerUnit">
-    <mat-error *ngIf="itemGroup.get('pricePerUnit').hasError('required')">
+    <mat-error *ngIf="itemGroup.get('pricePerUnit').hasError('required')" i18n>
       Bitte geben Sie einen Preis ein
     </mat-error>
-    <mat-error *ngIf="itemGroup.get('pricePerUnit').hasError('pattern')">
+    <mat-error *ngIf="itemGroup.get('pricePerUnit').hasError('pattern')" i18n>
       Bitte geben Sie einen gültigen (numerischen) Preis ein
     </mat-error>
   </mat-form-field>
   <mat-form-field class="width--md">
-    <mat-label fxHide fxShow.lt-md>Einheit</mat-label>
+    <mat-label fxHide fxShow.lt-md i18n>Einheit</mat-label>
     <input matInput formControlName="priceUnit">
-    <mat-error *ngIf="itemGroup.get('priceUnit').hasError('required')">
+    <mat-error *ngIf="itemGroup.get('priceUnit').hasError('required')" i18n>
       Bitte geben Sie eine gültige Preiseinheit ein
     </mat-error>
   </mat-form-field>
   <div class="contract-item-cashDiscountAllowed width--xs">
     <mat-checkbox color="primary" formControlName="cashDiscountAllowed" [value]="item.cashDiscountAllowed">
-      <span fxHide fxShow.lt-md>Skonto erlaubt?</span>
+      <span fxHide fxShow.lt-md i18n>Skonto erlaubt?</span>
     </mat-checkbox>
   </div>
   <div *ngIf="isChangeable" fxShow fxHide.lt-md class="contract-item-action">

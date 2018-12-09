@@ -2,8 +2,8 @@
 
 $custom-typography: mat-typography-config(
   $font-family: 'Open Sans, sans-serif',
-  $headline: mat-typography-level(32px, 48px, 700),
-  $body-1: mat-typography-level(16px, 24px, 500)
+  $headline: mat-typography-level(3.2rem, 4.8rem, 700),
+  $body-1: mat-typography-level(1.6rem, 2.4rem, 300)
 );
 @include mat-base-typography($custom-typography);
 // Override typography for a specific Angular Material components.

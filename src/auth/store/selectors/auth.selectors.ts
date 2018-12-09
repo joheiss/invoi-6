@@ -14,5 +14,8 @@ export const selectAuthLoading = createSelector(
 
 export const selectAuth = createSelector(
   selectAllAuth,
-  (auth => auth.length > 0 ? auth[0] : null)
+  auth => {
+    console.log('Auth: ', auth);
+    return auth && auth.length > 0 ? auth[0] : null;
+  }
 );

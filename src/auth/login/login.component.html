@@ -1,20 +1,22 @@
  <section>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
-        fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem" autocomplete="off" novalidate
+        fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem" novalidate
         class="jo-login">
     <mat-form-field>
-      <input type="email" matInput formControlName="email" placeholder="Benutzerkennung">
-      <mat-hint>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-hint>
-      <mat-error>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-error>
+      <input type="email" matInput formControlName="email"
+             placeholder="Benutzerkennung" i18n-placeholder="Benutzerkennung placeholder" autocomplete="username">
+      <mat-hint i18n>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-hint>
+      <mat-error i18n>Bitte geben Sie eine gültige Benutzerkennung ein.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input type="password" matInput formControlName="password" placeholder="Passwort">
-      <mat-hint>Bitte geben Sie ihr Passwort ein.</mat-hint>
-      <mat-error>Bitte geben Sie ihr Passwort ein.</mat-error>
+      <input type="password" matInput formControlName="password"
+             placeholder="Passwort" i18n-placeholder="Passwort placeholder" autocomplete="current-password">
+      <mat-hint i18n>Bitte geben Sie ihr Passwort ein.</mat-hint>
+      <mat-error i18n>Bitte geben Sie ihr Passwort ein.</mat-error>
     </mat-form-field>
     <button id="btn_login" type="submit" mat-raised-button color="primary"
             [disabled]="loginForm.invalid">
-      Anmelden
+      <span i18n>Anmelden</span>
     </button>
   </form>
 </section>

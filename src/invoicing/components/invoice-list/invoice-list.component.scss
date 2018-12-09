@@ -4,8 +4,15 @@ mat-cell {
   & > a.mat-button {
     min-width: 4rem;
     padding: 0 0.5rem;
+
     @media only screen and (max-width: $media-sm) {
       padding-left: 0.5rem;
+    }
+  }
+
+  @media only screen and (min-width: $media-md) {
+    &[fxhide\.lt-md] {
+      display: flex !important;
     }
   }
 
@@ -24,17 +31,28 @@ mat-cell {
   }
 }
 
-mat-header-cell:first-of-type {
-  @media only screen and (max-width: $media-sm) {
-    padding-left: 1rem;
+mat-header-cell {
+
+  @media only screen and (min-width: $media-md) {
+    &[fxhide\.lt-md] {
+      display: flex !important;
+    }
+  }
+
+  &:first-of-type {
+    @media only screen and (max-width: $media-sm) {
+      padding-left: 1rem;
+    }
   }
 }
+
+
 .width--sm {
-  flex: 1;
+  flex: 0.5;
 }
 
 .width--lg {
-  flex: 2;
+  flex: 3;
   @media only screen and (max-width: $media-sm) {
     padding-left: 0.5rem;
   }

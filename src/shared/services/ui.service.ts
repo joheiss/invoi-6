@@ -51,7 +51,8 @@ export class UiService {
   openConfirmationDialog(payload: ConfirmationDialogData): Observable<ConfirmationDialogData> {
     const dialogRef = this.dialog.open(ConfirmationDialogPopupComponent, {
       data: {
-        title: payload.title
+        title: payload.title,
+        text: payload.text
       }
     });
     return dialogRef.afterClosed().pipe(

@@ -1,31 +1,37 @@
 <form #form="ngForm">
-  <h1 mat-dialog-title>Datei hochladen</h1>
+  <h1 mat-dialog-title i18n>Datei hochladen</h1>
   <mat-dialog-content fxLayout="column">
-    <button mat-raised-button color="primary" (click)="fileInput.click()">Datei auswählen</button>
+    <button mat-raised-button color="primary" (click)="fileInput.click()">
+      <span i18n>Datei auswählen</span>
+    </button>
     <input hidden type="file" #fileInput (change)="onFileSelected($event)">
     <mat-form-field>
-      <input matInput name="name" placeholder="Datei" [(ngModel)]="data.documentLink.name" required>
+      <input matInput name="name" [(ngModel)]="data.documentLink.name" required placeholder="Datei" i18n-placeholder="Datei" >
     </mat-form-field>
     <mat-form-field>
       <mat-select name="type" [(ngModel)]="data.documentLink.type" required>
-        <mat-option [value]="0">Rechnung</mat-option>
-        <mat-option [value]="1">Gutschriftsanforderung</mat-option>
-        <mat-option [value]="2">Projektvertrag</mat-option>
-        <mat-option [value]="3">Rahmenvertrag</mat-option>
-        <mat-option [value]="4">Reisekostenabrechnung</mat-option>
-        <mat-option [value]="5">Leistungsnachweis</mat-option>
-        <mat-option [value]="6">Sonstiges</mat-option>
+        <mat-option [value]="0" i18n>Rechnung</mat-option>
+        <mat-option [value]="1" i18n>Gutschriftsanforderung</mat-option>
+        <mat-option [value]="2" i18n>Projektvertrag</mat-option>
+        <mat-option [value]="3" i18n>Rahmenvertrag</mat-option>
+        <mat-option [value]="4" i18n>Reisekostenabrechnung</mat-option>
+        <mat-option [value]="5" i18n>Leistungsnachweis</mat-option>
+        <mat-option [value]="6" i18n>Sonstiges</mat-option>
       </mat-select>
     </mat-form-field>
     <div class="">
       <mat-checkbox name="attachToEmail" color="primary" [(ngModel)]="data.documentLink.attachToEmail">
-        E-Mail Anhang?
+        <span i18n>E-Mail Anhang?</span>
       </mat-checkbox>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button id="btn_upload" mat-button [disabled]="!form.valid" (click)="onUpload()">Hochladen</button>
-    <button id="btn_cancel" mat-button mat-dialog-close>Abbrechen</button>
+    <button id="btn_upload" mat-button [disabled]="!form.valid" (click)="onUpload()">
+      <span i18n>Hochladen</span>
+    </button>
+    <button id="btn_cancel" mat-button mat-dialog-close>
+      <span i18n>Abbrechen</span>
+    </button>
   </mat-dialog-actions>
 </form>
 

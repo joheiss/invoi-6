@@ -1,9 +1,9 @@
 <a id="btn_details" mat-button [routerLink]="[getObjectUrl(), object.header.id]">
-  Details
+  <span i18n>Details</span>
 </a>
 <button id="btn_copy" mat-button (click)="onCopy($event)">
-  Kopieren
+  <span i18n>Kopieren</span>
 </button>
 <button id="btn_delete" mat-button *ngIf="isDeletable" (click)="onDelete($event)">
-  Löschen
+  <span i18n>Löschen</span>
 </button>

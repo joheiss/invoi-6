@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import * as fromStore from '../store';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/observable';
@@ -18,13 +18,15 @@ export class ShellComponent implements OnInit {
   user$: Observable<UserData>;
   isSpinning$: Observable<boolean>;
 
+
   constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit(): void {
+    // this.store.dispatch(new authActions.QueryAuth());
     this.isSpinning$ = this.store.pipe(select(fromStore.selectIsSpinning));
     this.auth$ = this.store.pipe(select(selectAuth));
     this.user$ = this.store.pipe(select(selectCurrentUser));
-    this.store.dispatch(new authActions.QueryAuth());
   }
+
 }
 

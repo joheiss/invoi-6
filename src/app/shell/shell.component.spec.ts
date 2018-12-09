@@ -7,7 +7,6 @@ import {Store} from '@ngrx/store';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NaviHeaderComponent} from '../containers/navigation/navi-header/navi-header.component';
 import {NaviSidebarComponent} from '../containers/navigation/navi-sidebar/navi-sidebar.component';
-import {QueryAuth} from '../../auth/store/actions';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersUiService} from '../../auth/services';
 import {cold, getTestScheduler, hot} from 'jasmine-marbles';
@@ -55,17 +54,6 @@ describe('ShellComponent', () => {
 
   it('should create the component', () => {
     return expect(component).toBeTruthy();
-  });
-
-
-  describe('ngOnInit()', () => {
-    it('should dispatch the QueryAuth action in ngOnInit lifecycle event', () => {
-      const action = new QueryAuth();
-      const store = TestBed.get(Store);
-      const spy = jest.spyOn(store, 'dispatch');
-      fixture.detectChanges();
-      return expect(spy).toHaveBeenCalledWith(action);
-    });
   });
 
   it('should select the current state of the spinner', () => {

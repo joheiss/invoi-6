@@ -13,28 +13,25 @@
     <div fxShow fxHide.lt-md>
       <ul fxLayout fxLayoutGap="3rem" class="jo-navi-items">
         <ng-container *ngIf="auth$ | async as auth">
-          <!--
-          <li *ngIf="auth?.roles?.indexOf('sales-user') >= 0">
-          -->
           <li *joIfAuthorizedForSales="auth">
-            <a [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" i18n>
               Überblick
             </a>
           </li>
           <li *joIfAuthorizedForSales="auth">
-            <a [routerLink]="['/invoicing/receivers']" routerLinkActive="active"> Rechnungsempfänger</a>
+            <a [routerLink]="['/invoicing/receivers']" routerLinkActive="active" i18n> Rechnungsempfänger</a>
           </li>
           <li *joIfAuthorizedForSales="auth">
-            <a [routerLink]="['/invoicing/contracts']" routerLinkActive="active">Verträge</a>
+            <a [routerLink]="['/invoicing/contracts']" routerLinkActive="active" i18n>Verträge</a>
           </li>
           <li *joIfAuthorizedForSales="auth">
-            <a [routerLink]="['/invoicing/invoices']" routerLinkActive="active">Rechnungen</a>
+            <a [routerLink]="['/invoicing/invoices']" routerLinkActive="active" i18n>Rechnungen</a>
           </li>
           <li *joIfAuthorizedForAdmin="auth">
-            <a [routerLink]="['/invoicing/settings']" routerLinkActive="active">Einstellungen</a>
+            <a [routerLink]="['/invoicing/settings']" routerLinkActive="active" i18n>Einstellungen</a>
           </li>
           <li *joIfAuthorizedForAdmin="auth">
-            <a [routerLink]="['/users']" routerLinkActive="active">Benutzer</a>
+            <a [routerLink]="['/auth/users']" routerLinkActive="active" i18n>Benutzer</a>
           </li>
         </ng-container>
       </ul>
@@ -42,7 +39,7 @@
     <div>
       <ul fxLayout fxLayoutGap="3rem" class="jo-navi-items">
         <li *ngIf="!(auth$ | async)">
-          <a [routerLink]="['/login']" routerLinkActive="active">Anmelden</a>
+          <a [routerLink]="['/auth/login']" routerLinkActive="active" i18n>Anmelden</a>
         </li>
         <li *ngIf="(auth$ | async) as auth">
           <button type="button" mat-button [matMenuTriggerFor]="account" class="jo-account-button">
@@ -51,12 +48,9 @@
             <span class="jo-tx-none">&nbsp; {{ auth.email }}</span>
           </button>
           <mat-menu #account="matMenu">
-            <a mat-menu-item [routerLink]="['/goodbye']" routerLinkActive="active">Abmelden</a>
-            <a mat-menu-item (click)="onMyProfile()">Meine Daten</a>
+            <a mat-menu-item [routerLink]="['/auth/goodbye']" routerLinkActive="active" i18n>Abmelden</a>
+            <a mat-menu-item (click)="onMyProfile()" i18n>Meine Daten</a>
           </mat-menu>
-          <!--
-          <a [routerLink]="['/goodbye']" routerLinkActive="active">Abmelden</a>
-          -->
         </li>
       </ul>
     </div>

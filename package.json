@@ -19,7 +19,8 @@
     "lint": "ng lint",
     "e2e:protracor": "ng e2e",
     "e2e": "cypress open",
-    "env": "SET NODE_ICU_DATA=./node_modules/full-icu"
+    "env": "SET NODE_ICU_DATA=./node_modules/full-icu",
+    "httpserver": "http-server -c-1 dist/invoi-6"
   },
   "jest": {
     "preset": "jest-preset-angular",
@@ -45,7 +46,9 @@
     "@angular/platform-browser": "^7.0.4",
     "@angular/platform-browser-dynamic": "^7.0.4",
     "@angular/platform-server": "^7.0.4",
+    "@angular/pwa": "^0.11.2",
     "@angular/router": "^7.0.4",
+    "@angular/service-worker": "^7.0.4",
     "@bahmutov/add-typescript-to-cypress": "^2.0.0",
     "@ngrx/effects": "^6.1.2",
     "@ngrx/entity": "^6.1.2",

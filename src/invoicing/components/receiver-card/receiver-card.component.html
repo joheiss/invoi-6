@@ -4,26 +4,27 @@
     <mat-card-title>{{ summary?.object?.header.name }}</mat-card-title>
   </mat-card-header>
   <mat-card-content class="u-mt-md">
-    <div id="div_status">
-      {{summary?.object?.header.status === 0 ? 'aktiv' : 'inaktiv'}}
+    <div id="div_status" *ngIf="summary && summary.object">
+      <span i18n *ngIf="summary.object.header.status === 0">aktiv</span>
+      <span i18n *ngIf="summary.object.header.status !== 0">inaktiv</span>
     </div>
     <div class="jo-card-columns">
       <div class="jo-card-info">
-        <div class="jo-card-label">Aktive Verträge:</div>
+        <div class="jo-card-label"><span i18n>Aktive Verträge:</span></div>
         <div id="div_activeContracts">{{summary?.activeContractsCount}}</div>
-        <div class="jo-card-label">Abgelaufene Verträge:</div>
+        <div class="jo-card-label"><span i18n>Abgelaufene Verträge:</span></div>
         <div id="div_expiredContracts">{{summary?.expiredContractsCount}}</div>
-        <div class="jo-card-label">Letzter Vertrag</div>
+        <div class="jo-card-label"><span i18n>Letzter Vertrag</span></div>
         <div *ngIf="summary?.lastContractId">
           <a id="lnk_lastContract" [routerLink]="['/invoicing/contracts', summary?.lastContractId]">{{summary?.lastContractId}}</a>
         </div>
       </div>
       <div class="jo-card-info">
-        <div class="jo-card-label">Fällige Rechnungen:</div>
+        <div class="jo-card-label"><span i18n>Fällige Rechnungen:</span></div>
         <div id="div_dueInvoices" class="align-right">{{summary?.dueInvoicesCount}}</div>
-        <div class="jo-card-label">Offene Rechnungen:</div>
+        <div class="jo-card-label"><span i18n>Offene Rechnungen:</span></div>
         <div id="div_openInvoices" class="align-right">{{summary?.openInvoicesCount}}</div>
-        <div class="jo-card-label">Letzte Rechnung:</div>
+        <div class="jo-card-label"><span i18n>Letzte Rechnung:</span></div>
         <div *ngIf="summary?.lastInvoiceId">
           <a id="lnk_lastInvoice" [routerLink]="['/invoicing/invoices', summary?.lastInvoiceId]">
             {{summary?.lastInvoiceId}}

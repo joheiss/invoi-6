@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {AuthenticationGuard, AuthorizationGuard} from '../auth/guards';
-import {RouterModule, Routes} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ShellComponent} from './shell/shell.component';
-import {AUTH_ROUTES} from '../auth/auth-routing.module';
 
 const APP_ROUTES: Routes = [
   { path: '', component: ShellComponent,
@@ -13,9 +12,9 @@ const APP_ROUTES: Routes = [
         path: 'invoicing',
         loadChildren: '../invoicing/invoicing.module#InvoicingModule',
         canLoad: [AuthenticationGuard, AuthorizationGuard],
+        canActivate: [AuthenticationGuard, AuthorizationGuard],
         data: { roles: ['sales-user'] }
       },
-      ...AUTH_ROUTES,
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
@@ -25,7 +24,10 @@ const APP_ROUTES: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(APP_ROUTES, { paramsInheritanceStrategy: 'always', onSameUrlNavigation: 'reload'}) // , enableTracing: true })
+    RouterModule.forRoot(APP_ROUTES, {
+      preloadingStrategy: PreloadAllModules,
+      paramsInheritanceStrategy: 'always',
+      onSameUrlNavigation: 'reload' }) // , enableTracing: true })
   ],
   exports: [
     RouterModule

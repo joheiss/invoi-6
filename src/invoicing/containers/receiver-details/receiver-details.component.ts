@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/index';
 import {Receiver} from '../../models/receiver.model';
 import {Contract} from '../../models/contract.model';
@@ -14,7 +14,7 @@ import {Country} from '../../../admin/models/country';
   styleUrls: ['./receiver-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReceiverDetailsComponent extends DetailsComponent<Receiver> implements OnInit {
+export class ReceiverDetailsComponent extends DetailsComponent<Receiver> implements OnInit, AfterViewInit {
   receiver$: Observable<Receiver>;
   activeContractsForReceiver$: Observable<Contract[]>;
   lastContractsForReceiver$: Observable<Contract[]>;

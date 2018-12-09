@@ -19,8 +19,9 @@ export class AuthEffects {
               private store: Store<AppState>) {
   }
 
+
   @Effect()
-  initAuth$ = defer(() => this.actions$.pipe(
+  initAuth$ = this.actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
     switchMap(() => this.authService.queryAuth()
       .pipe(
@@ -28,14 +29,14 @@ export class AuthEffects {
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
-  ));
+  );
 
   @Effect()
   queryAuth$ = this.actions$.pipe(
     ofType(authActions.QUERY_AUTH),
     switchMap(() => this.authService.queryAuth()
       .pipe(
-        // tap(user => console.log(`auth query result:`, user)),
+        tap(user => console.log(`auth query result:`, user)),
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
@@ -81,7 +82,7 @@ export class AuthEffects {
     ofType(authActions.NOT_AUTHENTICATED),
     tap(() => console.log(`not authenticated`)),
     switchMap(() => [
-      new fromRoot.Go({path: ['/login']}),
+      new fromRoot.Go({path: ['/auth/login']}),
       new fromRoot.StopSpinning()
     ])
   );

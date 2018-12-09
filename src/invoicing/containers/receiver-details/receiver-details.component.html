@@ -1,12 +1,12 @@
 <mat-card *ngIf="receiver$ | async as receiver" class="jo-details mat-elevation-z0">
   <mat-card-header>
     <mat-card-title>
-      <span fxHide.lt-md>Rechnungsempfänger </span><span>{{ getTitle(receiver) }}</span>
+      <span fxHide.lt-md i18n>Rechnungsempfänger </span><span>{{ getTitle(receiver) }}</span>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <section>
-      <jo-receiver-form
+      <jo-receiver-form #detailsForm
         [object]="receiver"
         [isDeletable]="isDeletable$ | async"
         [isQualForQuickInvoice]="isQualifiedForQuickInvoice$ | async"

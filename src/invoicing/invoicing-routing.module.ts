@@ -33,6 +33,9 @@ const INVOICING_ROUTES: Routes = [
         component: fromContainers.ReceiverDetailsComponent,
         canActivate: [
           fromGuards.ReceiverExistsGuard
+        ],
+        canDeactivate: [
+          fromGuards.UnsavedChangesGuard
         ]
       },
       {
@@ -48,6 +51,9 @@ const INVOICING_ROUTES: Routes = [
         component: fromContainers.ContractDetailsComponent,
         canActivate: [
           fromGuards.ContractExistsGuard
+        ],
+        canDeactivate: [
+          fromGuards.UnsavedChangesGuard
         ]
       },
       {
@@ -67,6 +73,9 @@ const INVOICING_ROUTES: Routes = [
         component: fromContainers.InvoiceDetailsComponent,
         canActivate: [
           fromGuards.InvoiceExistsGuard
+        ],
+        canDeactivate: [
+          fromGuards.UnsavedChangesGuard
         ]
       },
     ]

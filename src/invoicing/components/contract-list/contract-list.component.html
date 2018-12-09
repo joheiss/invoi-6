@@ -1,40 +1,40 @@
 <div class="mat-elevation-z4">
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef class="width--sm">Nr.</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--sm" i18n>Nr.</mat-header-cell>
       <mat-cell *matCellDef="let contract" class="width--sm">
         <a mat-button [routerLink]="['/invoicing/contracts', contract.header.id]">{{contract.header.id}}</a>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="issuedAt">
-      <mat-header-cell *matHeaderCellDef fxHide.lt-md>Datum</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Datum</mat-header-cell>
       <mat-cell *matCellDef="let contract" fxHide.lt-md>
         {{contract.header.issuedAt | date}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef class="width--lg">Beschreibung</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--lg" i18n>Beschreibung</mat-header-cell>
       <mat-cell *matCellDef="let contract" class="width--lg">
         <span fxHide.lt-md>{{contract.header.description}}</span>
         <span fxHide.gt-sm>{{getShortenedDescription(contract.header.description)}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="startDate">
-      <mat-header-cell *matHeaderCellDef>Gültig ab</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>Gültig ab</mat-header-cell>
       <mat-cell *matCellDef="let contract">
         <span fxHide.lt-md>{{contract.header.startDate | date}}</span>
         <span fxHide.gt-sm>{{contract.header.startDate | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="endDate">
-      <mat-header-cell *matHeaderCellDef>Gültig bis</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>Gültig bis</mat-header-cell>
       <mat-cell *matCellDef="let contract">
         <span fxHide.lt-md>{{contract.header.endDate | date}}</span>
         <span fxHide.gt-sm>{{contract.header.endDate | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="budget">
-      <mat-header-cell *matHeaderCellDef fxHide.lt-md>Umfang</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Umfang</mat-header-cell>
       <mat-cell *matCellDef="let contract" fxHide.lt-md>
         {{contract.header.budget | number: '1.2-2'}}
       </mat-cell>

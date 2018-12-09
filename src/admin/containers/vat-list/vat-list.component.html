@@ -5,26 +5,26 @@
   </div>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="taxCode">
-      <mat-header-cell *matHeaderCellDef class="width--md">Steuercode</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--md" i18n>Steuercode</mat-header-cell>
       <mat-cell *matCellDef="let vat" class="width--md">
         <a (click)="onSelect(vat)">{{vat.taxCode}}</a>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="validFrom">
-      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-md>Gültig ab</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-md i18n>Gültig ab</mat-header-cell>
       <mat-cell *matCellDef="let vat" class="width--md" fxHide.lt-md>
         {{vat.validFrom | date}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="validTo">
-      <mat-header-cell *matHeaderCellDef class="width--md">Gültig bis</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--md" i18n>Gültig bis</mat-header-cell>
       <mat-cell *matCellDef="let vat" class="width--md">
         <span fxHide.lt-md>{{vat.validTo | date}}</span>
         <span fxHide.gt-sm>{{vat.validTo | date: 'dd.MM.yy'}}</span>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="percentage">
-      <mat-header-cell *matHeaderCellDef>Steuersatz</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>Steuersatz</mat-header-cell>
       <mat-cell *matCellDef="let vat">
         {{vat.percentage | number: '1.1-2' }}
       </mat-cell>

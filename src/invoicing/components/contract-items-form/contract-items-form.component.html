@@ -5,10 +5,10 @@
         <mat-icon aria-label="Position hinzufügen">add</mat-icon>
       </button>
     </div>
-    <label class="contract-item-description">Beschreibung</label>
-    <label class="contract-item-pricePerUnit">Preis</label>
-    <label class="contract-item-priceUnit">Einheit</label>
-    <label class="contract-item-cashDiscountAllowed">Skonto erlaubt?</label>
+    <label class="contract-item-description" i18n>Beschreibung</label>
+    <label class="contract-item-pricePerUnit" i18n>Preis</label>
+    <label class="contract-item-priceUnit" i18n>Einheit</label>
+    <label class="contract-item-cashDiscountAllowed" i18n>Skonto erlaubt?</label>
     <label class="contract-item-action"></label>
   </div>
   <div>
@@ -22,7 +22,7 @@
   </div>
   <div class="u-mt-md"fxHide fxShow.lt-md>
     <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)">
-      Position hinzufügen
+      <span i18n>Position hinzufügen</span>
     </button>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 
 export interface ConfirmationDialogData {
-  do: Action;
+  do?: Action;
   cancel?: Action;
   go?: Action;
   text?: string;

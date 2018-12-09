@@ -1,48 +1,50 @@
 <div class="window mat-elevation-z4">
   <div class="u-mb-md" fxLayout="row" fxLayoutAlign="space-between">
-    <button id="btn_create" mat-raised-button color="primary" (click)="onNew()">Benutzer hinzufügen</button>
-    <a id="btn_back" mat-raised-button [routerLink]="['/invoicing']">Zurück</a>
+    <button id="btn_create" mat-raised-button color="primary" (click)="onNew()">
+      <span i18n>Benutzer hinzufügen</span>
+    </button>
+    <a id="btn_back" mat-raised-button [routerLink]="['/invoicing']" i18n>Zurück</a>
   </div>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="imageUrl">
-      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-md>Bild</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-md i18n>Bild</mat-header-cell>
       <mat-cell *matCellDef="let user" class="width--sm" fxHide.lt-md>
         <img [src]="user.imageUrl" *ngIf="user.imageUrl" class="jo-user-img">
         <img src="assets/img/blank-profile-picture-32.jpg" *ngIf="!user.imageUrl" class="jo-user-img">
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="phoneNumber">
-      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-lg>Telefon</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef class="width--md" fxHide.lt-lg i18n>Telefon</mat-header-cell>
       <mat-cell *matCellDef="let user" class="width--md" fxHide.lt-lg>
         {{user.phoneNumber}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef>E-Mail</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>E-Mail</mat-header-cell>
       <mat-cell *matCellDef="let user">
         {{user.email}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="displayName">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>Name</mat-header-cell>
       <mat-cell *matCellDef="let user">
         {{user.displayName}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="organization">
-      <mat-header-cell *matHeaderCellDef fxHide.lt-md>Organisation</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Organisation</mat-header-cell>
       <mat-cell *matCellDef="let user" fxHide.lt-md>
         {{user.organization}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="roles">
-    <mat-header-cell *matHeaderCellDef fxHide.lt-md>Rollen</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Rollen</mat-header-cell>
     <mat-cell *matCellDef="let user" fxHide.lt-md>
       {{user.roles.join()}}
     </mat-cell>
   </ng-container>
     <ng-container matColumnDef="isLocked">
-      <mat-header-cell *matHeaderCellDef>gesperrt?</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef i18n>gesperrt?</mat-header-cell>
       <mat-cell *matCellDef="let user">
         <button type="button" mat-icon-button *ngIf="user.isLocked" (click)="onToggleLock(user)">
         <mat-icon color="warn">lock</mat-icon>

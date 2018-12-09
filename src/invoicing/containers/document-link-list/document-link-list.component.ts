@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DocumentLink} from '../../models/document-link';
 import {MatDialog, MatDialogRef, MatSelectChange} from '@angular/material';
 import {Store} from '@ngrx/store';

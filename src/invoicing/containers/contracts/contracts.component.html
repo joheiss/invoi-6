@@ -1,6 +1,8 @@
 <div class="window">
   <div>
-    <button mat-raised-button color="primary" (click)="onNew($event)">Vertrag anlegen</button>
+    <button mat-raised-button color="primary" (click)="onNew($event)">
+      <span i18n>Vertrag anlegen</span>
+    </button>
   </div>
   <div class="jo-cards">
     <jo-contract-card *ngFor="let summary of summaries$ | async"

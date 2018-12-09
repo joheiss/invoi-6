@@ -1,12 +1,12 @@
 <mat-card *ngIf="contract$ | async as contract" class="jo-details mat-elevation-z0">
   <mat-card-header>
     <mat-card-title>
-      <span fxHide.lt-md>Vertrag </span><span>{{ getTitle(contract) }}</span>
+      <span fxHide.lt-md i18n>Vertrag </span><span>{{ getTitle(contract) }}</span>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <section>
-      <jo-contract-form
+      <jo-contract-form #detailsForm
         [object]="contract"
         [contractPartner]="contractPartner$ | async"
         [receivers]="receivers$ | async"

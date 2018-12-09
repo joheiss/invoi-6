@@ -30,6 +30,7 @@ import {storageEffects} from '../storage/store/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
 import {AuthRoutingModule} from '../auth/auth-routing.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
@@ -57,8 +58,8 @@ registerLocaleData(localeDE, 'de-DE', localeDeExtra);
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     SharedModule,
-    AppRoutingModule,
     AuthModule.forRoot(),
+    AppRoutingModule,
     StorageModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase), /*, 'jovisco-invoicing'), */
     AngularFirestoreModule.enablePersistence(),
@@ -66,6 +67,7 @@ registerLocaleData(localeDE, 'de-DE', localeDeExtra);
     EffectsModule.forRoot([...rootEffects, ...authEffects, ...storageEffects]),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
   ],
   providers: [

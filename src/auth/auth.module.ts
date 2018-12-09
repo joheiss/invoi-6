@@ -12,7 +12,7 @@ import {StorageModule} from '../storage/storage.module';
 import {PasswordChangeDialogComponent} from './password-change-dialog/password-change-dialog.component';
 import {IfAuthorizedForSalesDirective} from './directives/if-authorized-for-sales.directive';
 import {IfAuthorizedForAdminDirective} from './directives/if-authorized-for-admin.directive';
-import {AuthService, services, UsersService, UsersUiService} from './services';
+import {services} from './services';
 import {businessServices} from './business-services';
 import {guards} from './guards';
 

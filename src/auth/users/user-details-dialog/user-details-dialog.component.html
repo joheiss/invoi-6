@@ -10,76 +10,81 @@
       </div>
       <div fxLayout="column" fxLayoutGap="1rem" *ngIf="data.user.uid">
         <button id="btn_img_upload" type="button" mat-raised-button (click)="onUploadImage(data.user)" class="jo-user-img-upload">
-          Bild hochladen
+          <span i18n>Bild hochladen</span>
         </button>
         <button id="btn_img_delete" type="button" mat-raised-button *ngIf="data.user.imageUrl" (click)="onDeleteImage(data.user)" class="jo-user-img-upload">
-          Bild löschen
+          <span i18n>Bild löschen</span>
         </button>
       </div>
     </div>
     <mat-form-field>
-      <input matInput id="email" placeholder="E-Mail" formControlName="email">
-      <mat-error *ngIf="form.get('email').hasError('required')">
+      <input matInput id="email" formControlName="email"
+             placeholder="E-Mail" i18n-placeholder="E-Mail placeholder" autocomplete="username">
+      <mat-error *ngIf="form.get('email').hasError('required')" i18n>
         Bitte geben Sie eine E-Mail-Adresse ein.
       </mat-error>
-      <mat-error *ngIf="form.get('email').hasError('email')">
+      <mat-error *ngIf="form.get('email').hasError('email')" i18n>
         Bitte geben Sie eine gültige E-Mail-Adresse ein.
       </mat-error>
     </mat-form-field>
     <ng-container *ngIf="data.task === 'new'" [formGroup]="passwords">
       <mat-form-field>
-        <input type="password" matInput id="password" placeholder="Passwort" formControlName="password">
+        <input type="password" matInput id="password" formControlName="password"
+               placeholder="Passwort" i18n-placeholder="Passwort placeholder" autocomplete="new-password">
       </mat-form-field>
       <mat-form-field>
-        <input type="password" matInput id="confirm" placeholder="Passwort bestätigen" formControlName="confirm">
-        <mat-error *ngIf="form.get('passwords').hasError('passwordMatch')">
+        <input type="password" matInput id="confirm" formControlName="confirm" autocomplete="new-password"
+               placeholder="Passwort bestätigen" i18n-placeholder="Passwort bestätigen placeholder">
+        <mat-error *ngIf="form.get('passwords').hasError('passwordMatch')" i18n>
           Passwort und Bestätigung sind unterschiedlich. Bitte korrigieren Sie ihre Eingaben.
         </mat-error>
       </mat-form-field>
     </ng-container>
     <mat-form-field>
-      <input matInput id="displayName" placeholder="Name" formControlName="displayName">
-      <mat-error *ngIf="form.get('displayName').hasError('required')">
+      <input matInput id="displayName" formControlName="displayName" placeholder="Name" i18n-placeholder="Name placeholder">
+      <mat-error *ngIf="form.get('displayName').hasError('required')" i18n>
         Bitte geben Sie einen Namen ein.
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput id="phoneNumber" placeholder="Telefon" formControlName="phoneNumber">
-      <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')">
+      <input matInput id="phoneNumber" formControlName="phoneNumber" placeholder="Telefon" i18n-placeholder="Telefon placeholder">
+      <mat-error *ngIf="form.get('phoneNumber').hasError('pattern')" i18n>
         Bitte geben Sie eine gültige Telefonnummer ein.
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput id="organization" placeholder="Organisation" formControlName="organization">
-      <mat-error *ngIf="form.get('organization').hasError('required')">
+      <input matInput id="organization" formControlName="organization" placeholder="Organisation" i18n-placeholder="Organisation placeholder">
+      <mat-error *ngIf="form.get('organization').hasError('required')" i18n>
         Bitte geben Sie eine Organisation ein.
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput id="roles" placeholder="Rollen" formControlName="roles">
-      <mat-error *ngIf="form.get('roles').hasError('required')">
+      <input matInput id="roles" formControlName="roles" placeholder="Rollen" i18n-placeholder="Rollen placeholder">
+      <mat-error *ngIf="form.get('roles').hasError('required')" i18n>
         Bitte geben Sie (mindestens) eine Rolle ein.
       </mat-error>
     </mat-form-field>
     <div *ngIf="data.task !== 'my-profile'" class="u-mb-sm">
-      <mat-checkbox id="isLocked" color="primary" formControlName="isLocked">
+      <mat-checkbox id="isLocked" color="primary" formControlName="isLocked" i18n>
         gesperrt?
       </mat-checkbox>
     </div>
     <mat-form-field *ngIf="data.task !== 'my-profile'" fxHide.lt-sm>
-      <input matInput id="uid" placeholder="Benutzerkennung" formControlName="uid">
+      <input matInput id="uid" formControlName="uid" placeholder="Benutzerkennung" i18n-placeholder="Benutzerkennung placeholder">
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button id="btn_save" mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
-      Speichern
+      <span i18n>Speichern</span>
     </button>
     <button id="btn_create" mat-button *ngIf="data.task === 'new'" [disabled]="!form.valid || !form.dirty" (click)="onSave(form)">
-      Anlegen
+      <span i18n>Anlegen</span>
     </button>
-    <button id="btn_cancel" mat-button mat-dialog-close>Abbrechen</button>
+    <button id="btn_cancel" mat-button mat-dialog-close>
+      <span i18n>Abbrechen</span>
+    </button>
     <button id="btn_changepw" mat-button *ngIf="data.task !== 'new'" [disabled]="!form.valid" (click)="onChangePassword(data.user)">
-      Passwort ändern
+      <span i18n>Passwort ändern</span>
     </button>
   </mat-dialog-actions>
 </form>

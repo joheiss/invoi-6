@@ -4,44 +4,44 @@
        mat-list-item [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
        (click)="onClose()">
       <mat-icon>account_circle</mat-icon>
-      <span class="jo-navi-caption">Überblick</span>
+      <span class="jo-navi-caption" i18n>Überblick</span>
     </a>
     <a *joIfAuthorizedForSales="auth"
        mat-list-item [routerLink]="['/invoicing/receivers']" routerLinkActive="active" (click)="onClose()">
       <mat-icon>account_circle</mat-icon>
-      <span class="jo-navi-caption">Rechnungsempfänger</span>
+      <span class="jo-navi-caption" i18n>Rechnungsempfänger</span>
     </a>
     <a *joIfAuthorizedForSales="auth"
        mat-list-item [routerLink]="['/invoicing/contracts']" routerLinkActive="active" (click)="onClose()">
       <mat-icon>assignment</mat-icon>
-      <span class="jo-navi-caption">Verträge</span>
+      <span class="jo-navi-caption" i18n>Verträge</span>
     </a>
     <a *joIfAuthorizedForSales="auth"
        mat-list-item [routerLink]="['/invoicing/invoices']" routerLinkActive="active" (click)="onClose()">
       <mat-icon>description</mat-icon>
-      <span class="jo-navi-caption">Rechnungen</span>
+      <span class="jo-navi-caption" i18n>Rechnungen</span>
     </a>
 
     <a *joIfAuthorizedForAdmin="auth" mat-list-item
        [routerLink]="['/invoicing/settings']" routerLinkActive="active" (click)="onClose()">
       <mat-icon>settings</mat-icon>
-      <span class="jo-navi-caption">Einstellungen</span>
+      <span class="jo-navi-caption" i18n>Einstellungen</span>
     </a>
     <a *joIfAuthorizedForAdmin="auth" mat-list-item
-       [routerLink]="['/users']" routerLinkActive="active" (click)="onClose()">
+       [routerLink]="['/auth/users']" routerLinkActive="active" (click)="onClose()">
       <mat-icon>account_circle</mat-icon>
-      <span class="jo-navi-caption">Benutzer</span>
+      <span class="jo-navi-caption" i18n>Benutzer</span>
     </a>
   </ng-container>
   <a *ngIf="!(auth$ | async)"
-     mat-list-item [routerLink]="['/login']" routerLinkActive="active" (click)="onClose()">
+     mat-list-item [routerLink]="['/auth/login']" routerLinkActive="active" (click)="onClose()">
     <mat-icon>face</mat-icon>
-    <span class="jo-navi-caption">Anmelden</span>
+    <span class="jo-navi-caption" i18n>Anmelden</span>
   </a>
   <a *ngIf="auth$ | async"
-     mat-list-item [routerLink]="['/goodbye']" routerLinkActive="active" (click)="onClose()">
+     mat-list-item [routerLink]="['/auth/goodbye']" routerLinkActive="active" (click)="onClose()">
     <mat-icon>cancel</mat-icon>
-    <span class="jo-navi-caption">Abmelden</span>
+    <span class="jo-navi-caption" i18n>Abmelden</span>
   </a>
 </mat-nav-list>
 

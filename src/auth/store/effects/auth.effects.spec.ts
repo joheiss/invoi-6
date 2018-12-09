@@ -171,7 +171,7 @@ describe('Auth Effects', () => {
     it('should return an array of actions containing Go and StopSpinning', async () => {
       const action = new NotAuthenticated();
       actions = hot('-a', {a: action});
-      const expected = cold('-(ab)', { a: new Go({path: ['/login']}), b: new StopSpinning() });
+      const expected = cold('-(ab)', { a: new Go({path: ['/auth/login']}), b: new StopSpinning() });
       return expect(effects.notAuthenticated$).toBeObservable(expected);
     });
   });

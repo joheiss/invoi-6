@@ -7,6 +7,7 @@ import {InvoicesGuard} from './invoices.guard';
 import {InvoiceExistsGuard} from './invoice-exists.guard';
 import {DocumentLinksGuard} from './document-links.guard';
 import {RevenuesGuard} from './revenues.guard';
+import {UnsavedChangesGuard} from './unsaved-changes.guard';
 
 export const guards: any[] = [
   NumberRangesGuard,
@@ -17,7 +18,8 @@ export const guards: any[] = [
   InvoicesGuard,
   InvoiceExistsGuard,
   DocumentLinksGuard,
-  RevenuesGuard
+  RevenuesGuard,
+  UnsavedChangesGuard
 ];
 
 export * from './number-ranges.guard';
@@ -29,3 +31,4 @@ export * from './invoices.guard';
 export * from './invoice-exists.guard';
 export * from './document-links.guard';
 export * from  './revenues.guard';
+export * from  './unsaved-changes.guard';

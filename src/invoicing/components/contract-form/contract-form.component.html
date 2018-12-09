@@ -1,27 +1,27 @@
 <form [formGroup]="form" autocomplete="off" novalidate spellcheck="false" id="contract-form">
   <mat-tab-group (selectedTabChange)="onTabChange($event)">
-    <mat-tab label="Details">
+    <mat-tab label="Details" i18n-label="Details label">
       <div id="main-group">
         <mat-form-field class="width--lg">
-          <mat-select id="customerId" formControlName="customerId" placeholder="Vertragspartner">
+          <mat-select id="customerId" formControlName="customerId" placeholder="Vertragspartner" i18n-placeholder="Vertragspartner placeholder">
             <mat-option *ngFor="let receiver of receivers" [value]="receiver.header.id">{{receiver.header.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="form.get('customerId').hasError('required')">
+          <mat-error *ngIf="form.get('customerId').hasError('required')" i18n>
             Bitte wählen Sie einen Vertragspartner aus
           </mat-error>
         </mat-form-field>
         <mat-form-field class="width--md">
-          <input matInput [matDatepicker]="issuedAtPicker" formControlName="issuedAt" placeholder="Austellungsdatum">
+          <input matInput [matDatepicker]="issuedAtPicker" formControlName="issuedAt" placeholder="Austellungsdatum" i18n-placeholder="Austellungsdatum placeholder">
           <mat-datepicker-toggle matSuffix [for]="issuedAtPicker"></mat-datepicker-toggle>
           <mat-datepicker #issuedAtPicker></mat-datepicker>
-          <mat-error *ngIf="form.get('issuedAt').hasError('required')">
+          <mat-error *ngIf="form.get('issuedAt').hasError('required')" i18n>
             Bitte geben Sie ein gültiges Ausstellungsdatum ein
           </mat-error>
         </mat-form-field>
         <mat-form-field class="width--lg">
-          <input matInput id="description" formControlName="description" placeholder="Bezeichnung">
-          <mat-error *ngIf="form.get('description').hasError('required')">
+          <input matInput id="description" formControlName="description" placeholder="Bezeichnung" i18n-placeholder="Bezeichnung placeholder">
+          <mat-error *ngIf="form.get('description').hasError('required')" i18n>
             Bitte geben Sie eine Bezeichnung ein
           </mat-error>
         </mat-form-field>
@@ -29,41 +29,41 @@
       <div id="validity-group">
         <mat-form-field class="width--md">
           <input matInput [matDatepicker]="startDatePicker" id="startDate" formControlName="startDate"
-                 placeholder="Gültig ab">
+                 placeholder="Gültig ab" i18n-placeholder="Gültig ab placeholder">
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #startDatePicker></mat-datepicker>
-          <mat-error *ngIf="form.get('startDate').hasError('required')">
+          <mat-error *ngIf="form.get('startDate').hasError('required')" i18n>
             Bitte geben Sie einen gültigen Vertragsbeginn ein
           </mat-error>
         </mat-form-field>
         <mat-form-field class="width--md">
           <input matInput [matDatepicker]="endDatePicker" id="endDate" formControlName="endDate"
-                 placeholder="Gültig bis">
+                 placeholder="Gültig bis" i18n-placeholder="Gültig bis placeholder">
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #endDatePicker></mat-datepicker>
-          <mat-error *ngIf="form.get('endDate').hasError('required')">
+          <mat-error *ngIf="form.get('endDate').hasError('required')" i18n>
             Bitte geben Sie ein gültiges Vertragsende ein
           </mat-error>
-          <mat-error *ngIf="form.get('endDate').hasError('dateSequence')">
+          <mat-error *ngIf="form.get('endDate').hasError('dateSequence')" i18n>
             Das Vertragsende darf nicht vor dem Vertragsbeginn liegen
           </mat-error>
         </mat-form-field>
         <mat-form-field class="width--sm">
-          <input matInput type="text" id="budget" formControlName="budget" placeholder="Vertragsumfang">
-          <mat-error *ngIf="form.get('budget').hasError('pattern')">
+          <input matInput type="text" id="budget" formControlName="budget" placeholder="Vertragsumfang" i18n-placeholder="Vertragsumfang placeholder">
+          <mat-error *ngIf="form.get('budget').hasError('pattern')" i18n>
             Bitte geben Sie einen gültigen numerischen Wert ein
           </mat-error>
         </mat-form-field>
         <mat-form-field class="width--sm">
-          <input matInput id="currency" formControlName="currency" placeholder="Währung">
-          <mat-error *ngIf="form.get('currency').hasError('required')">
+          <input matInput id="currency" formControlName="currency" placeholder="Währung" i18n-placeholder="Währung placeholder">
+          <mat-error *ngIf="form.get('currency').hasError('required')" i18n>
             Bitte geben Sie eine Währung ein
           </mat-error>
         </mat-form-field>
       </div>
       <mat-expansion-panel id="pnl_paymentTerms">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title i18n>
             Zahlungsbedingungen
           </mat-panel-title>
           <mat-panel-description>
@@ -75,50 +75,50 @@
         </mat-expansion-panel-header>
         <div id="payment-group">
           <mat-form-field>
-            <mat-select id="billingMethod" formControlName="billingMethod" placeholder="Abrechnungsmethode">
-              <mat-option [value]="0">Rechnung</mat-option>
-              <mat-option [value]="1">Gutschriftverfahren</mat-option>
+            <mat-select id="billingMethod" formControlName="billingMethod" placeholder="Abrechnungsmethode" i18n-placeholder="Abrechnungsmethode placeholder">
+              <mat-option [value]="0" i18n>Rechnung</mat-option>
+              <mat-option [value]="1" i18n>Gutschriftverfahren</mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('billingMethod').hasError('required')">
+            <mat-error *ngIf="form.get('billingMethod').hasError('required')" i18n>
               Bitte wählen Sie eine Abrechnunsgmethode aus
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-select id="paymentMethod" formControlName="paymentMethod" placeholder="Zahlungsmethode">
-              <mat-option [value]="0">Überweisung</mat-option>
-              <mat-option [value]="1">Bankeinzug</mat-option>
+            <mat-select id="paymentMethod" formControlName="paymentMethod" placeholder="Zahlungsmethode" i18n-placeholder="Zahlungsmethode placeholder">
+              <mat-option [value]="0" i18n>Überweisung</mat-option>
+              <mat-option [value]="1" i18n>Bankeinzug</mat-option>
             </mat-select>
-            <mat-error *ngIf="form.get('paymentMethod').hasError('required')">
+            <mat-error *ngIf="form.get('paymentMethod').hasError('required')" i18n>
               Bitte wählen Sie eine Zahlungsmethode aus
             </mat-error>
           </mat-form-field>
         </div>
         <div id="discount-group">
           <mat-form-field class="width--lg">
-            <input matInput id="paymentTerms" formControlName="paymentTerms" placeholder="Zahlungsbedingungen">
-            <mat-error *ngIf="form.get('paymentTerms').hasError('required')">
+            <input matInput id="paymentTerms" formControlName="paymentTerms" placeholder="Zahlungsbedingungen" i18n-placeholder="Zahlungsbedingungen placeholder">
+            <mat-error *ngIf="form.get('paymentTerms').hasError('required')" i18n>
               Bitte geben Sie gültige Zahlungsbedingungen ein
             </mat-error>
           </mat-form-field>
           <mat-form-field class="width--md">
             <input matInput type="number" id="cashDiscountDays" formControlName="cashDiscountDays"
-                   placeholder="Skontofrist (Tage)">
-            <mat-error *ngIf="form.get('cashDiscountDays').hasError('required')">
-              Bitte geben Sie eine Skontofrist (anzahl Tage) ein
+                   placeholder="Skontofrist (Tage)" i18n-placeholder="Skontofrist (Tage) placeholder">
+            <mat-error *ngIf="form.get('cashDiscountDays').hasError('required')" i18n>
+              Bitte geben Sie eine Skontofrist (Anzahl Tage) ein
             </mat-error>
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput id="cashDiscountPercentage" formControlName="cashDiscountPercentage" placeholder="Skonto %">
-            <mat-error *ngIf="form.get('cashDiscountPercentage').hasError('required')">
+            <input matInput id="cashDiscountPercentage" formControlName="cashDiscountPercentage" placeholder="Skonto %" i18n-placeholder="Skonto % placeholder">
+            <mat-error *ngIf="form.get('cashDiscountPercentage').hasError('required')" i18n>
               Bitte geben Sie einen Skontoprozentsatz ein
             </mat-error>
-            <mat-error *ngIf="form.get('cashDiscountPercentage').hasError('pattern')">
+            <mat-error *ngIf="form.get('cashDiscountPercentage').hasError('pattern')" i18n>
               Bitte geben Sie einen gültigen Prozentsatz ein
             </mat-error>
           </mat-form-field>
           <mat-form-field class="width--md">
-            <input matInput type="number" id="dueDays" formControlName="dueDays" placeholder="Zahlungsfrist (Tage)">
-            <mat-error *ngIf="form.get('dueDays').hasError('required')">
+            <input matInput type="number" id="dueDays" formControlName="dueDays" placeholder="Zahlungsfrist (Tage)" i18n-placeholder="Zahlungsfrist (Tage) placeholder">
+            <mat-error *ngIf="form.get('dueDays').hasError('required')" i18n>
               Bitte geben Sie eine Zahlungsfrist (Anzahl Tage) ein
             </mat-error>
           </mat-form-field>
@@ -127,7 +127,7 @@
 
       <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title i18n>
             Positionen
           </mat-panel-title>
           <mat-panel-description>
@@ -141,56 +141,57 @@
             [object]="object"
             [isChangeable]="isChangeable">
           </jo-contract-items-form>
-          <mat-error *ngIf="form.get('items').hasError('minItems')">
+          <mat-error *ngIf="form.get('items').hasError('minItems')" i18n>
             Bitte geben Sie mindestens eine Position ein.
           </mat-error>
         </div>
       </mat-expansion-panel>
     </mat-tab>
-    <mat-tab label="Texte">
+    <mat-tab label="Texte" i18n-label="Texte label">
       <jo-texts-form-component
         [textsFormGroup]="form.get('texts')"
         [object]="object"
         [isChangeable]="isChangeable">
       </jo-texts-form-component>
     </mat-tab>
-    <mat-tab *ngIf="object.header.id" label="Dokumente">
+    <mat-tab *ngIf="object.header.id" label="Dokumente" i18n-label="Dokumente label">
       <section class="tables u-mt-lg">
         <div>
           <jo-document-link-list [object]="object"></jo-document-link-list>
         </div>
       </section>
     </mat-tab>
-    <mat-tab label="Offene Rechnungen" *ngIf="task === 'edit' && openInvoices?.length > 0">
+    <mat-tab label="Offene Rechnungen" i18n-label="Offene Rechnungen label" *ngIf="task === 'edit' && openInvoices?.length > 0">
       <jo-invoice-list [objects]="openInvoices"></jo-invoice-list>
     </mat-tab>
-    <mat-tab label="Rechnungen" *ngIf="task === 'edit' && allInvoices?.length > 0">
+    <mat-tab label="Rechnungen" i18n-label="Rechnungen label" *ngIf="task === 'edit' && allInvoices?.length > 0">
       <jo-invoice-list [objects]="allInvoices"></jo-invoice-list>
     </mat-tab>
   </mat-tab-group>
   <div *ngIf="tabIndex < 2" class="jo-btn-row">
     <button id="btn_cancel" type="button" mat-raised-button (click)="onCancel($event)">
-      <span *ngIf="form.dirty">Abbrechen</span>
-      <span *ngIf="!form.dirty">Zurück</span>
+      <span *ngIf="form.dirty" i18n>Abbrechen</span>
+      <span *ngIf="!form.dirty" i18n>Zurück</span>
     </button>
     <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete($event)"
             *ngIf="isChangeable || !form.controls.id.value">
-      Löschen
+      <span i18n>Löschen</span>
     </button>
     <button id="btn_new" type="button" mat-raised-button (click)="onNew($event)"
-            [disabled]="!form.valid || form.dirty">Neu
+            [disabled]="!form.valid || form.dirty">
+      <span i18n>Neu</span>
     </button>
     <button id="btn_copy" type="button" mat-raised-button (click)="onCopy($event)"
             [disabled]="!form.valid || form.dirty || !object.header.id">
-      Kopieren
+      <span i18n>Kopieren</span>
     </button>
     <button id="btn_save" type="button" mat-raised-button color="primary" (click)="onSave(form)"
             *ngIf="isChangeable" [disabled]="!form.valid || !form.dirty">
-      Speichern
+      <span i18n>Speichern</span>
     </button>
     <button id="btn_newinvoice" type="button" *ngIf="object.isInvoiceable() && form.valid && !form.dirty"
             mat-raised-button color="accent" (click)="onQuickInvoice(object)">
-      Neue Rechnung
+      <span i18n>Neue Rechnung</span>
     </button>
   </div>
 </form>
