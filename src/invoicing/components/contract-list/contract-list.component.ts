@@ -14,6 +14,6 @@ export class ContractListComponent extends MasterListComponent<Contract> impleme
 
   getShortenedDescription(description): string {
     const length = description.length;
-    return length > 15 ? description.substring(0, 15) + '...' : description;
+    return length > 20 ? description.substring(0, 20) + '...' : description;
   }
 }

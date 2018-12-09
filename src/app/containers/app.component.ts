@@ -1,8 +1,5 @@
-import {ChangeDetectionStrategy, Component, HostListener} from '@angular/core';
-import {PwaService} from '../pwa.service';
-import * as authActions from '../../auth/store/actions';
-import {Store} from '@ngrx/store';
-import {AppState} from '../store/reducers';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {PwaService} from '../services/pwa.service';
 
 @Component({
   selector: 'jo-root',
@@ -12,14 +9,7 @@ import {AppState} from '../store/reducers';
 })
 export class AppComponent {
 
-  constructor(public pwa: PwaService,
-              private store: Store<AppState>) {}
-
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event) {
-    confirm('Do you really want to leave');
-    this.store.dispatch(new authActions.Logout());
-  }
+  constructor(public pwa: PwaService) {}
 
   onInstallPwa(): void {
       this.pwa.promptEvent.prompt();

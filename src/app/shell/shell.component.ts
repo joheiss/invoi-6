@@ -18,7 +18,6 @@ export class ShellComponent implements OnInit {
   user$: Observable<UserData>;
   isSpinning$: Observable<boolean>;
 
-
   constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit(): void {

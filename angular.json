@@ -28,6 +28,7 @@
               "src/manifest.json"
             ],
             "styles": [
+              "src/styles-app-loading.scss",
               "src/styles.scss"
             ],
             "scripts": []

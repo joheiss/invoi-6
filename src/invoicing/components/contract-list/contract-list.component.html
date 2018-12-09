@@ -7,8 +7,8 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="issuedAt">
-      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Datum</mat-header-cell>
-      <mat-cell *matCellDef="let contract" fxHide.lt-md>
+      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n style="display: flex !important;">Datum</mat-header-cell>
+      <mat-cell *matCellDef="let contract" fxHide.lt-md style="display: flex !important;">
         {{contract.header.issuedAt | date}}
       </mat-cell>
     </ng-container>
@@ -34,8 +34,8 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="budget">
-      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n>Umfang</mat-header-cell>
-      <mat-cell *matCellDef="let contract" fxHide.lt-md>
+      <mat-header-cell *matHeaderCellDef fxHide.lt-md i18n style="display: flex !important;">Umfang</mat-header-cell>
+      <mat-cell *matCellDef="let contract" fxHide.lt-md style="display: flex !important;">
         {{contract.header.budget | number: '1.2-2'}}
       </mat-cell>
     </ng-container>

@@ -25,14 +25,14 @@ label {
 }
 
 .invoice-item-description {
-  width: 20.0rem;
+  width: 28.0rem;
 
   @media only screen and (min-width: 1600px) {
-    width: 28.0rem;
+    width: 36.0rem;
   }
 
   @media only screen and (min-width: 1280px) {
-    width: 24.0rem;
+    width: 32.0rem;
   }
 }
 
@@ -45,7 +45,7 @@ label {
 }
 
 .invoice-item-pricePerUnit {
-  width: 6.0rem;
+  width: 8.0rem;
 }
 
 .invoice-item-netValue {
