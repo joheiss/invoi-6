@@ -27,7 +27,8 @@ export const selectAllOpenInvoicesWithReceiver = createSelector(
           paymentAmount: invoice.paymentAmount,
           dueDate: invoice.dueDate
         };
-      });
+      })
+      .sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
   }
 );
 export const selectAllContractsForReceiver = createSelector(
@@ -247,8 +248,10 @@ export const selectContractSummariesAsArray = createSelector(
 
 export const selectContractSummariesAsSortedArray = createSelector(
   selectContractSummariesAsArray,
-  summaries => summaries.sort((a: ContractSummary, b: ContractSummary) =>
-    b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime())
+  summaries => summaries.sort((a: ContractSummary, b: ContractSummary) => {
+    const result = b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime();
+    return result ? result : b.object.header.id.localeCompare(a.object.header.id);
+  })
 );
 
 export const selectInvoiceSummaries = createSelector(
@@ -276,7 +279,11 @@ export const selectInvoiceSummariesAsArray = createSelector(
 
 export const selectInvoiceSummariesAsSortedArray = createSelector(
   selectInvoiceSummariesAsArray,
-  summaries => summaries.sort((a: InvoiceSummary, b: InvoiceSummary) => b.object.header.id.localeCompare(a.object.header.id))
+  summaries => summaries
+    .sort((a: InvoiceSummary, b: InvoiceSummary) => {
+      const result = b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime();
+      return result ? result : b.object.header.id.localeCompare(a.object.header.id);
+    })
 );
 
 export const selectReceiverSummaries = createSelector(
@@ -332,7 +339,7 @@ export const selectReceiverSummaries = createSelector(
             }
           });
         // get deletable
-        summaries[receiverId].deletable =  !(summaries[receiverId].lastContractId.length || summaries[receiverId].lastInvoiceId.length);
+        summaries[receiverId].deletable = !(summaries[receiverId].lastContractId.length || summaries[receiverId].lastInvoiceId.length);
       });
     return summaries;
   });

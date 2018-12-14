@@ -47,6 +47,10 @@ export class DocumentLinkListComponent implements OnChanges {
     return this.selectionList.findIndex(link => link.path === documentLink.path) >= 0;
   }
 
+  isUserAllowedToEdit(): boolean {
+    return this.service.isUserAllowedToEdit();
+  }
+
   onAttachToEmailChanged(documentLink: DocumentLink) {
     this.service.update({...documentLink, attachToEmail: !documentLink.attachToEmail});
   }

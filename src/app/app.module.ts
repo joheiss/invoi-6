@@ -15,6 +15,7 @@ import {StorageModule} from '../storage/storage.module';
 import {AuthModule} from '../auth/auth.module';
 
 import {environment} from '../environments/environment';
+export const firebaseConfig = environment.firebase;
 
 import {AppComponent} from './containers/app.component';
 import {HomeComponent} from './home/home.component';
@@ -29,8 +30,7 @@ import {storageEffects} from '../storage/store/effects';
 // -- not used in production
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
-import {AuthRoutingModule} from '../auth/auth-routing.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {
@@ -61,7 +61,7 @@ registerLocaleData(localeDE, 'de-DE', localeDeExtra);
     AuthModule.forRoot(),
     AppRoutingModule,
     StorageModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase), /*, 'jovisco-invoicing'), */
+    AngularFireModule.initializeApp(firebaseConfig), /*, 'jovisco-invoicing'), */
     AngularFirestoreModule.enablePersistence(),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([...rootEffects, ...authEffects, ...storageEffects]),

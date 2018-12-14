@@ -85,12 +85,13 @@ export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implemen
       status: +values.status,
       vatPercentage: this.utility.fromLocalAmount(values.vatPercentage),
       cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage),
-      cashDiscountDays: +values.cashDiscountDays
+      cashDiscountDays: +values.cashDiscountDays,
+      internalText: values.texts.internalText,
+      invoiceText: values.texts.invoiceText
     };
     const changed = Object.assign({},
       {...this.object.data},
       {...header},
-      {...texts},
       {...reformattedValues},
       {items: reformattedItemValues}) as InvoiceData;
     const changedInvoice = Invoice.createFromData(changed);
@@ -111,10 +112,10 @@ export class InvoiceFormComponent extends DetailsFormComponent<Invoice> implemen
     this.listenToFieldChanges('billingPeriod', this.onSimpleHeaderTextChanged);
     this.listenToFieldChanges('currency', this.onSimpleHeaderTextChanged);
     this.listenToFieldChanges('paymentTerm', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('texts.invoiceText', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('texts.internalText', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
     this.listenToFieldChanges('paymentMethod', this.onSimpleHeaderNumberChanged);
+    // this.listenToFieldChanges('texts.invoiceText', this.onSimpleHeaderTextChanged);
+    // this.listenToFieldChanges('texts.internalText', this.onSimpleHeaderTextChanged);
+    // this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
   }
 
   private onCashDiscountPercentageChanged = (value: any, controlName?: string) => {

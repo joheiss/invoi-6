@@ -288,11 +288,11 @@ describe('Invoices Business Service', () => {
     return expect(spy).toHaveBeenCalledWith(updatedInvoice);
   });
 
-  it('should invoke store selector if select is processed', async () => {
-    const spy = jest.spyOn(store, 'pipe');
-    service.select();
-    return expect(spy).toHaveBeenCalled();
-  });
+  // it('should invoke store selector if select is processed', async () => {
+  //   const spy = jest.spyOn(store, 'pipe');
+  //   service.select();
+  //   return expect(spy).toHaveBeenCalled();
+  // });
 
   it('should dispatch SendInvoiceEmail action when sendEmail is processed', async () => {
     const action = new SendInvoiceEmail(invoice.data);

@@ -13,8 +13,7 @@ export class UnsavedChangesGuard implements CanDeactivate<any> {
                 currentRoute: ActivatedRouteSnapshot,
                 currentState: RouterStateSnapshot,
                 nextState?: RouterStateSnapshot): Observable<boolean> {
-    console.log('Is form dirty?: ', component.formComponent.form.dirty);
-    if (component.formComponent.form.dirty) {
+    if (component.formComponent && component.formComponent.form.dirty) {
       return this.uiService.openConfirmationDialog({
         title: 'Sie haben noch ungesicherte Änderungen.',
         text: 'Wollen Sie den Dialog trotzdem verlassen?'

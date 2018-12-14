@@ -1,6 +1,7 @@
-import {Receiver, ReceiverData, ReceiverStatus} from '../../invoicing/models/receiver.model';
+import {Receiver, ReceiverData} from '../../invoicing/models/receiver.model';
 import {ReceiverSummary} from '../../invoicing/models/invoicing.model';
 import {receiverAdapter, ReceiverState} from '../../invoicing/store/reducers/receivers.reducer';
+import {MasterDataStatus} from '../../invoicing/models/master-data';
 
 export const mockReceiversState = (): ReceiverState => {
   const state = receiverAdapter.getInitialState();
@@ -55,7 +56,7 @@ const getBaseReceiver = (id: string, name: string, email: string): ReceiverData 
     name: name,
     nameAdd: null,
     logoUrl: null,
-    status: ReceiverStatus.active,
+    status: MasterDataStatus.active,
     address: {
       country: 'DE',
       postalCode: '77777',

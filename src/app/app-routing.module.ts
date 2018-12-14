@@ -13,7 +13,7 @@ const APP_ROUTES: Routes = [
         loadChildren: '../invoicing/invoicing.module#InvoicingModule',
         canLoad: [AuthenticationGuard, AuthorizationGuard],
         canActivate: [AuthenticationGuard, AuthorizationGuard],
-        data: { roles: ['sales-user'] }
+        data: { roles: ['sales-user', 'auditor'] }
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }

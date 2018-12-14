@@ -9,7 +9,7 @@ export class IfAuthorizedForSalesDirective extends AbstractIfAuthorizedForDirect
 
   constructor(protected template: TemplateRef<any>,
               protected container: ViewContainerRef) {
-    super(template, container, 'sales-user');
+    super(template, container, ['sales-user', 'auditor']);
   }
 
   @Input()

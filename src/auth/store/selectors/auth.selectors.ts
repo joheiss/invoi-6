@@ -14,8 +14,20 @@ export const selectAuthLoading = createSelector(
 
 export const selectAuth = createSelector(
   selectAllAuth,
-  auth => {
-    console.log('Auth: ', auth);
-    return auth && auth.length > 0 ? auth[0] : null;
-  }
+  auth => auth && auth.length > 0 ? auth[0] : null
+);
+
+export const selectRoles = createSelector(
+  selectAuth,
+  auth => auth ? auth.roles : []
+);
+
+export const selectIsSalesUser = createSelector(
+  selectRoles,
+  roles => roles.indexOf('sales-user') > 0
+);
+
+export const selectIsSysAdmin = createSelector(
+  selectRoles,
+  roles => roles.indexOf('sys-admin') > 0
 );

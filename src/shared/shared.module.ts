@@ -6,10 +6,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from '../auth/interceptors/auth.interceptor';
 import {ConfirmationDialogPopupComponent} from './popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
+import {IfAuthorizedAsDirective} from './directives/if-authorized-as.directive';
 
 @NgModule({
   declarations: [
-    ConfirmationDialogPopupComponent
+    ConfirmationDialogPopupComponent,
+    IfAuthorizedAsDirective
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import {ConfirmationDialogPopupComponent} from './popups/confirmation-dialog-pop
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    IfAuthorizedAsDirective
   ],
   providers: [
     {
@@ -35,12 +38,13 @@ import {ConfirmationDialogPopupComponent} from './popups/confirmation-dialog-pop
     DecimalPipe,
     // I18nUtilityService,
     // UiService,
-   //  LogService
+    //  LogService
   ],
   entryComponents: [
     ConfirmationDialogPopupComponent
   ]
 })
+
 export class SharedModule {
   /*
   static forRoot(): ModuleWithProviders {

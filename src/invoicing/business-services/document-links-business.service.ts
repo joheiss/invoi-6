@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable, of, throwError} from 'rxjs/index';
 import * as fromStore from '../store/index';
-import {select, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import {DocumentLink, DocumentLinkType} from '../models/document-link';
+import {AbstractBusinessService} from './abstract-business.service';
 
 @Injectable()
-export class DocumentLinksBusinessService {
+export class DocumentLinksBusinessService extends AbstractBusinessService<DocumentLink> {
 
   private static template: DocumentLink = {
     id: undefined,
@@ -16,18 +17,8 @@ export class DocumentLinksBusinessService {
     attachToEmail: false
   };
 
-  constructor(private store: Store<fromStore.InvoicingState>) { }
-
-  change(documentLink: DocumentLink) {
-    this.store.dispatch(new fromStore.ChangeDocumentLinkSuccess(documentLink));
-  }
-
-  create(documentLink: DocumentLink) {
-    this.store.dispatch(new fromStore.CreateDocumentLink(documentLink));
-  }
-
-  delete(documentLink: DocumentLink) {
-    this.store.dispatch(new fromStore.DeleteDocumentLink(documentLink));
+  constructor(protected store: Store<fromStore.InvoicingState>) {
+    super(store);
   }
 
   getDocumentLinks(owner: string): Observable<DocumentLink[]> {
@@ -58,17 +49,28 @@ export class DocumentLinksBusinessService {
     return this.store.pipe(select(fromStore.selectDocumentLinksForReceiver));
   }
 
-  new() {
-    const data = Object.assign({}, DocumentLinksBusinessService.template);
-    this.store.dispatch(new fromStore.NewDocumentLinkSuccess(data));
+  protected buildChangeSuccessEvent(data: any): Action {
+    return new fromStore.ChangeDocumentLinkSuccess(data);
   }
 
-  query(): Observable<DocumentLink[]> {
-    return this.store.pipe(select(fromStore.selectAllDocumentLinks));
+  protected buildCreateCommand(data: any): Action {
+    return new fromStore.CreateDocumentLink(data);
   }
 
-  update(documentLink: DocumentLink) {
-    this.store.dispatch(new fromStore.UpdateDocumentLink(documentLink));
+  protected buildDeleteCommand(data: any): Action {
+    return new fromStore.DeleteDocumentLink(data);
+  }
+
+  protected buildNewEvent(data: any): Action {
+    return new fromStore.NewDocumentLinkSuccess(data);
+  }
+
+  protected buildUpdateCommand(data: any): Action {
+    return new fromStore.UpdateDocumentLink(data);
+  }
+
+  protected getTemplate(): any {
+    return DocumentLinksBusinessService.template;
   }
 
   private getCollectionNameFromOwner(owner: string): string {

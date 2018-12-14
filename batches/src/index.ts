@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import {firestore, } from 'firebase';
 import {RevenueData, RevenueExtract} from '../../shared/src/models';
 
-const serviceAccount = require('../../../credentials.json');
+const serviceAccount = require('../../../credentials-prod.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -97,7 +97,7 @@ function mapRevenue(doc: firestore.DocumentSnapshot): RevenueExtract {
     organization: doc.data().organization,
     month: period.month.toString(),
     receiverId: doc.data().receiverId,
-    netValue: calcDiscountedNetValue(doc.data())
+    netValue: calcNetValue(doc.data())
   };
 }
 

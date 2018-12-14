@@ -37,8 +37,7 @@ export class RevenuesBusinessService {
           return revenuesMatrix;
         });
         return revenuesMatrix;
-      }),
-      take(1));
+      }));
   }
 
   selectOpenInvoices(): Observable<OpenInvoiceData[]> {

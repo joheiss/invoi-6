@@ -1,28 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/index';
-import {Receiver, ReceiverData, ReceiverStatus} from '../models/receiver.model';
+import {Receiver, ReceiverData} from '../models/receiver.model';
 import * as fromStore from '../store/index';
-import * as fromAuth from '../../auth/store';
-import * as fromRoot from '../../app/store';
-import {select, Store} from '@ngrx/store';
-import {selectSelectedReceiver} from '../store/selectors';
+import {Action, select, Store} from '@ngrx/store';
 import {ReceiverSummary} from '../models/invoicing.model';
 import {Contract} from '../models/contract.model';
 import {Invoice} from '../models/invoice.model';
 import {NumberRange} from '../models/number-range.model';
-import {UserData} from '../../auth/models/user';
 import {SettingsBusinessService} from '../../admin/business-services/settings-business.service';
 import {Country} from '../../admin/models/country';
 import {filter, map, take} from 'rxjs/operators';
 import {InvoicesBusinessService} from './invoices-business.service';
-
+import {AbstractBoBusinessService} from './abstract-bo-business.service';
+import {MasterDataStatus} from '../models/master-data';
 
 @Injectable()
-export class ReceiversBusinessService {
+export class ReceiversBusinessService extends AbstractBoBusinessService<Receiver, ReceiverSummary> {
 
   private static template: ReceiverData = {
     objectType: 'receivers',
-    status: ReceiverStatus.active,
+    status: MasterDataStatus.active,
     logoUrl: null,
     address: {
       country: 'DE'
@@ -30,7 +27,6 @@ export class ReceiversBusinessService {
   };
 
   private nextId: string;
-  private auth: UserData;
 
   private static getDefaultValues(): any {
     return { id: undefined  };
@@ -38,24 +34,9 @@ export class ReceiversBusinessService {
 
   constructor(private settings: SettingsBusinessService,
               private invoicesBusinessService: InvoicesBusinessService,
-              private store: Store<fromStore.InvoicingState>) {
-    this.setLoggedInUserFromAuth();
+              protected store: Store<fromStore.InvoicingState>) {
+    super(store);
     this.setNextIdFromNumberRange();
-  }
-
-  change(receiver: Receiver) {
-    this.store.dispatch(new fromStore.ChangeReceiverSuccess(receiver.data));
-  }
-
-  copy(receiver: Receiver) {
-    const data = Object.assign({}, receiver.data, ReceiversBusinessService.getDefaultValues(), {organization: this.auth.organization});
-    this.store.dispatch(new fromStore.CopyReceiverSuccess(data));
-  }
-
-  create(receiver: Receiver) {
-    receiver.header.id = this.nextId;
-    receiver.header.organization = this.auth.organization;
-    this.store.dispatch(new fromStore.CreateReceiver(receiver.data));
   }
 
   createQuickInvoice(receiver: Receiver) {
@@ -69,23 +50,12 @@ export class ReceiversBusinessService {
       .subscribe();
   }
 
-  delete(receiver: Receiver) {
-    this.store.dispatch(new fromRoot.OpenConfirmationDialog({
-      do: new fromStore.DeleteReceiver(receiver.data),
-      title: `Soll der Rechnungsempfänger ${receiver.header.id} wirklich gelöscht werden?`
-    }));
-  }
-
   getActiveContracts(): Observable<Contract[]> {
     return this.store.pipe(select(fromStore.selectActiveContractsForReceiverAsObjArray));
   }
 
   getCountries(): Observable<Country[]> {
     return this.settings.getCountries();
-  }
-
-  getCurrent(): Observable<Receiver> {
-    return this.store.pipe(select(fromStore.selectCurrentReceiverAsObj));
   }
 
   getLastInvoices(): Observable<Invoice[]> {
@@ -100,38 +70,65 @@ export class ReceiversBusinessService {
     return this.store.pipe(select(fromStore.selectRecentContractsForReceiverAsObjArray));
   }
 
-  getSummary(): Observable<ReceiverSummary[]> {
-    return this.store.pipe(select(fromStore.selectReceiverSummariesAsArray));
-  }
-
-  isDeletable(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.isReceiverDeletable));
-  }
-
   isQualifiedForQuickInvoice(): Observable<boolean> {
     return this.store.pipe(select(fromStore.isReceiverQualifiedForQuickInvoice));
   }
 
-  new() {
-    const data = Object.assign({}, ReceiversBusinessService.template);
-    this.store.dispatch(new fromStore.NewReceiverSuccess(data));
+  protected buildChangeSuccessEvent(data: any): Action {
+    return new fromStore.ChangeReceiverSuccess(data);
   }
 
-  query(): Observable<ReceiverData[]> {
-    return this.store.pipe(select(fromStore.selectAllReceivers));
+  protected buildCopySuccessEvent(data: any): Action {
+    return new fromStore.CopyReceiverSuccess(data);
   }
 
-  select(): Observable<ReceiverData> {
-    return this.store.pipe(select(selectSelectedReceiver));
+  protected buildCreateCommand(data: any): Action {
+    return new fromStore.CreateReceiver(data);
   }
 
-  update(receiver: Receiver) {
-    this.store.dispatch(new fromStore.UpdateReceiver(receiver.data));
+  protected buildDeleteCommand(data: any): Action {
+    return new fromStore.DeleteReceiver(data);
   }
 
-  private setLoggedInUserFromAuth(): void {
-    this.store.pipe(select(fromAuth.selectAuth))
-      .subscribe(auth => this.auth = auth);
+  protected buildNewEvent(data: any): Action {
+    return new fromStore.NewReceiverSuccess(data);
+  }
+
+  protected buildUpdateCommand(data: any): Action {
+    return new fromStore.UpdateReceiver(data);
+  }
+
+  protected getConfirmationQuestion(id: string): string {
+    return `Soll der Rechnungsempfänger ${id} wirklich gelöscht werden?`;
+  }
+
+  protected getCurrentSelector(): Function {
+    return fromStore.selectCurrentReceiverAsObj;
+  }
+
+
+  protected getDefaultValues(): any {
+    return ReceiversBusinessService.getDefaultValues();
+  }
+
+  protected getIsChangeableSelector(): Function {
+    return fromStore.isReceiverDeletable;
+  }
+
+  protected getIsDeletableSelector(): Function {
+    return fromStore.isReceiverDeletable;
+  }
+
+  protected getNextId(object: Receiver): string {
+    return this.nextId;
+  }
+
+  protected getSummarySelector(): Function {
+    return fromStore.selectReceiverSummariesAsArray;
+  }
+
+  protected getTemplate(): any {
+    return ReceiversBusinessService.template;
   }
 
   private setNextIdFromNumberRange(): void {

@@ -1,3 +1,5 @@
+import {DataObject} from './data-object';
+
 export enum DocumentLinkType {
   Invoice,
   CreditRequest,
@@ -8,7 +10,7 @@ export enum DocumentLinkType {
   Other
 }
 
-export interface DocumentLink {
+export interface DocumentLink extends DataObject {
   $id?: string;
   id?: string;
   name: string;

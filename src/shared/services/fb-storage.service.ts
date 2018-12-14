@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {from, Observable} from 'rxjs/index';
+import {from, Observable, throwError} from 'rxjs/index';
 import {SharedModule} from '../shared.module';
 
 @Injectable({
@@ -39,6 +39,7 @@ export class FbStorageService {
         .then(() => this.afStorage.ref(path).getDownloadURL())
         .catch(err => {
           console.error(err);
+          throw new Error(err);
         }));
   }
 }

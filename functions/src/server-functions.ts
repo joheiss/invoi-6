@@ -196,17 +196,18 @@ function buildUserRequest(payload: any): UpdateRequest {
     if (payload.user.email) {
       userRequest.email = payload.user.email;
     }
-    if (payload.user.displayName !== undefined) {
+    if (payload.user.displayName) {
       userRequest.displayName = payload.user.displayName;
     }
-    if (payload.user.isLocked !== undefined) {
+    if (payload.user.isLocked) {
       userRequest.disabled = payload.user.isLocked;
+    } else {
+      userRequest.disabled = false;
     }
-
-    if (payload.user.phoneNumber !== undefined) {
+    if (payload.user.phoneNumber && payload.user.phoneNumber.length) {
       userRequest.phoneNumber = payload.user.phoneNumber;
     }
-    if (payload.user.imageUrl !== undefined) {
+    if (payload.user.imageUrl && payload.user.imageUrl.length) {
       userRequest.photoURL = payload.user.imageUrl;
     }
   }

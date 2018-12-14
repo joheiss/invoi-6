@@ -1,4 +1,4 @@
- @import '../../../../sass/variables';
+@import '../../../../sass/variables';
 
 a {
   text-decoration: none;
@@ -8,6 +8,15 @@ a {
   &:hover,
   &:active {
     color: lightgray;
+  }
+}
+
+.jo-navi-header {
+  &--sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
   }
 }
 

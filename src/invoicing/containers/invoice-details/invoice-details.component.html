@@ -27,7 +27,7 @@
       </jo-invoice-form>
     </section>
     <section *ngIf="(task$ | async) === 'quick'">
-      <jo-quick-invoice-form
+      <jo-quick-invoice-form #detailsForm
         [object]="invoice"
         [invoiceReceiver]="invoiceReceiver$ | async"
         [invoiceContract]="invoiceContract$ | async"

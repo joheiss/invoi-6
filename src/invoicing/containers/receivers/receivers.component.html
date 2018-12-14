@@ -1,6 +1,6 @@
 <div class="window">
   <div>
-    <button mat-raised-button color="primary" (click)="onNew($event)">
+    <button *joIfAuthorizedAs="['sales-user']" mat-raised-button color="primary" (click)="onNew($event)">
       <span i18n>Rechnungsempfänger anlegen</span>
     </button>
   </div>

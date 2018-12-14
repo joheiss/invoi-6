@@ -1,6 +1,6 @@
 {
   "name": "invoicing",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "author": "Josef Heiss, JOVISCO GmbH",
   "license": "MIT",
   "scripts": {
@@ -13,14 +13,16 @@
     "old-start-server": "./node_modules/.bin/ts-node --icu-data-dir=node_modules/full-icu ./server/server.ts --secure",
     "start-server": "./node_modules/.bin/ts-node server/server.ts --secure",
     "server": "./node_modules/.bin/nodemon  -w ./server --ext \".ts\" --exec \"npm run start-server\"",
-    "build": "ng build --prod",
+    "build": "ng build --configuration=production",
     "test": "ng test",
     "test:coverage": "jest --coverage",
     "lint": "ng lint",
     "e2e:protracor": "ng e2e",
     "e2e": "cypress open",
     "env": "SET NODE_ICU_DATA=./node_modules/full-icu",
-    "httpserver": "http-server -c-1 dist/invoi-6"
+    "httpserver": "http-server -c-1 dist/invoi-6",
+    "firebase:deploy": "firebase deploy",
+    "firebase:deploy-dev": "firebase deploy -f jovisco-invoicing"
   },
   "jest": {
     "preset": "jest-preset-angular",

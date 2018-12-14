@@ -18,7 +18,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-select formControlName="receiverId" placeholder="Rechnungsempfänger" i18n-placeholder="Rechnungsempfänger placeholder">
+          <mat-select formControlName="receiverId" placeholder="Rechnungsempfänger"
+                      i18n-placeholder="Rechnungsempfänger placeholder">
             <mat-option *ngFor="let receiver of receivers" [value]="receiver.header.id">
               {{receiver.header.name}}
             </mat-option>
@@ -28,7 +29,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput formControlName="billingPeriod" placeholder="Leistungszeitraum" i18n-placeholder="Leistungszeitraum placeholder" >
+          <input matInput formControlName="billingPeriod" placeholder="Leistungszeitraum"
+                 i18n-placeholder="Leistungszeitraum placeholder">
           <mat-error *ngIf="form.get('billingPeriod').hasError('required')" i18n>
             Bitte geben Sie einen Leistungszeitraum ein
           </mat-error>
@@ -73,7 +75,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput formControlName="vatPercentage" placeholder="MwSt %" i18n-placeholder="MwSt % placeholder" >
+            <input matInput formControlName="vatPercentage" placeholder="MwSt %" i18n-placeholder="MwSt % placeholder">
             <mat-error *ngIf="form.get('vatPercentage').hasError('required')" i18n>
               Bitte geben Sie MwSt % ein
             </mat-error>
@@ -97,13 +99,15 @@
         </mat-expansion-panel-header>
         <div id="payment-group">
           <mat-form-field class="width--lg">
-            <input matInput formControlName="paymentTerms" placeholder="Zahlungsbedingungen" i18n-placeholder="Zahlungsbedingungen placeholder" >
+            <input matInput formControlName="paymentTerms" placeholder="Zahlungsbedingungen"
+                   i18n-placeholder="Zahlungsbedingungen placeholder">
             <mat-error *ngIf="form.get('paymentTerms').hasError('required')" i18n>
               Bitte geben Sie Zahlungsbedingungen ein
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-select formControlName="paymentMethod" placeholder="Zahlungsmethode" i18n-placeholder="Zahlungsmethode placeholder">
+            <mat-select formControlName="paymentMethod" placeholder="Zahlungsmethode"
+                        i18n-placeholder="Zahlungsmethode placeholder">
               <mat-option [value]="0" i18n>Überweisung</mat-option>
               <mat-option [value]="1" i18n>Bankeinzug</mat-option>
             </mat-select>
@@ -114,29 +118,34 @@
         </div>
         <div id="cashDiscount-group">
           <mat-form-field class="width--md">
-            <input matInput formControlName="cashDiscountDays" placeholder="Skontofrist (Tage)" i18n-placeholder="Skontofrist (Tage) placeholder" >
+            <input matInput formControlName="cashDiscountDays" placeholder="Skontofrist (Tage)"
+                   i18n-placeholder="Skontofrist (Tage) placeholder">
             <mat-error *ngIf="form.get('cashDiscountDays').hasError('required')" i18n>
               Bitte geben Sie eine Skontofrist ein
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput readonly [value]="object.cashDiscountDate | date" placeholder="Skontofrist" i18n-placeholder="Skontofrist placeholder" >
+            <input matInput readonly [value]="object.cashDiscountDate | date" placeholder="Skontofrist"
+                   i18n-placeholder="Skontofrist placeholder">
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput formControlName="cashDiscountPercentage" placeholder="Skonto %" i18n-placeholder="Skonto % placeholder">
+            <input matInput formControlName="cashDiscountPercentage" placeholder="Skonto %"
+                   i18n-placeholder="Skonto % placeholder">
             <mat-error
               *ngIf="form.get('cashDiscountPercentage').hasError('pattern')" i18n>
               Bitte geben Sie einen gültigen Prozentsatz ein
             </mat-error>
           </mat-form-field>
           <mat-form-field class="width--md">
-            <input matInput formControlName="dueInDays" placeholder="Zahlungsziel (Tage)" i18n-placeholder="Zahlungsziel (Tage) placeholder">
+            <input matInput formControlName="dueInDays" placeholder="Zahlungsziel (Tage)"
+                   i18n-placeholder="Zahlungsziel (Tage) placeholder">
             <mat-error *ngIf="form.get('dueInDays').hasError('required')" i18n>
               Bitte geben Sie eine Zahlungsziel ein
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput readonly [value]="object.dueDate | date" placeholder="Zahlungsziel" i18n-placeholder="Zahlungsziel placeholder" >
+            <input matInput readonly [value]="object.dueDate | date" placeholder="Zahlungsziel"
+                   i18n-placeholder="Zahlungsziel placeholder">
           </mat-form-field>
         </div>
       </mat-expansion-panel>
@@ -172,23 +181,28 @@
         </mat-expansion-panel-header>
         <div id="totals-group">
           <mat-form-field class="width--sm">
-            <input matInput readonly [value]="object.netValue | number: '1.2-2'" placeholder="Nettobetrag" i18n-placeholder="Nettobetrag placeholder" >
+            <input matInput readonly [value]="object.netValue | number: '1.2-2'" placeholder="Nettobetrag"
+                   i18n-placeholder="Nettobetrag placeholder">
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput readonly [value]="object.vatAmount | number: '1.2-2'" placeholder="MwSt-Betrag" i18n-placeholder="MwSt-Betrag placeholder" >
+            <input matInput readonly [value]="object.vatAmount | number: '1.2-2'" placeholder="MwSt-Betrag"
+                   i18n-placeholder="MwSt-Betrag placeholder">
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput readonly [value]="object.grossValue | number: '1.2-2'" placeholder="Bruttobetrag" i18n-placeholder="Bruttobetrag placeholder" >
+            <input matInput readonly [value]="object.grossValue | number: '1.2-2'" placeholder="Bruttobetrag"
+                   i18n-placeholder="Bruttobetrag placeholder">
           </mat-form-field>
           <mat-form-field class="width--sm">
             <input matInput readonly placeholder="Skontobasis" i18n-placeholder="Skontobasis placeholder"
                    [value]="object.cashDiscountBaseAmount | number: '1.2-2'">
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput readonly [value]="object.cashDiscountAmount | number: '1.2-2'" placeholder="Skontobetrag" i18n-placeholder="Skontobetrag placeholder">
+            <input matInput readonly [value]="object.cashDiscountAmount | number: '1.2-2'" placeholder="Skontobetrag"
+                   i18n-placeholder="Skontobetrag placeholder">
           </mat-form-field>
           <mat-form-field class="width--sm">
-            <input matInput readonly [value]="object.paymentAmount | number: '1.2-2'" placeholder="Zahlungsbetrag" i18n-placeholder="Zahlungsbetrag placeholder" >
+            <input matInput readonly [value]="object.paymentAmount | number: '1.2-2'" placeholder="Zahlungsbetrag"
+                   i18n-placeholder="Zahlungsbetrag placeholder">
           </mat-form-field>
         </div>
       </mat-expansion-panel>
@@ -214,30 +228,32 @@
       <span *ngIf="form.dirty" i18n>Abbrechen</span>
       <span *ngIf="!form.dirty" i18n>Zurück</span>
     </button>
-    <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete($event)"
-            *ngIf="isChangeable || !form.controls.id.value">
-      <span i18n>Löschen</span>
-    </button>
-    <button id="btn_new" type="button" mat-raised-button (click)="onNew($event)"
-            [disabled]="!form.valid || form.dirty">
-      <span i18n>Neu</span>
-    </button>
-    <button id="btn_copy" type="button" mat-raised-button (click)="onCopy($event)"
-            [disabled]="!form.valid || form.dirty || !object.header.id">
-      <span i18n>Kopieren</span>
-    </button>
-    <button id="btn_createPdf" type="button" mat-raised-button (click)="onPdf($event)"
-            *ngIf="object.header.status === 0 && object.header.billingMethod === 0"
-            [disabled]="!form.valid || form.dirty || !object.header.id">
-      <span i18n>PDF erzeugen</span>
-    </button>
-    <button id="btn_send" type="button" mat-raised-button (click)="onEmail($event)"
-            *ngIf="isSendable" [disabled]="!form.valid || form.dirty || !object.header.id">
-      <span i18n>Senden</span>
-    </button>
-    <button id="btn_save" type="button" mat-raised-button color="primary" (click)="onSave(form)"
-            *ngIf="isChangeable" [disabled]="!form.valid || !form.dirty">
-      <span i18n>Speichern</span>
-    </button>
+    <ng-container *joIfAuthorizedAs="['sales-user']">
+      <button id="btn_delete" type="button" mat-raised-button color="warn" (click)="onDelete($event)"
+              *ngIf="isChangeable || !form.controls.id.value">
+        <span i18n>Löschen</span>
+      </button>
+      <button id="btn_new" type="button" mat-raised-button (click)="onNew($event)"
+              [disabled]="!form.valid || form.dirty">
+        <span i18n>Neu</span>
+      </button>
+      <button id="btn_copy" type="button" mat-raised-button (click)="onCopy($event)"
+              [disabled]="!form.valid || form.dirty || !object.header.id">
+        <span i18n>Kopieren</span>
+      </button>
+      <button id="btn_createPdf" type="button" mat-raised-button (click)="onPdf($event)"
+              *ngIf="object.header.status === 0 && object.header.billingMethod === 0"
+              [disabled]="!form.valid || form.dirty || !object.header.id">
+        <span i18n>PDF erzeugen</span>
+      </button>
+      <button id="btn_send" type="button" mat-raised-button (click)="onEmail($event)"
+              *ngIf="isSendable" [disabled]="!form.valid || form.dirty || !object.header.id">
+        <span i18n>Senden</span>
+      </button>
+      <button id="btn_save" type="button" mat-raised-button color="primary" (click)="onSave(form)"
+              *ngIf="isChangeable" [disabled]="!form.valid || !form.dirty">
+        <span i18n>Speichern</span>
+      </button>
+    </ng-container>
   </div>
 </form>

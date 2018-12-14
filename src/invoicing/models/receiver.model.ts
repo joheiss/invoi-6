@@ -1,11 +1,9 @@
-import {BusinessObjectHeaderData} from './business-object';
-import {MasterData} from './master-data';
+import {MasterData, MasterDataHeader, MasterDataStatus} from './master-data';
 
-export interface ReceiverHeaderData extends BusinessObjectHeaderData {
+export interface ReceiverHeaderData extends MasterDataHeader {
   name?: string;
   nameAdd?: string;
   logoUrl?: string;
-  status?: ReceiverStatus;
 }
 
 export interface ReceiverAddressData {
@@ -17,11 +15,6 @@ export interface ReceiverAddressData {
   phone?: string;
   fax?: string;
   webSite?: string;
-}
-
-export enum ReceiverStatus {
-  active,
-  inactive
 }
 
 export interface ReceiverData extends ReceiverHeaderData {
@@ -60,7 +53,7 @@ export class Receiver extends MasterData {
   }
 
   public isActive(): boolean {
-    return this.header.status.valueOf() === ReceiverStatus.active.valueOf();
+    return this.header.status.valueOf() === MasterDataStatus.active.valueOf();
   }
 
   public isPersistent(): boolean {

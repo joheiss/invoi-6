@@ -15,6 +15,7 @@ import {AdminModule} from '../admin/admin.module';
 import {businessServices} from './business-services';
 import {services} from './services';
 import {guards} from './guards';
+import {AuthModule} from '../auth/auth.module';
 
 export function clearState(reducer: ActionReducer<InvoicingState>): ActionReducer<InvoicingState> {
   return function(state: InvoicingState, action: Action): InvoicingState {

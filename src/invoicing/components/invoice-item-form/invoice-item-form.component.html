@@ -4,11 +4,13 @@
     <div class="invoice-item-id width--xs">
       <div>{{itemGroup.get('id').value}}</div>
     </div>
-    <div *ngIf="isChangeable" class="invoice-item-action">
-      <button mat-mini-fab color="warn" (click)="onDelete(itemGroup.get('id').value)">
-        <mat-icon aria-label="Position löschen">remove</mat-icon>
-      </button>
-    </div>
+    <ng-container *joIfAuthorizedAs="['sales-user']">
+      <div *ngIf="isChangeable" class="invoice-item-action">
+        <button mat-mini-fab color="warn" (click)="onDelete(itemGroup.get('id').value)">
+          <mat-icon aria-label="Position löschen">remove</mat-icon>
+        </button>
+      </div>
+    </ng-container>
   </div>
   <div fxShow fxHide.lt-md class="invoice-item-id width--xs">
     <div>{{itemGroup.get('id').value}}</div>
@@ -24,7 +26,7 @@
       Bitte wählen Sie eine gültige Vertragsposition aus
     </mat-error>
   </mat-form-field>
-  <mat-form-field  class="width--lg">
+  <mat-form-field class="width--lg">
     <mat-label fxHide fxShow.lt-md i18n>Beschreibung</mat-label>
     <input matInput formControlName="description">
     <mat-error *ngIf="itemGroup.get('description').hasError('required')" i18n>
@@ -67,9 +69,11 @@
       <span fxHide fxShow.lt-md i18n>Skonto erlaubt?</span>
     </mat-checkbox>
   </div>
-  <div *ngIf="isChangeable" fxShow fxHide.lt-md class="invoice-item-action">
-    <button mat-mini-fab color="warn" (click)="onDelete(itemGroup.get('id').value)">
-      <mat-icon aria-label="Position löschen">remove</mat-icon>
-    </button>
-  </div>
+  <ng-container *joIfAuthorizedAs="['sales-user']">
+    <div *ngIf="isChangeable" fxShow fxHide.lt-md class="invoice-item-action">
+      <button mat-mini-fab color="warn" (click)="onDelete(itemGroup.get('id').value)">
+        <mat-icon aria-label="Position löschen">remove</mat-icon>
+      </button>
+    </div>
+  </ng-container>
 </ng-container>

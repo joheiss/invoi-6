@@ -15,7 +15,7 @@ export interface InvoiceState extends EntityState<InvoiceData> {
 
 export const invoiceAdapter: EntityAdapter<InvoiceData> = createEntityAdapter<InvoiceData>({
   selectId: (invoice: InvoiceData) => invoice.id,
-  sortComparer: false
+  sortComparer: (a: InvoiceData, b: InvoiceData) => b.issuedAt.getTime() - a.issuedAt.getTime()
 });
 
 const initialState: InvoiceState = invoiceAdapter.getInitialState({

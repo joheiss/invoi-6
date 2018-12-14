@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
+import {Actions, Effect, ofType, ROOT_EFFECTS_INIT} from '@ngrx/effects';
 import * as authActions from '../actions/auth.actions';
 import * as usersActions from '../actions/users.actions';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {defer, of} from 'rxjs/index';
+import {of} from 'rxjs/index';
 import {AuthService} from '../../services';
 import {ClearState} from '../../../invoicing/store/actions';
 import {Store} from '@ngrx/store';
-import {ROOT_EFFECTS_INIT} from '@ngrx/effects';
 import * as fromRoot from '../../../app/store';
 import {AppState} from '../../../app/store/reducers';
 
@@ -18,7 +17,6 @@ export class AuthEffects {
               private authService: AuthService,
               private store: Store<AppState>) {
   }
-
 
   @Effect()
   initAuth$ = this.actions$.pipe(
@@ -51,8 +49,7 @@ export class AuthEffects {
       .pipe(
         map(() => new authActions.QueryAuth()),
         catchError(error => of(new authActions.NotAuthenticated(error)))
-      ))
-  );
+      )));
 
   @Effect()
   logout$ = this.actions$.pipe(
@@ -80,7 +77,8 @@ export class AuthEffects {
   @Effect()
   notAuthenticated$ = this.actions$.pipe(
     ofType(authActions.NOT_AUTHENTICATED),
-    tap(() => console.log(`not authenticated`)),
+    map((action: authActions.NotAuthenticated) => action.payload),
+    tap(error => console.log(`not authenticated:`, error)),
     switchMap(() => [
       new fromRoot.Go({path: ['/auth/login']}),
       new fromRoot.StopSpinning()

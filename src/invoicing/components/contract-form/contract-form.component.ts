@@ -74,12 +74,13 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
     }));
     const reformattedValues = {
       budget: this.utility.fromLocalAmount(values.budget),
-      cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage)
+      cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage),
+      internalText: values.texts.internalText,
+      invoiceText: values.texts.invoiceText
     };
     const changed = Object.assign({},
       {...this.object.data},
       {...header},
-      {...texts},
       {...reformattedValues},
       {items: reformattedItemValues}) as ContractData;
     const changedContract = Contract.createFromData(changed);
@@ -101,9 +102,9 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
     this.listenToFieldChanges('cashDiscountPercentage', this.onSimpleHeaderPercentageChanged);
     this.listenToFieldChanges('cashDiscountDays', this.onSimpleHeaderNumberChanged);
     this.listenToFieldChanges('dueDays', this.onSimpleHeaderNumberChanged);
-    this.listenToFieldChanges('texts.invoiceText', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('texts.internalText', this.onSimpleHeaderTextChanged);
-    this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
+    // this.listenToFieldChanges('texts.invoiceText', this.onSimpleHeaderTextChanged);
+    // this.listenToFieldChanges('texts.internalText', this.onSimpleHeaderTextChanged);
+    // this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
   }
 
   protected patchForm(): void {

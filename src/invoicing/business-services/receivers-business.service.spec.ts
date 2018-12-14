@@ -238,17 +238,17 @@ it('should invoke store selector if isQualifiedForQuickInvoice is processed', as
   return expect(spy).toHaveBeenCalled();
 });
 
-it('should invoke store selector if query is processed', async () => {
-  const spy = jest.spyOn(store, 'pipe');
-  service.query();
-  return expect(spy).toHaveBeenCalled();
-});
+// it('should invoke store selector if query is processed', async () => {
+//   const spy = jest.spyOn(store, 'pipe');
+//   service.query();
+//   return expect(spy).toHaveBeenCalled();
+// });
 
-it('should invoke store selector if select is processed', async () => {
-  const spy = jest.spyOn(store, 'pipe');
-  service.select();
-  return expect(spy).toHaveBeenCalled();
-});
+// it('should invoke store selector if select is processed', async () => {
+//   const spy = jest.spyOn(store, 'pipe');
+//   service.select();
+//   return expect(spy).toHaveBeenCalled();
+// });
 
 it('should dispatch NewReceiverSuccess event if new is processed', async () => {
   const newReceiver = Object.assign({}, ReceiversBusinessService['template']);

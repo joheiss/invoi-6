@@ -15,6 +15,8 @@ import {IfAuthorizedForAdminDirective} from './directives/if-authorized-for-admi
 import {services} from './services';
 import {businessServices} from './business-services';
 import {guards} from './guards';
+import {IfAuthorizedAsDirective} from '../shared/directives/if-authorized-as.directive';
+import {IfAuthorizedForSalesEditDirective} from './directives/if-authorized-for-sales-edit.directive';
 
 export function clearState(reducer: ActionReducer<IdState>): ActionReducer<IdState> {
   return function(state: IdState, action: Action): IdState {
@@ -35,6 +37,7 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
     UserDetailsDialogComponent,
     PasswordChangeDialogComponent,
     IfAuthorizedForSalesDirective,
+    IfAuthorizedForSalesEditDirective,
     IfAuthorizedForAdminDirective
   ],
   imports: [
@@ -59,6 +62,7 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
     UserDetailsDialogComponent,
     PasswordChangeDialogComponent,
     IfAuthorizedForSalesDirective,
+    IfAuthorizedForSalesEditDirective,
     IfAuthorizedForAdminDirective
     ]
 })

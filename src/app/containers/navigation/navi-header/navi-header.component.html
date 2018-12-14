@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="jo-navi-header--sticky">
   <div fxHide fxShow.lt-md>
     <button mat-icon-button (click)="onToggle()">
       <mat-icon>menu</mat-icon>
@@ -13,24 +13,24 @@
     <div fxShow fxHide.lt-md>
       <ul fxLayout fxLayoutGap="3rem" class="jo-navi-items">
         <ng-container *ngIf="auth$ | async as auth">
-          <li *joIfAuthorizedForSales="auth">
+          <li *joIfAuthorizedAs="['sales-user', 'auditor']">
             <a [routerLink]="['/invoicing/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" i18n>
               Überblick
             </a>
           </li>
-          <li *joIfAuthorizedForSales="auth">
+          <li *joIfAuthorizedAs="['sales-user', 'auditor']">
             <a [routerLink]="['/invoicing/receivers']" routerLinkActive="active" i18n> Rechnungsempfänger</a>
           </li>
-          <li *joIfAuthorizedForSales="auth">
+          <li *joIfAuthorizedAs="['sales-user', 'auditor']">
             <a [routerLink]="['/invoicing/contracts']" routerLinkActive="active" i18n>Verträge</a>
           </li>
-          <li *joIfAuthorizedForSales="auth">
+          <li *joIfAuthorizedAs="['sales-user', 'auditor']">
             <a [routerLink]="['/invoicing/invoices']" routerLinkActive="active" i18n>Rechnungen</a>
           </li>
-          <li *joIfAuthorizedForAdmin="auth">
+          <li *joIfAuthorizedAs="['sys-admin']">
             <a [routerLink]="['/invoicing/settings']" routerLinkActive="active" i18n>Einstellungen</a>
           </li>
-          <li *joIfAuthorizedForAdmin="auth">
+          <li *joIfAuthorizedAs="['sys-admin']">
             <a [routerLink]="['/auth/users']" routerLinkActive="active" i18n>Benutzer</a>
           </li>
         </ng-container>
@@ -45,13 +45,14 @@
           <button type="button" mat-button [matMenuTriggerFor]="account" class="jo-account-button">
             <img [src]="auth.imageUrl" *ngIf="auth.imageUrl" class="jo-user-img">
             <mat-icon *ngIf="!auth.imageUrl">face</mat-icon>
-            <span class="jo-tx-none">&nbsp; {{ auth.email }}</span>
+            <span class="jo-tx-none">&nbsp; {{ auth.displayName }}</span>
           </button>
           <mat-menu #account="matMenu">
             <a mat-menu-item [routerLink]="['/auth/goodbye']" routerLinkActive="active" i18n>Abmelden</a>
             <a mat-menu-item (click)="onMyProfile()" i18n>Meine Daten</a>
           </mat-menu>
         </li>
+        <li *ngIf="isDevelopment()"><span i18n>ENTWICKLUNG</span></li>
       </ul>
     </div>
   </div>

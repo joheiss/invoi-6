@@ -41,7 +41,9 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
     if (!this.form) {
       this.form = this.buildForm();
       this.patchForm();
-      this.listenToChanges();
+      if (!this.form.disabled) {
+        this.listenToChanges();
+      }
     } else {
       this.patchForm();
     }

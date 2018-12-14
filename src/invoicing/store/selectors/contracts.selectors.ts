@@ -3,7 +3,6 @@ import * as fromRoot from '../../../app/store';
 import * as fromFeature from '../reducers';
 import * as fromContracts from '../reducers/contracts.reducer';
 import {Contract} from '../../models/contract.model';
-import {Receiver} from '../../models/receiver.model';
 
 export const selectContractState = createSelector(
   fromFeature.selectInvoicingState,

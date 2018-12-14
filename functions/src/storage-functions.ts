@@ -112,7 +112,9 @@ function getDocumentLinks(documentPath: string): Promise<any> {
 }
 
 function updateUserProfile(filePath: string) {
-  const projectId = 'jovisco-invoicing';
+  const projectId = process.env.GCLOUD_PROJECT;
+  console.log('Project Id: ', projectId);
+  // const projectId = 'jovisco-invoicing';
   const downloadUrl = `https://storage.googleapis.com/${projectId}.appspot.com/${filePath}`;
   const uid = filePath.split('/')[2];
   return admin.firestore().collection('user-profiles').doc(uid).update({imageUrl: downloadUrl});

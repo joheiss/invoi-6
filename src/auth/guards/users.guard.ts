@@ -22,7 +22,7 @@ export class UsersGuard implements CanActivate {
   private checkStore(): Observable<boolean> {
     return this.store.pipe(
       select(this.getObjectLoadedSelector()),
-      tap(loaded => !loaded && this.store.dispatch(this.getQueryAction())),
+      tap(loaded => this.store.dispatch(this.getQueryAction())),
       filter(loaded => loaded),
       take(1)
     );

@@ -3,17 +3,17 @@ import {UserData} from '../models/user';
 import {AbstractIfAuthorizedForDirective} from './abstract-if-authorized-for.directive';
 
 @Directive({
-  selector: '[joIfAuthorizedForAdmin]'
+  selector: '[joIfAuthorizedForSalesEdit]'
 })
-export class IfAuthorizedForAdminDirective extends AbstractIfAuthorizedForDirective {
+export class IfAuthorizedForSalesEditDirective extends AbstractIfAuthorizedForDirective {
 
   constructor(protected template: TemplateRef<any>,
               protected container: ViewContainerRef) {
-    super(template, container, ['sys-admin']);
+    super(template, container, ['sales-user']);
   }
 
   @Input()
-  set joIfAuthorizedForAdmin(auth: UserData) {
+  set joIfAuthorizedForSalesEdit(auth: UserData) {
     this.setContainer(auth);
   }
 }

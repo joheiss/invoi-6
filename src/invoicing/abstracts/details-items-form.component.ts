@@ -12,6 +12,7 @@ export abstract class DetailsItemsFormComponent<T extends Transaction> implement
 
   ngOnChanges(changes: SimpleChanges) {
     this.buildItems(this.object.items);
+
   }
 
   onAdd(event?: Event): void {

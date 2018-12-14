@@ -114,13 +114,13 @@ describe('PasswordChangeDialogComponent', () => {
         password.setValue('');
         fixture.detectChanges();
         await expect(component.form.valid).toBeFalsy();
-        const button = fixture.debugElement.query(By.css('#btn_save')).nativeElement as HTMLButtonElement;
+        const button = fixture.debugElement.query(By.css('#btn_pw_save')).nativeElement as HTMLButtonElement;
         return expect(button.disabled).toBeTruthy();
       });
 
       it('should invoke onSave handler when save button is pressed', async () => {
         const spy = jest.spyOn(component, 'onSave');
-        fixture.debugElement.query(By.css('#btn_save')).triggerEventHandler('click', component.form);
+        fixture.debugElement.query(By.css('#btn_pw_save')).triggerEventHandler('click', component.form);
         return expect(spy).toHaveBeenCalledWith(component.form);
       });
     });
@@ -240,9 +240,9 @@ describe('PasswordChangeDialogComponent', () => {
 
     it('should show the save and cancel buttons', async () => {
       let de: DebugElement;
-      de = fixture.debugElement.query(By.css('#btn_save'));
+      de = fixture.debugElement.query(By.css('#btn_pw_save'));
       await expect(de).toBeTruthy();
-      de = fixture.debugElement.query(By.css('#btn_cancel'));
+      de = fixture.debugElement.query(By.css('#btn_pw_cancel'));
       return expect(de).toBeTruthy();
     });
   }

@@ -1,9 +1,11 @@
 <div> <!-- *ngIf="itemsFormArray.length > 0" -->
   <div class="table-header" fxShow fxHide.lt-md>
     <div class="table-btn">
-      <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd()">
-        <mat-icon aria-label="Position hinzufügen">add</mat-icon>
-      </button>
+      <ng-container *joIfAuthorizedAs="['sales-user']">
+        <button mat-mini-fab color="primary" *ngIf="isChangeable" (click)="onAdd()">
+          <mat-icon aria-label="Position hinzufügen">add</mat-icon>
+        </button>
+      </ng-container>
     </div>
     <label class="invoice-item-contractItemId" i18n>Vertrags- position</label>
     <label class="invoice-item-description" i18n>Beschreibung</label>
@@ -15,16 +17,17 @@
     <label class="invoice-item-action"></label>
   </div>
   <div>
-      <jo-invoice-item-form *ngFor="let item of itemsFormArray.controls; let i = index" class="table-row table-row--editable"
-        [itemGroup]="item"
-        [item]="object.items[i]"
-        [contract]="contract"
-        [isChangeable]="isChangeable"
-        (changed)="onChanged()"
-        (delete)="onDelete($event)">
-      </jo-invoice-item-form>
+    <jo-invoice-item-form *ngFor="let item of itemsFormArray.controls; let i = index"
+                          class="table-row table-row--editable"
+                          [itemGroup]="item"
+                          [item]="object.items[i]"
+                          [contract]="contract"
+                          [isChangeable]="isChangeable"
+                          (changed)="onChanged()"
+                          (delete)="onDelete($event)">
+    </jo-invoice-item-form>
   </div>
-  <div class="u-mt-md"fxHide fxShow.lt-md>
+  <div *joIfAuthorizedAs="['sales-user']" class="u-mt-md" fxHide fxShow.lt-md>
     <button mat-raised-button color="primary" *ngIf="isChangeable" (click)="onAdd($event)" i18n>
       Position hinzufügen
     </button>

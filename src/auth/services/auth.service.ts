@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserCredentials} from '../models/user';
 import {Observable, of, throwError} from 'rxjs/index';
-import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, filter, first, map, switchMap, take, tap} from 'rxjs/operators';
 import {UiService} from '../../shared/services/ui.service';
 import {AUTH_MSGS} from '../auth-error-messages';
 import {MessageContent, Messages} from '../../shared/models/message.model';
@@ -31,7 +31,8 @@ export class AuthService {
             map(userProfile => {
               return {...userProfile.data(), uid: authData.uid};
             }),
-            catchError(error => of(error))
+            first(userProfile => !userProfile.isLocked),
+            // catchError(error => of(error))
           )));
   }
 
@@ -75,14 +76,16 @@ export class AuthService {
   }
 
   private removeIdToken(): void {
-    localStorage.removeItem('id_token');
+    // localStorage.removeItem('id_token');
+    sessionStorage.removeItem('id_token');
   }
 
   private setIdToken(authData: any): Observable<any> {
     return this.fbAuth.getIdToken(authData)
       .pipe(
         take(1),
-        tap(idToken => localStorage.setItem('id_token', idToken)),
+        // tap(idToken => localStorage.setItem('id_token', idToken)),
+        tap(idToken => sessionStorage.setItem('id_token', idToken)),
         map(() => authData)
       );
   }

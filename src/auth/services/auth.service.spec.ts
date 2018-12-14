@@ -143,8 +143,8 @@ describe('Auth Service', () => {
   });
 
   describe('removeIdToken', () => {
-    it('should invoke localStorage.removeItem', () => {
-      const spy = jest.spyOn(localStorage, 'removeItem');
+    it('should invoke sessionStorage.removeItem', () => {
+      const spy = jest.spyOn(sessionStorage, 'removeItem');
       // @ts-ignore
       service.removeIdToken();
       expect(spy).toHaveBeenCalled();

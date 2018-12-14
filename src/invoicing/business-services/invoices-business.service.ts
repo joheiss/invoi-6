@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {concat, Observable, of, throwError} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
-import {select, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import {BillingMethod, InvoiceSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract, ContractItem} from '../models/contract.model';
 import {
@@ -21,19 +21,15 @@ import {
 } from '../models/invoice.model';
 import {difference} from '../../shared/utilities/object-utilities';
 import {NumberRange} from '../models/number-range.model';
-import * as fromAuth from '../../auth/store';
-import {UserData} from '../../auth/models/user';
 import {Vat} from '../../admin/models/vat';
 import {catchError, filter, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
-import * as fromRoot from '../../app/store';
 import {isEqual} from 'lodash';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
+import {AbstractTransactionBusinessService} from './abstract-transaction-business-service';
 
 @Injectable()
-export class InvoicesBusinessService {
-  /* ------------------------- */
-  /* --- STATIC ATTRIBUTES --- */
-  /* ------------------------- */
+export class InvoicesBusinessService extends AbstractTransactionBusinessService<Invoice, InvoiceSummary> {
+
   private static template = {
     objectType: 'invoices',
     billingMethod: BillingMethod.Invoice,
@@ -60,7 +56,6 @@ export class InvoicesBusinessService {
 
   private currentData: InvoiceData;
   private nextIds: string[];
-  private auth: UserData;
 
   private static getDefaultValues(): any {
     return {
@@ -70,44 +65,21 @@ export class InvoicesBusinessService {
     };
   }
 
-  constructor(private store: Store<fromStore.InvoicingState>) {
-    this.setLoggedInUserFromAuth();
+  constructor(protected store: Store<fromStore.InvoicingState>) {
+    super(store);
     this.setNextIdsFromNumberRanges();
-  }
-
-  addItem(invoice: Invoice) {
-    invoice.items.push(this.newItem(invoice));
-    this.change(invoice);
   }
 
   change(invoice: Invoice) {
     this.processChanges(invoice).subscribe(changed => {
       console.log('changed: ', changed);
       this.currentData = changed.data;
-      this.store.dispatch(new fromStore.ChangeInvoiceSuccess(changed.data));
+      this.store.dispatch(this.buildChangeSuccessEvent(changed.data));
     });
-  }
-
-  copy(invoice: Invoice) {
-    const data = Object.assign({}, invoice.data, {...InvoicesBusinessService.getDefaultValues()}, {organization: this.auth.organization});
-    this.store.dispatch(new fromStore.CopyInvoiceSuccess(data));
-  }
-
-  create(invoice: Invoice) {
-    invoice.header.id = this.getNextId(invoice);
-    invoice.header.organization = this.auth.organization;
-    this.store.dispatch(new fromStore.CreateInvoice(invoice.data));
   }
 
   createPdf(invoice: Invoice) {
     this.store.dispatch(new fromStore.CreateInvoicePdf(invoice.data));
-  }
-
-  delete(invoice: Invoice) {
-    this.store.dispatch(new fromRoot.OpenConfirmationDialog({
-      do: new fromStore.DeleteInvoice(invoice.data),
-      title: `Soll die Rechnung ${invoice.header.id} wirklich gelöscht werden?`
-    }));
   }
 
   getContract(): Observable<Contract> {
@@ -120,13 +92,9 @@ export class InvoicesBusinessService {
 
   getCurrent(): Observable<Invoice> {
     return this.store.pipe(
-      select(fromStore.selectCurrentInvoiceAsObj),
+      select(this.getCurrentSelector()),
       tap(current => this.currentData = current.data)
     );
-  }
-
-  getNextId(invoice: Invoice): string {
-    return this.nextIds[invoice.header.billingMethod];
   }
 
   getReceiver(): Observable<Receiver> {
@@ -137,25 +105,8 @@ export class InvoicesBusinessService {
     return this.store.pipe(select(fromStore.selectActiveReceiversSortedAsObjArray));
   }
 
-  getSummary(): Observable<InvoiceSummary[]> {
-    return this.store.pipe(select(fromStore.selectInvoiceSummariesAsSortedArray));
-  }
-
-  isChangeable(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
-  }
-
-  isDeletable(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
-  }
-
   isSendable(): Observable<boolean> {
     return this.store.pipe(select(fromStore.isInvoiceSendable));
-  }
-
-  new() {
-    const data = Object.assign({}, InvoicesBusinessService.template);
-    this.store.dispatch(new fromStore.NewInvoiceSuccess(data));
   }
 
   newInvoiceFromContract(contract: Contract): void {
@@ -172,26 +123,72 @@ export class InvoicesBusinessService {
     ).subscribe();
   }
 
-  newItem(invoice: Invoice): InvoiceItem {
-    const itemData = Object.assign({}, {id: invoice.getNextItemId()}, {...InvoicesBusinessService.itemTemplate}) as InvoiceItemData;
-    return InvoiceItem.createFromData(itemData);
-  }
-
-  removeItem(invoice: Invoice, itemId: number) {
-    invoice.items = invoice.items.filter(item => item.data.id !== itemId);
-    this.change(invoice);
-  }
-
-  select(): Observable<InvoiceData> {
-    return this.store.pipe(select(fromStore.selectSelectedInvoice));
-  }
-
   sendEmail(invoice: Invoice) {
     this.store.dispatch(new fromStore.SendInvoiceEmail(invoice.data));
   }
 
-  update(invoice: Invoice) {
-    this.store.dispatch(new fromStore.UpdateInvoice(invoice.data));
+  protected buildChangeSuccessEvent(data: any): Action {
+    return new fromStore.ChangeInvoiceSuccess(data);
+  }
+
+  protected buildCopySuccessEvent(data: any): Action {
+    return new fromStore.CopyInvoiceSuccess(data);
+  }
+
+  protected buildCreateCommand(data: any): Action {
+    return new fromStore.CreateInvoice(data);
+  }
+
+  protected buildDeleteCommand(data: any): Action {
+    return new fromStore.DeleteInvoice(data);
+  }
+
+  protected buildItem(data: any): InvoiceItem {
+    return InvoiceItem.createFromData(data);
+  }
+
+  protected buildNewEvent(data: any): Action {
+    return new fromStore.NewInvoiceSuccess(data);
+  }
+
+  protected buildUpdateCommand(data: any): Action {
+    return new fromStore.UpdateInvoice(data);
+  }
+
+  protected getConfirmationQuestion(id: string): string {
+    return `Soll die Rechnung ${id} wirklich gelöscht werden?`;
+  }
+
+  protected getCurrentSelector(): Function {
+    return fromStore.selectCurrentInvoiceAsObj;
+  }
+
+  protected getDefaultValues(): any {
+    return InvoicesBusinessService.getDefaultValues();
+  }
+
+  protected getIsChangeableSelector(): Function {
+    return fromStore.selectInvoiceChangeable;
+  }
+
+  protected getIsDeletableSelector(): Function {
+    return fromStore.selectInvoiceChangeable;
+  }
+
+  protected getItemTemplate(): any {
+    return InvoicesBusinessService.itemTemplate;
+  }
+
+  protected getNextId(invoice: Invoice): string {
+    return this.nextIds[invoice.header.billingMethod];
+  }
+
+  protected getSummarySelector(): Function {
+    return fromStore.selectInvoiceSummariesAsSortedArray;
+  }
+
+  protected getTemplate(): any {
+    return InvoicesBusinessService.template;
   }
 
   private addContractItemRelatedData(invoice: Invoice, itemId: number): Observable<Invoice> {
@@ -352,13 +349,6 @@ export class InvoicesBusinessService {
     return changes;
   }
 
-  private setLoggedInUserFromAuth(): void {
-    this.store.pipe(
-      select(fromAuth.selectAuth),
-      take(1)
-    ).subscribe(auth => this.auth = auth);
-  }
-
   private setNextIdsFromNumberRanges(): void {
     this.store.pipe(
       select(fromStore.selectNumberRangeEntities),
@@ -368,8 +358,7 @@ export class InvoicesBusinessService {
         this.nextIds.push(NumberRange.createFromData(entities['invoices']).nextId);
         this.nextIds.push(NumberRange.createFromData(entities['credit-requests']).nextId);
         return this.nextIds;
-      }),
-      take(1)
+      })
     ).subscribe();
   }
 

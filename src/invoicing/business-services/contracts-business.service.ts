@@ -1,21 +1,19 @@
- import {Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
-import {select, Store} from '@ngrx/store';
+import {Action, select, Store} from '@ngrx/store';
 import {BillingMethod, ContractSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract, ContractData, ContractItem, ContractItemData} from '../models/contract.model';
 import {Invoice} from '../models/invoice.model';
 import {NumberRange} from '../models/number-range.model';
-import * as fromAuth from '../../auth/store';
-import {UserData} from '../../auth/models/user';
 import {InvoicesBusinessService} from './invoices-business.service';
-import * as fromRoot from '../../app/store';
 import {filter, map} from 'rxjs/operators';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
+import {AbstractTransactionBusinessService} from './abstract-transaction-business-service';
 
 @Injectable()
-export class ContractsBusinessService {
+export class ContractsBusinessService extends AbstractTransactionBusinessService<Contract, ContractSummary> {
   private static template: ContractData = {
     objectType: 'contracts',
     issuedAt: DateUtilities.getDateOnly(new Date()),
@@ -26,6 +24,8 @@ export class ContractsBusinessService {
     cashDiscountDays: 0,
     cashDiscountPercentage: 0,
     dueDays: 30,
+    invoiceText: null,
+    internalText: null
   } as ContractData;
 
   private static itemTemplate = {
@@ -33,7 +33,6 @@ export class ContractsBusinessService {
   } as ContractItemData;
 
   private nextId: string;
-  private auth: UserData;
 
   private static getDefaultValues(): any {
     const today = new Date();
@@ -47,49 +46,14 @@ export class ContractsBusinessService {
     };
   }
 
-  constructor(private store: Store<fromStore.InvoicingState>,
+  constructor(protected store: Store<fromStore.InvoicingState>,
               private invoicesBusinessService: InvoicesBusinessService) {
-    this.setLoggedInUserFromAuth();
+    super(store);
     this.setNextIdFromNumberRange();
-  }
-
-  addItem(contract: Contract) {
-    contract.items.push(this.newItem(contract));
-    this.change(contract);
-  }
-
-  change(contract: Contract) {
-    this.store.dispatch(new fromStore.ChangeContractSuccess(contract.data));
-  }
-
-  copy(contract: Contract) {
-    const data = Object.assign({},
-      contract.data,
-      {...ContractsBusinessService.getDefaultValues()},
-      {organization: this.auth.organization}
-    );
-    this.store.dispatch(new fromStore.CopyContractSuccess(data));
-  }
-
-  create(contract: Contract) {
-    contract.header.id = this.nextId;
-    contract.header.organization = this.auth.organization;
-    this.store.dispatch(new fromStore.CreateContract(contract.data));
   }
 
   createQuickInvoice(contract: Contract) {
     return this.invoicesBusinessService.newInvoiceFromContract(contract);
-  }
-
-  delete(contract: Contract) {
-    this.store.dispatch(new fromRoot.OpenConfirmationDialog({
-      do: new fromStore.DeleteContract(contract.data),
-      title: `Soll der Vertrag ${contract.header.id} wirklich gelöscht werden?`
-    }));
-  }
-
-  getCurrent(): Observable<Contract> {
-    return this.store.pipe(select(fromStore.selectCurrentContractAsObj));
   }
 
   getInvoices(): Observable<Invoice[]> {
@@ -108,41 +72,68 @@ export class ContractsBusinessService {
     return this.store.pipe(select(fromStore.selectActiveReceiversSortedAsObjArray));
   }
 
-  getSummary(): Observable<ContractSummary[]> {
-    return this.store.pipe(select(fromStore.selectContractSummariesAsSortedArray));
+  protected buildChangeSuccessEvent(data: any): Action {
+    return new fromStore.ChangeContractSuccess(data);
   }
 
-  isDeletable(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.selectContractChangeable));
+  protected buildCopySuccessEvent(data: any): Action {
+    return new fromStore.CopyContractSuccess(data);
   }
 
-  new() {
-    const data = Object.assign({}, ContractsBusinessService.template);
-    this.store.dispatch(new fromStore.NewContractSuccess(data));
+  protected buildCreateCommand(data: any): Action {
+    return new fromStore.CreateContract(data);
   }
 
-  newItem(contract: Contract): ContractItem {
-    const itemData = Object.assign({}, {id: contract.getNextItemId()}, {...ContractsBusinessService.itemTemplate}) as ContractItemData;
-    return ContractItem.createFromData(itemData);
+  protected buildDeleteCommand(data: any): Action {
+    return new fromStore.DeleteContract(data);
   }
 
-  removeItem(contract: Contract, itemId: number) {
-    contract.items = contract.items.filter(item => item.data.id !== itemId);
-    this.change(contract);
+  protected buildItem(data: any): ContractItem {
+    return ContractItem.createFromData(data);
   }
 
-  select(): Observable<ContractData> {
-    return this.store.pipe(select(fromStore.selectSelectedContract));
+  protected buildNewEvent(data: any): Action {
+    return new fromStore.NewContractSuccess(data);
   }
 
-  update(contract: Contract) {
-    this.store.dispatch(new fromStore.UpdateContract(contract.data));
+  protected buildUpdateCommand(data: any): Action {
+    return new fromStore.UpdateContract(data);
   }
 
-  private setLoggedInUserFromAuth(): void {
-    this.store.pipe(
-      select(fromAuth.selectAuth),
-    ).subscribe(auth => this.auth = auth);
+  protected getConfirmationQuestion(id: string): string {
+    return `Soll der Vertrag ${id} wirklich gelöscht werden?`;
+  }
+
+  protected getCurrentSelector(): Function {
+    return fromStore.selectCurrentContractAsObj;
+  }
+
+  protected getDefaultValues(): any {
+    return ContractsBusinessService.getDefaultValues();
+  }
+
+  protected getIsChangeableSelector(): Function {
+    return fromStore.selectContractChangeable;
+  }
+
+  protected getIsDeletableSelector(): Function {
+    return fromStore.selectContractChangeable;
+  }
+
+  protected getItemTemplate(): any {
+    return ContractsBusinessService.itemTemplate;
+  }
+
+  protected getNextId(object: Contract): string {
+    return this.nextId;
+  }
+
+  protected getSummarySelector(): Function {
+    return fromStore.selectContractSummariesAsSortedArray;
+  }
+
+  protected getTemplate(): any {
+    return ContractsBusinessService.template;
   }
 
   private setNextIdFromNumberRange(): void {

@@ -32,6 +32,7 @@ admin.firestore().settings({ timestampsInSnapshots: true });
 
 export const invoicing = functions.https.onRequest(app);
 export const users = functions.https.onRequest(app);
+export const projectId = process.env.GCLOUD_PROJECT;
 
 export const onCreateReceiver = functions.firestore
   .document('receivers/{id}')

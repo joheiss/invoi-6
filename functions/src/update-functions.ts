@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
 import {Change} from 'firebase-functions/lib/cloud-functions';
 import {EventContext} from 'firebase-functions';
-import {calcDiscountedNetValue, calcRevenuePeriod} from '../../shared/src/calculations';
+import {calcDiscountedNetValue, calcNetValue, calcRevenuePeriod} from '../../shared/src/calculations';
 import moment = require('moment');
 import * as _ from 'lodash';
 import {getRevenues} from '../../shared/src/getters';
@@ -168,7 +168,7 @@ async function updateAuth(uid: string, userProfile: any): Promise<any> {
       displayName: userProfile.displayName,
       disabled: userProfile.isLocked,
       phoneNumber: userProfile.phoneNumber,
-      photoURL: userProfile.imageUrl
+      photoURL: userProfile.imageUrl && userProfile.imageUrl.length ? userProfile.imageUrl : null
     });
     const isAdmin = userProfile.roles.indexOf('sys-admin') >= 0;
     const isSales = userProfile.roles.indexOf('sales-user') >= 0;
@@ -190,7 +190,7 @@ async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise
     values.new.month = period.month.toString();
     values.new.receiverId = newInvoice.receiverId;
     values.new.organization = newInvoice.organization;
-    values.new.revenue = calcDiscountedNetValue(newInvoice);
+    values.new.revenue = calcNetValue(newInvoice);
   }
   if (oldInvoice) {
     // get old values
@@ -199,7 +199,7 @@ async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise
     values.old.month = period.month.toString();
     values.old.receiverId = oldInvoice.receiverId;
     values.old.organization = oldInvoice.organization;
-    values.old.revenue = calcDiscountedNetValue(oldInvoice);
+    values.old.revenue = calcNetValue(oldInvoice);
   }
   if (values.new.year) {
     const docId = `${values.new.year}_${values.new.organization}`;

@@ -20,7 +20,9 @@ export abstract class DetailsComponent<T> implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('Form Component: ', this.formComponent);
+    if (!this.service.isUserAllowedToEdit()) {
+      this.formComponent.form.disable();
+    }
   }
 
   onChanged(object: T) {
