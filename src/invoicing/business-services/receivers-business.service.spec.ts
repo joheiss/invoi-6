@@ -17,6 +17,7 @@ import {mockNumberRangeEntity} from '../../test/factories/mock-number-ranges.fac
 import {NumberRange} from '../models/number-range.model';
 import {mockAllContracts} from '../../test/factories/mock-contracts.factory';
 import {Contract} from '../models/contract.model';
+import {MasterDataStatus} from '../models/master-data';
 
 describe('Receivers Business Service', () => {
 
@@ -76,7 +77,7 @@ describe('Receivers Business Service', () => {
   it('should return a meaningful template', () => {
     const template = ReceiversBusinessService['template'];
     expect(template.objectType).toEqual('receivers');
-    expect(template.status).toEqual(ReceiverStatus.active);
+    expect(template.status).toEqual(MasterDataStatus.active);
     expect(template.address.country).toEqual('DE');
   });
 
@@ -126,6 +127,7 @@ describe('Receivers Business Service', () => {
   it('should dispatch CreateReceiver action if create is processed', async () => {
     const newReceiver = Object.assign(receiver);
     newReceiver.header.id = '1903';
+    newReceiver.header.isDeletable = true;
     const action = new CreateReceiver(newReceiver.data);
     const spy = jest.spyOn(store, 'dispatch');
     service.create(newReceiver);

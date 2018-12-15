@@ -21,6 +21,8 @@ import localeDeExtra from '@angular/common/locales/extra/de';
 import {InvoiceFormComponent} from './invoice-form.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
+import {of} from 'rxjs/index';
 
 describe('Invoice Details Form Component', () => {
 
@@ -60,7 +62,8 @@ describe('Invoice Details Form Component', () => {
         {
           provide: Store,
           useValue: {
-            dispatch: jest.fn()
+            dispatch: jest.fn(),
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         },
         {

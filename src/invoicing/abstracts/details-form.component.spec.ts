@@ -14,6 +14,8 @@ import {Contract} from '../models/contract.model';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('Abstract Details Form Component', () => {
 
@@ -46,7 +48,8 @@ describe('Abstract Details Form Component', () => {
         {
           provide: Store,
           useValue: {
-            dispatch: jest.fn()
+            dispatch: jest.fn(),
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

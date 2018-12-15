@@ -12,6 +12,9 @@ import localeDeExtra from '@angular/common/locales/extra/de';
 import {ContractItemFormComponent} from '..';
 import {mockI18nUtility} from '../../../test/objects/mock-i18n-utility';
 import {By} from '@angular/platform-browser';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Contract Item Form Component', () => {
 
@@ -32,6 +35,12 @@ describe('Contract Item Form Component', () => {
         {
           provide: I18nUtilityService,
           useValue: mockI18nUtility()
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
+          }
         }
       ]
     })

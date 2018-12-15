@@ -18,6 +18,7 @@ import {DeleteFile, DownloadFile, UploadFile} from '../../../storage/store/actio
 import {DocumentLink} from '../../models/document-link';
 import {MatDialog, MatSelectChange} from '@angular/material';
 import {By} from '@angular/platform-browser';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Document Link List', () => {
 
@@ -38,6 +39,7 @@ describe('Document Link List', () => {
           useValue: {
             getDocumentLinks: jest.fn(() => cold('-a|', { a: mockAllDocumentLinks()})),
             getCountrySettings: jest.fn(() => of(mockAllCountries())),
+            isUserAllowedToEdit: jest.fn(() => true),
             update: jest.fn()
           }
         },
@@ -45,7 +47,7 @@ describe('Document Link List', () => {
           provide: Store,
           useValue: {
             dispatch: jest.fn(),
-            pipe: jest.fn()
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         },
         {

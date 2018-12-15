@@ -8,6 +8,11 @@ import {mockSingleContract} from '../../../test/factories/mock-contracts.factory
 import {ContractItemsFormComponent} from '..';
 import {By} from '@angular/platform-browser';
 import {ContractsBusinessService} from '../../business-services';
+import {IfAuthorizedForSalesDirective} from '../../../auth/directives/if-authorized-for-sales.directive';
+import {IfAuthorizedAsDirective} from '../../../shared/directives/if-authorized-as.directive';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Contract Items Form Component', () => {
 
@@ -25,6 +30,12 @@ describe('Contract Items Form Component', () => {
           provide: ContractsBusinessService,
           useValue: {
             addItem: jest.fn()
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

@@ -6,6 +6,10 @@ import {ContractItemFormComponent} from '../components';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {SharedModule} from '../../shared/shared.module';
 import {FormGroup} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {IfAuthorizedAsDirective} from '../../shared/directives/if-authorized-as.directive';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
 
 describe('Abstract Details Item Form Component', () => {
 
@@ -18,7 +22,15 @@ describe('Abstract Details Item Form Component', () => {
       imports: [NoopAnimationsModule, RouterTestingModule, SharedModule],
       declarations: [ContractItemFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: []
+      providers: [
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
+          }
+
+        }
+      ]
     })
       .compileComponents();
   });

@@ -21,6 +21,8 @@ import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {of} from 'rxjs/index';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Contract Details Form Component', () => {
 
@@ -58,7 +60,8 @@ describe('Contract Details Form Component', () => {
         {
           provide: Store,
           useValue: {
-            dispatch: jest.fn()
+            dispatch: jest.fn(),
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         },
         {

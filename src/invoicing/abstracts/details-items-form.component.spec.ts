@@ -8,6 +8,11 @@ import {FormArray} from '@angular/forms';
 import {ContractsBusinessService} from '../business-services';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 import {Contract} from '../models/contract.model';
+import {IfAuthorizedForSalesDirective} from '../../auth/directives/if-authorized-for-sales.directive';
+import {IfAuthorizedAsDirective} from '../../shared/directives/if-authorized-as.directive';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {Store} from '@ngrx/store';
 
 describe('Abstract Details Items Form Component', () => {
 
@@ -32,6 +37,12 @@ describe('Abstract Details Items Form Component', () => {
             update: jest.fn(),
             addItem: jest.fn(),
             removeItem: jest.fn()
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

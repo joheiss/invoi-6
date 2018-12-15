@@ -9,6 +9,11 @@ import {ContractCardComponent} from '../components';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 import {Contract} from '../models/contract.model';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {IfAuthorizedAsDirective} from '../../shared/directives/if-authorized-as.directive';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../test/factories/mock-auth.factory';
+import {SharedModule} from '../../shared/shared.module';
 
 describe('Abstract Master Component', () => {
 
@@ -18,7 +23,7 @@ describe('Abstract Master Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
+      imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ContractsComponent, ContractCardComponent],
       providers: [
@@ -29,6 +34,12 @@ describe('Abstract Master Component', () => {
             copy: jest.fn(),
             delete: jest.fn(),
             new: jest.fn()
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

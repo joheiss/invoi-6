@@ -67,7 +67,10 @@ export const mockAllInvoices = (): InvoiceData[] => {
       }
     }
   }
-  return allInvoices.sort((a: any, b: any) => b.issuedAt - a.issuedAt);
+  return allInvoices.sort((a: any, b: any) => {
+    const result = b.issuedAt.getTime() - a.issuedAt.getTime();
+    return result ? result : a.id.localeCompare(b.id);
+  });
 };
 
 export const mockInvoiceIds = (): string[] => {

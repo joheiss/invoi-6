@@ -27,7 +27,7 @@ describe('Document Links Business Service', () => {
           provide: Store,
           useValue: {
             dispatch: jest.fn(),
-            pipe: jest.fn()
+            pipe: jest.fn(() => cold('-b|', {b: true}))
           }
         },
 

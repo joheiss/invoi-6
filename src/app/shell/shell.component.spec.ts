@@ -15,6 +15,7 @@ import {mockSingleUser} from '../../test/factories/mock-users.factory';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
 import {IfAuthorizedForSalesDirective} from '../../auth/directives/if-authorized-for-sales.directive';
 import {IfAuthorizedForAdminDirective} from '../../auth/directives/if-authorized-for-admin.directive';
+import {IfAuthorizedAsDirective} from '../../shared/directives/if-authorized-as.directive';
 
 describe('ShellComponent', () => {
   let component: ShellComponent;
@@ -25,7 +26,7 @@ describe('ShellComponent', () => {
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [
         ShellComponent, NaviHeaderComponent, NaviSidebarComponent,
-        IfAuthorizedForSalesDirective, IfAuthorizedForAdminDirective
+        IfAuthorizedForSalesDirective, IfAuthorizedForAdminDirective, IfAuthorizedAsDirective
       ],
       providers: [
         {

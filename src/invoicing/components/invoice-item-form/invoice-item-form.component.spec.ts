@@ -14,6 +14,9 @@ import {mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
 import {InvoiceItemFormComponent} from './invoice-item-form.component';
 import {mockSingleContract} from '../../../test/factories/mock-contracts.factory';
 import {Contract} from '../../models/contract.model';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Invoice Item Form Component', () => {
 
@@ -34,6 +37,12 @@ describe('Invoice Item Form Component', () => {
         {
           provide: I18nUtilityService,
           useValue: mockI18nUtility()
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
+          }
         }
       ]
     })

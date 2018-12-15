@@ -16,6 +16,8 @@ import {By} from '@angular/platform-browser';
 import {of} from 'rxjs/index';
 import {ReceiverDetailsComponent} from './receiver-details.component';
 import {mockAllCountries} from '../../../test/factories/mock-settings.factory';
+import {Store} from '@ngrx/store';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Receiver Details Component', () => {
 
@@ -48,6 +50,7 @@ describe('Receiver Details Component', () => {
             getReceiver: jest.fn(() => cold('-a|', { a: Receiver.createFromData(mockSingleReceiver()) })),
             isDeletable: jest.fn(() => cold('-a|', { a: false })),
             isQualifiedForQuickInvoice: jest.fn(() => cold('-a|', { a: true })),
+            isUserAllowedToEdit: jest.fn(() => true),
             new: jest.fn(),
             update: jest.fn()
           }
@@ -56,6 +59,12 @@ describe('Receiver Details Component', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: cold('-a|', {a: {get: () => '1901'}})
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

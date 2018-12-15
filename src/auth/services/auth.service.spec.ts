@@ -54,7 +54,7 @@ describe('Auth Service', () => {
       const spySetIdToken = jest.spyOn<any, any>(service, 'setIdToken');
 
       const user = mockAuth()[0];
-      const expected = cold('---b|', {b: user});
+      const expected = cold('---(b|)', {b: user});
       await expect(service.queryAuth()).toBeObservable(expected);
 
       await expect(spyGetAuthState).toHaveBeenCalled();

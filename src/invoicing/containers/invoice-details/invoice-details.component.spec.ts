@@ -15,6 +15,8 @@ import {Invoice} from '../../models/invoice.model';
 import {By} from '@angular/platform-browser';
 import {of} from 'rxjs/index';
 import {InvoiceDetailsComponent} from './invoice-details.component';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
+import {Store} from '@ngrx/store';
 
 describe('Invoice Details Component', () => {
 
@@ -45,6 +47,7 @@ describe('Invoice Details Component', () => {
             getReceivers: jest.fn(() => cold('-a|', { a: mockAllReceivers().map(r => Receiver.createFromData(r)) })),
             isChangeable: jest.fn(() => cold('-a|', { a: true })),
             isSendable: jest.fn(() => cold('-a|', { a: true })),
+            isUserAllowedToEdit: jest.fn(() => true),
             new: jest.fn(),
             sendEmail: jest.fn(),
             update: jest.fn()
@@ -54,6 +57,12 @@ describe('Invoice Details Component', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: cold('-a|', {a: {get: () => '5995'}})
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

@@ -8,6 +8,10 @@ import {By} from '@angular/platform-browser';
 import {InvoicesBusinessService} from '../../business-services';
 import {Invoice} from '../../models/invoice.model';
 import {mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
+import {IfAuthorizedAsDirective} from '../../../shared/directives/if-authorized-as.directive';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Invoice Items Form Component', () => {
 
@@ -25,6 +29,12 @@ describe('Invoice Items Form Component', () => {
           provide: InvoicesBusinessService,
           useValue: {
             addItem: jest.fn()
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

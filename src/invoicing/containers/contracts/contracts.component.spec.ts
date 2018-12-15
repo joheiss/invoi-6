@@ -9,6 +9,9 @@ import {cold} from 'jasmine-marbles';
 import {ContractsComponent} from './contracts.component';
 import {mockReceiverSummary} from '../../../test/factories/mock-receivers.factory';
 import {mockContractSummary} from '../../../test/factories/mock-contracts.factory';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Contracts Component', () => {
 
@@ -39,6 +42,12 @@ describe('Contracts Component', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: cold('-a|', {a: {get: () => '4909'}})
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

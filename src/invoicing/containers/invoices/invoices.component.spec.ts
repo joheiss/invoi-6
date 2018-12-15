@@ -8,6 +8,9 @@ import {ActivatedRoute} from '@angular/router';
 import {cold} from 'jasmine-marbles';
 import {InvoicesComponent} from './invoices.component';
 import {mockInvoiceSummary} from '../../../test/factories/mock-invoices.factory';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/index';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Invoices Component', () => {
 
@@ -38,6 +41,12 @@ describe('Invoices Component', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: cold('-a|', {a: {get: () => '4909'}})
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

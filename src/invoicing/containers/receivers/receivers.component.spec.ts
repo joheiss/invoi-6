@@ -2,12 +2,15 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {SharedModule} from '../../../shared/shared.module';
-import {InvoicesBusinessService, ReceiversBusinessService} from '../../business-services';
+import {ReceiversBusinessService} from '../../business-services';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {cold} from 'jasmine-marbles';
 import {mockInvoiceSummary} from '../../../test/factories/mock-invoices.factory';
 import {ReceiversComponent} from './receivers.component';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/index';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Receivers Component', () => {
 
@@ -38,6 +41,12 @@ describe('Receivers Component', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: cold('-a|', {a: {get: () => '4909'}})
+          }
+        },
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
         }
       ]

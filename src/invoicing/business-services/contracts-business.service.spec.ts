@@ -147,7 +147,7 @@ describe('Contracts Business Service', () => {
   });
 
   it('should dispatch CreateContract action if create is processed', async () => {
-    const contract = {...mockSingleContract(), id: service['nextId'] };
+    const contract = {...mockSingleContract(), id: service['nextId'], isDeletable: true };
     const action = new CreateContract(contract);
     const spy = jest.spyOn(store, 'dispatch');
     service.create(Contract.createFromData(contract));
@@ -219,7 +219,7 @@ describe('Contracts Business Service', () => {
     const newContract = Object.assign({}, ContractsBusinessService.template);
     const event = new NewContractSuccess(newContract);
     const spy = jest.spyOn(store, 'dispatch');
-    service.new();
+    service.new(Contract.createFromData(newContract));
     return expect(spy).toHaveBeenCalledWith(event);
   });
 

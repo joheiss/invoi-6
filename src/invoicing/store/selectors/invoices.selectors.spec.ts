@@ -35,7 +35,10 @@ describe('Invoices Selectors', () => {
     it('should return an array containing all invoices', () => {
       const expected = Object.keys(state.invoicing.invoices.entities)
         .map(k => state.invoicing.invoices.entities[k])
-        .sort((a, b) => b.issuedAt - a.issuedAt);
+        .sort((a: any, b: any) => {
+          const result = b.issuedAt.getTime() - a.issuedAt.getTime();
+          return result ? result : a.id.localeCompare(b.id);
+        });
       expect(selectAllInvoices(state)).toEqual(expected);
     });
   });
@@ -44,7 +47,10 @@ describe('Invoices Selectors', () => {
     it('should return an array of invoice objects', () => {
       const expected = Object.keys(state.invoicing.invoices.entities)
         .map(k => Invoice.createFromData(state.invoicing.invoices.entities[k]))
-        .sort((a: any, b: any) => b.header.issuedAt - a.header.issuedAt);
+        .sort((a: any, b: any) => {
+          const result = b.header.issuedAt.getTime() - a.header.issuedAt.getTime();
+          return result ? result : a.header.id.localeCompare(b.header.id);
+        });
       expect(selectAllInvoicesAsObjArray(state)).toEqual(expected);
     });
   });
@@ -72,7 +78,7 @@ describe('Invoices Selectors', () => {
 
   describe('selectSelectedInvoice', () => {
     it('should return the currently selected invoice', () => {
-      state.routerReducer.state = { url: '/invoices', params: { id: '5901' } } as any;
+      state.routerReducer.state = {url: '/invoices', params: {id: '5901'}} as any;
       const expected = mockSingleInvoice();
       expect(selectSelectedInvoice(state).id).toEqual(expected.id);
     });
@@ -83,7 +89,11 @@ describe('Invoices Selectors', () => {
       const expected = mockAllInvoices()
         .map(i => Invoice.createFromData(i))
         .filter(i => i.isOpen())
-        .map(i => i.data);
+        .map(i => i.data)
+        .sort((a: any, b: any) => {
+          const result = b.issuedAt.getTime() - a.issuedAt.getTime();
+          return result ? result : a.id.localeCompare(b.id);
+        });
       expect(selectOpenInvoices(state)).toEqual(expected);
     });
   });
@@ -92,7 +102,11 @@ describe('Invoices Selectors', () => {
     it('should return all open invoices', () => {
       const expected = mockAllInvoices()
         .map(i => Invoice.createFromData(i))
-        .filter(i => i.isOpen());
+        .filter(i => i.isOpen())
+        .sort((a: any, b: any) => {
+          const result = b.header.issuedAt.getTime() - a.header.issuedAt.getTime();
+          return result ? result : a.header.id.localeCompare(b.header.id);
+        });
       expect(selectOpenInvoicesAsObjArray(state)).toEqual(expected);
     });
   });
@@ -112,7 +126,11 @@ describe('Invoices Selectors', () => {
       const expected = mockAllInvoices()
         .map(i => Invoice.createFromData(i))
         .filter(i => i.isDue())
-        .map(i => i.data);
+        .map(i => i.data)
+        .sort((a: any, b: any) => {
+          const result = b.issuedAt.getTime() - a.issuedAt.getTime();
+          return result ? result : a.id.localeCompare(b.id);
+        });
       expect(selectDueInvoices(state)).toEqual(expected);
     });
   });
@@ -129,7 +147,7 @@ describe('Invoices Selectors', () => {
 
   describe('selectInvoiceChangeable', () => {
     it('should return true - if invoice is changeable', () => {
-      state.routerReducer.state = { url: '/invoices', params: { id: '5901' } } as any;
+      state.routerReducer.state = {url: '/invoices', params: {id: '5901'}} as any;
       expect(selectInvoiceChangeable(state)).toEqual(true);
     });
   });

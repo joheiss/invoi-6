@@ -6,8 +6,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {ContractCardComponent} from '../components';
 import {Contract} from '../models/contract.model';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
-import {IfAuthorizedForAdminDirective} from '../../auth/directives/if-authorized-for-admin.directive';
-import {IfAuthorizedForSalesDirective} from '../../auth/directives/if-authorized-for-sales.directive';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('Abstract Master Card Component', () => {

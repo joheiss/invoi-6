@@ -57,6 +57,7 @@ describe('Contract Details Component', () => {
             getPartner: jest.fn(() => cold('-a|', { a: Receiver.createFromData(mockSingleReceiver()) })),
             getReceivers: jest.fn(() => cold('-a|', { a: mockAllReceivers().map(r => Receiver.createFromData(r)) })),
             isDeletable: jest.fn(() => cold('-a|', { a: true })),
+            isUserAllowedToEdit: jest.fn(() => true),
             new: jest.fn(),
             update: jest.fn()
           }

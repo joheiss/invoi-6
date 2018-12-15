@@ -6,6 +6,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {mockContractSummary} from '../../../test/factories/mock-contracts.factory';
 import {By} from '@angular/platform-browser';
+import {IfAuthorizedAsDirective} from '../../../shared/directives/if-authorized-as.directive';
+import {Store} from '@ngrx/store';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Card Buttons Component', () => {
 
@@ -15,8 +19,16 @@ describe('Card Buttons Component', () => {
   beforeEach(async () => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, MaterialModule, FlexLayoutModule],
-      declarations: [CardButtonsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [CardButtonsComponent, IfAuthorizedAsDirective],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        {
+          provide: Store,
+          useValue: {
+            pipe: jest.fn(() => of(mockAuth()[0])),
+          }
+        }
+      ]
     })
       .compileComponents();
   });

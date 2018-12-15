@@ -16,6 +16,8 @@ import {Invoice} from '../../models/invoice.model';
 import {By} from '@angular/platform-browser';
 import {ReceiverFormComponent} from './receiver-form.component';
 import {mockAllCountries} from '../../../test/factories/mock-settings.factory';
+import {of} from 'rxjs/internal/observable/of';
+import {mockAuth} from '../../../test/factories/mock-auth.factory';
 
 describe('Receiver Details Form Component', () => {
 
@@ -44,9 +46,10 @@ describe('Receiver Details Form Component', () => {
         {
           provide: Store,
           useValue: {
-            dispatch: jest.fn()
+            dispatch: jest.fn(),
+            pipe: jest.fn(() => of(mockAuth()[0])),
           }
-        },
+        }
       ]
     })
       .compileComponents();

@@ -74,9 +74,9 @@ describe('Users Guard', () => {
         switchMap(() => of(true)),
         catchError(() => of(false))
       ));
-      const expected = cold('-|', undefined);
+      const expected = cold('-(a|)', { a: true });
       await expect(guard.canActivate()).toBeObservable(expected);
-      return expect(spy).toHaveBeenCalledWith(action);
+      return expect(spy).not.toHaveBeenCalledWith(action);
     });
   });
 
@@ -91,13 +91,13 @@ describe('Users Guard', () => {
         // @ts-ignore
         select(guard.getObjectLoadedSelector()),
         // @ts-ignore
-        tap(loaded => !loaded && store.dispatch(guard.getQueryAction())),
+        tap(loaded => store.dispatch(guard.getQueryAction())),
         filter(loaded => loaded),
         take(1)
       ));
       const expected = cold('-(b|)', { b: true });
       await expect(guard.canActivate()).toBeObservable(expected);
-      return expect(spy).not.toHaveBeenCalledWith(action);
+      return expect(spy).toHaveBeenCalledWith(action);
     });
 
     it('should dispatch QueryUsers action if users are not yet loaded', async () => {
@@ -110,11 +110,11 @@ describe('Users Guard', () => {
         // @ts-ignore
         select(guard.getObjectLoadedSelector()),
         // @ts-ignore
-        tap(loaded => !loaded && store.dispatch(guard.getQueryAction())),
+        tap(loaded => store.dispatch(guard.getQueryAction())),
         filter(loaded => loaded),
         take(1)
       ));
-      const expected = cold('-|', undefined);
+      const expected = cold('-(a|)', { a: true });
       await expect(guard.canActivate()).toBeObservable(expected);
       return expect(spy).toHaveBeenCalledWith(action);
     });

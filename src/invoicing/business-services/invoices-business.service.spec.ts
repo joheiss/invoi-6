@@ -151,6 +151,7 @@ describe('Invoices Business Service', () => {
   it('should dispatch CreateInvoice action if create is processed', async () => {
     const newInvoice = invoice;
     newInvoice.header.id = '5905';
+    newInvoice.header.isDeletable = true;
     const action = new CreateInvoice(newInvoice.data);
     const spy = jest.spyOn(store, 'dispatch');
     service.create(newInvoice);

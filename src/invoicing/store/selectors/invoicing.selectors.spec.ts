@@ -80,7 +80,8 @@ describe('Invoicing Selectors', () => {
             paymentAmount: i.paymentAmount,
             dueDate: i.dueDate
           };
-        });
+        })
+        .sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
       expect(selectAllOpenInvoicesWithReceiver(state)).toEqual(expected);
     });
   });
@@ -416,7 +417,10 @@ describe('Invoicing Selectors', () => {
       const summaries = buildContractSummaries();
       const expected = Object.keys(summaries)
         .map(s => summaries[s])
-        .sort((a: ContractSummary, b: ContractSummary) => b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime());
+        .sort((a: ContractSummary, b: ContractSummary) => {
+          const result = b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime();
+          return result ? result : b.object.header.id.localeCompare(a.object.header.id);
+        });
       expect(selectContractSummariesAsSortedArray(state)).toEqual(expected);
     });
   });
@@ -441,7 +445,10 @@ describe('Invoicing Selectors', () => {
       const summaries = buildInvoiceSummaries();
       const expected = Object.keys(summaries)
         .map(s => summaries[s])
-        .sort((a: InvoiceSummary, b: InvoiceSummary) => b.object.header.id.localeCompare(a.object.header.id));
+        .sort((a: InvoiceSummary, b: InvoiceSummary) => {
+          const result = b.object.header.issuedAt.getTime() - a.object.header.issuedAt.getTime();
+          return result ? result : b.object.header.id.localeCompare(a.object.header.id);
+        });
       expect(selectInvoiceSummariesAsSortedArray(state)).toEqual(expected);
     });
   });
