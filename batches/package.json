@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && npm link",
     "reporting-refresh": "node dist/batches/src/index.js",
-    "list-users": "node dist/batches/src/users-list.js"
+    "list-users": "node dist/batches/src/users-list.js",
+    "export": "node dist/batches/src/export.js"
   },
   "author": "Josef Heiss",
   "license": "ISC",

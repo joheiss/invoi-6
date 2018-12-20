@@ -2,13 +2,14 @@
 
 import * as admin from 'firebase-admin';
 import * as args from 'commander';
-import {calcDiscountedNetValue, calcDueDate, calcNetValue, calcPaymentAmount, calcRevenuePeriod} from '../../shared/src/calculations';
+import {calcDueDate, calcNetValue, calcPaymentAmount, calcRevenuePeriod} from '../../shared/src/calculations';
 import {getReceiver} from '../../shared/src/getters';
 import * as moment from 'moment';
-import {firestore, } from 'firebase';
+import {firestore} from 'firebase';
 import {RevenueData, RevenueExtract} from '../../shared/src/models';
 
-const serviceAccount = require('../../../credentials-prod.json');
+// const serviceAccount = require('../../../credentials-prod.json');
+const serviceAccount = require('../../../credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
