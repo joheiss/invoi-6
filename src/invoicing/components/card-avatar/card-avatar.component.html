@@ -1,4 +1,5 @@
 <div mat-card-avatar class="jo-id-avatar"
+     [routerLink]="[getObjectUrl(), object.header.id]"
      [ngClass]="getAvatarClasses()">
   {{ object?.header.id }}
 </div>

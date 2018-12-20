@@ -106,7 +106,6 @@ export class ReceiversBusinessService extends AbstractBoBusinessService<Receiver
     return fromStore.selectCurrentReceiverAsObj;
   }
 
-
   protected getDefaultValues(): any {
     return ReceiversBusinessService.getDefaultValues();
   }

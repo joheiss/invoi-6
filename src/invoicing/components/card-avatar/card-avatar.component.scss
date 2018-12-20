@@ -10,6 +10,8 @@
   align-items: center;
   font-weight: 700;
   font-size: 1.4rem;
+  cursor: pointer;
+  outline: none;
 
   &--active {
     background-color:  $primary-color-dark;

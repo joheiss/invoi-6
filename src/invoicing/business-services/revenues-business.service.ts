@@ -14,17 +14,6 @@ export class RevenuesBusinessService {
   constructor(private store: Store<fromStore.InvoicingState>) {
   }
 
-  queryRevenues(): Observable<RevenueData[]> {
-    return this.store.pipe(select(fromStore.selectAllRevenues));
-  }
-
-  queryRecentRevenues(): Observable<RevenueData[]> {
-    return this.store.pipe(select(fromStore.selectAllRevenues))
-      .pipe(
-        map(revs => revs.filter((rev, index) => index <= 2)),
-      );
-  }
-
   calculateTotalRevenues(): Observable<RevenuePerYearData[]> {
     const revenuesMatrix = this.initializeRevenuesPerYear();
     return this.store.pipe(

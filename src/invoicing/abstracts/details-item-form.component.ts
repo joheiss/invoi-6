@@ -72,7 +72,7 @@ export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestro
 
   private listenToValueChanges(): Subscription {
     return this.itemGroup.valueChanges.pipe(
-      debounceTime(400),
+      debounceTime(500),
       distinctUntilChanged()
     ).subscribe(changes => {
       this.processFieldChanges(changes);

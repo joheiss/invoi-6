@@ -100,26 +100,26 @@ describe('Object Exists Guard', () => {
 
   describe('If copy, new or quick command is provided in URL params', () => {
 
-    it('should return true if objects are loaded and requested object does not exist - in case of new', async () => {
+    it('should return true if objects are loaded and current object exists - in case of new', async () => {
       route.snapshot.params.id = 'new';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
-      guard['hasObject'] = jest.fn(() => cold('-(a|)', {a: false}));
+      guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
       const expected = cold('-(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });
 
-    it('should return true if objects are loaded and requested object does not exist - in case of copy', async () => {
+    it('should return true if objects are loaded and current object exists - in case of copy', async () => {
       route.snapshot.params.id = 'copy';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
-      guard['hasObject'] = jest.fn(() => cold('-(a|)', {a: false}));
+      guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
       const expected = cold('-(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });
 
-    it('should return true if objects are loaded and requested object does not exist - in case of quick', async () => {
+    it('should return true if objects are loaded and current object exists - in case of quick', async () => {
       route.snapshot.params.id = 'quick';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
-      guard['hasObject'] = jest.fn(() => cold('-(a|)', {a: false}));
+      guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
       const expected = cold('-(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });

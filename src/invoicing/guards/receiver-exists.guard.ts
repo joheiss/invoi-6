@@ -14,6 +14,14 @@ export class ReceiverExistsGuard extends ObjectExistsGuard {
     super(store);
   }
 
+  protected hasCurrentObject(): Observable<boolean> {
+    return this.store.pipe(
+      select(fromStore.selectCurrentReceiver),
+      map(current => !!current),
+      take(1)
+    );
+  }
+
   protected hasObject(id: string): Observable<boolean> {
     return this.store.pipe(
       select(fromStore.selectReceiverEntities),

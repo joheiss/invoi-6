@@ -1,31 +1,25 @@
 import {Injectable} from '@angular/core';
-import {concat, Observable, of, throwError} from 'rxjs/index';
+import {Observable, of, throwError} from 'rxjs/index';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import {Action, select, Store} from '@ngrx/store';
 import {BillingMethod, InvoiceSummary, PaymentMethod} from '../models/invoicing.model';
 import {Contract, ContractItem} from '../models/contract.model';
+import {Invoice, InvoiceData, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
+import {NumberRange} from '../models/number-range.model';
+import {Vat} from '../../admin/models/vat';
+import {catchError, filter, map, mergeMap, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
+import {DateUtilities} from '../../shared/utilities/date-utilities';
+import {AbstractTransactionBusinessService} from './abstract-transaction-business-service';
+import {InvoiceChangeActionFactory} from './invoice-change-action-factory';
 import {
-  ChangeMode,
-  Invoice,
   INVOICE_HEADER_CONTRACT_ID_CHANGED,
   INVOICE_HEADER_RECEIVER_ID_CHANGED,
   INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED,
   INVOICE_ITEM_ID_ADDED,
-  InvoiceChange,
-  InvoiceChangeAction,
-  InvoiceData,
-  InvoiceItem,
-  InvoiceItemData,
-  InvoiceStatus
-} from '../models/invoice.model';
-import {difference} from '../../shared/utilities/object-utilities';
-import {NumberRange} from '../models/number-range.model';
-import {Vat} from '../../admin/models/vat';
-import {catchError, filter, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
-import {isEqual} from 'lodash';
-import {DateUtilities} from '../../shared/utilities/date-utilities';
-import {AbstractTransactionBusinessService} from './abstract-transaction-business-service';
+  InvoiceChangeAction
+} from './invoice-change-action';
+import {getTemplate} from 'codelyzer/util/ngQuery';
 
 @Injectable()
 export class InvoicesBusinessService extends AbstractTransactionBusinessService<Invoice, InvoiceSummary> {
@@ -54,8 +48,8 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
     pricePerUnit: 0
   } as InvoiceItemData;
 
-  private currentData: InvoiceData;
   private nextIds: string[];
+  private currentData: InvoiceData = this.getTemplate();
 
   private static getDefaultValues(): any {
     return {
@@ -91,10 +85,7 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
   }
 
   getCurrent(): Observable<Invoice> {
-    return this.store.pipe(
-      select(this.getCurrentSelector()),
-      tap(current => this.currentData = current.data)
-    );
+    return this.store.pipe(select(this.getCurrentSelector()));
   }
 
   getReceiver(): Observable<Receiver> {
@@ -260,7 +251,7 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
           map(vatSettings => {
             const filtered = vatSettings.values
               .filter((vatSetting: Vat) => vatSetting.taxCode === taxCode)
-              .filter((vatSetting: Vat) => vatSetting.validTo >= invoice.header.issuedAt)
+              .filter((vatSetting: Vat) => vatSetting.validTo >= invoice.header.issuedAt && vatSetting.validFrom <= invoice.header.issuedAt)
               .sort((a: Vat, b: Vat) => a.validTo.getDate() - b.validTo.getDate());
             return filtered[0].percentage;
           }))),
@@ -268,85 +259,33 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
     );
   }
 
-  private processChanges(invoice: Invoice): Observable<Invoice> {
-    const changes = this.determineChanges(invoice.data, this.currentData);
-    const changeActions = changes.map(change => InvoiceChangeAction.createFromData(change, invoice));
-    const operations = changeActions.map(action => {
-      switch (action.type) {
-        case INVOICE_HEADER_RECEIVER_ID_CHANGED:
-          return this.changeReceiverRelatedData(action.payload);
-        case INVOICE_HEADER_CONTRACT_ID_CHANGED:
-          return this.changeContractRelatedData(action.payload);
-        case INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED:
-          return this.changeContractItemRelatedData(action.payload, +action.change.id);
-        case INVOICE_ITEM_ID_ADDED:
-          return this.addContractItemRelatedData(action.payload, +action.change.id);
-        default:
-          return of(invoice);
-      }
-    });
-    return concat(...operations).pipe(takeLast(1));
-  }
-
-  private determineChanges(changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
-    const changes: InvoiceChange[] = [] as InvoiceChange[];
-    // --- find differences
-    const differences = difference(changed, current);
-    if (Object.keys(differences).length === 0) {
-      return changes;
+  private processChangeAction(action: InvoiceChangeAction, invoice: Invoice): Observable<Invoice> {
+    console.log('process change action: ', action.type);
+    switch (action.type) {
+      case INVOICE_HEADER_RECEIVER_ID_CHANGED:
+        return this.changeReceiverRelatedData(action.payload);
+      case INVOICE_HEADER_CONTRACT_ID_CHANGED:
+        return this.changeContractRelatedData(action.payload);
+      case INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED:
+        return this.changeContractItemRelatedData(action.payload, +action.change.id);
+      case INVOICE_ITEM_ID_ADDED:
+        return this.addContractItemRelatedData(action.payload, +action.change.id);
+      default:
+        return of(invoice);
     }
-    // --- flatten into array
-    Object.keys(differences).forEach(key => {
-      if (key === 'items') {
-        const itemChanges = this.determineItemChanges(differences[key], changed, current);
-        changes.push(...itemChanges);
-      } else {
-        const change = {mode: ChangeMode.changed, object: 'header', field: key, value: differences[key]};
-        changes.push(change);
-      }
-    });
-    return changes;
   }
 
-  private determineItemChanges(itemChanges: any[], changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
-    const changes: InvoiceChange[] = [] as InvoiceChange[];
-    itemChanges.forEach((itemChange: Object, i: number) => {
-      const itemId = changed.items[i].id;
-      // --- determine change mode for item
-      let mode = ChangeMode.changed;
-      if (itemChange['id']) {
-        const defaultPos = i + 1;
-        if (itemId !== defaultPos) {
-          mode = ChangeMode.moved;
-          if (itemId > defaultPos) {
-            const change = {mode: ChangeMode.deleted, object: 'item', id: current.items[i].id};
-            changes.push(change);
-          }
-        } else {
-          mode = ChangeMode.added;
-          const change = {mode: ChangeMode.added, object: 'item', id: itemId, field: 'id', value: itemId};
-          changes.push(change);
-        }
-      }
-      // --- investigate field changes
-      Object.keys(itemChange)
-        .filter(fieldName => fieldName !== 'id')
-        .forEach(fieldName => {
-          if (mode === ChangeMode.moved) {
-            // --- ignore movements without change
-            const movedItem = changed.items.find(item => item.id === itemId);
-            const oldItem = current.items.find(item => item.id === itemId);
-            if (!isEqual(movedItem[fieldName], oldItem[fieldName])) {
-              const change = {mode: ChangeMode.changed, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
-              changes.push(change);
-            }
-          } else {
-            const change = {mode: mode, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
-            changes.push(change);
-          }
-        });
-    });
-    return changes;
+  private processChanges(invoice: Invoice): Observable<Invoice> {
+    return of(this.currentData)
+      .pipe(
+        map(current => {
+          const changeActionFactory = new InvoiceChangeActionFactory(current, invoice);
+          return changeActionFactory.getChangeActions();
+        }),
+        switchMap(actions => actions.map(action => this.processChangeAction(action, invoice))),
+        mergeMap(results => results),
+        takeLast(1)
+      );
   }
 
   private setNextIdsFromNumberRanges(): void {

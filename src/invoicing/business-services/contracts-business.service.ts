@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/index';
+import {Observable} from 'rxjs/Observable';
 import {Receiver} from '../models/receiver.model';
 import * as fromStore from '../store/index';
 import {Action, select, Store} from '@ngrx/store';

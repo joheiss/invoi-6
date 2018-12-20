@@ -6,6 +6,7 @@ import {Observable, of} from 'rxjs/index';
 import {ActivatedRoute} from '@angular/router';
 import {InvoicesBusinessService} from '../../business-services';
 import {DetailsComponent} from '../../abstracts/details.component';
+import {catchError} from 'rxjs/operators';
 
 
 @Component({

@@ -16,6 +16,7 @@ export abstract class DetailsItemsFormComponent<T extends Transaction> implement
   }
 
   onAdd(event?: Event): void {
+    console.log('Add item requested.');
     this.service.addItem(this.object);
     if (event) event.stopPropagation();
   }

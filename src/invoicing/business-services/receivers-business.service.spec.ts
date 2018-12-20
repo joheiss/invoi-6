@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import {cold} from 'jasmine-marbles';
 import {InvoicesBusinessService} from './invoices-business.service';
 import {InvoicingState} from '../store/reducers';
-import {Receiver, ReceiverStatus} from '../models/receiver.model';
+import {Receiver} from '../models/receiver.model';
 import {ReceiversBusinessService} from './receivers-business.service';
 import {SettingsBusinessService} from '../../admin/business-services/settings-business.service';
 import {ChangeReceiverSuccess, CopyReceiverSuccess, CreateReceiver, NewReceiverSuccess, UpdateReceiver} from '../store/actions';
@@ -256,7 +256,7 @@ it('should dispatch NewReceiverSuccess event if new is processed', async () => {
   const newReceiver = Object.assign({}, ReceiversBusinessService['template']);
   const event = new NewReceiverSuccess(newReceiver);
   const spy = jest.spyOn(store, 'dispatch');
-  service.new();
+  service.new(Receiver.createFromData(newReceiver));
   return expect(spy).toHaveBeenCalledWith(event);
 });
 

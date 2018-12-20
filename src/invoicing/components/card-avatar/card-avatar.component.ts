@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ObjectUiUtility} from '../../object-ui-utility';
 
 @Component({
   selector: 'jo-card-avatar',
@@ -34,4 +35,9 @@ export class CardAvatarComponent {
         };
     }
   }
+
+  getObjectUrl(): string {
+    return ObjectUiUtility.getObjectUrl(this.object);
+  }
+
 }

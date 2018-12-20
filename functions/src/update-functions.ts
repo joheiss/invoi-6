@@ -185,21 +185,23 @@ async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise
   };
   if (newInvoice) {
     // get new values
-    const period: { year: number, month: number} = calcRevenuePeriod(moment(newInvoice.issuedAt));
+    const period: { year: number, month: number} = calcRevenuePeriod(moment(newInvoice.issuedAt.toDate()));
     values.new.year = period.year.toString();
     values.new.month = period.month.toString();
     values.new.receiverId = newInvoice.receiverId;
     values.new.organization = newInvoice.organization;
     values.new.revenue = calcNetValue(newInvoice);
+    // console.log('new revenue posting: ', values.new);
   }
   if (oldInvoice) {
     // get old values
-    const period: { year: number, month: number} = calcRevenuePeriod(moment(oldInvoice.issuedAt));
+    const period: { year: number, month: number} = calcRevenuePeriod(moment(oldInvoice.issuedAt.toDate()));
     values.old.year = period.year.toString();
     values.old.month = period.month.toString();
     values.old.receiverId = oldInvoice.receiverId;
     values.old.organization = oldInvoice.organization;
     values.old.revenue = calcNetValue(oldInvoice);
+    // console.log('old revenue posting: ', values.old);
   }
   if (values.new.year) {
     const docId = `${values.new.year}_${values.new.organization}`;
@@ -221,6 +223,7 @@ async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise
       // add to existing entry
       revenues.months[values.new.month][values.new.receiverId] += values.new.revenue;
     }
+    console.log('correct revenue entry: ', values.new.month, values.new.receiverId, revenues.months[values.new.month][values.new.receiverId]);
     await setRevenues(db, revenues);
   }
 
@@ -233,6 +236,7 @@ async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise
         revenues.months[values.old.month][values.old.receiverId] - values.old.revenue,
         0
       );
+      console.log('correct revenue entry: ', values.old.month, values.old.receiverId, revenues.months[values.old.month][values.old.receiverId]);
       await setRevenues(db, revenues);
     }
   }

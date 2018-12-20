@@ -13,6 +13,14 @@ export class ContractExistsGuard extends ObjectExistsGuard {
     super(store);
   }
 
+  protected hasCurrentObject(): Observable<boolean> {
+    return this.store.pipe(
+      select(fromStore.selectCurrentContract),
+      map(current => !!current),
+      take(1)
+    );
+  }
+
   protected hasObject(id: string): Observable<boolean> {
     return this.store.pipe(
       select(fromStore.selectContractEntities),

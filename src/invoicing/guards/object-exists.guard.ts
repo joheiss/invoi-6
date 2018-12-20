@@ -5,6 +5,7 @@ import {combineLatest, Observable, of} from 'rxjs/index';
 import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
 
 import * as fromStore from '../store';
+import {Go} from '../../app/store/actions';
 
 @Injectable()
 export abstract class ObjectExistsGuard implements CanActivate {
@@ -17,12 +18,12 @@ export abstract class ObjectExistsGuard implements CanActivate {
       .pipe(
         switchMap(() => {
           if (route.params.id === 'copy' || route.params.id === 'new' || route.params.id === 'quick') {
-            return of(true);
+            return this.hasCurrentObject();
           }
           return this.hasObject(route.params.id);
         }),
         catchError((err, caught) => {
-          console.error(err, caught);
+          this.store.dispatch(new Go({path: ['/invoicing']}));
           return of(false);
         })
       );
@@ -63,6 +64,7 @@ export abstract class ObjectExistsGuard implements CanActivate {
       );
   }
 
+  protected abstract hasCurrentObject(): Observable<boolean>;
   protected abstract hasObject(id: string): Observable<boolean>;
 
 }

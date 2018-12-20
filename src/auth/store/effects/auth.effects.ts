@@ -23,6 +23,7 @@ export class AuthEffects {
     ofType(ROOT_EFFECTS_INIT),
     switchMap(() => this.authService.queryAuth()
       .pipe(
+        tap(() => this.store.dispatch(new fromRoot.StartSpinning())),
         tap(() => console.log(`[AuthEffects] Initialize Store`)),
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))

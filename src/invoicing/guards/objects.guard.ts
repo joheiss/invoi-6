@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs/index';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
 
 import * as fromStore from '../store';
+import {StartSpinning, StopSpinning} from '../../app/store/actions';
 
 @Injectable()
 export abstract class ObjectsGuard implements CanActivate {

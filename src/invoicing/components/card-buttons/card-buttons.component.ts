@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ObjectUiUtility} from '../../object-ui-utility';
 
 @Component({
   selector: 'jo-card-buttons',
@@ -16,7 +17,7 @@ export class CardButtonsComponent {
   constructor() { }
 
   getObjectUrl(): string {
-    return `/invoicing/${this.object.header.objectType}`;
+    return ObjectUiUtility.getObjectUrl(this.object);
   }
 
   onCopy(event?: Event) {

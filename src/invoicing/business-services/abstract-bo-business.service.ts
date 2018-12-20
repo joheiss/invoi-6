@@ -1,6 +1,5 @@
 import {Action, select, Store} from '@ngrx/store';
 import {InvoicingState} from '../store/reducers';
-import {UserData} from '../../auth/models/user';
 import {OpenConfirmationDialog} from '../../app/store/actions';
 import {Transaction} from '../models/transaction';
 import {Summary} from '../models/invoicing.model';
@@ -9,8 +8,6 @@ import {MasterData} from '../models/master-data';
 import {AbstractBusinessService} from './abstract-business.service';
 
 export abstract class AbstractBoBusinessService<T extends Transaction | MasterData, S extends Summary> extends AbstractBusinessService<T> {
-
-  protected auth: UserData;
 
   protected constructor(protected store: Store<InvoicingState>) {
     super(store);

@@ -8,13 +8,13 @@
   transition: all 0.25s;
 
   @media only screen and (max-width: $media-md) {
-    width: 40rem;
+    width: 42rem;
     padding: 1rem 2rem;
     margin: 0.75rem 1.5rem 0.75rem 0;
   }
   @media only screen and (max-width: $media-sm) {
-    width: 40rem;
-    padding: 1rem 2rem;
+    width: 42rem;
+    padding: 0.5rem 1rem;
     margin: 0.75rem;
 
     .mat-card-title { font-size: 1.8rem; line-height: 2rem; }

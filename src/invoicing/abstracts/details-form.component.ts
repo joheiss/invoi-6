@@ -82,7 +82,8 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
     } else {
       this.create.emit(edited);
     }
-    this.form.reset();
+    this.form.markAsPristine();
+    // this.form.reset();
   }
 
   onTabChange(event: MatTabChangeEvent) {
@@ -150,7 +151,7 @@ export abstract class DetailsFormComponent<T extends Transaction | MasterData> i
 
   private listenToValueChanges(ctrl: AbstractControl, controlName: string, handler: Function): Subscription {
     return ctrl.valueChanges.pipe(
-      debounceTime(400),
+      debounceTime(500),
       distinctUntilChanged()
     ).subscribe(change => {
       if (this.isChangeValid(ctrl)) {

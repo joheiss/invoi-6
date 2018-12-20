@@ -6,6 +6,7 @@
 /out-tsc
 /functions/lib
 /batches/dist
+/batches/exports
 
 # dependencies
 /node_modules
