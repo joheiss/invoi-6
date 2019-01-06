@@ -57,7 +57,7 @@ export class SettingsEffects {
   updateSettingSuccess$ = this.actions$.pipe(
     ofType(settingActions.UPDATE_SETTING_SUCCESS),
     map((action: settingActions.UpdateSettingSuccess) => action.payload),
-    switchMap(setting => [
+    mergeMap(setting => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.settingsService.getMessage('setting-update-success', [setting.id])
@@ -70,7 +70,7 @@ export class SettingsEffects {
   updateSettingFail$ = this.actions$.pipe(
     ofType(settingActions.UPDATE_SETTING_FAIL),
     map((action: settingActions.UpdateSettingFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.settingsService.getMessage('setting-update-fail', [error.message])
@@ -95,7 +95,7 @@ export class SettingsEffects {
   createSettingSuccess$ = this.actions$.pipe(
     ofType(settingActions.CREATE_SETTING_SUCCESS),
     map((action: settingActions.CreateSettingSuccess) => action.payload),
-    switchMap(setting => [
+    mergeMap(setting => [
       new fromRoot.StopSpinning(),
       new fromRoot.Go({path: ['/invoicing/settings', setting.id]})
     ])
@@ -105,7 +105,7 @@ export class SettingsEffects {
   createSettingFail$ = this.actions$.pipe(
     ofType(settingActions.CREATE_SETTING_FAIL),
     map((action: settingActions.CreateSettingFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.settingsService.getMessage('setting-create-fail', [error.message])
@@ -130,7 +130,7 @@ export class SettingsEffects {
   deleteSettingSuccess$ = this.actions$.pipe(
     ofType(settingActions.DELETE_SETTING_SUCCESS),
     map((action: settingActions.DeleteSettingSuccess) => action.payload),
-    switchMap(setting => [
+    mergeMap(setting => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.settingsService.getMessage('setting-deleted', [setting.id])
@@ -143,7 +143,7 @@ export class SettingsEffects {
   deleteSettingFail$ = this.actions$.pipe(
     ofType(settingActions.DELETE_SETTING_FAIL),
     map((action: settingActions.DeleteSettingFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.settingsService.getMessage('setting-delete-fail', [error.message])

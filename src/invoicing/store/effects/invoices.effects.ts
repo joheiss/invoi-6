@@ -58,7 +58,7 @@ export class InvoicesEffects {
   updateInvoiceSuccess$ = this.actions$.pipe(
     ofType(invoiceActions.UPDATE_INVOICE_SUCCESS),
     map((action: invoiceActions.UpdateInvoiceSuccess) => action.payload),
-    switchMap(invoice => [
+    mergeMap(invoice => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.invoicesService.getMessage('invoice-update-success', [invoice.id])
@@ -71,7 +71,7 @@ export class InvoicesEffects {
   updateInvoiceFail$ = this.actions$.pipe(
     ofType(invoiceActions.UPDATE_INVOICE_FAIL),
     map((action: invoiceActions.UpdateInvoiceFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.invoicesService.getMessage('invoice-update-fail', [error.message])
@@ -96,7 +96,7 @@ export class InvoicesEffects {
   createInvoiceSuccess$ = this.actions$.pipe(
     ofType(invoiceActions.CREATE_INVOICE_SUCCESS),
     map((action: invoiceActions.CreateInvoiceSuccess) => action.payload),
-    switchMap(invoice => [
+    mergeMap(invoice => [
       new fromRoot.StopSpinning(),
       new fromRoot.Go({path: ['/invoicing/invoices', invoice.id]})
     ])
@@ -106,7 +106,7 @@ export class InvoicesEffects {
   createInvoiceFail$ = this.actions$.pipe(
     ofType(invoiceActions.CREATE_INVOICE_FAIL),
     map((action: invoiceActions.CreateInvoiceFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.invoicesService.getMessage('invoice-create-fail', [error.message])
@@ -130,7 +130,7 @@ export class InvoicesEffects {
   deleteInvoiceSuccess$ = this.actions$.pipe(
     ofType(invoiceActions.DELETE_INVOICE_SUCCESS),
     map((action: invoiceActions.DeleteInvoiceSuccess) => action.payload),
-    switchMap(invoice => [
+    mergeMap(invoice => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.invoicesService.getMessage('invoice-delete-success', [invoice.id])
@@ -143,7 +143,7 @@ export class InvoicesEffects {
   deleteInvoiceFail$ = this.actions$.pipe(
     ofType(invoiceActions.DELETE_INVOICE_FAIL),
     map((action: invoiceActions.DeleteInvoiceFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.invoicesService.getMessage('invoice-delete-fail', [error.message])
@@ -194,7 +194,7 @@ export class InvoicesEffects {
     ofType(invoiceActions.CREATE_INVOICE_PDF_FAIL),
     tap(error => console.error(error)),
     map((action: invoiceActions.CreateInvoicePdfFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-failed')})
     ])
@@ -205,7 +205,7 @@ export class InvoicesEffects {
     ofType(invoiceActions.CREATE_INVOICE_PDF_SUCCESS),
     tap(() => console.log('*** CreateInvoicePdfSuccess')),
     map((action: invoiceActions.CreateInvoicePdfSuccess) => action.payload),
-    switchMap(invoice => [
+    mergeMap(invoice => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-created')})
     ])

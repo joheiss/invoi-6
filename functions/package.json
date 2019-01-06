@@ -15,24 +15,24 @@
     "@sendgrid/mail": "^6.3.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "firebase-admin": "^6.3.0",
+    "firebase-admin": "^6.4.0",
     "firebase-functions": "^2.1.0",
     "full-icu": "^1.2.1",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
     "lodash": "^4.17.11",
-    "moment": "^2.22.2",
+    "moment": "^2.23.0",
     "pdfkit": "^0.8.3",
     "sharp": "^0.21.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.4",
     "@types/express": "^4.16.0",
-    "@types/lodash": "^4.14.112",
-    "@types/node": "~6.0.60",
+    "@types/lodash": "^4.14.118",
+    "@types/node": "~6.0.118",
     "@types/pdfkit": "^0.7.36",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "^2.9.2"
   },
   "private": true
 }

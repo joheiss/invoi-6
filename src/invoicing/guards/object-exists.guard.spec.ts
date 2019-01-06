@@ -104,7 +104,7 @@ describe('Object Exists Guard', () => {
       route.snapshot.params.id = 'new';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
       guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
-      const expected = cold('-(a|)', {a: true});
+      const expected = cold('--(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });
 
@@ -112,7 +112,7 @@ describe('Object Exists Guard', () => {
       route.snapshot.params.id = 'copy';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
       guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
-      const expected = cold('-(a|)', {a: true});
+      const expected = cold('--(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });
 
@@ -120,7 +120,7 @@ describe('Object Exists Guard', () => {
       route.snapshot.params.id = 'quick';
       guard['checkStore'] = jest.fn(() => cold('-(a|)', {a: true}));
       guard['hasCurrentObject'] = jest.fn(() => cold('-(a|)', {a: true}));
-      const expected = cold('-(a|)', {a: true});
+      const expected = cold('--(a|)', {a: true});
       expect(guard.canActivate(route.snapshot)).toBeObservable(expected);
     });
   });

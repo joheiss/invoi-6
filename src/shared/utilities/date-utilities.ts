@@ -15,7 +15,7 @@ export class DateUtilities {
   }
 
   public static getDateOnly(date: Date = new Date()): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12);
   }
 
   public static getEndDate(date: Date = new Date()): Date {

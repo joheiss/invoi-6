@@ -13,7 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {StorageModule} from '../storage/storage.module';
 import {AuthModule} from '../auth/auth.module';
-
+import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 export const firebaseConfig = environment.firebase;
 
@@ -30,7 +30,7 @@ import {storageEffects} from '../storage/store/effects';
 // -- not used in production
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
-import {ServiceWorkerModule} from '@angular/service-worker';
+
 
 
 export function clearState(reducer: ActionReducer<AppState>): ActionReducer<AppState> {

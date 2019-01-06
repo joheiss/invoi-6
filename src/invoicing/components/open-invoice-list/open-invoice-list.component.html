@@ -21,8 +21,8 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="issuedAt">
-        <mat-header-cell *matHeaderCellDef i18n>Datum</mat-header-cell>
-        <mat-cell *matCellDef="let invoice">
+        <mat-header-cell *matHeaderCellDef fxHide.lt-sm i18n>Datum</mat-header-cell>
+        <mat-cell *matCellDef="let invoice" fxHide.lt-sm >
           {{invoice.issuedAt | date}}
         </mat-cell>
       </ng-container>

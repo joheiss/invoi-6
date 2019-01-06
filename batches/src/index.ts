@@ -24,6 +24,9 @@ args
   .parse(process.argv);
 
 const testMode = !!args.test;
+const today = new Date();
+const lockedDownYear = today.getFullYear() - 1;
+console.log('Locked Down Year: ', lockedDownYear);
 
 refreshReporting();
 
@@ -46,6 +49,7 @@ async function refreshReporting() {
 
 function buildRevenues(allInvoices: any): RevenueData[] {
   return allInvoices.docs
+    .filter(doc => calcRevenuePeriod(moment(doc.data().issuedAt)).year > lockedDownYear)
     .map(doc => mapRevenue(doc))
     .reduce((revenues: RevenueData[], extract: RevenueExtract) => reduceRevenues(revenues, extract), []);
 }

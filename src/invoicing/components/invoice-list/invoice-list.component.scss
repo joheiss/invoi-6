@@ -2,7 +2,7 @@
 
 mat-cell {
   & > a.mat-button {
-    min-width: 4rem;
+    min-width: 5rem;
     padding: 0 0.5rem;
 
     @media only screen and (max-width: $media-sm) {
@@ -14,10 +14,6 @@ mat-cell {
     &[fxhide\.lt-md] {
       display: flex !important;
     }
-  }
-
-  @media only screen and (max-width: $media-sm) {
-    font-size: 1.6rem;
   }
 
   &:first-of-type {
@@ -48,7 +44,7 @@ mat-header-cell {
 
 
 .width--sm {
-  flex: 0.5;
+  flex: 1;
 }
 
 .width--lg {

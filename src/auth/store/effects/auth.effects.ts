@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType, ROOT_EFFECTS_INIT} from '@ngrx/effects';
 import * as authActions from '../actions/auth.actions';
 import * as usersActions from '../actions/users.actions';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {catchError, concatMap, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/index';
 import {AuthService} from '../../services';
 import {ClearState} from '../../../invoicing/store/actions';
@@ -35,7 +35,7 @@ export class AuthEffects {
     ofType(authActions.QUERY_AUTH),
     switchMap(() => this.authService.queryAuth()
       .pipe(
-        tap(user => console.log(`auth query result:`, user)),
+        // tap(user => console.log(`auth query result:`, user)),
         map(user => new authActions.Authenticated(user)),
         catchError(error => of(new authActions.NotAuthenticated(error)))
       ))
@@ -67,8 +67,8 @@ export class AuthEffects {
   authenticated$ = this.actions$.pipe(
     ofType(authActions.AUTHENTICATED),
     map((action: authActions.Authenticated) => action.payload),
-    tap(user => console.log(`authenticated with:`, user.displayName)),
-    switchMap(user => [
+    // tap(user => console.log(`authenticated with:`, user.displayName)),
+    concatMap(user => [
       new usersActions.QueryOneUser(user.uid),
       new fromRoot.StopSpinning(),
       new fromRoot.LeaveLogin(user)
@@ -80,7 +80,7 @@ export class AuthEffects {
     ofType(authActions.NOT_AUTHENTICATED),
     map((action: authActions.NotAuthenticated) => action.payload),
     tap(error => console.log(`not authenticated:`, error)),
-    switchMap(() => [
+    mergeMap(() => [
       new fromRoot.Go({path: ['/auth/login']}),
       new fromRoot.StopSpinning()
     ])
@@ -104,7 +104,7 @@ export class AuthEffects {
     ofType(authActions.CHANGE_MY_PASSWORD_SUCCESS),
     // tap(() => console.log(`password changed`)),
     map((action: authActions.ChangeMyPasswordSuccess) => action.payload),
-    switchMap(() => [
+    mergeMap(() => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.authService.getMessage('password-update-success')
@@ -115,9 +115,9 @@ export class AuthEffects {
   @Effect()
   changeMyPasswordFail$ = this.actions$.pipe(
     ofType(authActions.CHANGE_MY_PASSWORD_FAIL),
-    tap(() => console.error(`password change failed`)),
+    // tap(() => console.error(`password change failed`)),
     map((action: authActions.ChangeMyPasswordFail) => action.payload),
-    switchMap((err) => [
+    mergeMap((err) => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.authService.getMessage('password-update-fail', [err.message])
@@ -143,7 +143,7 @@ export class AuthEffects {
     ofType(authActions.CHANGE_PASSWORD_SUCCESS),
     // tap(() => console.log(`password changed`)),
     map((action: authActions.ChangePasswordSuccess) => action.payload),
-    switchMap(() => [
+    mergeMap(() => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.authService.getMessage('password-update-success')
@@ -154,9 +154,9 @@ export class AuthEffects {
   @Effect()
   changePasswordFail$ = this.actions$.pipe(
     ofType(authActions.CHANGE_PASSWORD_FAIL),
-    tap(() => console.error(`password change failed`)),
+    // tap(() => console.error(`password change failed`)),
     map((action: authActions.ChangePasswordFail) => action.payload),
-    switchMap((err) => [
+    mergeMap((err) => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.authService.getMessage('password-update-fail', [err.message])

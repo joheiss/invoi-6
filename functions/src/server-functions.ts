@@ -68,11 +68,15 @@ async function storePdf(form: InvoiceForm, id: string): Promise<any> {
 
 export async function handleInvoiceEmailSending(req: Request, res: Response) {
   try {
+    // console.log('functions.config(): ', functions.config()); // (functions.config().sendgrid.key;
+    // const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
+    // console.log('FIREBASE_CONFIG: ', firebaseConfig);
     const SENDGRID_API_KEY = functions.config().sendgrid.key;
     setApiKey(SENDGRID_API_KEY);
     const response = await sendInvoiceEmail(req.params.id);
     res.status(200).json(response);
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 }

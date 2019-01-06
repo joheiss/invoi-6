@@ -15,7 +15,7 @@ describe('Date Utilities', () => {
 
   it('should return a date with time is 00:00:00:000', () => {
     const inputDate = new Date(2019, 0, 1);
-    const expectedDate = new Date(2019, 0, 1, 0, 0, 0, 0);
+    const expectedDate = new Date(2019, 0, 1, 12, 0, 0, 0);
     expect(DateUtilities.getDateOnly(inputDate)).toEqual(expectedDate);
   });
 

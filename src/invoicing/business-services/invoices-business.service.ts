@@ -8,7 +8,7 @@ import {Contract, ContractItem} from '../models/contract.model';
 import {Invoice, InvoiceData, InvoiceItem, InvoiceItemData, InvoiceStatus} from '../models/invoice.model';
 import {NumberRange} from '../models/number-range.model';
 import {Vat} from '../../admin/models/vat';
-import {catchError, filter, map, mergeMap, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
+import {catchError, concatMap, filter, map, mergeMap, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
 import {DateUtilities} from '../../shared/utilities/date-utilities';
 import {AbstractTransactionBusinessService} from './abstract-transaction-business-service';
 import {InvoiceChangeActionFactory} from './invoice-change-action-factory';
@@ -19,7 +19,6 @@ import {
   INVOICE_ITEM_ID_ADDED,
   InvoiceChangeAction
 } from './invoice-change-action';
-import {getTemplate} from 'codelyzer/util/ngQuery';
 
 @Injectable()
 export class InvoicesBusinessService extends AbstractTransactionBusinessService<Invoice, InvoiceSummary> {
@@ -282,7 +281,7 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
           const changeActionFactory = new InvoiceChangeActionFactory(current, invoice);
           return changeActionFactory.getChangeActions();
         }),
-        switchMap(actions => actions.map(action => this.processChangeAction(action, invoice))),
+        concatMap(actions => actions.map(action => this.processChangeAction(action, invoice))),
         mergeMap(results => results),
         takeLast(1)
       );

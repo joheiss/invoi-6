@@ -60,7 +60,7 @@ export class ReceiversEffects {
   updateReceiverSuccess$ = this.actions$.pipe(
     ofType(receiverActions.UPDATE_RECEIVER_SUCCESS),
     map((action: receiverActions.UpdateReceiverSuccess) => action.payload),
-    switchMap(receiver => [
+    mergeMap(receiver => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.receiversService.getMessage('receiver-update-success', [receiver.id])
@@ -73,7 +73,7 @@ export class ReceiversEffects {
   updateReceiverFail$ = this.actions$.pipe(
     ofType(receiverActions.UPDATE_RECEIVER_FAIL),
     map((action: receiverActions.UpdateReceiverFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.receiversService.getMessage('receiver-update-fail', [error.message])
@@ -98,7 +98,7 @@ export class ReceiversEffects {
   createReceiverSuccess$ = this.actions$.pipe(
     ofType(receiverActions.CREATE_RECEIVER_SUCCESS),
     map((action: receiverActions.CreateReceiverSuccess) => action.payload),
-    switchMap(receiver => [
+    mergeMap(receiver => [
       new fromRoot.StopSpinning(),
       new fromRoot.Go({path: ['/invoicing/receivers', receiver.id]})
     ])
@@ -108,7 +108,7 @@ export class ReceiversEffects {
   createReceiverFail$ = this.actions$.pipe(
     ofType(receiverActions.CREATE_RECEIVER_FAIL),
     map((action: receiverActions.CreateReceiverFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.receiversService.getMessage('receiver-create-fail', [error.message])
@@ -133,7 +133,7 @@ export class ReceiversEffects {
   deleteReceiverSuccess$ = this.actions$.pipe(
     ofType(receiverActions.DELETE_RECEIVER_SUCCESS),
     map((action: receiverActions.DeleteReceiverSuccess) => action.payload),
-    switchMap(receiver => [
+    mergeMap(receiver => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.receiversService.getMessage('receiver-delete-success', [receiver.id])
@@ -146,7 +146,7 @@ export class ReceiversEffects {
   deleteReceiverFail$ = this.actions$.pipe(
     ofType(receiverActions.DELETE_RECEIVER_FAIL),
     map((action: receiverActions.DeleteReceiverFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.receiversService.getMessage('receiver-delete-fail', [error.message])

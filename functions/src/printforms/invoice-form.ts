@@ -14,6 +14,7 @@ export class InvoiceForm extends BaseForm {
         const info: PDFKit.DocumentInfo = {} as PDFKit.DocumentInfo;
         info.Title = `${InvoiceForm.title} ${data.invoiceId}`;
         info.Author = InvoiceForm.author;
+        info.Producer = info.Author;
         info.Creator = info.Author;
         info.CreationDate = new Date();
         info.Keywords = info.Title;

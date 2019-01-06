@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as fromServices from '../../services';
 import * as contractActions from '../actions/contracts.actions';
-import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {catchError, concatMap, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
 import {select, Store} from '@ngrx/store';
@@ -60,7 +60,7 @@ export class ContractsEffects {
   updateContractSuccess$ = this.actions$.pipe(
     ofType(contractActions.UPDATE_CONTRACT_SUCCESS),
     map((action: contractActions.UpdateContractSuccess) => action.payload),
-    switchMap(contract => [
+    mergeMap(contract => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.contractsService.getMessage('contract-update-success', [contract.id])
@@ -73,7 +73,7 @@ export class ContractsEffects {
   updateContractFail$ = this.actions$.pipe(
     ofType(contractActions.UPDATE_CONTRACT_FAIL),
     map((action: contractActions.UpdateContractFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.contractsService.getMessage('contract-update-fail', [error.message])
@@ -98,7 +98,7 @@ export class ContractsEffects {
   createContractSuccess$ = this.actions$.pipe(
     ofType(contractActions.CREATE_CONTRACT_SUCCESS),
     map((action: contractActions.CreateContractSuccess) => action.payload),
-    switchMap(contract => [
+    mergeMap(contract => [
       new fromRoot.StopSpinning(),
       new fromRoot.Go({path: ['/invoicing/contracts', contract.id]})
     ])
@@ -108,7 +108,7 @@ export class ContractsEffects {
   createContractFail$ = this.actions$.pipe(
     ofType(contractActions.CREATE_CONTRACT_FAIL),
     map((action: contractActions.CreateContractFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.contractsService.getMessage('contract-create-fail', [error.message])
@@ -132,7 +132,7 @@ export class ContractsEffects {
   deleteContractSuccess$ = this.actions$.pipe(
     ofType(contractActions.DELETE_CONTRACT_SUCCESS),
     map((action: contractActions.DeleteContractSuccess) => action.payload),
-    switchMap(contract => [
+    mergeMap(contract => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.contractsService.getMessage('contract-delete-success', [contract.id])
@@ -145,7 +145,7 @@ export class ContractsEffects {
   deleteContractFail$ = this.actions$.pipe(
     ofType(contractActions.DELETE_CONTRACT_FAIL),
     map((action: contractActions.DeleteContractFail) => action.payload),
-    switchMap(error => [
+    mergeMap(error => [
       new fromRoot.StopSpinning(),
       new fromRoot.OpenSnackBar({
         message: this.contractsService.getMessage('contract-delete-fail', [error.message])
