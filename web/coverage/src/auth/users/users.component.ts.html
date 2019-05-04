@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/auth/users/users.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/auth/users</a> users.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.43% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.71% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>6/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/25</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material';
+import {User} from '../models/user';
+import {UsersBusinessService} from '../business-services/users-business.service';
+import {UsersUiService} from '../services';
+import {UserDetailsDialogComponent} from './user-details-dialog/user-details-dialog.component';
+&nbsp;
+@Component({
+  selector: 'jo-users',
+  template: require('./users.component.html'),
+  styles: []
+})
+export class UsersComponent implements OnInit {
+  users: User[];
+  displayedColumns = ['imageUrl', 'email', 'phoneNumber', 'displayName', 'organization', 'roles', 'isLocked'];
+  dataSource = new MatTableDataSource&lt;User&gt;();
+&nbsp;
+  constructor(private service: UsersBusinessService<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private uiService: UsersUiService<span class="branch-1 cbranch-no" title="branch not covered" >) {}</span>
+&nbsp;
+  ngOnInit() {
+    this.service.getAllUsers()
+      .subscribe(users =&gt; {
+        this.dataSource.data = users;
+      });
+  }
+&nbsp;
+  onNew() {
+    const userToCreate = User.createFromData(this.service.new());
+    const popupData = { title: 'Benutzer anlegen', task: 'new', user: userToCreate };
+    this.uiService.openUserProfilePopup(popupData, UserDetailsDialogComponent);
+  }
+&nbsp;
+  onSelect(user: User) {
+    const userToEdit = User.createFromData(user.data);
+    const popupData = { title: 'Benutzer pflegen', task: 'edit', user: userToEdit };
+    this.uiService.openUserProfilePopup(popupData, UserDetailsDialogComponent);
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onToggleLock(</span>user: User) {
+<span class="cstat-no" title="statement not covered" >    console.log('Lock / unlock user to be implemented!!!!');</span>
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -2,11 +2,8 @@
 
 import * as admin from 'firebase-admin';
 import * as args from 'commander';
-import {calcDueDate, calcNetValue, calcPaymentAmount, calcRevenuePeriod} from '../../shared/src/calculations';
-import {getReceiver} from '../../shared/src/getters';
-import * as moment from 'moment';
-import {firestore} from 'firebase';
-import {RevenueData, RevenueExtract} from '../../shared/src/models';
+import {Invoice, InvoiceData, RevenueData, RevenueExtractData} from 'jovisco-domain';
+import {getReceiver} from '../../shared/src';
 
 // const serviceAccount = require('../../../credentials-prod.json');
 const serviceAccount = require('../../../credentials.json');
@@ -49,16 +46,18 @@ async function refreshReporting() {
 
 function buildRevenues(allInvoices: any): RevenueData[] {
   return allInvoices.docs
-    .filter(doc => calcRevenuePeriod(moment(doc.data().issuedAt)).year > lockedDownYear)
-    .map(doc => mapRevenue(doc))
-    .reduce((revenues: RevenueData[], extract: RevenueExtract) => reduceRevenues(revenues, extract), []);
+    .map(doc => mapToInvoice(doc.data()))
+    .filter(invoice => invoice.revenuePeriod.year > lockedDownYear)
+    .map(invoice => mapRevenue(invoice))
+    .reduce((revenues: RevenueData[], extract: RevenueExtractData) => reduceRevenues(revenues, extract), []);
 }
 
 async function buildOpenInvoices(allInvoices: any): Promise<any> {
   return Promise.all(
     allInvoices.docs
-    .filter(doc => doc.data().status !== 2)
-    .map(async doc => await mapOpenInvoice(doc.data()))
+      .map(doc => mapToInvoice(doc.data()))
+      .filter(invoice => invoice.isOpen())
+      .map(async invoice => await mapOpenInvoice(invoice))
   );
 }
 
@@ -78,36 +77,40 @@ function insertOpenInvoices(openInvoices: any[]): Promise<any> {
   return batch.commit();
 }
 
-async function mapOpenInvoice(invoice: any): Promise<any> {
-  const receiver = await getReceiver(db, invoice.receiverId);
+async function mapOpenInvoice(invoice: Invoice): Promise<any> {
+  const receiver = await getReceiver(db, invoice.header.receiverId);
   const receiverName = receiver.name;
   return {
-    id: invoice.id,
-    organization: invoice.organization,
-    issuedAt: invoice.issuedAt,
-    status: invoice.status,
-    receiverId: invoice.receiverId,
+    id: invoice.header.id,
+    organization: invoice.header.organization,
+    issuedAt: invoice.header.issuedAt,
+    status: invoice.header.status,
+    receiverId: invoice.header.receiverId,
     receiverName: receiverName,
-    billingPeriod: invoice.billingPeriod,
-    netValue: calcNetValue(invoice),
-    paymentAmount: calcPaymentAmount(invoice),
-    dueDate: calcDueDate(invoice)
+    billingPeriod: invoice.header.billingPeriod,
+    netValue: invoice.netValue,
+    paymentAmount: invoice.paymentAmount,
+    dueDate: invoice.dueDate
   };
 }
 
-function mapRevenue(doc: firestore.DocumentSnapshot): RevenueExtract {
-  const period = calcRevenuePeriod(moment(doc.data().issuedAt));
+function mapRevenue(invoice: Invoice): RevenueExtractData {
   return {
-    year: period.year.toString(),
-    organization: doc.data().organization,
-    month: period.month.toString(),
-    receiverId: doc.data().receiverId,
-    netValue: calcNetValue(doc.data())
+    year: invoice.revenuePeriod.year.toString(),
+    organization: invoice.header.organization,
+    month: invoice.revenuePeriod.month.toString(),
+    receiverId: invoice.header.receiverId,
+    netValue: invoice.netValue
   };
 }
 
-function reduceRevenues(revenues: RevenueData[], extract: RevenueExtract) {
-  const { year, organization, month, receiverId, netValue } = extract;
+function mapToInvoice(data: InvoiceData): Invoice {
+  const invoiceData = {...data};
+  return Invoice.createFromData(invoiceData);
+}
+
+function reduceRevenues(revenues: RevenueData[], extract: RevenueExtractData) {
+  const {year, organization, month, receiverId, netValue} = extract;
   let revYear = revenues.find(rev => rev.id === year && rev.organization === organization);
   if (revYear) {
     const revMonth = revYear.months[month];

@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/containers/vat-list/vat-list.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/containers/vat-list</a> vat-list.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.54% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">31.25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">26.56% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/64</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Component, OnDestroy, OnInit} from '@angular/core';
+import {SettingData} from '../../models/setting.model';
+import {Subscription} from 'rxjs/index';
+import {SettingsBusinessService} from '../../business-services';
+import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import {VatDetailsDialogComponent} from '..';
+import {Vat, VAT_TASK_EDIT, VAT_TASK_NEW_PERIOD, VAT_TASK_NEW_TAXCODE, VatTask} from '../../models/vat';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+&nbsp;
+@Component({
+  selector: 'jo-vat-list',
+  template: require('./vat-list.component.html'),
+  styles: []
+})
+export class VatListComponent implements OnInit, OnDestroy {
+  vatSettings: SettingData;
+<span class="cstat-no" title="statement not covered" >  displayedColumns = ['taxCode', 'validFrom', 'validTo', 'percentage', 'task', 'delete'];</span>
+<span class="cstat-no" title="statement not covered" >  dataSource = new MatTableDataSource&lt;Vat&gt;();</span>
+  detailsDialogRef: MatDialogRef&lt;VatDetailsDialogComponent&gt;;
+&nbsp;
+  private subscription: Subscription;
+  private <span class="cstat-no" title="statement not covered" >selectedVat: Vat = null;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>service: SettingsBusinessService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >dialog: MatDialog<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  ngOnInit() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.subscription = this.service.getVatSettings()</span>
+      .subscribe(<span class="fstat-no" title="function not covered" >setting =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        this.vatSettings = _.cloneDeep(setting);</span>
+<span class="cstat-no" title="statement not covered" >        this.vatSettings.values.sort(<span class="fstat-no" title="function not covered" >(</span>a, b) =&gt; {</span>
+          const result = <span class="cstat-no" title="statement not covered" >a.taxCode.localeCompare(b.taxCode);</span>
+<span class="cstat-no" title="statement not covered" >          return result === 0 ? b.validTo.getDate() - a.validTo.getDate() : result;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        this.dataSource.data = this.vatSettings.values;</span>
+      });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  ngOnDestroy(): void {</span>
+<span class="cstat-no" title="statement not covered" >    this.subscription.unsubscribe();</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onAddPeriod(</span>vat: Vat) {
+<span class="cstat-no" title="statement not covered" >    this.selectedVat = vat;</span>
+    const vatToCopy = <span class="cstat-no" title="statement not covered" >Object.assign({}, vat, {validFrom: new Date(), validTo: new Date(9999, 11, 31)}) as Vat;</span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(VAT_TASK_NEW_PERIOD, vatToCopy);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onDelete(</span>vat: Vat) {
+<span class="cstat-no" title="statement not covered" >    this.selectedVat = null;</span>
+<span class="cstat-no" title="statement not covered" >    this.vatSettings.values = [</span>
+      ...this.vatSettings.values.filter(<span class="fstat-no" title="function not covered" >entry =&gt; <span class="cstat-no" title="statement not covered" >!_.isEqual(entry, vat))</span></span>
+    ];
+<span class="cstat-no" title="statement not covered" >    this.service.update(this.vatSettings);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onNew() {</span>
+<span class="cstat-no" title="statement not covered" >    this.selectedVat = null;</span>
+    const vatToCreate = <span class="cstat-no" title="statement not covered" >Object.assign({}, {validFrom: new Date(), validTo: new Date(9999, 11, 31)}) as Vat;</span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(VAT_TASK_NEW_TAXCODE, vatToCreate);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onSelect(</span>vat: Vat) {
+<span class="cstat-no" title="statement not covered" >    this.selectedVat = vat;</span>
+    const vatToEdit = <span class="cstat-no" title="statement not covered" >Object.assign({}, vat) as Vat;</span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(VAT_TASK_EDIT, vatToEdit);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private openDetailsDialog(</span>task: VatTask, newVat: Vat): MatDialogRef&lt;VatDetailsDialogComponent&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    this.detailsDialogRef = this.dialog.open(VatDetailsDialogComponent, {</span>
+      height: '90%',
+      width: '66%',
+      minHeight: '45rem',
+      minWidth: '36rem',
+      maxHeight: '50rem',
+      maxWidth: '48rem',
+      data: {task: task, vat: newVat}
+    });
+<span class="cstat-no" title="statement not covered" >    this.detailsDialogRef.afterClosed().subscribe(<span class="fstat-no" title="function not covered" >result =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (result) {</span>
+<span class="cstat-no" title="statement not covered" >        this.updateVat(result);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        this.selectedVat = null;</span>
+      }
+    });
+<span class="cstat-no" title="statement not covered" >    return this.detailsDialogRef;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private updateVat(</span>result: any): void {
+<span class="cstat-no" title="statement not covered" >    switch (result.task) {</span>
+      case VAT_TASK_EDIT: {
+<span class="cstat-no" title="statement not covered" >        this.selectedVat.validFrom = result.vat.validFrom;</span>
+<span class="cstat-no" title="statement not covered" >        this.selectedVat.validTo = result.vat.validTo;</span>
+<span class="cstat-no" title="statement not covered" >        this.selectedVat.percentage = result.vat.percentage;</span>
+<span class="cstat-no" title="statement not covered" >        this.service.update(this.vatSettings);</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+      case VAT_TASK_NEW_TAXCODE: {
+        const records = <span class="cstat-no" title="statement not covered" >this.vatSettings.values.find(<span class="fstat-no" title="function not covered" >entry =&gt; <span class="cstat-no" title="statement not covered" >entry.taxCode === result.vat.taxCode)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (records) {</span>
+<span class="cstat-no" title="statement not covered" >          this.service.throwError({ message: `Der Steuercode ${result.vat.taxCode} existiert bereits.`});</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          this.vatSettings.values.push(result.vat);</span>
+<span class="cstat-no" title="statement not covered" >          this.service.update(this.vatSettings);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+      case VAT_TASK_NEW_PERIOD: {
+<span class="cstat-no" title="statement not covered" >        this.selectedVat.validTo = moment(result.vat.validFrom).subtract(1, 'days').toDate();</span>
+<span class="cstat-no" title="statement not covered" >        this.vatSettings.values.push(result.vat);</span>
+<span class="cstat-no" title="statement not covered" >        this.service.update(this.vatSettings);</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+    }
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

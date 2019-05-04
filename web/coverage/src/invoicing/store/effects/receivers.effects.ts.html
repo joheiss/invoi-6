@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/store/effects/receivers.effects.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/store/effects</a> receivers.effects.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.21% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>25/71</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.44% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.82% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/68</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173</td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs/index';
+&nbsp;
+import * as fromRoot from '../../../app/store';
+import * as receiverActions from '../actions/receivers.actions';
+import * as fromServices from '../../services';
+import {Store} from '@ngrx/store';
+import {selectAuth} from '../../../auth/store/selectors';
+import {UserData} from '../../../auth/models/user';
+&nbsp;
+&nbsp;
+@Injectable()
+export class ReceiversEffects {
+&nbsp;
+  auth: UserData;
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>actions$: Actions<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span></span>
+              private <span class="cstat-no" title="statement not covered" >receiversService: fromServices.ReceiversService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromRoot.AppState&gt;)</span> {</span>
+  }
+&nbsp;
+  // FIRESTORE
+  @Effect()
+  queryReceivers$ = this.actions$.pipe(
+    ofType(receiverActions.QUERY_RECEIVERS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.QueryReceivers) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.select(selectAuth)</span>
+      .pipe(
+        filter(<span class="fstat-no" title="function not covered" >auth =&gt; <span class="cstat-no" title="statement not covered" >!!auth)</span>,</span>
+        tap(<span class="fstat-no" title="function not covered" >auth =&gt; <span class="cstat-no" title="statement not covered" >this.auth = auth)</span>,</span>
+        switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >this.receiversService.queryAll())</span>,</span>
+        mergeMap(<span class="fstat-no" title="function not covered" >actions =&gt; <span class="cstat-no" title="statement not covered" >actions)</span>,</span>
+        filter(<span class="fstat-no" title="function not covered" >action =&gt; <span class="cstat-no" title="statement not covered" >action.payload.doc.data().organization === this.auth.organization)</span>,</span>
+        map(<span class="fstat-no" title="function not covered" >action =&gt; {</span>
+          const type = <span class="cstat-no" title="statement not covered" >`[Invoicing] Receiver ${action.type}`;</span>
+          const payload<span class="cstat-no" title="statement not covered" > = {...action.payload.doc.data(), id: action.payload.doc.id};</span>
+<span class="cstat-no" title="statement not covered" >          return {type, payload};</span>
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateReceiver$ = this.actions$.pipe(
+    ofType(receiverActions.UPDATE_RECEIVER),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.UpdateReceiver) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >this.receiversService.update(receiver)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >new receiverActions.UpdateReceiverSuccess(receiver))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          console.error(error);</span>
+<span class="cstat-no" title="statement not covered" >          return of(new receiverActions.UpdateReceiverFail(error));</span>
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateReceiverSuccess$ = this.actions$.pipe(
+    ofType(receiverActions.UPDATE_RECEIVER_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.UpdateReceiverSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.receiversService.getMessage('receiver-update-success', [receiver.id])
+      }),
+      new fromRoot.Go({path: ['/invoicing/receivers']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateReceiverFail$ = this.actions$.pipe(
+    ofType(receiverActions.UPDATE_RECEIVER_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.UpdateReceiverFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.receiversService.getMessage('receiver-update-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+// --- CREATING
+  @Effect()
+  createReceiver$ = this.actions$.pipe(
+    ofType(receiverActions.CREATE_RECEIVER),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.CreateReceiver) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >this.receiversService.create(receiver)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >new receiverActions.CreateReceiverSuccess(receiver))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new receiverActions.CreateReceiverFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  createReceiverSuccess$ = this.actions$.pipe(
+    ofType(receiverActions.CREATE_RECEIVER_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.CreateReceiverSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.Go({path: ['/invoicing/receivers', receiver.id]})
+    ])
+  );
+&nbsp;
+  @Effect()
+  createReceiverFail$ = this.actions$.pipe(
+    ofType(receiverActions.CREATE_RECEIVER_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.CreateReceiverFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.receiversService.getMessage('receiver-create-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+// DELETING
+  @Effect()
+  deleteReceiver$ = this.actions$.pipe(
+    ofType(receiverActions.DELETE_RECEIVER),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.DeleteReceiver) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >this.receiversService.delete(receiver)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>new receiverActions.DeleteReceiverSuccess(receiver))</span>,
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new receiverActions.DeleteReceiverFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  deleteReceiverSuccess$ = this.actions$.pipe(
+    ofType(receiverActions.DELETE_RECEIVER_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.DeleteReceiverSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.receiversService.getMessage('receiver-delete-success', [receiver.id])
+      }),
+      new fromRoot.Go({path: ['/invoicing/receivers']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  deleteReceiverFail$ = this.actions$.pipe(
+    ofType(receiverActions.DELETE_RECEIVER_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.DeleteReceiverFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.receiversService.getMessage('receiver-delete-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+// --- COPYING
+  @Effect()
+  copyReceiverSuccess$ = this.actions$.pipe(
+    ofType(receiverActions.COPY_RECEIVER_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.CopyReceiverSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    map(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >new fromRoot.Go({path: ['/invoicing/receivers', 'copy']}))</span></span>
+  );
+&nbsp;
+// --- NEW
+  @Effect()
+  newReceiverSuccess$ = this.actions$.pipe(
+    ofType(receiverActions.NEW_RECEIVER_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: receiverActions.NewReceiverSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    map(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >new fromRoot.Go({path: ['/invoicing/receivers', 'new']}))</span></span>
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

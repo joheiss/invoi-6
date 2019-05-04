@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/business-services/revenues-business.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/business-services</a> revenues-business.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.64% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>25/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import * as fromStore from '../store';
+import {Observable} from 'rxjs/index';
+import {select, Store} from '@ngrx/store';
+import {RevenuePerYearData} from '../models/revenue.model';
+import {map, take} from 'rxjs/operators';
+import {OpenInvoiceData} from '../models/open-invoice.model';
+import {Invoice, InvoiceData} from '../models/invoice.model';
+import {DateUtilities} from '../../shared/utilities/date-utilities';
+&nbsp;
+@Injectable()
+export class RevenuesBusinessService {
+&nbsp;
+  private currentYear = new Date().getFullYear();
+&nbsp;
+  constructor(private store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromStore.InvoicingState&gt;) {</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  calculateTotalRevenues(): Observable&lt;RevenuePerYearData[]&gt; {</span></span>
+    // get all invoices in store
+    const revenues = <span class="cstat-no" title="statement not covered" >this.initializeRevenuesPerYear();</span>
+<span class="cstat-no" title="statement not covered" >    return this.store.pipe(</span>
+      select(fromStore.selectAllInvoices),
+      map(<span class="fstat-no" title="function not covered" >invoices =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        invoices</span>
+          .filter(<span class="fstat-no" title="function not covered" >inv =&gt; <span class="cstat-no" title="statement not covered" >this.isRecentInvoice(inv))</span></span>
+          .map(<span class="fstat-no" title="function not covered" >inv =&gt; {</span>
+            const revenueDate = <span class="cstat-no" title="statement not covered" >this.calculateRevenueDate(inv);</span>
+            const invoice = <span class="cstat-no" title="statement not covered" >Invoice.createFromData(inv);</span>
+            const iy = <span class="cstat-no" title="statement not covered" >this.calculateIndexOfRevenueYear(revenueDate.getFullYear());</span>
+            const im = <span class="cstat-no" title="statement not covered" >revenueDate.getMonth();</span>
+<span class="cstat-no" title="statement not covered" >            revenues[iy].revenuePerMonth[im] = revenues[iy].revenuePerMonth[im] + invoice.netValue;</span>
+<span class="cstat-no" title="statement not covered" >            revenues[iy].revenuePerYear = revenues[iy].revenuePerYear + invoice.netValue;</span>
+<span class="cstat-no" title="statement not covered" >            return revenues;</span>
+          });
+<span class="cstat-no" title="statement not covered" >        return revenues;</span>
+      }),
+      take(1));
+  }
+&nbsp;
+  selectOpenInvoices(): Observable&lt;OpenInvoiceData[]&gt; {
+    return this.store.pipe(select(fromStore.selectAllOpenInvoicesWithReceiver));
+  }
+&nbsp;
+  private calculateIndexOfRevenueYear(year: number): number {
+    return this.currentYear - year;
+  }
+&nbsp;
+  private calculateRevenueDate(invoice: InvoiceData): Date {
+    return DateUtilities.subtractDaysToDate(invoice.issuedAt, 14);
+  }
+&nbsp;
+  private initializeRevenuesPerYear(): RevenuePerYearData[] {
+    const revenuesPerYear = [] as RevenuePerYearData[];
+    for (let i = 0; i &lt; 3; i++) {
+      const revenuePerYear: RevenuePerYearData = {
+        year: this.currentYear - i,
+        revenuePerMonth: new Array(12).fill(0),
+        revenuePerYear: 0
+      };
+      revenuesPerYear.push(revenuePerYear);
+    }
+    return revenuesPerYear;
+  }
+&nbsp;
+  private isRecentInvoice(invoice: InvoiceData): boolean {
+    return this.calculateRevenueDate(invoice).getFullYear() &gt; this.currentYear - 3;
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

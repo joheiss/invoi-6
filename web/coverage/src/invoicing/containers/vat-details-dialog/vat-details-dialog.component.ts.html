@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/containers/vat-details-dialog/vat-details-dialog.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/containers/vat-details-dialog</a> vat-details-dialog.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.74% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>17/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.89% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.29% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">41.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>15/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {SettingsBusinessService} from '../../business-services';
+import * as moment from 'moment';
+import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
+import * as fromValidators from '../../../shared/validators';
+import {Vat, VAT_TASK_NEW_TAXCODE} from '../../models/vat';
+&nbsp;
+@Component({
+  selector: 'jo-vat-details-dialog',
+  template: require('./vat-details-dialog.component.html'),
+  styles: []
+})
+export class VatDetailsDialogComponent implements OnInit {
+&nbsp;
+  form: FormGroup;
+  passwords: FormGroup;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(@Inject(MAT_DIALOG_DATA) public <span class="cstat-no" title="statement not covered" ></span>data: any,</span>
+              private <span class="cstat-no" title="statement not covered" >fb: FormBuilder<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >dialogRef: MatDialogRef<span class="branch-1 cbranch-no" title="branch not covered" >&lt;VatDetailsDialogComponent&gt;,</span></span>
+              private <span class="cstat-no" title="statement not covered" >service: SettingsBusinessService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >utility: I18nUtilityService<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  ngOnInit(): void {</span>
+<span class="cstat-no" title="statement not covered" >    if (!this.form) {</span>
+<span class="cstat-no" title="statement not covered" >      this.form = this.buildForm();</span>
+    }
+<span class="cstat-no" title="statement not covered" >    this.patchForm();</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onSave(</span>form: FormGroup) {
+    const edited = <span class="cstat-no" title="statement not covered" >this.changeObject(form.value);</span>
+<span class="cstat-no" title="statement not covered" >    this.data.vat = edited;</span>
+<span class="cstat-no" title="statement not covered" >    this.dialogRef.close(this.data);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected buildForm(): FormGroup {</span>
+<span class="cstat-no" title="statement not covered" >   return this.fb.group({</span>
+      taxCode: [ {value: '', disabled: this.data.task !== VAT_TASK_NEW_TAXCODE }],
+      validFrom: [{ value: '', disabled: false }, [Validators.required]],
+      validTo: [{ value: '', disabled: false }, [Validators.required]],
+      percentage: ['', [Validators.required, Validators.pattern(fromValidators.REGEXP_AMOUNT)]]
+    });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected changeObject(</span>values: any): Vat {
+    const { <span class="cstat-no" title="statement not covered" >vat </span>} = values;
+    const reformattedValues = <span class="cstat-no" title="statement not covered" >{</span>
+      taxCode: values.taxCode || this.data.vat.taxCode,
+      validFrom: moment(values.validFrom).toDate(),
+      validTo: moment(values.validTo).toDate(),
+      percentage: this.utility.fromLocalPercent(values.percentage)
+    };
+    const changed = <span class="cstat-no" title="statement not covered" >Object.assign({},</span>
+      {...this.data.vat},
+      {...vat},
+      {...reformattedValues});
+<span class="cstat-no" title="statement not covered" >    return changed;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected patchForm(): void {</span>
+    const reformattedValues = <span class="cstat-no" title="statement not covered" >{</span>
+      percentage: this.utility.toLocalPercent(this.data.vat.percentage)
+    };
+<span class="cstat-no" title="statement not covered" >    console.log('Reformatted values: ', reformattedValues);</span>
+    const patch = <span class="cstat-no" title="statement not covered" >Object.assign({}, {...this.data.vat}, {...reformattedValues});</span>
+<span class="cstat-no" title="statement not covered" >    console.log('patch: ', patch);</span>
+<span class="cstat-no" title="statement not covered" >    this.form.patchValue(patch);</span>
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

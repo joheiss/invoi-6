@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/storage/store/effects/storage.effects.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/storage/store/effects</a> storage.effects.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">28.3% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>30/106</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">73.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.37% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/73</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.18% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>28/103</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245</td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import * as storageActions from '../actions';
+import {of} from 'rxjs/index';
+import * as fromRoot from '../../../app/store';
+import {Store} from '@ngrx/store';
+import {StorageApiService, StorageUiService} from '../../services';
+&nbsp;
+@Injectable()
+export class StorageEffects {
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>actions$: Actions<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span></span>
+              private <span class="cstat-no" title="statement not covered" >store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromRoot.AppState&gt;,</span></span>
+              private <span class="cstat-no" title="statement not covered" >storageUiService: StorageUiService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >storageService: StorageApiService<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+  }
+&nbsp;
+  // DELETE FILE
+  @Effect()
+  deleteFile$ = this.actions$.pipe(
+    ofType(storageActions.DELETE_FILE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DeleteFile) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >path =&gt; <span class="cstat-no" title="statement not covered" >this.storageService.delete(path)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >res =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.DeleteFileSuccess(path))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.DeleteFileFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  deleteFileSuccess$ = this.actions$.pipe(
+    ofType(storageActions.DELETE_FILE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DeleteFileSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >path =&gt; <span class="cstat-no" title="statement not covered" >console.log('DELETE SUCCESS RESPONSE: ', path))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >path =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      // new documentLinkActions.DeleteDocumentLink(path),
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.storageService.getMessage('file-delete-success', [path])})
+    ])
+  );
+&nbsp;
+  @Effect()
+  deleteFileFail$ = this.actions$.pipe(
+    ofType(storageActions.DELETE_FILE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DeleteFileFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >err =&gt; <span class="cstat-no" title="statement not covered" >console.log('DELETE FAIL RESPONSE: ', err))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >err =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.storageService.getMessage(err.code)})
+    ])
+  );
+&nbsp;
+  // DOWNLOAD FILE
+  @Effect()
+  downloadFile$ = this.actions$.pipe(
+    ofType(storageActions.DOWNLOAD_FILE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DownloadFile) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >path =&gt; <span class="cstat-no" title="statement not covered" >this.storageService.download(path)</span></span>
+      .pipe(
+        tap(<span class="fstat-no" title="function not covered" >downloadUrl =&gt; <span class="cstat-no" title="statement not covered" >console.log('AFTER FILE DOWNLOAD: ', downloadUrl))</span>,</span>
+        map(<span class="fstat-no" title="function not covered" >downloadUrl =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.DownloadFileSuccess({path: path, downloadUrl: downloadUrl}))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.DownloadFileFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  downloadFileSuccess$ = this.actions$.pipe(
+    ofType(storageActions.DOWNLOAD_FILE_SUCCESS),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT DOWNLOAD FILE SUCCESS'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DownloadFileSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('***opening new window for: ', payload.downloadUrl))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenUrl(payload.downloadUrl),
+      new fromRoot.OpenSnackBar({message: this.storageService.getMessage('file-download-success', [payload.path])})
+    ])
+  );
+&nbsp;
+  @Effect()
+  downloadFileFail$ = this.actions$.pipe(
+    ofType(storageActions.DOWNLOAD_FILE_FAIL),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT DOWNLOAD FILE FAIL'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.DownloadFileFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('FILE DOWNLOAD FAIL: ', payload))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.storageService.getMessage('file-download-fail')})
+    ])
+  );
+&nbsp;
+  // GET METADATA FILE
+  @Effect()
+  getMetadataFile$ = this.actions$.pipe(
+    ofType(storageActions.GET_METADATA_FILE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.GetMetadataFile) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >path =&gt; <span class="cstat-no" title="statement not covered" >this.storageService.getMetadata(path)</span></span>
+      .pipe(
+        tap(<span class="fstat-no" title="function not covered" >metadata =&gt; <span class="cstat-no" title="statement not covered" >console.log('AFTER GET FILE METADATA: ', metadata))</span>,</span>
+        map(<span class="fstat-no" title="function not covered" >metadata =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.GetMetadataFileSuccess(metadata))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.GetMetadataFileFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  getMetadataFileSuccess$ = this.actions$.pipe(
+    ofType(storageActions.GET_METADATA_FILE_SUCCESS),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT GET METADATA FILE SUCCESS'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.GetMetadataFileSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >metadata =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning()
+    ])
+  );
+&nbsp;
+  @Effect()
+  getMetadataFileFail$ = this.actions$.pipe(
+    ofType(storageActions.GET_METADATA_FILE_FAIL),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT GET METADATA FILE FAIL'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.GetMetadataFileFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: error.message
+      })
+    ])
+  );
+&nbsp;
+  // UPDATE METADATA FILE
+  @Effect()
+  updateMetadataFile$ = this.actions$.pipe(
+    ofType(storageActions.UPDATE_METADATA_FILE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UpdateMetadataFile) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >this.storageService.updateMetadata(payload.path, payload.metadata)</span></span>
+      .pipe(
+        tap(<span class="fstat-no" title="function not covered" >res =&gt; <span class="cstat-no" title="statement not covered" >console.log('AFTER UPDATE FILE METADATA: ', res))</span>,</span>
+        map(<span class="fstat-no" title="function not covered" >res =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.UpdateMetadataFileSuccess(res))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.UpdateMetadataFileFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateMetadataFileSuccess$ = this.actions$.pipe(
+    ofType(storageActions.UPDATE_METADATA_FILE_SUCCESS),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT UPDATE METADATA FILE SUCCESS'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UpdateMetadataFileSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >res =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning()
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateMetadataFileFail$ = this.actions$.pipe(
+    ofType(storageActions.UPDATE_METADATA_FILE_FAIL),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('AT UPDATE METADATA FILE FAIL'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.GetMetadataFileFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: error.message})
+    ])
+  );
+&nbsp;
+  // UPLOAD FILE
+  @Effect()
+  uploadFile$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_FILE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadFile) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >this.storageService.upload(payload.file, payload.path, payload.metadata)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >downloadUrl =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.UploadFileSuccess({path: payload.path, downloadUrl: downloadUrl}))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.UploadFileFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  uploadFileSuccess$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_FILE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadFileSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('UPLOAD FILE SUCCESS: ', payload))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.storageService.getMessage('file-upload-success', [payload.path])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  uploadFileFail$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_FILE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadFileFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('UPLOAD FILE FAIL: ', payload))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.storageService.getMessage('file-upload-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  uploadImage$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_IMAGE),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadImage) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >this.storageUiService.openImageUploadPopup(payload)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >response =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          return {file: response.file, path: `${response.filePath}/${response.file.name}`, metadata: null};</span>
+        }),
+        map(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >new storageActions.UploadFile(payload))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new storageActions.UploadImageFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  uploadImageSuccess$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_IMAGE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadImageSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('UPLOAD IMAGE SUCCESS: ', payload))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.storageService.getMessage('image-upload-success', [payload.path])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  uploadImageFail$ = this.actions$.pipe(
+    ofType(storageActions.UPLOAD_IMAGE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: storageActions.UploadImageFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    tap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >console.log('UPLOAD IMAGE FAIL: ', payload))</span>,</span>
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.storageService.getMessage('image-upload-fail', [error.message])
+      })
+    ])
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

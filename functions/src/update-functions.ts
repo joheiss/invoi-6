@@ -2,11 +2,9 @@ import * as admin from 'firebase-admin';
 import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
 import {Change} from 'firebase-functions/lib/cloud-functions';
 import {EventContext} from 'firebase-functions';
-import {calcDiscountedNetValue, calcNetValue, calcRevenuePeriod} from '../../shared/src/calculations';
-import moment = require('moment');
 import * as _ from 'lodash';
-import {getRevenues} from '../../shared/src/getters';
-import {setRevenues} from '../../shared/src/setters';
+import {Invoice, InvoiceFactory} from 'jovisco-domain';
+import {getRevenues, setRevenues} from '../../shared/src';
 
 export async function handleReceiverCreation(snap: DocumentSnapshot, context: EventContext): Promise<any> {
   return updateNumberRange('receivers', context);
@@ -125,21 +123,33 @@ async function deleteDocumentLinksForOwner(owner: string): Promise<any> {
   return batch.commit();
 }
 
-function isInvoiceUpdateRelevantForRevenue(newInvoice, oldInvoice): boolean {
-  if (_.isEqual(newInvoice, oldInvoice)) {
+function isInvoiceUpdateRelevantForRevenue(newInvoiceData, oldInvoiceData): boolean {
+
+  let newInvoice: Invoice, oldInvoice: Invoice;
+
+  if (_.isEqual(newInvoiceData, oldInvoiceData)) {
     return false;
   }
+  if (newInvoiceData) {
+    newInvoice = InvoiceFactory.fromData(newInvoiceData);
+  }
+  if (oldInvoiceData) {
+    oldInvoice = InvoiceFactory.fromData(oldInvoiceData);
+  }
+  if (!newInvoice || !oldInvoice) {
+    return true;
+  }
   // only status changes and changes in document date, receiver and discounted value are currently relevant for the receiver
-  if (newInvoice.status !== oldInvoice.status) {
+  if (newInvoice.header.status !== oldInvoice.header.status) {
     return true;
   }
-  if (newInvoice.issuedAt !== oldInvoice.issuedAt) {
+  if (newInvoice.header.issuedAt !== oldInvoice.header.issuedAt) {
     return true;
   }
-  if (newInvoice.receiverId !== oldInvoice.receiverId) {
+  if (newInvoice.header.receiverId !== oldInvoice.header.receiverId) {
     return true;
   }
-  if (calcDiscountedNetValue(newInvoice) !== calcDiscountedNetValue(oldInvoice)) {
+  if (newInvoice.discountedNetValue !== oldInvoice.discountedNetValue) {
     return true;
   }
   return false;
@@ -177,30 +187,32 @@ async function updateAuth(uid: string, userProfile: any): Promise<any> {
     throw new Error(err);
   }
 }
-async function updateRevenueReporting(newInvoice: any, oldInvoice: any): Promise<any> {
+async function updateRevenueReporting(newInvoiceData: any, oldInvoiceData: any): Promise<any> {
   const db = admin.firestore();
   const values = {
     new: { year: null, month: null, receiverId: null, organization: null, revenue: 0 },
     old: { year: null, month: null, receiverId: null, organization: null, revenue: 0 },
   };
-  if (newInvoice) {
+  if (newInvoiceData) {
     // get new values
-    const period: { year: number, month: number} = calcRevenuePeriod(moment(newInvoice.issuedAt.toDate()));
+    const newInvoice = InvoiceFactory.fromData(newInvoiceData);
+    const period = newInvoice.revenuePeriod;
     values.new.year = period.year.toString();
     values.new.month = period.month.toString();
-    values.new.receiverId = newInvoice.receiverId;
-    values.new.organization = newInvoice.organization;
-    values.new.revenue = calcNetValue(newInvoice);
+    values.new.receiverId = newInvoice.header.receiverId;
+    values.new.organization = newInvoice.header.organization;
+    values.new.revenue = newInvoice.netValue;
     // console.log('new revenue posting: ', values.new);
   }
-  if (oldInvoice) {
+  if (oldInvoiceData) {
     // get old values
-    const period: { year: number, month: number} = calcRevenuePeriod(moment(oldInvoice.issuedAt.toDate()));
+    const oldInvoice = InvoiceFactory.fromData(oldInvoiceData);
+    const period = oldInvoice.revenuePeriod;
     values.old.year = period.year.toString();
     values.old.month = period.month.toString();
-    values.old.receiverId = oldInvoice.receiverId;
-    values.old.organization = oldInvoice.organization;
-    values.old.revenue = calcNetValue(oldInvoice);
+    values.old.receiverId = oldInvoice.header.receiverId;
+    values.old.organization = oldInvoice.header.organization;
+    values.old.revenue = oldInvoice.netValue;
     // console.log('old revenue posting: ', values.old);
   }
   if (values.new.year) {

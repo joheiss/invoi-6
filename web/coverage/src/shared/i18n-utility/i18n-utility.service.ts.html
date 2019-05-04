@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/shared/i18n-utility/i18n-utility.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/shared/i18n-utility</a> i18n-utility.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.52% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>54/61</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">56.52% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>13/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>15/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.07% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>51/56</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119</td><td class="line-coverage quiet"><span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {DecimalPipe} from '@angular/common';
+import * as moment from 'moment';
+&nbsp;
+export interface LocaleNumberFormattingInfo {
+  decimalSeparator: string;
+  thousandSeparator: string;
+  numberOfDecimals: number;
+}
+&nbsp;
+@Injectable()
+export class I18nUtilityService {
+&nbsp;
+  private readonly formattingInfo: LocaleNumberFormattingInfo;
+  private readonly decimalSeparatorEscaped: string;
+  private readonly thousandSeparatorEscaped: string;
+&nbsp;
+  constructor(@Inject(LOCALE_ID) private locale: string,
+              private decimalPipe: DecimalPipe<span class="branch-1 cbranch-no" title="branch not covered" >) {</span>
+    // determine separators.
+   this.formattingInfo = this.getFormattingInfo();
+    // escape separators for regex
+    this.decimalSeparatorEscaped = this.escapeForRegex(this.formattingInfo.decimalSeparator);
+    this.thousandSeparatorEscaped = this.escapeForRegex(this.formattingInfo.thousandSeparator);
+  }
+&nbsp;
+  public fromLocalAmount(amount: any): number {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!amount) { <span class="cstat-no" title="statement not covered" >return 0; </span> }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof amount !== 'string') { <span class="cstat-no" title="statement not covered" >return amount; </span>}
+&nbsp;
+    const toBeConverted = amount
+      .replace(new RegExp(this.thousandSeparatorEscaped, 'g'), '')
+      .replace(new RegExp(this.decimalSeparatorEscaped, 'g'), '.');
+    return parseFloat(toBeConverted);
+  }
+&nbsp;
+  public toLocalAmount(amount: number): string {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isNaN(amount)) {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    return this.decimalPipe.transform(amount, '1.2-2');
+  }
+&nbsp;
+  public fromLocalPercent(percent: string): number {
+    return this.fromLocalAmount(percent);
+  }
+&nbsp;
+  public toLocalPercent(percent: number): string {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!percent &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >percent !== 0)</span> {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    return this.decimalPipe.transform(percent, '1.1-3');
+  }
+&nbsp;
+  public toLocalISOString(d: Date): string {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!d) {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    const pad = function (n) { return n &lt; 10 ? '0' + n : n; };
+    const tz = d.getTimezoneOffset();
+    let tzs = (tz &gt; 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >'-' </span>: '+') + pad(Math.abs(tz / 60));
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (tz % 60 !== 0) {
+<span class="cstat-no" title="statement not covered" >      tzs += pad(Math.abs(tz % 60));</span>
+    }
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (tz === 0) {
+<span class="cstat-no" title="statement not covered" >      tzs = 'Z';</span>
+    }// Zulu time == UTC
+&nbsp;
+    return d.getFullYear() + '-'
+      + pad(d.getMonth() + 1) + '-'
+      + pad(d.getDate()) + 'T'
+      + pad(d.getHours()) + ':'
+      + pad(d.getMinutes()) + ':'
+      + pad(d.getSeconds()) + tzs;
+  }
+&nbsp;
+  public toLocalDateISOString(d: Date): string {
+    return this.toLocalISOString(d).substr(0, 10);
+  }
+&nbsp;
+  public generateAbbrevMonthNames(): string[] {
+    const months = [];
+    const start = moment('2017-12-01');
+    start.locale(this.locale);
+    for (let i = 0; i &lt; 12; i++) {
+      start.add(1, 'month');
+      months.push(start.format('MMM'));
+    }
+    return months;
+  }
+&nbsp;
+  private escapeForRegex(str: string): string {
+    return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&amp;');
+  }
+&nbsp;
+  private getFormattingInfo(): LocaleNumberFormattingInfo {
+    return {
+      decimalSeparator: this.getDecimalSeparator(),
+      thousandSeparator: this.getThousandSeparator(),
+      numberOfDecimals: this.getNumberOfDecimals()
+&nbsp;
+    };
+  }
+&nbsp;
+  private getDecimalSeparator(): string {
+    return (12345.6789).toLocaleString().match(/345(.*)67/)[1];
+  }
+&nbsp;
+  private getThousandSeparator(): string {
+    return (12345.6789).toLocaleString().match(/12(.*)345/)[1];
+  }
+&nbsp;
+  private getNumberOfDecimals(): number {
+    return (12345.6789).toLocaleString().match(/345(\D*)(\d+)$/)[2].length;
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

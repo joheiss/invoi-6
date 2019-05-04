@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": false,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+//    "skipLibCheck": true,
+    // "typeRoots": [
+    //  "node_modules/@types"
+    // ],
+    "types": [
+      "jest",
+      "node"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  },
+//  "include": [
+//    "**/*.ts",
+//    "**/*.d.ts"
+//  ],
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true
+    // "enableIvy": true -- lazy loading won't work if this flag is set
+  }
+}

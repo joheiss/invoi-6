@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/containers/country-list/country-list.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/containers/country-list</a> country-list.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25.68% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.56% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25.76% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>17/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Component, OnDestroy, OnInit} from '@angular/core';
+import {SettingsBusinessService} from '../../business-services';
+import {Country, COUNTRY_TASK_EDIT, COUNTRY_TASK_NEW_COUNTRY, COUNTRY_TASK_NEW_TRANSLATION, CountryTask} from '../../models/country';
+import {SettingData} from '../../models/setting.model';
+import {Subscription} from 'rxjs/index';
+import * as _ from 'lodash';
+import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import {CountryDetailsDialogComponent} from '../country-details-dialog/country-details-dialog.component';
+&nbsp;
+@Component({
+  selector: 'jo-country-list',
+  template: require('./country-list.component.html'),
+  styles: []
+})
+export class CountryListComponent implements OnInit, OnDestroy {
+  countrySettings: SettingData;
+  supportedLanguages: string[];
+<span class="cstat-no" title="statement not covered" >  displayedColumns = ['isoCode', 'more', 'task', 'delete'];</span>
+<span class="cstat-no" title="statement not covered" >  dataSource = new MatTableDataSource&lt;Country&gt;();</span>
+  detailsDialogRef: MatDialogRef&lt;CountryDetailsDialogComponent&gt;;
+&nbsp;
+  private subscription: Subscription;
+  private <span class="cstat-no" title="statement not covered" >selected: Country = null;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>service: SettingsBusinessService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >dialog: MatDialog<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  ngOnInit() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.supportedLanguages = this.service.getSupportedLanguages();</span>
+<span class="cstat-no" title="statement not covered" >    this.supportedLanguages.forEach(<span class="fstat-no" title="function not covered" >(</span>language, i) =&gt; <span class="cstat-no" title="statement not covered" >this.displayedColumns.splice(i + 1, 0, `name_${language}`))</span>;</span>
+<span class="cstat-no" title="statement not covered" >    this.subscription = this.service.getCountrySettings()</span>
+      .subscribe(<span class="fstat-no" title="function not covered" >setting =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        this.countrySettings = _.cloneDeep(setting);</span>
+<span class="cstat-no" title="statement not covered" >        this.countrySettings.values.sort(<span class="fstat-no" title="function not covered" >(</span>a, b) =&gt; <span class="cstat-no" title="statement not covered" >a.isoCode.localeCompare(b.isoCode))</span>;</span>
+<span class="cstat-no" title="statement not covered" >        this.dataSource.data = this.countrySettings.values;</span>
+      });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  ngOnDestroy(): void {</span>
+<span class="cstat-no" title="statement not covered" >    this.subscription.unsubscribe();</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  getNamesCount(</span>country: Country): number {
+<span class="cstat-no" title="statement not covered" >    return Object.keys(country.names).length - this.supportedLanguages.length;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onAddTranslation(</span>country: Country) {
+<span class="cstat-no" title="statement not covered" >    this.selected = country;</span>
+    const countryToExtend = <span class="cstat-no" title="statement not covered" >Object.assign({}, country) as Country;</span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(COUNTRY_TASK_NEW_TRANSLATION, countryToExtend);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onDelete(</span>country: Country) {
+<span class="cstat-no" title="statement not covered" >    this.selected = null;</span>
+<span class="cstat-no" title="statement not covered" >    this.countrySettings.values = [</span>
+      ...this.countrySettings.values.filter(<span class="fstat-no" title="function not covered" >entry =&gt; <span class="cstat-no" title="statement not covered" >!_.isEqual(entry, country))</span></span>
+    ];
+<span class="cstat-no" title="statement not covered" >    this.service.update(this.countrySettings);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onNew() {</span>
+<span class="cstat-no" title="statement not covered" >    this.selected = null;</span>
+    const countryToCreate = <span class="cstat-no" title="statement not covered" >{ names: { } } as Country;</span>
+<span class="cstat-no" title="statement not covered" >    this.supportedLanguages.forEach(<span class="fstat-no" title="function not covered" >language =&gt; <span class="cstat-no" title="statement not covered" >countryToCreate.names[language] = null)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(COUNTRY_TASK_NEW_COUNTRY, countryToCreate);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onSelect(</span>country: Country) {
+<span class="cstat-no" title="statement not covered" >    this.selected = country;</span>
+    const countryToEdit = <span class="cstat-no" title="statement not covered" >Object.assign({}, country) as Country;</span>
+<span class="cstat-no" title="statement not covered" >    this.openDetailsDialog(COUNTRY_TASK_EDIT, countryToEdit);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  private openDetailsDialog(</span>task: CountryTask, country: Country): MatDialogRef&lt;CountryDetailsDialogComponent&gt; {</span>
+    const languageCount = <span class="cstat-no" title="statement not covered" >task !== 'translate' ? Object.keys(country.names).length || 0 : 3;</span>
+    const minHeight = <span class="cstat-no" title="statement not covered" >25 + (languageCount + 1) * 6;</span>
+    const dimensions = <span class="cstat-no" title="statement not covered" >{</span>
+      height: minHeight + 'rem',
+      width: '48rem'
+    };
+    const data = <span class="cstat-no" title="statement not covered" >{</span>
+      supportedLanguages: this.supportedLanguages,
+      task: task,
+      country: country
+    };
+<span class="cstat-no" title="statement not covered" >    if (task !== COUNTRY_TASK_NEW_TRANSLATION) {</span>
+<span class="cstat-no" title="statement not covered" >      data['language'] = null;</span>
+<span class="cstat-no" title="statement not covered" >      data['translation'] = null;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    console.log('DATA: ', data);</span>
+<span class="cstat-no" title="statement not covered" >    this.detailsDialogRef = this.dialog.open(CountryDetailsDialogComponent, {</span>
+      ...dimensions,
+      data: data
+    });
+<span class="cstat-no" title="statement not covered" >    this.detailsDialogRef.afterClosed().subscribe(<span class="fstat-no" title="function not covered" >result =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (result) {</span>
+<span class="cstat-no" title="statement not covered" >        this.updateCountry(result);</span>
+      }
+    });
+<span class="cstat-no" title="statement not covered" >    return this.detailsDialogRef;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private updateCountry(</span>result: any): void {
+<span class="cstat-no" title="statement not covered" >    switch (result.task) {</span>
+      case COUNTRY_TASK_EDIT:
+      case COUNTRY_TASK_NEW_TRANSLATION: {
+<span class="cstat-no" title="statement not covered" >        this.service.update(this.countrySettings);</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+      case COUNTRY_TASK_NEW_COUNTRY: {
+        const alreadyExists = <span class="cstat-no" title="statement not covered" >this.countrySettings.values.some(<span class="fstat-no" title="function not covered" >country =&gt; <span class="cstat-no" title="statement not covered" >country.isoCode === result.country.isoCode)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >        if (alreadyExists) {</span>
+<span class="cstat-no" title="statement not covered" >          this.service.throwError({ message: `Das Land ${result.country.isoCode} existiert bereits.`});</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          this.countrySettings.values.push(result.country);</span>
+<span class="cstat-no" title="statement not covered" >          this.service.update(this.countrySettings);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+    }
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

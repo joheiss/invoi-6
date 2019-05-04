@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/business-services/invoices-business.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/business-services</a> invoices-business.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.41% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>198/219</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.13% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>25/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80.6% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>54/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">89.76% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>184/205</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426</td><td class="line-coverage quiet"><span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {concat, Observable, of, throwError} from 'rxjs/index';
+import {Receiver} from '../models/receiver.model';
+import * as fromStore from '../store/index';
+import {select, Store} from '@ngrx/store';
+import {BillingMethod, InvoiceSummary, PaymentMethod} from '../models/invoicing.model';
+import {Contract} from '../models/contract.model';
+import {
+  ChangeMode,
+  Invoice,
+  INVOICE_HEADER_CONTRACT_ID_CHANGED,
+  INVOICE_HEADER_RECEIVER_ID_CHANGED,
+  INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED,
+  INVOICE_ITEM_ID_ADDED,
+  InvoiceChange,
+  InvoiceChangeAction,
+  InvoiceData,
+  InvoiceItem,
+  InvoiceItemData,
+  InvoiceStatus
+} from '../models/invoice.model';
+import {difference} from '../../shared/utilities/object-utilities';
+import {NumberRange} from '../models/number-range.model';
+import * as fromAuth from '../../auth/store';
+import {UserData} from '../../auth/models/user';
+import {Vat} from '../models/vat';
+import {catchError, filter, map, retryWhen, switchMap, take, takeLast, tap} from 'rxjs/operators';
+import * as fromRoot from '../../app/store';
+import {isEqual} from 'lodash';
+import {DateUtilities} from '../../shared/utilities/date-utilities';
+&nbsp;
+@Injectable()
+export class InvoicesBusinessService {
+  /* ------------------------- */
+  /* --- STATIC ATTRIBUTES --- */
+  /* ------------------------- */
+  private static template = {
+    objectType: 'invoices',
+    billingMethod: BillingMethod.Invoice,
+    issuedAt: DateUtilities.getDateOnly(),
+    status: InvoiceStatus.created,
+    currency: 'EUR',
+    vatPercentage: 19.0,
+    paymentTerms: '30 Tage: netto',
+    paymentMethod: PaymentMethod.BankTransfer,
+    cashDiscountDays: 0,
+    cashDiscountPercentage: 0,
+    dueInDays: 30,
+    organization: null,
+    billingPeriod: null,
+    internalText: null,
+    invoiceText: null,
+  } as InvoiceData;
+&nbsp;
+  private static itemTemplate = {
+    contractItemId: 0,
+    quantity: 0,
+    pricePerUnit: 0
+  } as InvoiceItemData;
+&nbsp;
+  /* --------------------------- */
+  /* --- INSTANCE ATTRIBUTES --- */
+  /* --------------------------- */
+  private currentData: InvoiceData;
+  private nextIds: string[];
+  private auth: UserData;
+&nbsp;
+  /* --------------------------- */
+  /* --- STATIC METHODS      --- */
+&nbsp;
+  /* --------------------------- */
+  private static getDefaultValues(): any {
+    return {
+      id: undefined,
+      issuedAt: DateUtilities.getDateOnly(),
+      status: InvoiceStatus.created
+    };
+  }
+&nbsp;
+  /* --------------------------- */
+  /* --- CONSTRUCTOR         --- */
+&nbsp;
+  /* --------------------------- */
+  constructor(private store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromStore.InvoicingState&gt;) {</span>
+    // get current user
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+    ).subscribe(auth =&gt; this.auth = auth);
+    // get number ranges for invoices &amp; credit requests
+    this.store.pipe(
+      select(fromStore.selectNumberRangeEntities),
+      filter(<span class="fstat-no" title="function not covered" >entities =&gt; <span class="cstat-no" title="statement not covered" >!!entities['invoices'] &amp;&amp; !!entities['credit-requests'])</span>,</span>
+      map(<span class="fstat-no" title="function not covered" >entities =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        this.nextIds = [];</span>
+<span class="cstat-no" title="statement not covered" >        this.nextIds.push(NumberRange.createFromData(entities['invoices']).nextId);</span>
+<span class="cstat-no" title="statement not covered" >        this.nextIds.push(NumberRange.createFromData(entities['credit-requests']).nextId);</span>
+<span class="cstat-no" title="statement not covered" >        return this.nextIds;</span>
+      })
+    ).subscribe();
+  }
+&nbsp;
+  /* --------------------------- */
+  /* --- INSTANCE METHODS    --- */
+&nbsp;
+  /* --------------------------- */
+  addItem(invoice: Invoice) {
+    invoice.items.push(this.newItem(invoice));
+    this.change(invoice);
+  }
+&nbsp;
+  change(invoice: Invoice) {
+    this.processChanges(invoice).subscribe(changed =&gt; {
+      console.log('changed: ', changed);
+      this.currentData = changed.data;
+      this.store.dispatch(new fromStore.ChangeInvoiceSuccess(changed.data));
+    });
+  }
+&nbsp;
+  copy(invoice: Invoice) {
+    const data = Object.assign({}, invoice.data, {...InvoicesBusinessService.getDefaultValues()}, {organization: this.auth.organization});
+    this.store.dispatch(new fromStore.CopyInvoiceSuccess(data));
+  }
+&nbsp;
+  create(invoice: Invoice) {
+    invoice.header.id = this.getNextId(invoice);
+    invoice.header.organization = this.auth.organization;
+    this.store.dispatch(new fromStore.CreateInvoice(invoice.data));
+  }
+&nbsp;
+  createPdf(invoice: Invoice) {
+    this.store.dispatch(new fromStore.CreateInvoicePdf(invoice.data));
+  }
+&nbsp;
+  delete(invoice: Invoice) {
+    this.store.dispatch(new fromRoot.OpenConfirmationDialog({
+      do: new fromStore.DeleteInvoice(invoice.data),
+      title: `Soll die Rechnung ${invoice.header.id} wirklich gelöscht werden?`
+    }));
+  }
+&nbsp;
+  getContract(): Observable&lt;Contract&gt; {
+    return this.store.pipe(select(fromStore.selectInvoiceContractAsObj));
+  }
+&nbsp;
+  getContracts(): Observable&lt;Contract[]&gt; {
+    return this.store.pipe(select(fromStore.selectSelectableContractsForInvoiceAsObjArray));
+  }
+&nbsp;
+  getCurrent(): Observable&lt;Invoice&gt; {
+    return this.store.pipe(
+      select(fromStore.selectCurrentInvoiceAsObj),
+      tap(<span class="fstat-no" title="function not covered" >current =&gt; <span class="cstat-no" title="statement not covered" >this.currentData = current.data)</span></span>
+    );
+  }
+&nbsp;
+  getNextId(invoice: Invoice): string {
+    return this.nextIds[invoice.header.billingMethod];
+  }
+&nbsp;
+  getReceiver(): Observable&lt;Receiver&gt; {
+    return this.store.pipe(select(fromStore.selectInvoiceReceiverAsObj));
+  }
+&nbsp;
+  getReceivers(): Observable&lt;Receiver[]&gt; {
+    return this.store.pipe(select(fromStore.selectActiveReceiversSortedAsObjArray));
+  }
+&nbsp;
+  getSummary(): Observable&lt;InvoiceSummary[]&gt; {
+    return this.store.pipe(select(fromStore.selectInvoiceSummariesAsSortedArray));
+  }
+&nbsp;
+  isChangeable(): Observable&lt;boolean&gt; {
+    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
+  }
+&nbsp;
+  isDeletable(): Observable&lt;boolean&gt; {
+    return this.store.pipe(select(fromStore.selectInvoiceChangeable));
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  isSendable(): Observable&lt;boolean&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return this.store.pipe(select(fromStore.selectInvoiceSendable));</span>
+  }
+&nbsp;
+  new() {
+    const data = Object.assign({}, InvoicesBusinessService.template);
+    this.store.dispatch(new fromStore.NewInvoiceSuccess(data));
+  }
+&nbsp;
+  newInvoiceFromContract(contract: Contract): void {
+    // --- prepare invoice from contract
+    const data = Object.assign({}, InvoicesBusinessService.template);
+    data.receiverId = contract.header.customerId;
+    data.contractId = contract.header.id;
+    data.billingMethod = contract.header.billingMethod;
+    data.currency = contract.header.currency;
+    data.cashDiscountDays = contract.header.cashDiscountDays;
+    data.cashDiscountPercentage = contract.header.cashDiscountPercentage;
+    data.dueInDays = contract.header.dueDays;
+    data.paymentTerms = contract.header.paymentTerms;
+    data.paymentMethod = contract.header.paymentMethod;
+    data.invoiceText = contract.header.invoiceText;
+    // --- only create first item from contract item
+    data.items = [];
+    const item = contract.items[0];
+    data.items.push({
+      id: 1,
+      contractItemId: item.id,
+      description: item.description,
+      quantityUnit: item.priceUnit,
+      pricePerUnit: item.pricePerUnit,
+      cashDiscountAllowed: item.cashDiscountAllowed
+    });
+    // --- get vat percentage
+    const invoice = Invoice.createFromData(data);
+    this.getVatPercentage(invoice).pipe(
+      take(1),
+      tap(percentage =&gt; invoice.vatPercentage = percentage),
+      tap(() =&gt; this.store.dispatch(new fromStore.NewQuickInvoiceSuccess(invoice.data)))
+    ).subscribe();
+  }
+&nbsp;
+  newItem(invoice: Invoice): InvoiceItem {
+    const itemData = Object.assign({}, {id: invoice.getNextItemId()}, {...InvoicesBusinessService.itemTemplate}) as InvoiceItemData;
+    return InvoiceItem.createFromData(itemData);
+  }
+&nbsp;
+  removeItem(invoice: Invoice, itemId: number) {
+    invoice.items = invoice.items.filter(item =&gt; item.data.id !== itemId);
+    this.change(invoice);
+  }
+&nbsp;
+  select(): Observable&lt;InvoiceData&gt; {
+    return this.store.pipe(select(fromStore.selectSelectedInvoice));
+  }
+&nbsp;
+  sendEmail(invoice: Invoice) {
+    this.store.dispatch(new fromStore.SendInvoiceEmail(invoice.data));
+  }
+&nbsp;
+  update(invoice: Invoice) {
+    this.store.dispatch(new fromStore.UpdateInvoice(invoice.data));
+  }
+&nbsp;
+  private addContractItemRelatedData(invoice: Invoice, itemId: number): Observable&lt;Invoice&gt; {
+    console.log('*** addContractItemRelatedData ***');
+    const item = invoice.getItem(itemId);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!item.contractItemId) {
+      item.contractItemId = itemId;
+    }
+    return this.changeContractItemRelatedData(invoice, itemId).pipe(
+      retryWhen((err) =&gt; {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (item.contractItemId &gt; 1) {
+          item.contractItemId--;
+          return of(true);
+        } else {
+<span class="cstat-no" title="statement not covered" >          throwError('contract_item_not_found');</span>
+        }
+      })
+    );
+  }
+&nbsp;
+  private changeContractItemRelatedData(invoice: Invoice, itemId: number): Observable&lt;Invoice&gt; {
+    console.log('*** changeContractItemRelatedData ***');
+    const item = invoice.getItem(itemId);
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (item.contractItemId) {
+      return this.getContracts().pipe(
+        map(contracts =&gt; contracts.find(contract =&gt; contract.header.id === invoice.header.contractId)),
+        map(contract =&gt; contract.getItem(+item.contractItemId)),
+        map(contractItem =&gt; {
+          item.description = contractItem.description;
+          item.quantityUnit = contractItem.priceUnit;
+          item.pricePerUnit = contractItem.pricePerUnit;
+          item.cashDiscountAllowed = contractItem.cashDiscountAllowed;
+          return invoice;
+        }),
+        take(1),
+        catchError(() =&gt; throwError('contract_not_found'))
+      );
+    } else {
+<span class="cstat-no" title="statement not covered" >      return of(invoice);</span>
+    }
+  }
+&nbsp;
+  private changeContractRelatedData(invoice: Invoice): Observable&lt;Invoice&gt; {
+    console.log('*** changeContractRelatedData *** ');
+    return this.getContracts().pipe(
+      map(contracts =&gt; contracts.find(contract =&gt; contract.header.id === invoice.header.contractId)),
+      map(contract =&gt; {
+        invoice.header.billingMethod = contract.header.billingMethod;
+        invoice.header.paymentMethod = contract.header.paymentMethod;
+        invoice.header.paymentTerms = contract.header.paymentTerms;
+        invoice.header.cashDiscountPercentage = contract.header.cashDiscountPercentage;
+        invoice.header.cashDiscountDays = contract.header.cashDiscountDays;
+        invoice.header.dueInDays = contract.header.dueDays;
+        invoice.header.invoiceText = contract.header.invoiceText;
+        // invoice.header.internalText = contract.header.internalText;
+        return invoice;
+      }),
+      take(1),
+      catchError(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>throwError('contract_not_found'))</span>
+    );
+  }
+&nbsp;
+  private changeReceiverRelatedData(invoice: Invoice): Observable&lt;Invoice&gt; {
+    console.log('*** changeReceiverRelatedData ***: ');
+    return this.getVatPercentage(invoice).pipe(
+      map(percentage =&gt; {
+        invoice.header.vatPercentage = percentage;
+        return invoice;
+      }),
+      take(1),
+      catchError(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>throwError('vat_not_found'))</span>
+    );
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private getVatPercentage(</span>invoice: Invoice): Observable&lt;number&gt; {
+&nbsp;
+    const allReceivers$ = <span class="cstat-no" title="statement not covered" >this.store.pipe(select(fromStore.selectReceiverEntities));</span>
+    const allVatSettings$ = <span class="cstat-no" title="statement not covered" >this.store.pipe(select(fromStore.selectAllVatSettings));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return allReceivers$.pipe(</span>
+      map(<span class="fstat-no" title="function not covered" >receivers =&gt; <span class="cstat-no" title="statement not covered" >receivers[invoice.header.receiverId].address.country + '_full')</span>,</span>
+      switchMap(<span class="fstat-no" title="function not covered" >taxCode =&gt; <span class="cstat-no" title="statement not covered" >allVatSettings$</span></span>
+        .pipe(
+          map(<span class="fstat-no" title="function not covered" >vatSettings =&gt; {</span>
+            const filtered = <span class="cstat-no" title="statement not covered" >vatSettings.values</span>
+              .filter(<span class="fstat-no" title="function not covered" >(</span>vatSetting: Vat) =&gt; <span class="cstat-no" title="statement not covered" >vatSetting.taxCode === taxCode)</span>
+              .filter(<span class="fstat-no" title="function not covered" >(</span>vatSetting: Vat) =&gt; <span class="cstat-no" title="statement not covered" >vatSetting.validTo &gt;= invoice.header.issuedAt)</span>
+              .sort(<span class="fstat-no" title="function not covered" >(</span>a: Vat, b: Vat) =&gt; <span class="cstat-no" title="statement not covered" >a.validTo.getDate() - b.validTo.getDate())</span>;
+<span class="cstat-no" title="statement not covered" >            return filtered[0].percentage;</span>
+          }))),
+      take(1)
+    );
+  }
+&nbsp;
+  private processChanges(invoice: Invoice): Observable&lt;Invoice&gt; {
+    // --- determine changes
+    const changes = this.determineChanges(invoice.data, this.currentData);
+    const changeActions = changes.map(change =&gt; InvoiceChangeAction.createFromData(change, invoice));
+    const operations = changeActions.map(action =&gt; {
+      switch (action.type) {
+        case INVOICE_HEADER_RECEIVER_ID_CHANGED: {
+          return this.changeReceiverRelatedData(action.payload);
+        }
+        case INVOICE_HEADER_CONTRACT_ID_CHANGED: {
+          return this.changeContractRelatedData(action.payload);
+        }
+        case INVOICE_ITEM_CONTRACT_ITEM_ID_CHANGED: {
+          return this.changeContractItemRelatedData(action.payload, +action.change.id);
+        }
+        case INVOICE_ITEM_ID_ADDED: {
+          return this.addContractItemRelatedData(action.payload, +action.change.id);
+        }
+        default:
+          return of(invoice);
+      }
+    });
+    return concat(...operations).pipe(takeLast(1));
+  }
+&nbsp;
+  private determineChanges(changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
+&nbsp;
+    const changes: InvoiceChange[] = [] as InvoiceChange[];
+    // --- find differences
+    const differences = difference(changed, current);
+    if (Object.keys(differences).length === 0) {
+      return changes;
+    }
+&nbsp;
+    // --- flatten into array
+    Object.keys(differences).forEach(key =&gt; {
+      if (key === 'items') {
+        const itemChanges = this.determineItemChanges(differences[key], changed, current);
+        changes.push(...itemChanges);
+      } else {
+        const change = {mode: ChangeMode.changed, object: 'header', field: key, value: differences[key]};
+        changes.push(change);
+      }
+    });
+    return changes;
+  }
+&nbsp;
+  private determineItemChanges(itemChanges: any[], changed: InvoiceData, current: InvoiceData): InvoiceChange[] {
+    const changes: InvoiceChange[] = [] as InvoiceChange[];
+&nbsp;
+    itemChanges.forEach((itemChange: Object, i: number) =&gt; {
+      const itemId = changed.items[i].id;
+      // --- determine change mode for item
+      let mode = ChangeMode.changed;
+      if (itemChange['id']) {
+        const defaultPos = i + 1;
+        if (itemId !== defaultPos) {
+          mode = ChangeMode.moved;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (itemId &gt; defaultPos) {
+            const change = {mode: ChangeMode.deleted, object: 'item', id: current.items[i].id};
+            changes.push(change);
+          }
+        } else {
+          mode = ChangeMode.added;
+          const change = {mode: ChangeMode.added, object: 'item', id: itemId, field: 'id', value: itemId};
+          changes.push(change);
+        }
+      }
+&nbsp;
+      Object.keys(itemChange).forEach(fieldName =&gt; {
+        if (fieldName !== 'id') {
+          if (mode === ChangeMode.moved) {
+            // --- ignore movements without change
+            const movedItem = changed.items.find(item =&gt; item.id === itemId);
+            const oldItem = current.items.find(item =&gt; item.id === itemId);
+            if (!isEqual(movedItem[fieldName], oldItem[fieldName])) {
+              const change = {mode: ChangeMode.changed, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
+              changes.push(change);
+            }
+          } else {
+            const change = {mode: mode, object: 'item', id: itemId, field: fieldName, value: itemChange[fieldName]};
+            changes.push(change);
+          }
+        }
+      });
+    });
+    return changes;
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/store/reducers/invoices.reducer.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/store/reducers</a> invoices.reducer.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.78% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>10/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">32.26% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>10/31</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import {InvoiceData} from '../../models/invoice.model';
+import * as fromInvoices from '../actions/invoices.actions';
+&nbsp;
+export interface InvoiceSingle {
+  isDirty: boolean;
+  invoice: InvoiceData;
+}
+export interface InvoiceState extends EntityState&lt;InvoiceData&gt; {
+  loaded: boolean;
+  loading: boolean;
+  current?: InvoiceSingle;
+  error?: any;
+}
+&nbsp;
+export const invoiceAdapter: EntityAdapter&lt;InvoiceData&gt; = createEntityAdapter&lt;InvoiceData&gt;({
+  selectId: <span class="fstat-no" title="function not covered" >(</span>invoice: InvoiceData) =&gt; <span class="cstat-no" title="statement not covered" >invoice.id,</span>
+  sortComparer: false
+});
+&nbsp;
+const initialState: InvoiceState = invoiceAdapter.getInitialState({
+  loaded: false,
+  loading: false,
+  current: undefined,
+  error: undefined
+});
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >invoiceReducer(<span class="cstat-no" title="statement not covered" ></span>state: InvoiceState = initialState,</span> action: fromInvoices.InvoiceAction): InvoiceState {
+<span class="cstat-no" title="statement not covered" >  switch (action.type) {</span>
+&nbsp;
+    case fromInvoices.QUERY_INVOICES: {
+<span class="cstat-no" title="statement not covered" >      return { ...state, loading: true, loaded: false, error: undefined, current: undefined };</span>
+    }
+&nbsp;
+    case fromInvoices.ADDED_INVOICE: {
+<span class="cstat-no" title="statement not covered" >      return invoiceAdapter.addOne(action.payload, {...state, loaded: true, loading: false, error: undefined });</span>
+    }
+&nbsp;
+    case fromInvoices.MODIFIED_INVOICE: {
+<span class="cstat-no" title="statement not covered" >      if (action.payload.id === state.current.invoice.id) {</span>
+        const invoice = <span class="cstat-no" title="statement not covered" >Object.assign({}, state.current.invoice, action.payload);</span>
+        const current = <span class="cstat-no" title="statement not covered" >{ isDirty: state.current.isDirty, invoice: invoice };</span>
+<span class="cstat-no" title="statement not covered" >        return invoiceAdapter.updateOne({ id: action.payload.id, changes: action.payload },</span>
+          {...state, error: undefined , current: current });
+      }
+<span class="cstat-no" title="statement not covered" >      return invoiceAdapter.updateOne({ id: action.payload.id, changes: action.payload }, {...state, error: undefined });</span>
+    }
+&nbsp;
+    case fromInvoices.REMOVED_INVOICE: {
+<span class="cstat-no" title="statement not covered" >      return invoiceAdapter.removeOne(action.payload.id, state);</span>
+    }
+&nbsp;
+    case fromInvoices.COPY_INVOICE_SUCCESS: {
+      const current = <span class="cstat-no" title="statement not covered" >{ isDirty: true, invoice: action.payload };</span>
+<span class="cstat-no" title="statement not covered" >      return {...state, current, error: undefined};</span>
+    }
+&nbsp;
+    case fromInvoices.NEW_INVOICE_SUCCESS: {
+      const current = <span class="cstat-no" title="statement not covered" >{ isDirty: true, invoice: action.payload };</span>
+<span class="cstat-no" title="statement not covered" >      return {...state, current, error: undefined};</span>
+    }
+&nbsp;
+    case fromInvoices.NEW_QUICK_INVOICE_SUCCESS: {
+      const current = <span class="cstat-no" title="statement not covered" >{ isDirty: true, invoice: action.payload };</span>
+<span class="cstat-no" title="statement not covered" >      return {...state, current, error: undefined};</span>
+    }
+&nbsp;
+    case fromInvoices.SELECT_INVOICE: {
+      const current = <span class="cstat-no" title="statement not covered" >{ isDirty: false, invoice: action.payload };</span>
+<span class="cstat-no" title="statement not covered" >      return {...state, current, error: undefined};</span>
+    }
+&nbsp;
+    case fromInvoices.CHANGE_INVOICE_SUCCESS: {
+      const current = <span class="cstat-no" title="statement not covered" >{ isDirty: true, invoice: action.payload };</span>
+<span class="cstat-no" title="statement not covered" >      return { ...state,  current, error: undefined };</span>
+    }
+&nbsp;
+    default:
+<span class="cstat-no" title="statement not covered" >      return state;</span>
+  }
+}
+&nbsp;
+// state selectors
+export const {
+  selectIds: selectInvoiceIds,
+  selectEntities: selectInvoiceEntities,
+  selectAll: selectAllInvoices,
+  selectTotal: selectInvoicesTotal
+} = invoiceAdapter.getSelectors();
+&nbsp;
+export const selectInvoicesLoading = <span class="fstat-no" title="function not covered" >(</span>state: InvoiceState) =&gt; <span class="cstat-no" title="statement not covered" >state.loading;</span>
+export const selectInvoicesLoaded = <span class="fstat-no" title="function not covered" >(</span>state: InvoiceState) =&gt; <span class="cstat-no" title="statement not covered" >state.loaded;</span>
+export const selectCurrentInvoice = <span class="fstat-no" title="function not covered" >(</span>state: InvoiceState) =&gt; <span class="cstat-no" title="statement not covered" >state.current.invoice;</span>
+export const selectInvoicesError = <span class="fstat-no" title="function not covered" >(</span>state: InvoiceState) =&gt; <span class="cstat-no" title="statement not covered" >state.error;</span>
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

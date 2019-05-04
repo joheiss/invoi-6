@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/services/objects-api.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/services</a> objects-api.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.48% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">11.11% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.71% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>10/28</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {from, Observable} from 'rxjs/index';
+import {DocumentChangeAction} from 'angularfire2/firestore';
+import {MessageContent, Messages} from '../../shared/models/message.model';
+import {INVOICING_MSGS} from '../invoicing-error-messages';
+import {BusinessObjectHeaderData} from '../models/business-object';
+import {CustomizingHeaderData} from '../models/customizing.model';
+import {ReportingHeaderData} from '../models/reporting.model';
+import {FbStoreService} from '../../shared/services/fb-store.service';
+import {OrderByOption} from '../../shared/models/order-by-option';
+&nbsp;
+export abstract class ObjectsApiService&lt;T extends BusinessObjectHeaderData | CustomizingHeaderData | ReportingHeaderData&gt; {
+&nbsp;
+  col: string;
+  messages: Messages;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected constructor(protected <span class="cstat-no" title="statement not covered" ></span>fbStore: FbStoreService,</span>
+                        protected <span class="cstat-no" title="statement not covered" >collectionName: string,</span>
+                        protected <span class="cstat-no" title="statement not covered" >collectionOrderBy?: OrderByOption)</span> {
+<span class="cstat-no" title="statement not covered" >    this.col = this.fbStore.assignCollection(collectionName, collectionOrderBy);</span>
+<span class="cstat-no" title="statement not covered" >    this.messages = new Messages(INVOICING_MSGS);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  queryAll(): Observable&lt;DocumentChangeAction&lt;any&gt;[]&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return this.fbStore.queryAll(this.col);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  create(</span>payload: T): Observable&lt;any&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return from(</span>
+      // check if document already exists
+      this.fbStore.documentExists(this.col, payload).then(<span class="fstat-no" title="function not covered" >exists =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (exists) {</span>
+<span class="cstat-no" title="statement not covered" >          throw new Error(`Document with id ${payload.id} already exists. Check number ranges.`);</span>
+        }
+        // create document &amp; update number range in batch write
+<span class="cstat-no" title="statement not covered" >        return this.fbStore.createDocument(this.col, payload);</span>
+      }));
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  delete(</span>payload: T): Observable&lt;any&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return from(</span>
+      // check if document exists
+      this.fbStore.documentExists(this.col, payload).then(<span class="fstat-no" title="function not covered" >exists =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (!exists) {</span>
+<span class="cstat-no" title="statement not covered" >          throw new Error(`Document with id ${payload.id} does not exist.`);</span>
+        }
+        // delete document &amp; update number range in batch write - if necessary
+<span class="cstat-no" title="statement not covered" >        return this.fbStore.deleteDocument(this.col, payload);</span>
+      }));
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  update(</span>payload: T): Observable&lt;any&gt; {
+<span class="cstat-no" title="statement not covered" >    return this.fbStore.updateDocument(this.col, payload);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  getMessage(</span>id: string, params?: string[]): MessageContent {
+<span class="cstat-no" title="statement not covered" >    if (params &amp;&amp; params.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.messages.getMessageWithParams(id, params);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return this.messages.getMessage(id);</span>
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

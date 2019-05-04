@@ -1,13 +1,12 @@
 import {Request, Response} from 'express';
 import * as admin from 'firebase-admin';
-import {InvoiceFormDataMapper} from './printforms/invoice-form-data-mapper';
-import {InvoiceForm} from './printforms/invoice-form';
 import {send, setApiKey} from '@sendgrid/mail';
 import * as functions from 'firebase-functions';
-import {getDocLinksForBusinessObject, getInvoice, getReceiver} from '../../shared/src/getters';
 import UpdateRequest = admin.auth.UpdateRequest;
 import UserRecord = admin.auth.UserRecord;
-import {updateInvoice} from '../../shared/src/setters';
+import {getDocLinksForBusinessObject, getInvoice, getReceiver, updateInvoice} from '../../shared/src';
+import {InvoiceStatus} from 'jovisco-domain';
+import {InvoiceForm, InvoiceFormDataMapper} from './printforms';
 
 export async function handleInvoicePdfCreation(req: Request, res: Response) {
   try {
@@ -108,7 +107,7 @@ async function sendInvoiceEmail(id: string): Promise<any> {
     };
     const res = await send(email);
     // update invoice status
-    return updateInvoice(db, id, { status: 1});
+    return updateInvoice(db, id, { status: InvoiceStatus.billed});
   } catch (err) {
     console.error(err);
     throw new Error(err);

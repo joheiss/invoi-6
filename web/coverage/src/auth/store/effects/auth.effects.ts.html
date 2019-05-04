@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/auth/store/effects/auth.effects.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/auth/store/effects</a> auth.effects.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>72/72</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>43/43</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>69/69</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167</td><td class="line-coverage quiet"><span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import * as authActions from '../actions/auth.actions';
+import * as usersActions from '../actions/users.actions';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs/index';
+import {AuthService} from '../../services';
+import {ClearState} from '../../../invoicing/store/actions';
+import {Store} from '@ngrx/store';
+import {ROOT_EFFECTS_INIT} from '@ngrx/effects';
+import * as fromRoot from '../../../app/store';
+import {AppState} from '../../../app/store/reducers';
+&nbsp;
+@Injectable()
+export class AuthEffects {
+&nbsp;
+  constructor(private actions$: Actions<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private authService: AuthService<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;AppState&gt;) {</span>
+  }
+&nbsp;
+  @Effect()
+  initAuth$ = this.actions$.pipe(
+    ofType(ROOT_EFFECTS_INIT),
+    switchMap(() =&gt; this.authService.queryAuth()
+      .pipe(
+        tap(() =&gt; console.log(`[AuthEffects] Initialize Store`)),
+        map(user =&gt; new authActions.Authenticated(user)),
+        catchError(error =&gt; of(new authActions.NotAuthenticated(error)))
+      ))
+  );
+&nbsp;
+  @Effect()
+  queryAuth$ = this.actions$.pipe(
+    ofType(authActions.QUERY_AUTH),
+    switchMap(() =&gt; this.authService.queryAuth()
+      .pipe(
+        // tap(user =&gt; console.log(`auth query result:`, user)),
+        map(user =&gt; new authActions.Authenticated(user)),
+        catchError(error =&gt; of(new authActions.NotAuthenticated(error)))
+      ))
+  );
+&nbsp;
+  @Effect()
+  login$ = this.actions$.pipe(
+    ofType(authActions.LOGIN),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: authActions.Login) =&gt; action.payload),
+    switchMap(credentials =&gt; this.authService.login(credentials)
+      .pipe(
+        map(() =&gt; new authActions.QueryAuth()),
+        catchError(error =&gt; of(new authActions.NotAuthenticated(error)))
+      ))
+  );
+&nbsp;
+  @Effect()
+  logout$ = this.actions$.pipe(
+    ofType(authActions.LOGOUT),
+    map((action: authActions.Logout) =&gt; action),
+    switchMap(() =&gt; this.authService.logout()
+      .pipe(
+        tap(() =&gt; console.log(`[AuthEffects] Clear State`)),
+        map(() =&gt; new ClearState()),
+      ))
+  );
+&nbsp;
+  @Effect()
+  authenticated$ = this.actions$.pipe(
+    ofType(authActions.AUTHENTICATED),
+    map((action: authActions.Authenticated) =&gt; action.payload),
+    tap(user =&gt; console.log(`authenticated with:`, user.displayName)),
+    switchMap(user =&gt; [
+      new usersActions.QueryOneUser(user.uid),
+      new fromRoot.StopSpinning(),
+      new fromRoot.LeaveLogin(user)
+    ])
+  );
+&nbsp;
+  @Effect()
+  notAuthenticated$ = this.actions$.pipe(
+    ofType(authActions.NOT_AUTHENTICATED),
+    tap(() =&gt; console.log(`not authenticated`)),
+    switchMap(() =&gt; [
+      new fromRoot.Go({path: ['/login']}),
+      new fromRoot.StopSpinning()
+    ])
+  );
+&nbsp;
+  @Effect()
+  changeMyPassword$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_MY_PASSWORD),
+    // tap(() =&gt; console.log(`about to change my password ...`)),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: authActions.ChangeMyPassword) =&gt; action.payload),
+    switchMap(credentials =&gt; this.authService.changeMyPassword(credentials)
+      .pipe(
+        map(() =&gt; new authActions.ChangeMyPasswordSuccess()),
+        catchError(error =&gt; of(new authActions.ChangeMyPasswordFail(error)))
+      ))
+  );
+&nbsp;
+  @Effect()
+  changeMyPasswordSuccess$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_MY_PASSWORD_SUCCESS),
+    // tap(() =&gt; console.log(`password changed`)),
+    map((action: authActions.ChangeMyPasswordSuccess) =&gt; action.payload),
+    switchMap(() =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.authService.getMessage('password-update-success')
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  changeMyPasswordFail$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_MY_PASSWORD_FAIL),
+    tap(() =&gt; console.error(`password change failed`)),
+    map((action: authActions.ChangeMyPasswordFail) =&gt; action.payload),
+    switchMap((err) =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.authService.getMessage('password-update-fail', [err.message])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  changePassword$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_PASSWORD),
+    // tap(() =&gt; console.log(`about to change a user's password ...`)),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: authActions.ChangePassword) =&gt; action.payload),
+    switchMap(credentials =&gt; this.authService.changePassword(credentials)
+      .pipe(
+        map(() =&gt; new authActions.ChangePasswordSuccess()),
+        catchError(error =&gt; of(new authActions.ChangePasswordFail(error)))
+      ))
+  );
+&nbsp;
+  @Effect()
+  changePasswordSuccess$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_PASSWORD_SUCCESS),
+    // tap(() =&gt; console.log(`password changed`)),
+    map((action: authActions.ChangePasswordSuccess) =&gt; action.payload),
+    switchMap(() =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.authService.getMessage('password-update-success')
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  changePasswordFail$ = this.actions$.pipe(
+    ofType(authActions.CHANGE_PASSWORD_FAIL),
+    tap(() =&gt; console.error(`password change failed`)),
+    map((action: authActions.ChangePasswordFail) =&gt; action.payload),
+    switchMap((err) =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.authService.getMessage('password-update-fail', [err.message])
+      })
+    ])
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

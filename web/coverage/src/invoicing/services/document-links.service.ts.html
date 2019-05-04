@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/services/document-links.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/services</a> document-links.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>12/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.23% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/13</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {DocumentChangeAction} from 'angularfire2/firestore';
+import {ObjectsApiService} from './objects-api.service';
+import {DocumentLink} from '../models/document-link';
+import {Observable} from 'rxjs/index';
+import {OrderByOption} from '../../shared/models/order-by-option';
+import {FbStoreService} from '../../shared/services/fb-store.service';
+&nbsp;
+@Injectable()
+export class DocumentLinksService extends ObjectsApiService&lt;DocumentLink&gt; {
+&nbsp;
+  static readonly COLLECTION_NAME = 'document-links';
+  static readonly COLLECTION_ORDERBY: OrderByOption = {fieldName: 'path', direction: 'asc'};
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(protected <span class="cstat-no" title="statement not covered" ></span>fbStore: FbStoreService<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+<span class="cstat-no" title="statement not covered" >    super(fbStore, DocumentLinksService.COLLECTION_NAME, DocumentLinksService.COLLECTION_ORDERBY);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  queryForObject(</span>payload: any): Observable&lt;DocumentChangeAction&lt;any&gt;[]&gt; {
+<span class="cstat-no" title="statement not covered" >    return this.fbStore.queryAllDocumentLinksForObject(payload);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  create(</span>payload: DocumentLink): Observable&lt;any&gt; {
+<span class="cstat-no" title="statement not covered" >    return this.fbStore.createDocumentLink(payload);</span>
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

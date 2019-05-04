@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/store/actions/document-links.actions.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/store/actions</a> document-links.actions.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.8% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>80/118</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>20/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">61.22% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>60/98</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Action} from '@ngrx/store';
+import {DocumentLink} from '../../models/document-link';
+&nbsp;
+// FIRESTORE
+export const QUERY_DOCUMENT_LINKS = '[Invoicing] Document Links query';
+export const QUERY_DOCUMENT_LINKS_FOR_OBJECT = '[Invoicing] Document Links for object query';
+export const ADDED_DOCUMENT_LINK = '[Invoicing] Document Link added';
+export const MODIFIED_DOCUMENT_LINK = '[Invoicing] Document Link modified';
+export const REMOVED_DOCUMENT_LINK = '[Invoicing] Document Link removed';
+export const UPDATE_DOCUMENT_LINK = '[Invoicing] Document Link update';
+export const UPDATE_DOCUMENT_LINK_FAIL = '[Invoicing] Document Link update fail';
+export const UPDATE_DOCUMENT_LINK_SUCCESS = '[Invoicing] Document Link update success';
+&nbsp;
+export class QueryDocumentLinks implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = QUERY_DOCUMENT_LINKS;</span>
+<span class="fstat-no" title="function not covered" >  constructor() {}</span>
+}
+&nbsp;
+export class QueryDocumentLinksForObject implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = QUERY_DOCUMENT_LINKS_FOR_OBJECT;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: { objectType: string, id: string })</span> {}
+}
+&nbsp;
+export class AddedDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = ADDED_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {}
+}
+&nbsp;
+export class ModifiedDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = MODIFIED_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {}
+}
+&nbsp;
+export class RemovedDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = REMOVED_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {}
+}
+&nbsp;
+export class UpdateDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {}
+}
+&nbsp;
+export class UpdateDocumentLinkFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_DOCUMENT_LINK_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {}
+}
+&nbsp;
+export class UpdateDocumentLinkSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_DOCUMENT_LINK_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {}
+}
+&nbsp;
+// CREATING
+export const CREATE_DOCUMENT_LINK = '[Invoicing] Create DocumentLink';
+export const CREATE_DOCUMENT_LINK_FAIL = '[Invoicing] Create DocumentLink Fail';
+export const CREATE_DOCUMENT_LINK_SUCCESS = '[Invoicing] Create DocumentLink Success';
+&nbsp;
+export class CreateDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+export class CreateDocumentLinkFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_DOCUMENT_LINK_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class CreateDocumentLinkSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_DOCUMENT_LINK_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+// DELETING
+export const DELETE_DOCUMENT_LINK = '[Invoicing] Delete DocumentLink';
+export const DELETE_DOCUMENT_LINK_FAIL = '[Invoicing] Delete DocumentLink Fail';
+export const DELETE_DOCUMENT_LINK_SUCCESS = '[Invoicing] Delete DocumentLink Success';
+&nbsp;
+export class DeleteDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+export class DeleteDocumentLinkFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_DOCUMENT_LINK_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class DeleteDocumentLinkSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_DOCUMENT_LINK_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+// NEW
+export const NEW_DOCUMENT_LINK = '[Invoicing] New DocumentLink';
+export const NEW_DOCUMENT_LINK_FAIL = '[Invoicing] New DocumentLink Fail';
+export const NEW_DOCUMENT_LINK_SUCCESS = '[Invoicing] New DocumentLink Success';
+&nbsp;
+export class NewDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor() {</span>
+  }
+}
+&nbsp;
+export class NewDocumentLinkFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_DOCUMENT_LINK_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class NewDocumentLinkSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_DOCUMENT_LINK_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+// CHANGE
+export const CHANGE_DOCUMENT_LINK = '[Invoicing] Change DocumentLink';
+export const CHANGE_DOCUMENT_LINK_FAIL = '[Invoicing] Change DocumentLink Fail';
+export const CHANGE_DOCUMENT_LINK_SUCCESS = '[Invoicing] Change DocumentLink Success';
+&nbsp;
+export class ChangeDocumentLink implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_DOCUMENT_LINK;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+export class ChangeDocumentLinkFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_DOCUMENT_LINK_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class ChangeDocumentLinkSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_DOCUMENT_LINK_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: DocumentLink)</span> {
+  }
+}
+&nbsp;
+export type DocumentLinkAction =
+  QueryDocumentLinks | AddedDocumentLink | ModifiedDocumentLink | RemovedDocumentLink |
+  UpdateDocumentLink | UpdateDocumentLinkFail | UpdateDocumentLinkSuccess |
+  CreateDocumentLink | CreateDocumentLinkFail | CreateDocumentLinkSuccess |
+  DeleteDocumentLink | DeleteDocumentLinkFail | DeleteDocumentLinkSuccess |
+  ChangeDocumentLink | ChangeDocumentLinkFail | ChangeDocumentLinkSuccess |
+  NewDocumentLink | NewDocumentLinkFail | NewDocumentLinkSuccess;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 21 2018 13:08:07 GMT+0200 (GMT+02:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/models/contract-entity.model.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/models</a> contract-entity.model.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/92</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/75</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import {Transaction, TransactionHeaderData, TransactionItem, TransactionItemData} from './transaction';</span>
+import {BillingMethod, PaymentMethod} from './invoicing.model';
+&nbsp;
+export interface ContractHeaderData extends TransactionHeaderData {
+  description?: string;
+  customerId?: string;
+  startDate?: Date;
+  endDate?: Date;
+  paymentTerms?: string;
+  paymentMethod?: PaymentMethod;
+  billingMethod?: BillingMethod;
+  cashDiscountDays?: number;
+  cashDiscountPercentage?: number;
+  dueDays?: number;
+  currency?: string;
+  budget?: number;
+  invoiceText?: string;
+  internalText?: string;
+  // isDeletable?: boolean;
+  // lastInvoiceId?: string;
+  // revenue?: number;
+  // allInvoiceIds?: string[];
+  // openInvoiceIds?: string[];
+}
+&nbsp;
+export interface ContractItemData extends TransactionItemData {
+  description?: string;
+  pricePerUnit?: number;
+  priceUnit?: string;
+  cashDiscountAllowed?: boolean;
+}
+&nbsp;
+export interface ContractData extends ContractHeaderData {
+  items?: ContractItemData[];
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" >Contract extends <span class="cstat-no" title="statement not covered" >Transaction {</span></span></span></span>
+<span class="fstat-no" title="function not covered" >  public static <span class="cstat-no" title="statement not covered" >createFromData(</span>data: ContractData) {</span>
+<span class="cstat-no" title="statement not covered" >    if (data) {</span>
+      const header = <span class="cstat-no" title="statement not covered" >Contract.extractHeaderFromData(data);</span>
+      const items = <span class="cstat-no" title="statement not covered" >Contract.createItemsFromData(data.items);</span>
+<span class="cstat-no" title="statement not covered" >      return new Contract(header, items);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private static <span class="cstat-no" title="statement not covered" >createItemsFromData(</span>items: ContractItemData[]): ContractItem[] {</span>
+<span class="cstat-no" title="statement not covered" >    return items ? items.map(<span class="fstat-no" title="function not covered" >item =&gt; <span class="cstat-no" title="statement not covered" >ContractItem.createFromData(item)) : [];</span></span></span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  private static <span class="cstat-no" title="statement not covered" >extractHeaderFromData(</span>data: ContractData): ContractHeaderData {</span>
+    const {<span class="cstat-no" title="statement not covered" >items: removed1, <span class="cstat-no" title="statement not covered" >...header} = data;</span></span>
+<span class="cstat-no" title="statement not covered" >    header.issuedAt = new Date(data.issuedAt);</span>
+<span class="cstat-no" title="statement not covered" >    header.startDate = new Date(data.startDate);</span>
+<span class="cstat-no" title="statement not covered" >    header.endDate = new Date(data.endDate);</span>
+<span class="cstat-no" title="statement not covered" >    return header;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >header?: ContractHeaderData,</span></span>
+              public <span class="cstat-no" title="statement not covered" >items?: ContractItem[]) {</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
+  }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get data(): ContractData {</span></span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      ...this.header,
+      items: this.getItemsData()
+    };
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >buildNewItemFromTemplate(): ContractItem {</span></span>
+    // get next item number
+    const id = <span class="cstat-no" title="statement not covered" >this.getNextItemId();</span>
+    // build item template
+<span class="cstat-no" title="statement not covered" >    return {id} as ContractItem;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isActive(): boolean {</span></span>
+    const now = <span class="cstat-no" title="statement not covered" >new Date();</span>
+    const start = <span class="cstat-no" title="statement not covered" >new Date(this.header.startDate);</span>
+    const end = <span class="cstat-no" title="statement not covered" >new Date(this.header.endDate);</span>
+<span class="cstat-no" title="statement not covered" >    return start &lt;= now &amp;&amp; end &gt;= now;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isFuture(): boolean {</span></span>
+    const now = <span class="cstat-no" title="statement not covered" >new Date();</span>
+    const start = <span class="cstat-no" title="statement not covered" >new Date(this.header.startDate);</span>
+    const end = <span class="cstat-no" title="statement not covered" >new Date(this.header.endDate);</span>
+<span class="cstat-no" title="statement not covered" >    return start &gt; now &amp;&amp; end &gt; now;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isInvoiceable(): boolean {</span></span>
+    const now = <span class="cstat-no" title="statement not covered" >new Date();</span>
+    const start = <span class="cstat-no" title="statement not covered" >new Date(this.header.startDate);</span>
+    const end = <span class="cstat-no" title="statement not covered" >new Date(this.header.endDate);</span>
+<span class="cstat-no" title="statement not covered" >    end.setMonth(end.getMonth() + 1);</span>
+<span class="cstat-no" title="statement not covered" >    return start &lt;= now &amp;&amp; end &gt;= now;</span>
+  }
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" >ContractItem extends <span class="cstat-no" title="statement not covered" >TransactionItem {</span></span></span></span>
+  private _description: string;
+  private _pricePerUnit: number;
+  private _priceUnit: string;
+  private _cashDiscountAllowed: boolean;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  static <span class="cstat-no" title="statement not covered" >createFromData(</span>data: ContractItemData): ContractItem {</span>
+<span class="cstat-no" title="statement not covered" >    if (data) {</span>
+<span class="cstat-no" title="statement not covered" >      return new ContractItem(data);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(data?: ContractItemData) {</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
+<span class="cstat-no" title="statement not covered" >    this.initialize();</span>
+<span class="cstat-no" title="statement not covered" >    this.fill(data);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get description(): string { <span class="cstat-no" title="statement not covered" >return this._description; }</span></span></span>
+<span class="fstat-no" title="function not covered" >  set description(</span>value: string) { <span class="cstat-no" title="statement not covered" >this._description = value; }</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get pricePerUnit(): number { <span class="cstat-no" title="statement not covered" >return this._pricePerUnit; }</span></span></span>
+<span class="fstat-no" title="function not covered" >  set pricePerUnit(</span>value: number) { <span class="cstat-no" title="statement not covered" >this._pricePerUnit = value; }</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get priceUnit(): string { <span class="cstat-no" title="statement not covered" >return this._priceUnit; }</span></span></span>
+<span class="fstat-no" title="function not covered" >  set priceUnit(</span>value: string) { <span class="cstat-no" title="statement not covered" >this._priceUnit = value; }</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get cashDiscountAllowed(): boolean { <span class="cstat-no" title="statement not covered" >return this._cashDiscountAllowed; }</span></span></span>
+<span class="fstat-no" title="function not covered" >  set cashDiscountAllowed(</span>value: boolean) { <span class="cstat-no" title="statement not covered" >this._cashDiscountAllowed = value; }</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get data(): ContractItemData {</span></span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      id: this._id,
+      description: this._description,
+      pricePerUnit: this._pricePerUnit,
+      priceUnit: this._priceUnit,
+      cashDiscountAllowed: this._cashDiscountAllowed
+    };
+  }
+<span class="fstat-no" title="function not covered" >  protected <span class="cstat-no" title="statement not covered" >fill(</span>data?: ContractItemData): void {</span>
+<span class="cstat-no" title="statement not covered" >    if (!data) { <span class="cstat-no" title="statement not covered" >return; }</span></span>
+<span class="cstat-no" title="statement not covered" >    if (data.id) { <span class="cstat-no" title="statement not covered" >this._id = data.id; }</span></span>
+<span class="cstat-no" title="statement not covered" >    if (data.description) { <span class="cstat-no" title="statement not covered" >this._description = data.description; }</span></span>
+<span class="cstat-no" title="statement not covered" >    if (data.pricePerUnit) { <span class="cstat-no" title="statement not covered" >this._pricePerUnit = data.pricePerUnit; }</span></span>
+<span class="cstat-no" title="statement not covered" >    if (data.priceUnit) { <span class="cstat-no" title="statement not covered" >this._priceUnit = data.priceUnit; }</span></span>
+<span class="cstat-no" title="statement not covered" >    if (data.cashDiscountAllowed) { <span class="cstat-no" title="statement not covered" >this._cashDiscountAllowed = data.cashDiscountAllowed; }</span></span>
+  }
+<span class="fstat-no" title="function not covered" >  protected <span class="cstat-no" title="statement not covered" >initialize(): void {</span></span>
+<span class="cstat-no" title="statement not covered" >    this._id = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._description = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._pricePerUnit = 0;</span>
+<span class="cstat-no" title="statement not covered" >    this._priceUnit = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._cashDiscountAllowed = false;</span>
+  }
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+export type ContractsEntity = { [id: number]: ContractData };
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export function mapContractsEntityToObjArray(entity: ContractsEntity): Contract[] {</span></span>
+<span class="cstat-no" title="statement not covered" >  return Object.keys(entity).map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >Contract.createFromData(entity[+id]));</span></span></span>
+}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Oct 06 2018 14:16:03 GMT+0200 (GMT+02:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

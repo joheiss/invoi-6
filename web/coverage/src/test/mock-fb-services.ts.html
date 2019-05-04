@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/test/mock-fb-services.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/test</a> mock-fb-services.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.3% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>26/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.74% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>18/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.3% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>26/27</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {generateAuth, generateMoreUserProfiles, generateUserProfile} from './test-generators';
+import {cold, hot} from 'jasmine-marbles';
+&nbsp;
+export const mockFbAuthService: any = {
+  changeMyPassword: jest.fn(() =&gt; cold('-a|', { a: true })),
+  getAuthState: jest.fn(() =&gt; cold('-a|', { a: generateAuth() })),
+  getIdToken: jest.fn(() =&gt; cold('-a|', { a: 'abcdefghijklmnopqrstuvwxyzäöü' })),
+  logout: jest.fn(() =&gt; cold('-a|', { a: true })),
+  signInWithEmailAndPassword: jest.fn((email, password) =&gt; {
+    if (password === 'correct') {
+      return cold('-a|', { a: true });
+    }
+    return cold('-a|', { a: false });
+  }),
+};
+&nbsp;
+export const mockFbStoreService: any = {
+  /* --- user profiles ---*/
+  getOneUserProfile: jest.fn(() =&gt; cold('-a|', { a: {
+    data: jest.fn(() =&gt; generateUserProfile())
+  }})),
+  queryAllUsers: jest.fn(() =&gt; hot('-a', { a: generateMoreUserProfiles() })),
+  queryOneUser: jest.fn(<span class="fstat-no" title="function not covered" >(</span>uid: string) =&gt; <span class="cstat-no" title="statement not covered" >cold('-b|', { b: { payload: { doc: { id: uid }}}}))</span>,
+  deleteOneUser: jest.fn(() =&gt; cold('-b|', { b: generateUserProfile() })),
+  updateOneUserProfile: jest.fn(() =&gt; cold('-b|', { b: generateUserProfile() })),
+};
+&nbsp;
+export const mockFbStorageService: any = {
+  deleteFile: jest.fn(() =&gt; cold('-b|', {b: true})),
+  downloadFile: jest.fn(() =&gt; cold('-b|', {b: 'download-url'})),
+  getMetadata: jest.fn(() =&gt; cold('-b|', {b: 'metadata'})),
+  updateMetadata: jest.fn(() =&gt; cold('-b|', {b: 'metadata'})),
+  uploadFile: jest.fn(() =&gt; cold('-b|', {b: 'download-url'}))
+};
+&nbsp;
+export const mockFbFunctionsService: any = {
+  /* --- auth ---*/
+  changePassword: jest.fn((uid: string) =&gt; cold('-a|', { a: true })),
+  /* --- users ---*/
+  createOneUser: jest.fn(() =&gt; cold('-b|', { b: 'anything' })),
+  updateOneUser: jest.fn(() =&gt; cold('-b|', { b: 'anything' }))
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Oct 06 2018 14:16:03 GMT+0200 (GMT+02:00)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

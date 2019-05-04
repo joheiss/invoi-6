@@ -20,6 +20,7 @@
     "full-icu": "^1.2.1",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.0.0",
+    "jovisco-domain": "^1.0.66",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "pdfkit": "^0.8.3",
