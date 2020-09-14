@@ -67,7 +67,7 @@ export const metaIdReducers: MetaReducer<any>[] = [clearState];
     ]
 })
 export class AuthModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: AuthModule,
       providers: [

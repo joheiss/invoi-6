@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import {ConfirmationDialogData} from '../models/confirmation-dialog';
 import {Observable} from 'rxjs/index';
 import {ConfirmationDialogPopupComponent} from '../popups/confirmation-dialog-popup/confirmation-dialog-popup.component';

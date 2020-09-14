@@ -1,7 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {By} from '@angular/platform-browser';
 import {SharedModule} from '../../../shared/shared.module';
 import {VatDetailsDialogComponent} from './vat-details-dialog.component';
@@ -75,9 +76,9 @@ describe('VAT Details Dialog Component', () => {
   });
 
   beforeEach(async () => {
-    decimalPipe = TestBed.get(DecimalPipe);
-    utility = TestBed.get(I18nUtilityService);
-    dialogRef = TestBed.get(MatDialogRef);
+    decimalPipe = TestBed.inject(DecimalPipe);
+    utility = TestBed.inject(I18nUtilityService);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(VatDetailsDialogComponent);
     component = fixture.componentInstance;
   });

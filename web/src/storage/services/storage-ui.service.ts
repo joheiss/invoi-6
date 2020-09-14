@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {ImageUploadPopupComponent} from '../popups/image-upload-popup/image-upload-popup.component';
 import {UploadPopupData} from '../models/upload-popup-data';
 import {Observable} from 'rxjs/index';

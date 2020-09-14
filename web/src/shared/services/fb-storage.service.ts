@@ -28,7 +28,7 @@ export class FbStorageService {
 
   updateMetadata(filePath: string, metadata: any): Observable<any> {
     const ref = this.afStorage.ref(filePath);
-    return ref.updateMetatdata( { customMetadata: metadata });
+    return ref.updateMetadata( { customMetadata: metadata });
   }
 
   uploadFile(file: any, path: string, metadata?: any): Observable<any> {

@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "esnext",
     "strict": false,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -8,7 +9,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
 //    "skipLibCheck": true,
     // "typeRoots": [
     //  "node_modules/@types"

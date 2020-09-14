@@ -65,7 +65,7 @@ registerLocaleData(localeDE, 'de-DE', localeDeExtra);
     AngularFirestoreModule.enablePersistence(),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([...rootEffects, ...authEffects, ...storageEffects]),
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 

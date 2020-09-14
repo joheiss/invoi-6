@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {MatDialog, MatDialogRef, MatSelectChange} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSelectChange} from '@angular/material/select';
 import {Store} from '@ngrx/store';
 import {InvoicingState} from '../../store/reducers';
 import * as fromStore from '../../store';

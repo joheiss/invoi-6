@@ -25,6 +25,7 @@ import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
 import {firestore} from 'firebase';
 import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 
 describe('Contract Effects', () => {
 

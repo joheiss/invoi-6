@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {passwordValidator} from '../validators/password.validator';
 import {UsersBusinessService} from '../business-services/users-business.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserDetailsDialogComponent} from '../users/user-details-dialog/user-details-dialog.component';
 

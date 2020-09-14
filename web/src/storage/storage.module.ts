@@ -19,7 +19,7 @@ import {ImageUploadPopupComponent} from './popups/image-upload-popup/image-uploa
   ]
 })
 export class StorageModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: StorageModule,
       providers: [

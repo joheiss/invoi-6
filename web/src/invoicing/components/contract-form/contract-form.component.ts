@@ -72,8 +72,12 @@ export class ContractFormComponent extends DetailsFormComponent<Contract> implem
     }));
     const reformattedValues = {
       issuedAt: DateUtility.getDateFromMoment(values.issuedAt),
-      startDate: DateUtility.getStartDateFromMoment(values.startDate),
-      endDate: DateUtility.getEndDateFromMoment(values.endDate),
+      // startDate: DateUtility.getStartDateFromMoment(values.startDate),
+      // endDate: DateUtility.getEndDateFromMoment(values.endDate),
+      term: {
+        startDate: DateUtility.getStartDateFromMoment(values.startDate),
+        endDate:  DateUtility.getEndDateFromMoment(values.endDate),
+      },
       budget: this.utility.fromLocalAmount(values.budget),
       cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage),
       internalText: values.texts.internalText,

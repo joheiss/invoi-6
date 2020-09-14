@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
 import {UsersBusinessService} from '../business-services/users-business.service';
 import {UsersUiService} from '../services';
 import {UserDetailsDialogComponent} from './user-details-dialog/user-details-dialog.component';

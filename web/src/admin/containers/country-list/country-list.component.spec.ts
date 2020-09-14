@@ -1,17 +1,21 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import {CountryListComponent} from './country-list.component';
-import {SharedModule} from '../../../shared/shared.module';
-import {mockAllCountries, mockSingleCountry} from '../../../test/factories/mock-settings.factory';
-import {of, Subscription} from 'rxjs/index';
-import {MatDialog} from '@angular/material';
-import {SettingsBusinessService} from '../../business-services';
+import 'jest';
+import 'jest-preset-angular';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CountryListComponent } from './country-list.component';
+import { SharedModule } from '../../../shared/shared.module';
+import {
+  mockAllCountries,
+  mockSingleCountry,
+} from '../../../test/factories/mock-settings.factory';
+import { of, Subscription } from 'rxjs/index';
+import { MatDialog } from '@angular/material/dialog';
+import { SettingsBusinessService } from '../../business-services';
 
 describe('Country List Component', () => {
-
   let component: CountryListComponent;
   let fixture: ComponentFixture<CountryListComponent>;
   let service: SettingsBusinessService;
@@ -28,27 +32,26 @@ describe('Country List Component', () => {
           useValue: {
             getSupportedLanguages: jest.fn(() => ['de', 'en']),
             getCountrySettings: jest.fn(() => of(mockAllCountries())),
-            update: jest.fn()
-          }
+            update: jest.fn(),
+          },
         },
         {
           provide: MatDialog,
           useValue: {
             open: jest.fn(() => {
               return {
-                afterClosed: jest.fn(() => of({name: 'anything'}))
+                afterClosed: jest.fn(() => of({ name: 'anything' })),
               };
-            })
-          }
-        }
-      ]
-    })
-      .compileComponents();
+            }),
+          },
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    service = TestBed.get(SettingsBusinessService);
-    dialog = TestBed.get(MatDialog);
+    service = TestBed.inject(SettingsBusinessService);
+    dialog = TestBed.inject(MatDialog);
     fixture = TestBed.createComponent(CountryListComponent);
     component = fixture.componentInstance;
     component['subscription'] = new Subscription();
@@ -59,13 +62,15 @@ describe('Country List Component', () => {
   });
 
   describe('Controller', () => {
-
     beforeEach(() => {
       component.ngOnInit();
     });
 
     it('should invoke service getSupportedLanguages and getCountrySettings when component is initialized', async () => {
-      const spyGetSupportedLanguages = jest.spyOn(service, 'getSupportedLanguages');
+      const spyGetSupportedLanguages = jest.spyOn(
+        service,
+        'getSupportedLanguages'
+      );
       const spyGetCountrySettings = jest.spyOn(service, 'getCountrySettings');
       await expect(spyGetSupportedLanguages).toHaveBeenCalled();
       return expect(spyGetCountrySettings).toHaveBeenCalled();
@@ -87,7 +92,7 @@ describe('Country List Component', () => {
       const countrySettings = mockAllCountries();
       const spy = jest.spyOn<any, any>(service, 'update');
       // US is not stored in country settings, so result == input
-      component.onDelete({ isoCode: 'US', names: { de: 'USA', en: 'USA'}});
+      component.onDelete({ isoCode: 'US', names: { de: 'USA', en: 'USA' } });
       expect(spy).toHaveBeenCalledWith(countrySettings);
     });
 
@@ -139,10 +144,10 @@ describe('Country List Component', () => {
 
     it('should invoke onNew handler when create button is pressed', async () => {
       const spy = jest.spyOn(component, 'onNew');
-      fixture.debugElement.query(By.css('#btn_new')).triggerEventHandler('click', null);
+      fixture.debugElement
+        .query(By.css('#btn_new'))
+        .triggerEventHandler('click', null);
       return expect(spy).toHaveBeenCalled();
     });
-
   });
-
 });

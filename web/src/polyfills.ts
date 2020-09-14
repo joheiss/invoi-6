@@ -1,3 +1,7 @@
+/***************************************************************************************************
+ * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
+ */
+import '@angular/localize/init';
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -13,7 +17,7 @@
  *
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
-
+import '@angular/localize/init';
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */

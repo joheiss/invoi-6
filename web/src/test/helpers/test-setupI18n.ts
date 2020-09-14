@@ -15,4 +15,3 @@ export function setupI18n(locales: string[]): void {
     global.Intl = require('intl');
   }
 }
-

@@ -10,6 +10,7 @@ const APP_ROUTES: Routes = [
       { path: 'home', component: HomeComponent },
       {
         path: 'invoicing',
+        // loadChildren: () => import('../invoicing/invoicing.module').then(m => m.InvoicingModule),
         loadChildren: '../invoicing/invoicing.module#InvoicingModule',
         canLoad: [AuthenticationGuard, AuthorizationGuard],
         canActivate: [AuthenticationGuard, AuthorizationGuard],

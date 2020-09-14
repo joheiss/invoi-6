@@ -45,7 +45,7 @@ describe('Settings Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(SettingsBusinessService);
+    service = TestBed.inject(SettingsBusinessService);
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

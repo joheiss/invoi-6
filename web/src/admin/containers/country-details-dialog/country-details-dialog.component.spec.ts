@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormArray, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {By} from '@angular/platform-browser';
 import {CountryDetailsDialogComponent} from './country-details-dialog.component';
 import {SharedModule} from '../../../shared/shared.module';
@@ -37,7 +37,7 @@ describe('Country Details Dialog Component', () => {
   });
 
   beforeEach(async () => {
-    dialogRef = TestBed.get(MatDialogRef);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(CountryDetailsDialogComponent);
     component = fixture.componentInstance;
   });

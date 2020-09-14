@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {MatSnackBarConfig} from '@angular/material';
+import {MatSnackBarConfig} from '@angular/material/snack-bar';
 import {ConfirmationDialogData} from '../../../shared/models/confirmation-dialog';
 import {MessageContent} from 'jovisco-domain';
 

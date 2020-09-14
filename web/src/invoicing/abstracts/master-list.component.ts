@@ -1,5 +1,5 @@
 import {Input, OnChanges} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
 
 export abstract class MasterListComponent<T> implements OnChanges {
   @Input() objects: T[];

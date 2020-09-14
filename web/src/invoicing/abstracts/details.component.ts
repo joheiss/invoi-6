@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs/index';
 
 export abstract class DetailsComponent<T> implements OnInit, AfterViewInit {
 
-  @ViewChild('detailsForm') formComponent: any;
+  @ViewChild('detailsForm', { static: false }) formComponent: any;
 
   task$: BehaviorSubject<string> = new BehaviorSubject('edit');
 

@@ -14,7 +14,9 @@ import {cold} from 'jasmine-marbles';
 import {mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
 import {CreateDocumentLink, DeleteDocumentLink} from '../../store/actions';
 import {DeleteFile, DownloadFile, UploadFile} from '../../../storage/store/actions';
-import {MatDialog, MatSelectChange} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSelectChange} from '@angular/material/select';
+
 import {By} from '@angular/platform-browser';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
 import {DocumentLinkData, InvoiceFactory} from 'jovisco-domain';

@@ -42,17 +42,17 @@ export abstract class AbstractBoBusinessService<T extends Transaction | Masterda
     return this.store.pipe(select(this.getCurrentSelector()));
   }
 
-  protected abstract getCurrentSelector(): Function;
+  protected abstract getCurrentSelector(): any;
   protected abstract getDefaultValues(): any;
-  protected abstract getIsChangeableSelector(): Function;
-  protected abstract getIsDeletableSelector(): Function;
+  protected abstract getIsChangeableSelector(): any;
+  protected abstract getIsDeletableSelector(): any;
   protected abstract getNextId(object: T): string;
 
   getSummary(): Observable<S[]> {
     return this.store.pipe(select(this.getSummarySelector()));
   }
 
-  protected abstract getSummarySelector(): Function;
+  protected abstract getSummarySelector(): any;
 
   isChangeable(): Observable<boolean> {
     return this.store.pipe(select(this.getIsChangeableSelector()));

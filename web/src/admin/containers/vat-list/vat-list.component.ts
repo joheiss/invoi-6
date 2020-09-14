@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/index';
-import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+
 import {VatDetailsDialogComponent} from '../vat-details-dialog/vat-details-dialog.component';
 import * as _ from 'lodash';
 import {SettingsBusinessService} from '../../business-services';

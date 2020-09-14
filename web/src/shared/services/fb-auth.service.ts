@@ -37,15 +37,19 @@ export class FbAuthService {
 
   logout(): Observable<any> {
     return from(
-      this.afAuth.auth.signOut()
+      this.afAuth.signOut()
+      // this.afAuth.auth.signOut()
     );
   }
 
   signInWithEmailAndPassword(email: string, password: string): Observable<boolean> {
     return from(
-      this.afAuth.auth.setPersistence(auth.Auth.Persistence.SESSION)
-        .then(() => this.afAuth.auth.signInWithEmailAndPassword(email, password))
+      this.afAuth.setPersistence(auth.Auth.Persistence.SESSION)
+        .then(() => this.afAuth.signInWithEmailAndPassword(email, password))
         .then(authData => !!authData)
+      // this.afAuth.auth.setPersistence(auth.Auth.Persistence.SESSION)
+      //   .then(() => this.afAuth.auth.signInWithEmailAndPassword(email, password))
+      //   .then(authData => !!authData)
     );
   }
 }
