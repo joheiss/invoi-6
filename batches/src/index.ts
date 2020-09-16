@@ -2,7 +2,7 @@
 
 import * as admin from 'firebase-admin';
 import * as args from 'commander';
-import {Invoice, InvoiceData, RevenueData, RevenueExtractData} from 'jovisco-domain';
+import {Invoice, InvoiceData, InvoiceFactory, RevenueData, RevenueExtractData} from 'jovisco-domain';
 import {getReceiver} from '../../shared/src';
 
 // const serviceAccount = require('../../../credentials-prod.json');
@@ -106,7 +106,7 @@ function mapRevenue(invoice: Invoice): RevenueExtractData {
 
 function mapToInvoice(data: InvoiceData): Invoice {
   const invoiceData = {...data};
-  return Invoice.createFromData(invoiceData);
+  return InvoiceFactory.fromData(invoiceData);
 }
 
 function reduceRevenues(revenues: RevenueData[], extract: RevenueExtractData) {
