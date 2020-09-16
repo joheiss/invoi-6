@@ -13,6 +13,7 @@
 /functions/node_modules
 /batches/node_modules
 /shared/node_modules
+/web/node_modules
 
 # IDEs and editors
 /.idea

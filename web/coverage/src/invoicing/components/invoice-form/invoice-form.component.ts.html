@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/components/invoice-form/invoice-form.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/components/invoice-form</a> invoice-form.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">68% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>68/100</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.41% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>21/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">42.11% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.79% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>63/89</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167</td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">324x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {Invoice, InvoiceData} from '../../models/invoice.model';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Receiver} from '../../models/receiver.model';
+import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
+import {Router} from '@angular/router';
+import * as fromValidators from '../../../shared/validators';
+import {Contract} from '../../models/contract.model';
+import {DetailsFormComponent} from '../../abstracts/details-form.component';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app/store/reducers';
+import {minOneItemValidator} from '../../validators/minOneItem.validator';
+&nbsp;
+@Component({
+  selector: 'jo-invoice-form',
+  template: require('./invoice-form.component.html'),
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class InvoiceFormComponent extends DetailsFormComponent&lt;Invoice&gt; implements OnChanges, OnDestroy {
+  @Input() invoiceReceiver: Receiver<span class="branch-1 cbranch-no" title="branch not covered" >;</span>
+  @Input() invoiceContract: Contract<span class="branch-1 cbranch-no" title="branch not covered" >;</span>
+  @Input() receivers: Receiver[];
+  @Input() contracts: Contract[];
+  @Input() isChangeable: boolean;
+  @Input() isSendable: boolean;
+  @Input() mode: string;
+  @Output() createPdf = new EventEmitter&lt;Invoice&gt;();
+  @Output() sendEmail = new EventEmitter&lt;Invoice&gt;();
+&nbsp;
+  constructor(protected fb: FormBuilder<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              protected store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;AppState&gt;,</span>
+              protected router: Router<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              protected utility: I18nUtilityService<span class="branch-1 cbranch-no" title="branch not covered" >) {</span>
+    super(fb, store, router, utility);
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onEmail() {</span>
+<span class="cstat-no" title="statement not covered" >    this.sendEmail.emit(this.object);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onPdf() {</span>
+<span class="cstat-no" title="statement not covered" >    this.createPdf.emit(this.object);</span>
+<span class="cstat-no" title="statement not covered" >    this.form.reset();</span>
+  }
+&nbsp;
+  getFormTitle(): string {
+    return this.object.header.id ? `${this.object.header.id} - ${this.object.header.billingPeriod}` : <span class="branch-1 cbranch-no" title="branch not covered" >`[neu]`;</span>
+  }
+&nbsp;
+  protected buildForm(): FormGroup {
+    return this.fb.group({
+      id: [{value: '', disabled: true}],
+      issuedAt: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      billingPeriod: ['', [Validators.required]],
+      receiverId: ['', [Validators.required]],
+      contractId: ['', [Validators.required]],
+      billingMethod: ['', [Validators.required]],
+      currency: ['', [Validators.required]],
+      paymentTerms: ['', [Validators.required]],
+      paymentMethod: ['', [Validators.required]],
+      cashDiscountDays: ['', [Validators.pattern(fromValidators.REGEXP_DIGITS)]],
+      cashDiscountPercentage: ['', [Validators.pattern(fromValidators.REGEXP_AMOUNT)]],
+      dueInDays: ['', [Validators.required, Validators.pattern(fromValidators.REGEXP_DIGITS)]],
+      vatPercentage: ['', [Validators.pattern(fromValidators.REGEXP_AMOUNT)]],
+      documentUrl: [''],
+      invoiceText: [''],
+      internalText: [''],
+      items: new FormArray([], [minOneItemValidator])
+    });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  protected changeObject(</span>values: any): Invoice {</span>
+    const {<span class="cstat-no" title="statement not covered" >items: items,</span> <span class="cstat-no" title="statement not covered" >...header}</span> = values;
+    const reformattedItemValues = <span class="cstat-no" title="statement not covered" >items.map(<span class="fstat-no" title="function not covered" >item =&gt; <span class="cstat-no" title="statement not covered" >Object.assign({}, item, {</span></span></span>
+      quantity: this.utility.fromLocalAmount(item.quantity),
+      pricePerUnit: this.utility.fromLocalAmount(item.pricePerUnit)
+    }));
+    const reformattedValues = <span class="cstat-no" title="statement not covered" >{</span>
+      status: +values.status,
+      vatPercentage: this.utility.fromLocalAmount(values.vatPercentage),
+      cashDiscountPercentage: this.utility.fromLocalPercent(values.cashDiscountPercentage),
+      cashDiscountDays: +values.cashDiscountDays
+    };
+    const changed = <span class="cstat-no" title="statement not covered" >Object.assign({},</span>
+      {...this.object.data},
+      {...header},
+      {...reformattedValues},
+      {items: reformattedItemValues}) as InvoiceData;
+    const changedInvoice = <span class="cstat-no" title="statement not covered" >Invoice.createFromData(changed);</span>
+<span class="cstat-no" title="statement not covered" >    this.changed.emit(changedInvoice);</span>
+<span class="cstat-no" title="statement not covered" >    return changedInvoice;</span>
+  }
+&nbsp;
+  protected listenToChanges() {
+    this.listenToFieldChanges('status', this.onSimpleHeaderNumberChanged);
+    this.listenToFieldChanges('issuedAt', this.onSimpleHeaderDateChanged);
+    this.listenToFieldChanges('receiverId', this.onReceiverIdChanged);
+    this.listenToFieldChanges('contractId', this.onContractIdChanged);
+    this.listenToFieldChanges('billingMethod', this.onSimpleHeaderNumberChanged);
+    this.listenToFieldChanges('vatPercentage', this.onVatPercentageChanged);
+    this.listenToFieldChanges('cashDiscountPercentage', this.onCashDiscountPercentageChanged);
+    this.listenToFieldChanges('cashDiscountDays', this.onSimpleHeaderNumberChanged);
+    this.listenToFieldChanges('dueInDays', this.onSimpleHeaderNumberChanged);
+    this.listenToFieldChanges('billingPeriod', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('currency', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('paymentTerm', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('invoiceText', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('internalText', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('documentUrl', this.onSimpleHeaderTextChanged);
+    this.listenToFieldChanges('paymentMethod', this.onSimpleHeaderNumberChanged);
+  }
+&nbsp;
+  private onCashDiscountPercentageChanged = <span class="fstat-no" title="function not covered" >(</span>value: any, controlName?: string) =&gt; {
+    const newValue = <span class="cstat-no" title="statement not covered" >this.utility.fromLocalPercent(value);</span>
+<span class="cstat-no" title="statement not covered" >    this.object.header.cashDiscountPercentage = newValue;</span>
+<span class="cstat-no" title="statement not covered" >    this.changed.emit(this.object);</span>
+  }
+&nbsp;
+  private onContractIdChanged = <span class="fstat-no" title="function not covered" >(</span>value: any, controlName?: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >    console.log('contract assignment changed: ', value);</span>
+    const newValue = <span class="cstat-no" title="statement not covered" >value;</span>
+<span class="cstat-no" title="statement not covered" >    this.invoiceContract = this.contracts.find(<span class="fstat-no" title="function not covered" >contract =&gt; <span class="cstat-no" title="statement not covered" >contract.header.id === newValue)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    this.object.header.contractId = newValue;</span>
+<span class="cstat-no" title="statement not covered" >    this.changed.emit(this.object);</span>
+  }
+&nbsp;
+  private onReceiverIdChanged = <span class="fstat-no" title="function not covered" >(</span>value: any, controlName?: string) =&gt; {
+    const newValue = <span class="cstat-no" title="statement not covered" >value;</span>
+<span class="cstat-no" title="statement not covered" >    this.object.header.receiverId = newValue;</span>
+<span class="cstat-no" title="statement not covered" >    this.invoiceReceiver = this.receivers.find(<span class="fstat-no" title="function not covered" >receiver =&gt; <span class="cstat-no" title="statement not covered" >receiver.data.id === this.object.header.receiverId)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    this.contracts = this.contracts.filter(<span class="fstat-no" title="function not covered" >contract =&gt; <span class="cstat-no" title="statement not covered" >contract.header.customerId === newValue)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    this.changed.emit(this.object);</span>
+  }
+&nbsp;
+  private onVatPercentageChanged = <span class="fstat-no" title="function not covered" >(</span>value: any) =&gt; {
+    const newValue = <span class="cstat-no" title="statement not covered" >this.utility.fromLocalPercent(value);</span>
+<span class="cstat-no" title="statement not covered" >    this.object.vatPercentage = newValue;</span>
+<span class="cstat-no" title="statement not covered" >    this.changed.emit(this.object);</span>
+  }
+&nbsp;
+  protected patchForm(): void {
+    const reformattedValues = {
+      status: this.object.header.status.toString(),
+      issuedAt: this.object.header.issuedAt,
+      cashDiscountPercentage: this.utility.toLocalPercent(this.object.header.cashDiscountPercentage),
+      vatPercentage: this.utility.toLocalPercent(this.object.vatPercentage),
+      netValue: this.utility.toLocalAmount(this.object.netValue),
+      vatAmount: this.utility.toLocalAmount(this.object.vatAmount),
+      grossValue: this.utility.toLocalAmount(this.object.grossValue),
+      cashDiscountBaseAmount: this.utility.toLocalAmount(this.object.cashDiscountBaseAmount),
+      cashDiscountAmount: this.utility.toLocalAmount(this.object.cashDiscountAmount),
+      paymentAmount: this.utility.toLocalAmount(this.object.paymentAmount)
+    };
+    const patch = Object.assign({}, {...this.object.header}, reformattedValues);
+    this.form.patchValue(patch);
+    this.logErrors();
+  }
+&nbsp;
+  private logErrors() {
+    Object.keys(this.form.controls).forEach(key =&gt; {
+      if (this.form.get(key).errors) { console.log(key, this.form.get(key).errors || <span class="branch-1 cbranch-no" title="branch not covered" >'no errors')</span>; }
+    });
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

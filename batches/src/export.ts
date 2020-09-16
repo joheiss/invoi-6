@@ -5,8 +5,8 @@ import * as args from 'commander';
 import * as fs from 'fs';
 import * as util from 'util';
 
-const serviceAccount = require('../../../credentials-prod.json');
-// const serviceAccount = require('../../../credentials.json');
+// const serviceAccount = require('../../../credentials-prod.json');
+const serviceAccount = require('../../../credentials.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)

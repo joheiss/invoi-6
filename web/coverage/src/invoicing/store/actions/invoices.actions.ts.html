@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/store/actions/invoices.actions.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/store/actions</a> invoices.actions.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>136/203</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>34/68</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>102/169</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Action} from '@ngrx/store';
+import {InvoiceData} from '../../models/invoice.model';
+&nbsp;
+// FIRESTORE
+export const QUERY_INVOICES = '[Invoicing] Invoices query';
+export const ADDED_INVOICE = '[Invoicing] Invoice added';
+export const MODIFIED_INVOICE = '[Invoicing] Invoice modified';
+export const REMOVED_INVOICE = '[Invoicing] Invoice removed';
+export const UPDATE_INVOICE = '[Invoicing] Invoice update';
+export const UPDATE_INVOICE_SUCCESS = '[Invoicing] Invoice update success';
+export const UPDATE_INVOICE_FAIL = '[Invoicing] Invoice update fail';
+&nbsp;
+export class QueryInvoices implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = QUERY_INVOICES;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload?: any)</span> {}
+}
+&nbsp;
+export class AddedInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = ADDED_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class ModifiedInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = MODIFIED_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class RemovedInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = REMOVED_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class UpdateInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class UpdateInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class UpdateInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = UPDATE_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+// CREATING
+export const CREATE_INVOICE = '[Invoicing] Create Invoice';
+export const CREATE_INVOICE_FAIL = '[Invoicing] Create Invoice Fail';
+export const CREATE_INVOICE_SUCCESS = '[Invoicing] Create Invoice Success';
+&nbsp;
+export class CreateInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class CreateInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class CreateInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// DELETING
+export const DELETE_INVOICE = '[Invoicing] Delete Invoice';
+export const DELETE_INVOICE_FAIL = '[Invoicing] Delete Invoice Fail';
+export const DELETE_INVOICE_SUCCESS = '[Invoicing] Delete Invoice Success';
+&nbsp;
+export class DeleteInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class DeleteInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class DeleteInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = DELETE_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// COPYING
+export const COPY_INVOICE = '[Invoicing] Copy Invoice';
+export const COPY_INVOICE_FAIL = '[Invoicing] Copy Invoice Fail';
+export const COPY_INVOICE_SUCCESS = '[Invoicing] Copy Invoice Success';
+&nbsp;
+export class CopyInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = COPY_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class CopyInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = COPY_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class CopyInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = COPY_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// NEW
+export const NEW_INVOICE = '[Invoicing] New Invoice';
+export const NEW_INVOICE_FAIL = '[Invoicing] New Invoice Fail';
+export const NEW_INVOICE_SUCCESS = '[Invoicing] New Invoice Success';
+&nbsp;
+export class NewInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor() {</span>
+  }
+}
+&nbsp;
+export class NewInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class NewInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// NEW QUICK
+export const NEW_QUICK_INVOICE = '[Invoicing] New Quick Invoice';
+export const NEW_QUICK_INVOICE_FAIL = '[Invoicing] New Quick Invoice Fail';
+export const NEW_QUICK_INVOICE_SUCCESS = '[Invoicing] New Quick Invoice Success';
+&nbsp;
+export class NewQuickInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_QUICK_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor() {</span>
+  }
+}
+&nbsp;
+export class NewQuickInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_QUICK_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class NewQuickInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = NEW_QUICK_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// SELECTING
+export const SELECT_INVOICE = '[Invoicing] Select Invoice';
+export const SELECT_INVOICE_FAIL = '[Invoicing] Select Invoice Fail';
+export const SELECT_INVOICE_SUCCESS = '[Invoicing] Select Invoice Success';
+&nbsp;
+export class SelectInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SELECT_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class SelectInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SELECT_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class SelectInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SELECT_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// CHANGING
+export const CHANGE_INVOICE = '[Invoicing] Change Invoice';
+export const CHANGE_INVOICE_FAIL = '[Invoicing] Change Invoice Fail';
+export const CHANGE_INVOICE_SUCCESS = '[Invoicing] Change Invoice Success';
+&nbsp;
+export class ChangeInvoice implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_INVOICE;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {}
+}
+&nbsp;
+export class ChangeInvoiceFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_INVOICE_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class ChangeInvoiceSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CHANGE_INVOICE_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+// CREATING PDF
+export const CREATE_INVOICE_PDF = '[Invoicing] Create Invoice PDF';
+export const CREATE_INVOICE_PDF_FAIL = '[Invoicing] Create Invoice PDF Fail';
+export const CREATE_INVOICE_PDF_SUCCESS = '[Invoicing] Create Invoice PDF Success';
+&nbsp;
+export class CreateInvoicePdf implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE_PDF;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class CreateInvoicePdfFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE_PDF_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class CreateInvoicePdfSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = CREATE_INVOICE_PDF_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+<span class="cstat-no" title="statement not covered" >    console.log('ACTION: ', this.type, 'PAYLOAD: ', payload);</span>
+  }
+}
+&nbsp;
+// CREATING PDF
+export const SEND_INVOICE_EMAIL = '[Invoicing] Send Invoice Email';
+export const SEND_INVOICE_EMAIL_FAIL = '[Invoicing] Send Invoice Email Fail';
+export const SEND_INVOICE_EMAIL_SUCCESS = '[Invoicing] Send Invoice Email Success';
+&nbsp;
+export class SendInvoiceEmail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SEND_INVOICE_EMAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export class SendInvoiceEmailFail implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SEND_INVOICE_EMAIL_FAIL;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: any)</span> {
+  }
+}
+&nbsp;
+export class SendInvoiceEmailSuccess implements Action {
+  readonly <span class="cstat-no" title="statement not covered" >type = SEND_INVOICE_EMAIL_SUCCESS;</span>
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" ></span>payload: InvoiceData)</span> {
+  }
+}
+&nbsp;
+export type InvoiceAction =
+  CreateInvoice | CreateInvoiceFail | CreateInvoiceSuccess |
+  UpdateInvoice | UpdateInvoiceFail | UpdateInvoiceSuccess |
+  DeleteInvoice | DeleteInvoiceFail | DeleteInvoiceSuccess |
+  CopyInvoice | CopyInvoiceFail | CopyInvoiceSuccess |
+  NewInvoice | NewInvoiceFail | NewInvoiceSuccess |
+  NewQuickInvoice | NewQuickInvoiceFail | NewQuickInvoiceSuccess |
+  SelectInvoice | SelectInvoiceFail | SelectInvoiceSuccess |
+  ChangeInvoice | ChangeInvoiceFail | ChangeInvoiceSuccess |
+  CreateInvoicePdf | CreateInvoicePdfFail | CreateInvoicePdfSuccess |
+  SendInvoiceEmail | SendInvoiceEmailFail | SendInvoiceEmailSuccess |
+  QueryInvoices | AddedInvoice | ModifiedInvoice | RemovedInvoice;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Sep 21 2018 13:08:07 GMT+0200 (GMT+02:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/containers/document-link-list/document-link-list.component.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/containers/document-link-list</a> document-link-list.component.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">32.88% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/73</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.06% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.55% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">35.48% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>22/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {DocumentLink} from '../../models/document-link';
+import {MatDialog, MatDialogRef, MatSelectChange} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {InvoicingState} from '../../store/reducers/index';
+import * as fromStore from '../../store';
+import * as fromStorage from '../../../storage/store';
+import {Observable} from 'rxjs/index';
+import {FileUploadDialogComponent} from '../../popups/index';
+import {Transaction} from '../../models/transaction';
+import {MasterData} from '../../models/master-data';
+import {DocumentLinksBusinessService} from '../../business-services/document-links-business.service';
+&nbsp;
+@Component({
+  selector: 'jo-document-link-list',
+  template: require('./document-link-list.component.html'),
+  styles: []
+})
+export class DocumentLinkListComponent implements OnChanges {
+  @Input() object: Transaction | MasterData;
+&nbsp;
+  documentLinks$: Observable&lt;DocumentLink[]&gt;;
+  fileUploadDialogRef: MatDialogRef&lt;FileUploadDialogComponent&gt;;
+<span class="cstat-no" title="statement not covered" >  selectionList: any[] = [];</span>
+<span class="cstat-no" title="statement not covered" >  selectAll = false;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;InvoicingState&gt;,</span></span>
+              private <span class="cstat-no" title="statement not covered" >dialog: MatDialog<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >service: DocumentLinksBusinessService<span class="branch-1 cbranch-no" title="branch not covered" >)</span> {</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  ngOnChanges(</span>changes: SimpleChanges) {
+<span class="cstat-no" title="statement not covered" >    this.documentLinks$ = this.service.getDocumentLinks(this.object.ownerKey);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  getFilePath(): string {</span>
+<span class="cstat-no" title="statement not covered" >    return `/docs/${this.object.ownerKey}`;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  isAnythingSelected(): boolean {</span>
+<span class="cstat-no" title="statement not covered" >    return this.selectionList.length &gt; 0;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  isSelected(</span>documentLink): boolean {
+<span class="cstat-no" title="statement not covered" >    return this.selectionList.findIndex(<span class="fstat-no" title="function not covered" >link =&gt; <span class="cstat-no" title="statement not covered" >link.path === documentLink.path)</span> &gt;= 0;</span></span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onAttachToEmailChanged(</span>documentLink: DocumentLink) {
+<span class="cstat-no" title="statement not covered" >    this.service.update({ ...documentLink, attachToEmail: !documentLink.attachToEmail });</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  onDeleteSelected() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.selectionList.forEach(<span class="fstat-no" title="function not covered" >documentLink =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >      this.store.dispatch(new fromStore.DeleteDocumentLink(documentLink));</span>
+<span class="cstat-no" title="statement not covered" >      this.store.dispatch(new fromStorage.DeleteFile(documentLink.path));</span>
+    });
+<span class="cstat-no" title="statement not covered" >    this.selectionList = [];</span>
+<span class="cstat-no" title="statement not covered" >    this.selectAll = false;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  onDownloadSelected() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.selectionList.forEach(<span class="fstat-no" title="function not covered" >documentLink =&gt; <span class="cstat-no" title="statement not covered" >this.store.dispatch(new fromStorage.DownloadFile(documentLink.path)))</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    this.selectionList = [];</span>
+<span class="cstat-no" title="statement not covered" >    this.selectAll = false;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onToggleSelect(</span>documentLink) {
+    const index = <span class="cstat-no" title="statement not covered" >this.selectionList.findIndex(<span class="fstat-no" title="function not covered" >link =&gt; <span class="cstat-no" title="statement not covered" >link.path === documentLink.path)</span>;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (index &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >      this.selectAll = false;</span>
+<span class="cstat-no" title="statement not covered" >      this.selectionList = this.selectionList.filter(<span class="fstat-no" title="function not covered" >selected =&gt; <span class="cstat-no" title="statement not covered" >selected.path !== documentLink.path)</span>;</span></span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.selectionList.push(documentLink);</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  onToggleSelectAll(</span>event) {</span>
+<span class="cstat-no" title="statement not covered" >    this.selectAll = event.checked;</span>
+<span class="cstat-no" title="statement not covered" >    if (this.selectAll) {</span>
+<span class="cstat-no" title="statement not covered" >      this.selectionList = [];</span>
+<span class="cstat-no" title="statement not covered" >      this.documentLinks$</span>
+        .subscribe(<span class="fstat-no" title="function not covered" >links =&gt; <span class="cstat-no" title="statement not covered" >links.forEach(<span class="fstat-no" title="function not covered" >link =&gt; <span class="cstat-no" title="statement not covered" >this.selectionList.push(link))</span>)</span></span></span>
+        .unsubscribe();
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.selectionList = [];</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  onTypeChanged(</span>event: MatSelectChange, documentLink: DocumentLink) {
+<span class="cstat-no" title="statement not covered" >    this.service.update({ ...documentLink, type: +event.value });</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  onUpload() {</span></span>
+    const newDocumentLink: DocumentLink = <span class="cstat-no" title="statement not covered" >{</span>
+      name: undefined,
+      type: 6,
+      path: this.getFilePath(),
+      attachToEmail: false,
+      owner: this.object.ownerKey
+    };
+<span class="cstat-no" title="statement not covered" >    this.openFileUploadDialog(newDocumentLink)</span>
+      .afterClosed()
+      .subscribe(<span class="fstat-no" title="function not covered" >file =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (file) {</span>
+          const payload = <span class="cstat-no" title="statement not covered" >{</span>
+            file: file,
+            path: `${this.getFilePath()}/${file.name}`,
+            metadata: {
+              name: newDocumentLink.name,
+              type: newDocumentLink.type,
+              attachToEmail: newDocumentLink.attachToEmail,
+              owner: this.object.ownerKey
+            }
+          };
+<span class="cstat-no" title="statement not covered" >          this.store.dispatch(new fromStorage.UploadFile(payload));</span>
+<span class="cstat-no" title="statement not covered" >          newDocumentLink.path = payload.path;</span>
+<span class="cstat-no" title="statement not covered" >          console.log('new document link: ', newDocumentLink);</span>
+<span class="cstat-no" title="statement not covered" >          this.store.dispatch(new fromStore.CreateDocumentLink(newDocumentLink));</span>
+        }
+      });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected openFileUploadDialog(</span>newDocumentLink: DocumentLink): MatDialogRef&lt;FileUploadDialogComponent&gt; {
+<span class="cstat-no" title="statement not covered" >    this.fileUploadDialogRef = this.dialog.open(FileUploadDialogComponent, {</span>
+      data: {documentLink: newDocumentLink}
+    });
+<span class="cstat-no" title="statement not covered" >    return this.fileUploadDialogRef;</span>
+  }
+&nbsp;
+}
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

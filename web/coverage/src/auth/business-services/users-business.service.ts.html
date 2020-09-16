@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/auth/business-services/users-business.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/auth/business-services</a> users-business.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.61% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>57/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.75% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>15/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.3% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>52/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/index';
+import * as fromStore from '../store';
+import * as fromAuth from '../../auth/store';
+import * as fromStorage from '../../storage/store';
+import {select, Store} from '@ngrx/store';
+import {User, UserData, UserProfileData} from '../models/user';
+import {UploadPopupData} from '../../storage/models/upload-popup-data';
+import {tap} from 'rxjs/operators';
+&nbsp;
+&nbsp;
+@Injectable()
+export class UsersBusinessService {
+&nbsp;
+  private static template: UserData = {
+    uid: null,
+    email: null,
+    organization: null,
+    roles: null,
+    displayName: null,
+    isLocked: false
+  };
+&nbsp;
+  private auth: UserData | null;
+&nbsp;
+  constructor(private store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromStore.IdState&gt;) {</span>
+    this.store.pipe(
+      select(fromAuth.selectAuth),
+      tap(<span class="fstat-no" title="function not covered" >auth =&gt; <span class="cstat-no" title="statement not covered" >this.auth = auth)</span></span>
+    )
+      .subscribe();
+  }
+&nbsp;
+  getAllUsers(): Observable&lt;User[]&gt; {
+    return this.store.pipe(select(fromStore.selectAllUsersAsObjArray));
+  }
+&nbsp;
+  getCurrent(): Observable&lt;User&gt; {
+    return this.store.pipe(select(fromStore.selectCurrentUserAsObj));
+  }
+&nbsp;
+  changePassword(credentials: { uid: string, email?: string, oldPassword?: string, password: string }) {
+    if (this.auth.uid === credentials.uid) {
+      this.store.dispatch(new fromStore.ChangeMyPassword(credentials));
+    } else {
+      this.store.dispatch(new fromStore.ChangePassword({ uid: credentials.uid, password: credentials.password}));
+    }
+&nbsp;
+  }
+&nbsp;
+  create(userAndPassword: { user: User, password: string }) {
+    const payload = {
+      user: userAndPassword.user.data,
+      password: userAndPassword.password
+    };
+    this.store.dispatch(new fromStore.CreateUser(payload));
+  }
+&nbsp;
+  deleteProfileImage(user: User) {
+    const filePath = this.getImagePathFromUrl(user.imageUrl);
+    this.store.dispatch(new fromStorage.DeleteFile(filePath));
+    const {imageUrl: ignore, ...data} = user.data;
+    const payload = {user: {imageUrl: null, ...data}, password: null};
+    this.store.dispatch(new fromStore.UpdateUser(payload));
+  }
+&nbsp;
+  getThumbnailUrlForSize(url: string, size: string): string {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!url) {
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+    const endOfSize = url.lastIndexOf('_thumb.png');
+    let startOfSize = url.substring(endOfSize - 5, endOfSize).lastIndexOf('_');
+    startOfSize = (endOfSize - 5) + startOfSize + 1;
+    return url.substring(0, startOfSize) + size + url.substring(endOfSize);
+  }
+&nbsp;
+  new(): UserData {
+    return Object.assign({}, UsersBusinessService.template);
+  }
+&nbsp;
+  query(): void {
+    return this.store.dispatch(new fromStore.QueryUsers());
+  }
+&nbsp;
+  select(): Observable&lt;UserData&gt; {
+    return this.store.pipe(select(fromStore.selectSelectedUser));
+  }
+&nbsp;
+  update(userAndPassword: { user: User, password: string }) {
+    const payload = {
+      user: userAndPassword.user.data,
+      password: userAndPassword.password
+    };
+    this.store.dispatch(new fromStore.UpdateUser(payload));
+  }
+&nbsp;
+  updateProfile(user: User) {
+    const payload: UserProfileData = user.data;
+    this.store.dispatch(new fromStore.UpdateUserProfile(payload));
+  }
+&nbsp;
+  uploadProfileImage(user: UserData) {
+    const payload: UploadPopupData = {
+      title: 'Profilbild hochladen',
+      selectButtonCaption: 'Bild auswählen',
+      filePath: `images/users/${user.uid}`
+    };
+    this.store.dispatch(new fromStorage.UploadImage(payload));
+  }
+&nbsp;
+  private getImagePathFromUrl(url: string): string {
+    const startOfPath = url.indexOf('images/users/');
+    return url.substring(startOfPath);
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-const areIntlLocalesSupported = require('intl-locales-supported');
+// const areIntlLocalesSupported = require('intl-locales-supported');
+import areIntlLocalesSupported from 'intl-locales-supported';
 
 export function setupI18n(locales: string[]): void {
   if (global.Intl) {

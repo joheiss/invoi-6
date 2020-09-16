@@ -28,7 +28,7 @@ app.route('/invoice-pdf/:id').post(handleInvoicePdfCreation);
 app.route('/invoice-email/:id').post(handleInvoiceEmailSending);
 
 admin.initializeApp();
-admin.firestore().settings({ timestampsInSnapshots: true });
+// admin.firestore().settings({ timestampsInSnapshots: true });
 
 export const invoicing = functions.https.onRequest(app);
 export const users = functions.https.onRequest(app);

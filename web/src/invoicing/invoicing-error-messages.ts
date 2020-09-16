@@ -1,0 +1,37 @@
+import {MessageMap} from 'jovisco-domain';
+
+export const INVOICING_MSGS: MessageMap = {
+  'contract-create-fail': { text: 'Der Vertrag konnte nicht angelegt werden. [$%]', usage: 'error' },
+  'contract-delete-fail': { text: 'Der Vertrag konnte nicht gelöscht werden. [$%]', usage: 'error' },
+  'contract-delete-success': { text: 'Der Vertrag $% wurde gelöscht.', usage: 'success' },
+  'contract-update-fail': { text: 'Der Vertrag konnte nicht geändert werden. [$%]', usage: 'error' },
+  'contract-update-success': { text: 'Der Vertrag $% wurde geändert.', usage: 'success' },
+  'file-delete-fail': { text: 'Die Datei $% konnte nicht gelöscht werden.', usage: 'error' },
+  'file-delete-success': { text: 'Die Datei $% wurde gelöscht.', usage: 'success' },
+  'file-download-fail': { text: 'Die Datei $% konnte nicht heruntergeladen werden.', usage: 'error' },
+  'file-download-success': { text: 'Die Datei $% wurde heruntergeladen.', usage: 'success' },
+  'file-upload-fail': { text: 'Die Datei $% konnte nicht hochgeladen werden.', usage: 'error' },
+  'file-upload-success': { text: 'Die Datei $% wurde hochgeladen.', usage: 'success' },
+  'invoice-create-fail': { text: 'Die Rechnung konnte nicht angelegt werden. [$%]', usage: 'error' },
+  'invoice-delete-fail': { text: 'Die Rechnung $% konnte nicht gelöscht werden.', usage: 'error' },
+  'invoice-delete-success': { text: 'Die Rechnung $% wurde gelöscht.', usage: 'success' },
+  'invoice-email-fail': { text: 'Die Rechnung konnte nicht per Email versandt werden.', usage: 'error' },
+  'invoice-email-success': { text: 'Die Rechnung wurde per Email versandt.', usage: 'success' },
+  'invoice-update-fail': { text: 'Die Rechnung $% konnte nicht geändert werden.', usage: 'error' },
+  'invoice-update-success': { text: 'Die Rechnung $% wurde geändert.', usage: 'success' },
+  'invoice-pdf-created': { text: 'Das PDF für die Rechnung wurde erstellt und gespeichert.', usage: 'success' },
+  'invoice-pdf-failed': { text: 'Das PDF für die Rechnung konnte nicht erstellt werden.', usage: 'error' },
+  'permission-denied': { text: 'Die Aktion wurde mangels ausreichender Berechtigung abgebrochen.', usage: 'error' },
+  'receiver-create-fail': { text: 'Der Rechnungsempfänger konnte nicht angelegt werden. [$%]', usage: 'error' },
+  'receiver-create-success': { text: 'Der Rechnungsempfänger $% wurde angelegt.', usage: 'success' },
+  'receiver-delete-fail': { text: 'Der Rechnungsempfänger konnte nicht gelöscht werden. [$%]', usage: 'error' },
+  'receiver-delete-success': { text: 'Der Rechnungsempfänger $% wurde gelöscht.', usage: 'success' },
+  'receiver-update-fail': { text: 'Der Rechnungsempfänger konnte nicht geändert werden. [$%]', usage: 'error' },
+  'receiver-update-success': { text: 'Der Rechnungsempfänger $% wurde geändert.', usage: 'success' },
+  'setting-delete-fail': { text: 'Die Einstellung $% konnte nicht gelöscht werden. [$%]', usage: 'error' },
+  'setting-delete-success': { text: 'Die Einstellung $% wurde gelöscht.', usage: 'success' },
+  'setting-update-fail': { text: 'Die Einstellung konnte nicht geändert werden. [$%]', usage: 'error' },
+  'setting-update-success': { text: 'Die Einstellung $% wurde geändert.', usage: 'success' },
+  'storage/object-not-found': { text: 'Die Datei existiert nicht. ', usage: 'error' }
+};
+

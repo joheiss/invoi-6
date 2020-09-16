@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/auth/store/effects/user.effects.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/auth/store/effects</a> user.effects.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>65/65</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">73.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>36/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>62/62</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</td><td class="line-coverage quiet"><span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import * as userActions from '../actions/users.actions';
+import {catchError, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs/index';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../app/store/reducers';
+import * as fromRoot from '../../../app/store/index';
+import {UsersService, UsersUiService} from '../../services';
+&nbsp;
+@Injectable()
+export class UserEffects {
+&nbsp;
+  constructor(private actions$: Actions<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private usersService: UsersService<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private usersUiService: UsersUiService<span class="branch-1 cbranch-no" title="branch not covered" >,</span>
+              private store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;AppState&gt;) {</span>
+  }
+&nbsp;
+  // FIRESTORE
+  @Effect()
+  queryUsers$ = this.actions$.pipe(
+    ofType(userActions.QUERY_USERS),
+    switchMap(action =&gt; this.usersService.queryAll()),
+    mergeMap(actions =&gt; actions),
+    map(action =&gt; {
+      return {type: `[Auth] User ${action.type}`, payload: {...action.payload.doc.data(), uid: action.payload.doc.id}};
+    })
+  );
+&nbsp;
+  @Effect()
+  queryOneUser$ = this.actions$.pipe(
+    ofType(userActions.QUERY_ONE_USER),
+    map((action: userActions.QueryOneUser) =&gt; action.payload),
+    switchMap(payload =&gt; this.usersService.queryOne(payload)),
+    mergeMap(actions =&gt; actions),
+    map(action =&gt; {
+      return {type: `[Auth] User ${action.type}`, payload: {...action.payload.doc.data(), uid: action.payload.doc.id}};
+    })
+  );
+&nbsp;
+  @Effect()
+  updateUser$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USER),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: userActions.UpdateUser) =&gt; action.payload),
+    switchMap(userAndPassword =&gt; this.usersService.update(userAndPassword)
+      .pipe(
+        map(user =&gt; new userActions.UpdateUserSuccess(user)),
+        catchError(error =&gt; {
+          console.error(error);
+          return of(new userActions.UpdateUserFail(error));
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateUserSuccess$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USER_SUCCESS),
+    map((action: userActions.UpdateUserSuccess) =&gt; action.payload),
+    switchMap(user =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('user-update-success', [user.email])
+      }),
+      new fromRoot.Go({path: ['/users']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateUserFail$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USER_FAIL),
+    map((action: userActions.UpdateUserFail) =&gt; action.payload),
+    switchMap(error =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('user-update-fail', [error.message])
+      }),
+      new fromRoot.Go({path: ['/users']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateUserProfile$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USERPROFILE),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: userActions.UpdateUserProfile) =&gt; action.payload),
+    switchMap(userProfile =&gt; this.usersService.updateProfile(userProfile)
+      .pipe(
+        map(userProfile =&gt; new userActions.UpdateUserProfileSuccess(userProfile)),
+        catchError(error =&gt; {
+          console.error(error);
+          return of(new userActions.UpdateUserProfileFail(error));
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateUserProfileSuccess$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USERPROFILE_SUCCESS),
+    map((action: userActions.UpdateUserSuccess) =&gt; action.payload),
+    switchMap(user =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('userprofile-update-success', [user.email])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateUserProfileFail$ = this.actions$.pipe(
+    ofType(userActions.UPDATE_USERPROFILE_FAIL),
+    map((action: userActions.UpdateUserProfileFail) =&gt; action.payload),
+    switchMap(error =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('userprofile-update-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+  @Effect()
+  createUser$ = this.actions$.pipe(
+    ofType(userActions.CREATE_USER),
+    tap(() =&gt; this.store.dispatch(new fromRoot.StartSpinning())),
+    map((action: userActions.CreateUser) =&gt; action.payload),
+    switchMap(userAndPassword =&gt; this.usersService.create(userAndPassword)
+      .pipe(
+        map(user =&gt; new userActions.CreateUserSuccess(user)),
+        catchError(error =&gt; {
+          console.error(error);
+          return of(new userActions.CreateUserFail(error));
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  createUserSuccess$ = this.actions$.pipe(
+    ofType(userActions.CREATE_USER_SUCCESS),
+    map((action: userActions.CreateUserSuccess) =&gt; action.payload),
+    switchMap(user =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('user-create-success', [user.email])
+      }),
+      new fromRoot.Go({path: ['/users']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  createUserFail$ = this.actions$.pipe(
+    ofType(userActions.CREATE_USER_FAIL),
+    map((action: userActions.CreateUserFail) =&gt; action.payload),
+    switchMap(error =&gt; [
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.usersService.getMessage('user-create-fail', [error.message])
+      }),
+      new fromRoot.Go({path: ['/users']})
+    ])
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

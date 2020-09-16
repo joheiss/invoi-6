@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/store/effects/invoices.effects.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/store/effects</a> invoices.effects.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30.77% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>32/104</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.73% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.52% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/66</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">29.7% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>30/101</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250</td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import * as fromServices from '../../services';
+import * as invoiceActions from '../actions/invoices.actions';
+import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {of} from 'rxjs/observable/of';
+import * as fromRoot from '../../../app/store';
+import {Store} from '@ngrx/store';
+import {selectAuth} from '../../../auth/store/selectors';
+import {UserData} from '../../../auth/models/user';
+&nbsp;
+@Injectable()
+export class InvoicesEffects {
+  auth: UserData;
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  constructor(private <span class="cstat-no" title="statement not covered" ></span>actions$: Actions<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span></span>
+              private <span class="cstat-no" title="statement not covered" >invoicesService: fromServices.InvoicesService<span class="branch-1 cbranch-no" title="branch not covered" >,</span></span>
+              private <span class="cstat-no" title="statement not covered" >store: Store<span class="branch-1 cbranch-no" title="branch not covered" >&lt;fromRoot.AppState&gt;)</span> {</span>
+  }
+&nbsp;
+  // FIRESTORE
+  @Effect()
+  queryInvoices$ = this.actions$.pipe(
+    ofType(invoiceActions.QUERY_INVOICES),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.QueryInvoices) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.select(selectAuth)</span>
+      .pipe(
+        filter(<span class="fstat-no" title="function not covered" >auth =&gt; <span class="cstat-no" title="statement not covered" >!!auth)</span>,</span>
+        tap(<span class="fstat-no" title="function not covered" >auth =&gt; <span class="cstat-no" title="statement not covered" >this.auth = auth)</span>,</span>
+        switchMap(<span class="fstat-no" title="function not covered" >payload =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.queryAll())</span>,</span>
+        mergeMap(<span class="fstat-no" title="function not covered" >actions =&gt; <span class="cstat-no" title="statement not covered" >actions)</span>,</span>
+        filter(<span class="fstat-no" title="function not covered" >action =&gt; <span class="cstat-no" title="statement not covered" >action.payload.doc.data().organization === this.auth.organization)</span>,</span>
+        map(<span class="fstat-no" title="function not covered" >action =&gt; {</span>
+          const type = <span class="cstat-no" title="statement not covered" >`[Invoicing] Invoice ${action.type}`;</span>
+          const payload<span class="cstat-no" title="statement not covered" > = {...action.payload.doc.data(), id: action.payload.doc.id};</span>
+<span class="cstat-no" title="statement not covered" >          payload.issuedAt = payload.issuedAt.toDate();</span>
+<span class="cstat-no" title="statement not covered" >          return {type, payload};</span>
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateInvoice$ = this.actions$.pipe(
+    ofType(invoiceActions.UPDATE_INVOICE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.UpdateInvoice) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.update(invoice)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new invoiceActions.UpdateInvoiceSuccess(invoice))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          console.error(error);</span>
+<span class="cstat-no" title="statement not covered" >          return of(new invoiceActions.UpdateInvoiceFail(error));</span>
+        })
+      ))
+  );
+&nbsp;
+  @Effect()
+  updateInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.UPDATE_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.UpdateInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.invoicesService.getMessage('invoice-update-success', [invoice.id])
+      }),
+      new fromRoot.Go({path: ['/invoicing/invoices']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  updateInvoiceFail$ = this.actions$.pipe(
+    ofType(invoiceActions.UPDATE_INVOICE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.UpdateInvoiceFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.invoicesService.getMessage('invoice-update-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+  // --- CREATING
+  @Effect()
+  createInvoice$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoice) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.create(invoice)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new invoiceActions.CreateInvoiceSuccess(invoice))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new invoiceActions.CreateInvoiceFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  createInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.Go({path: ['/invoicing/invoices', invoice.id]})
+    ])
+  );
+&nbsp;
+  @Effect()
+  createInvoiceFail$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoiceFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.invoicesService.getMessage('invoice-create-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+  // DELETING
+  @Effect()
+  deleteInvoice$ = this.actions$.pipe(
+    ofType(invoiceActions.DELETE_INVOICE),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.DeleteInvoice) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.delete(invoice)</span></span>
+      .pipe(
+        map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new invoiceActions.DeleteInvoiceSuccess(invoice))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new invoiceActions.DeleteInvoiceFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  deleteInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.DELETE_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.DeleteInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.invoicesService.getMessage('invoice-delete-success', [invoice.id])
+      }),
+      new fromRoot.Go({path: ['/invoicing/invoices']})
+    ])
+  );
+&nbsp;
+  @Effect()
+  deleteInvoiceFail$ = this.actions$.pipe(
+    ofType(invoiceActions.DELETE_INVOICE_FAIL),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.DeleteInvoiceFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({
+        message: this.invoicesService.getMessage('invoice-delete-fail', [error.message])
+      })
+    ])
+  );
+&nbsp;
+  // --- COPYING
+  @Effect()
+  copyInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.COPY_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CopyInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new fromRoot.Go({path: ['/invoicing/invoices', 'copy']}))</span></span>
+  );
+&nbsp;
+  // --- NEW
+  @Effect()
+  newInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.NEW_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.NewInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new fromRoot.Go({path: ['/invoicing/invoices', 'new']}))</span></span>
+  );
+&nbsp;
+  // --- NEW QUICK
+  @Effect()
+  newQuickInvoiceSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.NEW_QUICK_INVOICE_SUCCESS),
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.NewQuickInvoiceSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new fromRoot.Go({path: ['/invoicing/invoices', 'quick']}))</span></span>
+  );
+&nbsp;
+  // --- CREATING PDF
+  @Effect()
+  createInvoicePdf$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE_PDF),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoicePdf) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.createInvoicePDF(invoice)</span></span>
+      .pipe(
+        tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StopSpinning()))</span>,
+        map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new invoiceActions.CreateInvoicePdfSuccess(invoice))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new invoiceActions.CreateInvoicePdfFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  createInvoicePdfFail$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE_PDF_FAIL),
+    tap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >console.error(error))</span>,</span>
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoicePdfFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      // new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-failed')})
+    ])
+  );
+&nbsp;
+  @Effect()
+  createInvoicePdfSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.CREATE_INVOICE_PDF_SUCCESS),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('*** CreateInvoicePdfSuccess'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.CreateInvoicePdfSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      // new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-pdf-created')})
+    ])
+  );
+&nbsp;
+  // --- SENDING EMAIL
+  @Effect()
+  sendInvoiceEmail$ = this.actions$.pipe(
+    ofType(invoiceActions.SEND_INVOICE_EMAIL),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StartSpinning()))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.SendInvoiceEmail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >this.invoicesService.sendInvoiceEmail(invoice)</span></span>
+      .pipe(
+        tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>this.store.dispatch(new fromRoot.StopSpinning()))</span>,
+        map(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >new invoiceActions.SendInvoiceEmailSuccess(invoice))</span>,</span>
+        catchError(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >of(new invoiceActions.SendInvoiceEmailFail(error)))</span></span>
+      ))
+  );
+&nbsp;
+  @Effect()
+  sendInvoiceEmailFail$ = this.actions$.pipe(
+    ofType(invoiceActions.SEND_INVOICE_EMAIL_FAIL),
+    tap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >console.error(error))</span>,</span>
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.SendInvoiceEmailFail) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >error =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      // new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-email-fail')})
+    ])
+  );
+&nbsp;
+  @Effect()
+  sendInvoiceEmailSuccess$ = this.actions$.pipe(
+    ofType(invoiceActions.SEND_INVOICE_EMAIL_SUCCESS),
+    tap(<span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>console.log('*** SendInvoiceEmailSuccess'))</span>,
+    map(<span class="fstat-no" title="function not covered" >(</span>action: invoiceActions.SendInvoiceEmailSuccess) =&gt; <span class="cstat-no" title="statement not covered" >action.payload)</span>,
+    switchMap(<span class="fstat-no" title="function not covered" >invoice =&gt; <span class="cstat-no" title="statement not covered" >[</span></span>
+      // new fromRoot.StopSpinning(),
+      new fromRoot.OpenSnackBar({message: this.invoicesService.getMessage('invoice-email-success')})
+    ])
+  );
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 28 2018 18:50:50 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>

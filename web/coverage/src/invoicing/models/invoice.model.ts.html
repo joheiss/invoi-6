@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/invoicing/models/invoice-entity.model.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">src/invoicing/models</a> invoice-entity.model.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/155</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/139</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import {DateUtilities} from '../../shared/utilities/date-utilities';</span>
+<span class="cstat-no" title="statement not covered" >import {Transaction, TransactionHeaderData, TransactionItem, TransactionItemData} from './transaction';</span>
+import {BillingMethod, PaymentMethod} from './invoicing.model';
+&nbsp;
+export interface InvoiceHeaderData extends TransactionHeaderData {
+  status: InvoiceStatus;
+  receiverId?: string;
+  contractId?: string;
+  billingMethod?: BillingMethod;
+  billingPeriod?: string;
+  currency?: string;
+  cashDiscountDays?: number;
+  cashDiscountPercentage?: number;
+  dueInDays?: number;
+  paymentTerms?: string;
+  paymentMethod?: PaymentMethod;
+  vatPercentage?: number;
+  invoiceText?: string;
+  internalText?: string;
+}
+&nbsp;
+export interface InvoiceItemData extends TransactionItemData {
+  contractItemId?: number;
+  description?: string;
+  quantity?: number;
+  quantityUnit?: string;
+  pricePerUnit?: number;
+  cashDiscountAllowed?: boolean;
+  vatPercentage?: number;
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export enum </span>InvoiceStatus {</span>
+<span class="cstat-no" title="statement not covered" >  created,</span>
+<span class="cstat-no" title="statement not covered" >  billed,</span>
+<span class="cstat-no" title="statement not covered" >  paid</span>
+}
+&nbsp;
+export interface InvoiceData extends InvoiceHeaderData {
+  items?: InvoiceItemData[];
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" >Invoice extends <span class="cstat-no" title="statement not covered" >Transaction {</span></span></span></span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public static <span class="cstat-no" title="statement not covered" >createFromData(</span>data: InvoiceData) {</span>
+<span class="cstat-no" title="statement not covered" >    if (data) {</span>
+      const header = <span class="cstat-no" title="statement not covered" >Invoice.extractHeaderFromData(data);</span>
+      const items = <span class="cstat-no" title="statement not covered" >Invoice.createItemsFromData(data.items);</span>
+<span class="cstat-no" title="statement not covered" >      return new Invoice(header, items);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected static <span class="cstat-no" title="statement not covered" >createItemsFromData(</span>items: InvoiceItemData[]): InvoiceItem[] {</span>
+<span class="cstat-no" title="statement not covered" >    return items ? items.map(<span class="fstat-no" title="function not covered" >item =&gt; <span class="cstat-no" title="statement not covered" >InvoiceItem.createFromData(item)) : [];</span></span></span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected static <span class="cstat-no" title="statement not covered" >extractHeaderFromData(</span>data: InvoiceData): InvoiceHeaderData {</span>
+    const {<span class="cstat-no" title="statement not covered" >items: removed1, <span class="cstat-no" title="statement not covered" >...header} = data;</span></span>
+<span class="cstat-no" title="statement not covered" >    header.issuedAt = new Date(data.issuedAt);</span>
+<span class="cstat-no" title="statement not covered" >    return header;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(public <span class="cstat-no" title="statement not covered" >header?: InvoiceHeaderData,</span></span>
+              public <span class="cstat-no" title="statement not covered" >items?: InvoiceItem[]) {</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
+  }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get data(): InvoiceData {</span></span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      ...this.header,
+      items: this.getItemsData()
+    };
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get cashDiscountAmount(): number {</span></span></span>
+<span class="cstat-no" title="statement not covered" >    return this.items.reduce(<span class="fstat-no" title="function not covered" >(</span>sum, item) =&gt; <span class="cstat-no" title="statement not covered" >sum + item.getCashDiscountValue(this.data.cashDiscountPercentage), 0);</span></span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get cashDiscountBaseAmount(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.items.reduce(<span class="fstat-no" title="function not covered" >(</span>sum, item) =&gt; <span class="cstat-no" title="statement not covered" >sum + item.discountableValue, 0);</span></span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get cashDiscountDate(): Date {</span></span>
+<span class="cstat-no" title="statement not covered" >    return DateUtilities.addDaysToDate(this.header.issuedAt, this.header.cashDiscountDays);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get dueDate(): Date {</span></span>
+<span class="cstat-no" title="statement not covered" >    return DateUtilities.addDaysToDate(this.header.issuedAt, this.header.dueInDays);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get grossValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.netValue + this.vatAmount;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get netValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.items.reduce(<span class="fstat-no" title="function not covered" >(</span>sum, item) =&gt; <span class="cstat-no" title="statement not covered" >sum + item.netValue, 0);</span></span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get paymentAmount(): number {</span></span></span>
+<span class="cstat-no" title="statement not covered" >    return this.items.reduce(<span class="fstat-no" title="function not covered" >(</span>sum, item) =&gt; <span class="cstat-no" title="statement not covered" >sum + item.getDiscountedValue(this.data.cashDiscountPercentage), 0);</span></span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get vatAmount(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.netValue * this.header.vatPercentage / 100;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get vatPercentage(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.header.vatPercentage || 19;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set vatPercentage(</span>newValue: number) {
+<span class="cstat-no" title="statement not covered" >    this.header.vatPercentage = newValue;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >buildNewItemFromTemplate(): InvoiceItem {</span></span>
+    const id = <span class="cstat-no" title="statement not covered" >this.getNextItemId();</span>
+    // build item template
+<span class="cstat-no" title="statement not covered" >    return InvoiceItem.createFromData({</span>
+      id,
+      contractItemId: undefined,
+      description: undefined,
+      quantity: 0,
+      quantityUnit: undefined,
+      pricePerUnit: 0,
+      cashDiscountAllowed: false,
+      vatPercentage: this.vatPercentage
+    });
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >getItem(</span>itemId: number): InvoiceItem {</span>
+<span class="cstat-no" title="statement not covered" >    return this.items.find(<span class="fstat-no" title="function not covered" >item =&gt; <span class="cstat-no" title="statement not covered" >item.data.id === itemId);</span></span></span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >getNextItemId(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (this.items.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >      return 1;</span>
+    }
+    // get ids
+    const ids = <span class="cstat-no" title="statement not covered" >this.items.map(<span class="fstat-no" title="function not covered" >item =&gt; <span class="cstat-no" title="statement not covered" >item.data.id).sort();</span></span></span>
+    // find gap in id numbers
+    const gaps = <span class="cstat-no" title="statement not covered" >ids.filter(<span class="fstat-no" title="function not covered" >(</span>id, i) =&gt; <span class="cstat-no" title="statement not covered" >id !== i + 1);</span></span>
+    // free id number is either gap or max + 1
+<span class="cstat-no" title="statement not covered" >    return gaps.length &gt; 0 ? gaps[0] - 1 : ids[ids.length - 1] + 1;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isBilled(): boolean {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.header.status === InvoiceStatus.billed;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isDue(): boolean {</span></span>
+    const now = <span class="cstat-no" title="statement not covered" >new Date();</span>
+    const due = <span class="cstat-no" title="statement not covered" >new Date(this.dueDate);</span>
+<span class="cstat-no" title="statement not covered" >    return this.header.status !== InvoiceStatus.paid &amp;&amp; due &lt;= now;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isOpen(): boolean {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.header.status !== InvoiceStatus.paid;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >isPaid(): boolean {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.header.status === InvoiceStatus.paid;</span>
+  }
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class <span class="cstat-no" title="statement not covered" >InvoiceItem extends <span class="cstat-no" title="statement not covered" >TransactionItem {</span></span></span></span>
+&nbsp;
+  protected _contractItemId: number;
+  protected _description: string;
+  protected _quantity: number;
+  protected _quantityUnit: string;
+  protected _pricePerUnit: number;
+  protected _cashDiscountAllowed: boolean;
+  protected _vatPercentage: number;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  static <span class="cstat-no" title="statement not covered" >createFromData(</span>data: InvoiceItemData): InvoiceItem {</span>
+<span class="cstat-no" title="statement not covered" >    if (data) {</span>
+<span class="cstat-no" title="statement not covered" >      return new InvoiceItem(data);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >  constructor(data?: InvoiceItemData) {</span>
+<span class="cstat-no" title="statement not covered" >    super();</span>
+<span class="cstat-no" title="statement not covered" >    this.initialize();</span>
+<span class="cstat-no" title="statement not covered" >    this.fill(data);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get contractItemId(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._contractItemId;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set contractItemId(</span>value: number) {
+<span class="cstat-no" title="statement not covered" >    this._contractItemId = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get description(): string {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._description;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set description(</span>value: string) {
+<span class="cstat-no" title="statement not covered" >    this._description = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get quantity(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._quantity;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set quantity(</span>value: number) {
+<span class="cstat-no" title="statement not covered" >    this._quantity = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get quantityUnit(): string {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._quantityUnit;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set quantityUnit(</span>value: string) {
+<span class="cstat-no" title="statement not covered" >    this._quantityUnit = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get pricePerUnit(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._pricePerUnit;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set pricePerUnit(</span>value: number) {
+<span class="cstat-no" title="statement not covered" >    this._pricePerUnit = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get cashDiscountAllowed(): boolean {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._cashDiscountAllowed;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set cashDiscountAllowed(</span>value: boolean) {
+<span class="cstat-no" title="statement not covered" >    this._cashDiscountAllowed = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get vatPercentage(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this._vatPercentage;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  set vatPercentage(</span>value: number) {
+<span class="cstat-no" title="statement not covered" >    this._vatPercentage = value;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get data(): InvoiceItemData {</span></span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      id: this.id,
+      contractItemId: this.contractItemId,
+      description: this.description,
+      quantity: this.quantity,
+      quantityUnit: this.quantityUnit,
+      pricePerUnit: this.pricePerUnit,
+      cashDiscountAllowed: this.cashDiscountAllowed,
+      vatPercentage: this.vatPercentage
+    };
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get discountableValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.cashDiscountAllowed ? this.grossValue : 0;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get grossValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.netValue + this.vatValue;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get netValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.quantity * this.pricePerUnit;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  get vatValue(): number {</span></span>
+<span class="cstat-no" title="statement not covered" >    return this.netValue * this.vatPercentage / 100;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  getCashDiscountValue(</span>cashDiscountPercentage: number): number {</span>
+<span class="cstat-no" title="statement not covered" >    return this.cashDiscountAllowed ? this.grossValue * cashDiscountPercentage / 100 : 0;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  public <span class="cstat-no" title="statement not covered" >getDiscountedValue(</span>cashDiscountPercentage: number): number {</span>
+<span class="cstat-no" title="statement not covered" >    return this.grossValue - this.getCashDiscountValue(cashDiscountPercentage);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected <span class="cstat-no" title="statement not covered" >fill(</span>data?: InvoiceItemData) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!data) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.id) {</span>
+<span class="cstat-no" title="statement not covered" >      this._id = data.id;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.contractItemId) {</span>
+<span class="cstat-no" title="statement not covered" >      this._contractItemId = data.contractItemId;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.description) {</span>
+<span class="cstat-no" title="statement not covered" >      this._description = data.description;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.quantity) {</span>
+<span class="cstat-no" title="statement not covered" >      this._quantity = data.quantity;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.quantityUnit) {</span>
+<span class="cstat-no" title="statement not covered" >      this._quantityUnit = data.quantityUnit;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.pricePerUnit) {</span>
+<span class="cstat-no" title="statement not covered" >      this._pricePerUnit = data.pricePerUnit;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.cashDiscountAllowed) {</span>
+<span class="cstat-no" title="statement not covered" >      this._cashDiscountAllowed = data.cashDiscountAllowed;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (data.vatPercentage) {</span>
+<span class="cstat-no" title="statement not covered" >      this._vatPercentage = data.vatPercentage;</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  protected <span class="cstat-no" title="statement not covered" >initialize() {</span></span>
+<span class="cstat-no" title="statement not covered" >    this._id = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._contractItemId = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._description = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._quantity = 0;</span>
+<span class="cstat-no" title="statement not covered" >    this._quantityUnit = undefined;</span>
+<span class="cstat-no" title="statement not covered" >    this._pricePerUnit = 0;</span>
+<span class="cstat-no" title="statement not covered" >    this._cashDiscountAllowed = false;</span>
+<span class="cstat-no" title="statement not covered" >    this._vatPercentage = 19.0;</span>
+  }
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+export type InvoicesEntity = { [id: number]: InvoiceData };
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export function mapInvoicesEntityToObjArray(entity: InvoicesEntity): Invoice[] {</span></span>
+<span class="cstat-no" title="statement not covered" >  return Object.keys(entity).map(<span class="fstat-no" title="function not covered" >id =&gt; <span class="cstat-no" title="statement not covered" >Invoice.createFromData(entity[+id]));</span></span></span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Oct 06 2018 14:16:03 GMT+0200 (GMT+02:00)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

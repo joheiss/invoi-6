@@ -1,0 +1,43 @@
+<mat-card class="jo-card">
+  <mat-card-header class="jo-card-header">
+    <jo-card-avatar [object]="summary?.object"></jo-card-avatar>
+    <mat-card-title>{{ summary?.receiverName }}</mat-card-title>
+    <mat-card-subtitle>{{ summary?.object?.header.issuedAt | date }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="u-mt-md">
+    <div>
+      <span class="jo-card-label" i18n>Vertrag: </span>
+      <a id="lnk_contractId" [routerLink]="['/invoicing/contracts', summary?.object?.header.contractId]">
+        {{summary?.object?.header.contractId}}
+      </a>
+    </div>
+    <div class="jo-card-columns">
+      <div class="jo-card-info">
+        <div class="jo-card-label"><span i18n>Nettobetrag:</span></div>
+        <div id="div_netValue" class="align-right">{{summary?.object?.netValue | number: '1.2-2' }}</div>
+        <div class="jo-card-label"><span i18n>Umsatzsteuer:</span></div>
+        <div id="div_vatAmount" class="align-right">{{summary?.object?.vatAmount | number: '1.2-2' }}</div>
+        <div class="jo-card-label"><span i18n>Bruttobetrag:</span></div>
+        <div id="div_grossValue" class="align-right">{{summary?.object?.grossValue | number: '1.2-2' }}</div>
+      </div>
+      <div class="jo-card-info">
+        <div class="jo-card-label"><span i18n>Zahlungsbetrag:</span></div>
+        <div id="div_paymentAmount" class="align-right">{{summary?.object?.paymentAmount | number: '1.2-2' }}</div>
+        <ng-container *ngIf="summary.object.header.cashDiscountPercentage > 0">
+          <div  class="jo-card-label"><span i18n>Skonto bis:</span></div>
+          <div id="div_cashDiscountDate">{{summary?.object?.cashDiscountDate | date}}</div>
+        </ng-container>
+        <div class="jo-card-label"><span i18n>Fällig am:</span></div>
+        <div id="div_dueDate">{{summary?.object?.dueDate | date}}</div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <jo-card-buttons
+      [object]="summary.object"
+      [isDeletable]="summary.changeable"
+      (copy)="onCopy()"
+      (delete)="onDelete()">
+    </jo-card-buttons>
+  </mat-card-actions>
+</mat-card>

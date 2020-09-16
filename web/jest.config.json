@@ -1,0 +1,10 @@
+{
+  "preset": "jest-preset-angular",
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/setupJest.ts"
+  ],
+  "transformIgnorePatterns": [
+    "/node_modules/",
+    "/cypress/"
+  ]
+}
