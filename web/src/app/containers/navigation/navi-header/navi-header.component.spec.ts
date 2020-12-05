@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NaviHeaderComponent} from './navi-header.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +19,7 @@ describe('NaviHeaderComponent', () => {
   let fixture: ComponentFixture<NaviHeaderComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [NaviHeaderComponent, IfAuthorizedForAdminDirective, IfAuthorizedForSalesDirective, IfAuthorizedAsDirective],
@@ -47,7 +47,7 @@ describe('NaviHeaderComponent', () => {
     store = TestBed.get(Store);
   });
 
-  it('should create the component', async(() => {
+  it('should create the component', waitForAsync(() => {
     expect(component).toBeTruthy();
   }));
 

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TextsFormComponent} from './texts-form.component';
 import {mockSingleContract} from '../../../test/factories/mock-contracts.factory';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -10,7 +10,7 @@ describe('Texts Form Component', () => {
   let component: TextsFormComponent;
   let fixture: ComponentFixture<TextsFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, SharedModule, FormsModule, ReactiveFormsModule],
       declarations: [TextsFormComponent]

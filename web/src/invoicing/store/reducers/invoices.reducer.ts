@@ -93,5 +93,5 @@ export const {
 
 export const selectInvoicesLoading = (state: InvoiceState) => state.loading;
 export const selectInvoicesLoaded = (state: InvoiceState) => state.loaded;
-export const selectCurrentInvoice = (state: InvoiceState) => state.current.invoice;
+export const selectCurrentInvoice = (state: InvoiceState) => state.current?.invoice;
 export const selectInvoicesError = (state: InvoiceState) => state.error;

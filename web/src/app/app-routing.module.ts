@@ -26,9 +26,11 @@ const APP_ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(APP_ROUTES, {
-      preloadingStrategy: PreloadAllModules,
-      paramsInheritanceStrategy: 'always',
-      onSameUrlNavigation: 'reload' }) // , enableTracing: true })
+    preloadingStrategy: PreloadAllModules,
+    paramsInheritanceStrategy: 'always',
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy'
+}) // , enableTracing: true })
   ],
   exports: [
     RouterModule

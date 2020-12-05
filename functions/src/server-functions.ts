@@ -40,23 +40,27 @@ async function createInvoicePdf(id: string): Promise<any> {
 async function storePdf(form: InvoiceForm, id: string): Promise<any> {
   try {
     const tmpPath = `/tmp/R${id}.pdf`;
-    const documentPath = `/docs/invoices/${id}/R${id}.pdf`;
+    // const documentPath = `/docs/invoices/${id}/R${id}.pdf`;
+    const documentPath = `docs/invoices/${id}/R${id}.pdf`;
     await form.saveAsWithPromise(tmpPath);
     const options = {destination: documentPath};
     const bucket = admin.storage().bucket();
     return bucket.upload(tmpPath, options)
       .then(async f => {
+        console.log('***Invoice saved: ');
         const customMetadata = {};
         customMetadata['owner'] = `invoices/${id}`;
         customMetadata['type'] = 0;
         customMetadata['attachToEmail'] = true;
         await f[0].setMetadata({...f[0].metadata, metadata: customMetadata});
+        // console.log('***Metadata set: ', f[0].metadata);
         const documentLink: any = {};
         documentLink.name = `R${id}.pdf`;
         documentLink.path = f[0].metadata['name'];
         documentLink.type = 0;
         documentLink.attachToEmail = true;
         documentLink.owner = `invoices/${id}`;
+        console.log('***Create DocumentLink for invoice: ', documentLink);
         return admin.firestore().collection('document-links').add(documentLink);
       })
       .catch(error => new Error(error));

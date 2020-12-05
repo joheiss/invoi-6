@@ -78,7 +78,7 @@ export const {
 
 export const selectSettingsLoading = (state: SettingState) => state.loading;
 export const selectSettingsLoaded = (state: SettingState) => state.loaded;
-export const selectCurrentSetting = (state: SettingState) => state.current.setting;
+export const selectCurrentSetting = (state: SettingState) => state.current?.setting;
 export const selectSettingsError = (state: SettingState) => state.error;
 
 

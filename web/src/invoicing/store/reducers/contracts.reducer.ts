@@ -82,6 +82,6 @@ export const {
 
 export const selectContractsLoading = (state: ContractState) => state.loading;
 export const selectContractsLoaded = (state: ContractState) => state.loaded;
-export const selectCurrentContract = (state: ContractState) => state.current.contract;
+export const selectCurrentContract = (state: ContractState) => state.current?.contract;
 export const selectContractsError = (state: ContractState) => state.error;
 

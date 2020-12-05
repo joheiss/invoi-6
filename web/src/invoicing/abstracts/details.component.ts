@@ -1,14 +1,18 @@
-import {AfterViewInit, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/index';
+import {AbstractBusinessService} from '../business-services/abstract-business.service';
+import {AbstractTransactionBusinessService} from '../business-services/abstract-transaction-business-service';
+import {AbstractBoBusinessService} from '../business-services/abstract-bo-business.service';
 
+@Component({ template: '' })
 export abstract class DetailsComponent<T> implements OnInit, AfterViewInit {
 
   @ViewChild('detailsForm', { static: false }) formComponent: any;
 
   task$: BehaviorSubject<string> = new BehaviorSubject('edit');
 
-  protected constructor(protected service: any,
+  protected constructor(protected service: AbstractBoBusinessService<any, any>,
                         protected route: ActivatedRoute) {
     this.route.paramMap
       .subscribe(params => {
@@ -41,7 +45,7 @@ export abstract class DetailsComponent<T> implements OnInit, AfterViewInit {
     this.service.delete(object);
   }
 
-  onNew() {
+  onNew(event?: Event) {
     this.service.new();
   }
 
