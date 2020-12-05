@@ -78,7 +78,7 @@ export const {
 
 export const selectReceiversLoading = (state: ReceiverState) => state.loading;
 export const selectReceiversLoaded = (state: ReceiverState) => state.loaded;
-export const selectCurrentReceiver = (state: ReceiverState) => state.current.receiver;
+export const selectCurrentReceiver = (state: ReceiverState) => state.current?.receiver;
 export const selectReceiversError = (state: ReceiverState) => state.error;
 
 

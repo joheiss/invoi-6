@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ShellComponent} from './shell.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -21,7 +21,7 @@ describe('ShellComponent', () => {
   let component: ShellComponent;
   let fixture: ComponentFixture<ShellComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [

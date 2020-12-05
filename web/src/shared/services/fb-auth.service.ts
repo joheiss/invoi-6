@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {User} from 'firebase';
+import firebase from 'firebase/app';
 import {from, Observable, of} from 'rxjs/index';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {SharedModule} from '../shared.module';
 import {catchError, first} from 'rxjs/operators';
-import {auth} from 'firebase/app';
 
 @Injectable({
   providedIn: SharedModule
@@ -15,21 +14,21 @@ export class FbAuthService {
   }
 
   changeMyPassword(credentials: { uid: string; email?: string; oldPassword?: string, password: string }): Observable<any> {
-    const cred = auth.EmailAuthProvider.credential(auth().currentUser.email, credentials.oldPassword);
+    const cred = firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, credentials.oldPassword);
     return from(
-      auth().currentUser.reauthenticateWithCredential(cred)
-        .then(() => auth().currentUser.updatePassword(credentials.password))
+      firebase.auth().currentUser.reauthenticateWithCredential(cred)
+        .then(() => firebase.auth().currentUser.updatePassword(credentials.password))
     );
   }
 
-  getAuthState(): Observable<User | null> {
+  getAuthState(): Observable<firebase.User | null> {
     return this.afAuth.authState.pipe(
       first(),
       catchError(() => of(null))
     );
   }
 
-  getIdToken(authData: User): Observable<string> {
+  getIdToken(authData: firebase.User): Observable<string> {
     return from(
       authData.getIdToken().then(idToken => idToken)
     );
@@ -44,7 +43,7 @@ export class FbAuthService {
 
   signInWithEmailAndPassword(email: string, password: string): Observable<boolean> {
     return from(
-      this.afAuth.setPersistence(auth.Auth.Persistence.SESSION)
+      this.afAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(() => this.afAuth.signInWithEmailAndPassword(email, password))
         .then(authData => !!authData)
       // this.afAuth.auth.setPersistence(auth.Auth.Persistence.SESSION)

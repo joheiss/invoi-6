@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../../shared/material.module';
@@ -12,7 +12,7 @@ describe('GoodbyeComponent', () => {
   let component: GoodbyeComponent;
   let fixture: ComponentFixture<GoodbyeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule],
       declarations: [GoodbyeComponent],

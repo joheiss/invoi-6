@@ -1,13 +1,10 @@
 {
   "functions": {
-    "predeploy": [
-      "npm --prefix ./functions/ run lint",
-      "npm --prefix ./functions/ run build"
-    ],
-    "source": "functions"
+    "source": "functions",
+    "runtime": "nodejs12"
   },
   "hosting": {
-    "public": "dist/invoi-6",
+    "public": "web/dist/invoi-6",
     "ignore": [
       "firebase.json",
       "**/.*",

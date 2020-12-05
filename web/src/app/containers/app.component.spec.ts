@@ -1,11 +1,11 @@
 import {AppComponent} from './app.component';
-import {async, TestBed} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {PwaService} from '../services/pwa.service';
 
 describe('AppComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent],
@@ -15,7 +15,7 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', async(() => {
+  it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();

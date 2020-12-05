@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../../../shared/material.module';
@@ -17,7 +17,7 @@ describe('NaviSidebarComponent', () => {
   let fixture: ComponentFixture<NaviSidebarComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule],
       declarations: [NaviSidebarComponent, IfAuthorizedForAdminDirective, IfAuthorizedForSalesDirective, IfAuthorizedAsDirective],
@@ -38,7 +38,7 @@ describe('NaviSidebarComponent', () => {
     store = TestBed.get(Store);
   });
 
-  it('should create the component', async(() => {
+  it('should create the component', waitForAsync(() => {
     expect(component).toBeTruthy();
   }));
 
