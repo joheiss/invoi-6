@@ -62,7 +62,7 @@ export abstract class AbstractBoBusinessService<T extends Transaction | Masterda
     return this.store.pipe(select(this.getIsDeletableSelector()));
   }
 
-  new(object: T): void {
+  new(object?: T): void {
     const data = Object.assign({}, this.getTemplate());
     this.store.dispatch(this.buildNewEvent(data));
   }

@@ -1,9 +1,10 @@
-import {EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {Subscription} from 'rxjs/index';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
+@Component({ template: '' })
 export abstract class DetailsItemFormComponent<T> implements OnChanges, OnDestroy {
   @Input() itemGroup: FormGroup;
   @Input() item: T;

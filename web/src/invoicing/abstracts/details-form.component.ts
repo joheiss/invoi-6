@@ -1,4 +1,4 @@
-import {EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs/index';
 import {MatTabChangeEvent} from '@angular/material/tabs';
@@ -11,7 +11,8 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {DateUtility, DocumentLinkData, Masterdata, Transaction} from 'jovisco-domain';
 import {DateTime} from 'luxon';
 
-export abstract class     DetailsFormComponent<T extends Transaction | Masterdata> implements OnInit, OnChanges, OnDestroy {
+@Component({ template: '' })
+export abstract class  DetailsFormComponent<T extends Transaction | Masterdata> implements OnInit, OnChanges, OnDestroy {
   @Input() object: T | undefined;
   @Output() copy = new EventEmitter<T>();
   @Output() changed = new EventEmitter<T>();

@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Observable, of} from 'rxjs/index';
 import {ActivatedRoute} from '@angular/router';
 import {ContractsBusinessService} from '../../business-services';
-import {DetailsComponent} from '../../abstracts/details.component';
 import {Contract, Invoice, Receiver} from 'jovisco-domain';
+import {DetailsComponent} from '../../abstracts/details.component';
 
 @Component({
   selector: 'jo-contract-details',
