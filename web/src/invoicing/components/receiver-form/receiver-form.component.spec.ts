@@ -5,7 +5,7 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ReceiversBusinessService} from '../../business-services';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {SharedModule} from '../../../shared/shared.module';
 import {mockAllContracts} from '../../../test/factories/mock-contracts.factory';
 import {mockSingleReceiver} from '../../../test/factories/mock-receivers.factory';
@@ -54,8 +54,8 @@ describe('Receiver Details Form Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(ReceiversBusinessService);
-    store = TestBed.get(Store);
+    service = TestBed.inject(ReceiversBusinessService);
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(ReceiverFormComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

@@ -4,7 +4,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../../shared/material.module';
 import {Store} from '@ngrx/store';
 import {RouterTestingModule} from '@angular/router/testing';
-import {Logout} from '../store/actions';
+import {Logout} from '../store';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {GoodbyeComponent} from './goodbye.component';
 
@@ -44,7 +44,7 @@ describe('GoodbyeComponent', () => {
     describe('ngOnInit()', () => {
       it('should dispatch the Logout action in ngOnInit lifecycle event', () => {
         const action = new Logout();
-        const store = TestBed.get(Store);
+        const store = TestBed.inject(Store);
         const spy = jest.spyOn(store, 'dispatch');
         fixture.detectChanges();
         return expect(spy).toHaveBeenCalledWith(action);

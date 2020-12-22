@@ -35,7 +35,7 @@ describe('Abstract Details Item Form Component', () => {
   });
 
   beforeEach(() => {
-    utility = TestBed.get(I18nUtilityService);
+    utility = TestBed.inject(I18nUtilityService);
     fixture = TestBed.createComponent(ContractItemFormComponent);
     component = fixture.componentInstance;
   });

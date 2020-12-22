@@ -49,8 +49,8 @@ describe('Invoice Item Form Component', () => {
   });
 
   beforeEach(() => {
-    decimalPipe = TestBed.get(DecimalPipe);
-    utility = TestBed.get(I18nUtilityService);
+    decimalPipe = TestBed.inject(DecimalPipe);
+    utility = TestBed.inject(I18nUtilityService);
     fixture = TestBed.createComponent(InvoiceItemFormComponent);
     component = fixture.componentInstance;
   });

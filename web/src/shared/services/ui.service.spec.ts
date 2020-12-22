@@ -1,7 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../material.module';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {UiService} from './ui.service';
 import {cold} from 'jasmine-marbles';
 
@@ -34,9 +35,9 @@ describe('UiService', () => {
         UiService
       ]
     });
-    service = TestBed.get(UiService);
-    snackBar = TestBed.get(MatSnackBar);
-    dialog = TestBed.get(MatDialog);
+    service = TestBed.inject(UiService);
+    snackBar = TestBed.inject(MatSnackBar);
+    dialog = TestBed.inject(MatDialog);
 
     // Mock implementation of console.log to
     // return undefined to stop printing out to console log during test

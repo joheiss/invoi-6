@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="C:\dev\ts\angular6\invoi-6\web\src\invoicing\business-services\invoices-business.service.spec.ts">
+    <testCase name="Invoices Business Service should create the service" duration="1"/>
+    <testCase name="Invoices Business Service should return a meaningful header template" duration="0"/>
+    <testCase name="Invoices Business Service should return a meaningful item template" duration="0"/>
+    <testCase name="Invoices Business Service should return meaningful default values" duration="0"/>
+    <testCase name="Invoices Business Service should retrieve correct auth data during construction" duration="0"/>
+    <testCase name="Invoices Business Service should retrieve correct number ranges during construction" duration="0"/>
+    <testCase name="Invoices Business Service should invoke newItem and change if item addition is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke processChanges if change is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch CopyInvoiceSuccess event if copy is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoice action if create is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch CreateInvoicePdf action if PDF creation is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch OpenConfirmationDialog action if delete is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContract is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if getContracts is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if getCurrent is processed" duration="0"/>
+    <testCase name="Invoices Business Service should return the next id for an invoice" duration="1"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceiver is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if getReceivers is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if getSummary is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if isChangeable is processed" duration="0"/>
+    <testCase name="Invoices Business Service should invoke store selector if isDeletable is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch NewInvoiceSuccess event if new is processed" duration="0"/>
+    <testCase name="Invoices Business Service should prepare a new invoice for a given contract and dispatch NewQuickInvoiceSuccess event" duration="67"/>
+    <testCase name="Invoices Business Service should return a new item (template)" duration="0"/>
+    <testCase name="Invoices Business Service should invoke change if removeItem is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch SendInvoiceEmail action when sendEmail is processed" duration="0"/>
+    <testCase name="Invoices Business Service should dispatch UpdateInvoice action when update is processed" duration="0"/>
+    <testCase name="Invoices Business Service should detect change of receiver on an invoice and handle it" duration="0"/>
+    <testCase name="Invoices Business Service should detect change of contract on an invoice and handle it" duration="0"/>
+    <testCase name="Invoices Business Service should detect change of contract id on an invoice item and handle it" duration="0"/>
+  </file>
+</testExecutions>

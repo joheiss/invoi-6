@@ -15,8 +15,8 @@ describe('Storage Api Service', () => {
         StorageApiService
       ]
     });
-    fbStorage = TestBed.get(FbStorageService);
-    service = TestBed.get(StorageApiService);
+    fbStorage = TestBed.inject(FbStorageService);
+    service = TestBed.inject(StorageApiService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

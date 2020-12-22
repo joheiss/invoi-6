@@ -2,11 +2,11 @@ import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
 import {cold} from 'jasmine-marbles';
 import {InvoicesBusinessService} from './invoices-business.service';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {ReceiversBusinessService} from './receivers-business.service';
-import {SettingsBusinessService} from '../../admin/business-services/settings-business.service';
-import {ChangeReceiverSuccess, CopyReceiverSuccess, CreateReceiver, NewReceiverSuccess, UpdateReceiver} from '../store/actions';
-import {OpenConfirmationDialog} from '../../app/store/actions';
+import {SettingsBusinessService} from '../../admin/business-services';
+import {ChangeReceiverSuccess, CopyReceiverSuccess, CreateReceiver, NewReceiverSuccess, UpdateReceiver} from '../store';
+import {OpenConfirmationDialog} from '../../app/store';
 import * as fromStore from '../store';
 import {mockSingleReceiver} from '../../test/factories/mock-receivers.factory';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
@@ -49,10 +49,10 @@ describe('Receivers Business Service', () => {
         ReceiversBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(ReceiversBusinessService);
-    invoices = TestBed.get(InvoicesBusinessService);
-    settings = TestBed.get(SettingsBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(ReceiversBusinessService);
+    invoices = TestBed.inject(InvoicesBusinessService);
+    settings = TestBed.inject(SettingsBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test
@@ -60,10 +60,12 @@ describe('Receivers Business Service', () => {
   });
 
   beforeEach(() => {
-    // @ts-ignore
-    service.auth = {...mockAuth()[0]};
-    // @ts-ignore
-    service.nextId = '1903';
+    if (service) {
+      // @ts-ignore
+      service.auth = {...mockAuth()[0]};
+      // @ts-ignore
+      service.nextId = '1903';
+    }
     receiver = ReceiverFactory.fromData(mockSingleReceiver());
   });
 
@@ -153,7 +155,7 @@ describe('Receivers Business Service', () => {
 });
 
   it('should NOT create new invoice for receiver if there is NOT exactly one invoicable contract for the receiver', done => {
-    const spy = jest.spyOn(invoices, 'newInvoiceFromContract');
+    // const spy = jest.spyOn(invoices, 'newInvoiceFromContract');
     const contracts = mockAllContracts()
       .map(c => ContractFactory.fromData(c));
 
@@ -164,7 +166,7 @@ describe('Receivers Business Service', () => {
       take(1)
     )
       .subscribe(
-        next => console.log('should not happen'),
+        _ => console.log('should not happen'),
         error => console.log('Error: ', error),
         () => done()
       );

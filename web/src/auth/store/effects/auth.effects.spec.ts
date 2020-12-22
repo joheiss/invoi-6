@@ -20,9 +20,9 @@ import {
   QueryAuth,
   QueryOneUser
 } from '../actions';
-import {AppState} from '../../../app/store/reducers';
-import {Go, LeaveLogin, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
-import {ClearState} from '../../../invoicing/store/actions';
+import {AppState} from '../../../app/store';
+import {Go, LeaveLogin, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
+import {ClearState} from '../../../invoicing/store';
 import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('Auth Effects', () => {
@@ -58,9 +58,9 @@ describe('Auth Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(AuthEffects);
-    store = TestBed.get(Store);
-    authService = TestBed.get(AuthService);
+    effects = TestBed.inject(AuthEffects);
+    store = TestBed.inject(Store);
+    authService = TestBed.inject(AuthService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });

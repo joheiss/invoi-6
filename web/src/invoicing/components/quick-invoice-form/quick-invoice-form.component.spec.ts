@@ -4,7 +4,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 import {SharedModule} from '../../../shared/shared.module';
 import {mockSingleContract} from '../../../test/factories/mock-contracts.factory';
@@ -14,7 +14,7 @@ import {DatePipe, DecimalPipe, registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
 import {QuickInvoiceFormComponent} from './quick-invoice-form.component';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Contract, ContractFactory, Invoice, InvoiceFactory, ReceiverFactory} from 'jovisco-domain';
 
@@ -95,10 +95,10 @@ describe('Quick Invoice Form Component', () => {
 
   beforeEach(() => {
     // registerLocaleData(localeDe, 'de-DE', localeDeExtra);
-    utility = TestBed.get(I18nUtilityService);
-    store = TestBed.get(Store);
-    decimalPipe = TestBed.get(DecimalPipe);
-    datePipe = TestBed.get(DatePipe);
+    utility = TestBed.inject(I18nUtilityService);
+    store = TestBed.inject(Store);
+    decimalPipe = TestBed.inject(DecimalPipe);
+    datePipe = TestBed.inject(DatePipe);
     fixture = TestBed.createComponent(QuickInvoiceFormComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

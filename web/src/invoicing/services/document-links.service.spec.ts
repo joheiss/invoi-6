@@ -26,8 +26,8 @@ describe('Document Links Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(DocumentLinksService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(DocumentLinksService);
   });
 
   beforeEach(() => {

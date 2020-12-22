@@ -6,7 +6,7 @@ import {catchError, filter, map, mergeMap, switchMap, tap} from 'rxjs/operators'
 import {of} from 'rxjs/index';
 import * as fromRoot from '../../../app/store';
 import {select, Store} from '@ngrx/store';
-import {selectAuth} from '../../../auth/store/selectors';
+import {selectAuth} from '../../../auth/store';
 import {UserData} from 'jovisco-domain';
 
 @Injectable()

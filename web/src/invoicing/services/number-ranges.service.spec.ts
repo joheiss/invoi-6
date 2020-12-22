@@ -19,8 +19,8 @@ describe('Number Ranges Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(NumberRangesService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(NumberRangesService);
   });
 
   it('should create the service', async () => {

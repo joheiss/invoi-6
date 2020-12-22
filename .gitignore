@@ -50,7 +50,7 @@ Thumbs.db
 
 # secrets
 /batches/credentials*.json
-/src/environments
+/web/src/environments
 *.pem
 *.key
 

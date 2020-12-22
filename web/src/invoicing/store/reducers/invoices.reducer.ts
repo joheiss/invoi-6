@@ -40,9 +40,9 @@ export function invoiceReducer(state: InvoiceState = initialState, action: fromI
     }
 
     case fromInvoices.MODIFIED_INVOICE: {
-      if (action.payload.id === state.current.invoice.id) {
-        const invoice = Object.assign({}, state.current.invoice, action.payload);
-        const current = { isDirty: state.current.isDirty, invoice: invoice };
+      if (action.payload.id === state.current?.invoice.id) {
+        const invoice = Object.assign({}, state.current?.invoice, action.payload);
+        const current = { isDirty: state.current?.isDirty, invoice: invoice };
         return invoiceAdapter.updateOne({ id: action.payload.id, changes: action.payload },
           {...state, error: undefined , current: current });
       }

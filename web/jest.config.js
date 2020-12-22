@@ -1,26 +1,20 @@
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig');
+// const { pathsToModuleNameMapper } = require('ts-jest/utils');
+// const { compilerOptions } = require('./tsconfig');
 
 module.exports = {
   globals: {
-    '__TS_CONFIG__': {
-      'target': 'es6',
-      'module': 'commonjs',
-      'moduleResolution': 'node'
-    },
     'ts-jest': {
-      'tsConfigFile': 'src/tsconfig.spec.json'
-    },
-    '__TRANSFORM_HTML__': true
+      tsConfig: '<rootDir>/src/tsconfig.spec.json',
+      '__TRANSFORM_HTML__': true
+   },
   },
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|js)$',
   setupFilesAfterEnv: [
     '<rootDir>/src/setupJest.ts'
   ],
   transform: {
-    '^.+\\.(ts|html)$': '<rootDir>/node_modules/jest-preset-angular/preprocessor.js',
+    '^.+\\.(ts|js|html)$': 'ts-jest'
   },
-  "coverageReporters": [
+  coverageReporters: [
     "html"
   ],
   transformIgnorePatterns: [
@@ -46,7 +40,7 @@ module.exports = {
     '/node_modules/',
     '/dist/',
     'src/app/*.{js}',
-    '/cypress/**'
+    '/cypress/'
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   moduleNameMapper: {

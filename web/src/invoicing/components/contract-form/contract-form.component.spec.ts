@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ContractFormComponent} from './contract-form.component';
 import {ContractsBusinessService} from '../../business-services';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {I18nUtilityService} from '../../../shared/i18n-utility/i18n-utility.service';
 import {SharedModule} from '../../../shared/shared.module';
 import {mockSingleContract} from '../../../test/factories/mock-contracts.factory';
@@ -16,7 +16,7 @@ import {By} from '@angular/platform-browser';
 import {DatePipe, DecimalPipe, registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
@@ -112,12 +112,12 @@ describe('Contract Details Form Component', () => {
 
   beforeEach(() => {
     // registerLocaleData(localeDe, 'de-DE', localeDeExtra);
-    service = TestBed.get(ContractsBusinessService);
-    utility = TestBed.get(I18nUtilityService);
-    store = TestBed.get(Store);
+    service = TestBed.inject(ContractsBusinessService);
+    utility = TestBed.inject(I18nUtilityService);
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(ContractFormComponent);
-    decimalPipe = TestBed.get(DecimalPipe);
-    datePipe = TestBed.get(DatePipe);
+    decimalPipe = TestBed.inject(DecimalPipe);
+    datePipe = TestBed.inject(DatePipe);
     component = fixture.componentInstance;
     component.ngOnInit();
   });

@@ -189,7 +189,7 @@ describe('Country Details Dialog Component', () => {
         const spyClose = jest.spyOn(dialogRef, 'close');
         await component.ngOnInit();
         component.onSave(component.form);
-        await expect(spyChangeObject).toHaveBeenCalledWith(component.form.value);
+        expect(spyChangeObject).toHaveBeenCalledWith<any>(component.form.value);
         return expect(spyClose).toHaveBeenCalled();
       });
     });

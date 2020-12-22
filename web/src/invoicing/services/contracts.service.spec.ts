@@ -19,8 +19,8 @@ describe('Contracts Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(ContractsService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(ContractsService);
   });
 
   it('should create the service', async () => {

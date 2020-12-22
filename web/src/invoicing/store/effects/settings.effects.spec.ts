@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {SettingsService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -23,8 +23,9 @@ import {
 import {mockAllCountries, mockAllSettings} from '../../../test/factories/mock-settings.factory';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
-import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
-import {firestore} from 'firebase';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
+import firebase from 'firebase/app';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 
 describe('Settings Effects', () => {
 
@@ -58,9 +59,9 @@ describe('Settings Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(SettingsEffects);
-    store = TestBed.get(Store);
-    settingsService = TestBed.get(SettingsService);
+    effects = TestBed.inject(SettingsEffects);
+    store = TestBed.inject(Store);
+    settingsService = TestBed.inject(SettingsService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -77,13 +78,13 @@ describe('Settings Effects', () => {
       const outcome = settings.map(s => {
         s.values = s.values.map(v => {
           if (v.validFrom) {
-            v.validFrom = firestore.Timestamp.fromDate(v.validFrom);
+            v.validFrom = firebase.firestore.Timestamp.fromDate(v.validFrom);
           }
           if (v.validTo) {
-            v.validTo = firestore.Timestamp.fromDate(v.validTo);
+            v.validTo = firebase.firestore.Timestamp.fromDate(v.validTo);
           }
           return v;
-        });
+        }) as DocumentChangeAction<any>[];
         const type = 'Added';
         const payload = {doc: {id: s.id, data: jest.fn(() => s)}};
         return {type, payload};
@@ -189,7 +190,7 @@ describe('Settings Effects', () => {
       const setting = mockAllCountries();
       const action = new CreateSettingSuccess(setting);
       actions = hot('-a', {a: action});
-      const message = undefined;
+      // const message = undefined;
       const expected = cold('-(ab)', {
         a: new StopSpinning(),
         b: new Go({path: ['/invoicing/settings', 'countries']})

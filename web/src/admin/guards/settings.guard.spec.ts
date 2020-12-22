@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../../invoicing/store/reducers';
+import {InvoicingState} from '../../invoicing/store';
 import {SettingsGuard} from './settings.guard';
 
 describe('Settings Guard', () => {
@@ -21,8 +21,8 @@ describe('Settings Guard', () => {
         SettingsGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(SettingsGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(SettingsGuard);
   });
 
   it('should create the guard', () => {

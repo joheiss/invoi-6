@@ -18,7 +18,7 @@ describe('Router Effects', () => {
         provideMockActions(() => actions),
       ]
     });
-    effects = TestBed.get(RouterEffects);
+    effects = TestBed.inject(RouterEffects);
   });
 
   it('effects should be created', () => {

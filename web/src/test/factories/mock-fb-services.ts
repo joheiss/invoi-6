@@ -36,7 +36,7 @@ export const mockFbStorageService: any = {
 
 export const mockFbFunctionsService: any = {
   /* --- auth ---*/
-  changePassword: jest.fn((uid: string) => cold('-a|', { a: true })),
+  changePassword: jest.fn((_: string) => cold('-a|', { a: true })),
   /* --- users ---*/
   createOneUser: jest.fn(() => cold('-b|', { b: 'anything' })),
   updateOneUser: jest.fn(() => cold('-b|', { b: 'anything' }))

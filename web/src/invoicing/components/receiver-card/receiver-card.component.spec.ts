@@ -32,8 +32,8 @@ describe('Receiver Card Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ReceiverCardComponent);
     component = fixture.componentInstance;
-    datePipe = TestBed.get(DatePipe);
-    decimalPipe = TestBed.get(DecimalPipe);
+    datePipe = TestBed.inject(DatePipe);
+    decimalPipe = TestBed.inject(DecimalPipe);
   });
 
   it('should create the component', async () => {
@@ -61,12 +61,12 @@ describe('Receiver Card Component', () => {
 
       it(`should show the number of active contracts`, async () => {
         const div = fixture.debugElement.query(By.css('#div_activeContracts')).nativeElement as HTMLDivElement;
-        return expect(div.textContent).toContain(component.summary.activeContractsCount);
+        return expect(div.textContent).toContain(String(component.summary.activeContractsCount));
       });
 
       it(`should show the number of expired contracts`, async () => {
         const div = fixture.debugElement.query(By.css('#div_expiredContracts')).nativeElement as HTMLDivElement;
-        return expect(div.textContent).toContain(component.summary.expiredContractsCount);
+        return expect(div.textContent).toContain(String(component.summary.expiredContractsCount));
       });
 
       it(`should show the last contract id as a link`, async () => {
@@ -76,12 +76,12 @@ describe('Receiver Card Component', () => {
 
       it(`should show the number of due invoices`, async () => {
         const div = fixture.debugElement.query(By.css('#div_dueInvoices')).nativeElement as HTMLDivElement;
-        return expect(div.textContent).toContain(component.summary.dueInvoicesCount);
+        return expect(div.textContent).toContain(String(component.summary.dueInvoicesCount));
       });
 
       it(`should show the number of open invoices`, async () => {
         const div = fixture.debugElement.query(By.css('#div_openInvoices')).nativeElement as HTMLDivElement;
-        return expect(div.textContent).toContain(component.summary.openInvoicesCount);
+        return expect(div.textContent).toContain(String(component.summary.openInvoicesCount));
       });
 
       it(`should show the last invoice id as a link`, async () => {

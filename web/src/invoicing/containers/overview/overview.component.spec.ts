@@ -32,7 +32,7 @@ describe('Overview Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(RevenuesBusinessService);
+    service = TestBed.inject(RevenuesBusinessService);
     fixture = TestBed.createComponent(OverviewComponent);
     component = fixture.componentInstance;
   });

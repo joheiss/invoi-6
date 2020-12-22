@@ -7,13 +7,13 @@ import {SharedModule} from '../../../shared/shared.module';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {of} from 'rxjs/internal/observable/of';
 import {mockAllCountries} from '../../../test/factories/mock-settings.factory';
-import {InvoicingState} from '../../store/reducers';
+import {InvoicingState} from '../../store';
 import {Store} from '@ngrx/store';
 import {mockAllDocumentLinks, mockSingleDocumentLink} from '../../../test/factories/mock-document-links.factory';
 import {cold} from 'jasmine-marbles';
 import {mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
-import {CreateDocumentLink, DeleteDocumentLink} from '../../store/actions';
-import {DeleteFile, DownloadFile, UploadFile} from '../../../storage/store/actions';
+import {CreateDocumentLink, DeleteDocumentLink} from '../../store';
+import {DeleteFile, DownloadFile, UploadFile} from '../../../storage/store';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSelectChange} from '@angular/material/select';
 
@@ -67,9 +67,9 @@ describe('Document Link List', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(DocumentLinksBusinessService);
-    store = TestBed.get(Store);
-    dialog = TestBed.get(MatDialog);
+    service = TestBed.inject(DocumentLinksBusinessService);
+    store = TestBed.inject(Store);
+    dialog = TestBed.inject(MatDialog);
     fixture = TestBed.createComponent(DocumentLinkListComponent);
     component = fixture.componentInstance;
   });

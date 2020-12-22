@@ -1,14 +1,14 @@
 import {Store} from '@ngrx/store';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {
   ChangeDocumentLinkSuccess,
   CreateDocumentLink,
   DeleteDocumentLink,
   NewDocumentLinkSuccess,
   UpdateDocumentLink
-} from '../store/actions';
+} from '../store';
 import {DocumentLinksBusinessService} from './document-links-business.service';
 import {mockSingleDocumentLink} from '../../test/factories/mock-document-links.factory';
 import {DocumentLink, DocumentLinkData, DocumentLinkType} from 'jovisco-domain';
@@ -33,8 +33,8 @@ describe('Document Links Business Service', () => {
         DocumentLinksBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(DocumentLinksBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(DocumentLinksBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

@@ -72,8 +72,8 @@ describe('Contract Details Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(ContractsBusinessService);
-    route = TestBed.get(ActivatedRoute);
+    service = TestBed.inject(ContractsBusinessService);
+    route = TestBed.inject(ActivatedRoute);
     fixture = TestBed.createComponent(ContractDetailsComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

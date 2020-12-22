@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {DocumentLinksGuard} from './document-links.guard';
 
 describe('Document Links Guard', () => {
@@ -21,8 +21,8 @@ describe('Document Links Guard', () => {
         DocumentLinksGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(DocumentLinksGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(DocumentLinksGuard);
   });
 
   it('should create the guard', () => {

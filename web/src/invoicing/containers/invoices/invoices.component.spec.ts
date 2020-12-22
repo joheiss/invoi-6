@@ -55,7 +55,7 @@ describe('Invoices Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(InvoicesBusinessService);
+    service = TestBed.inject(InvoicesBusinessService);
     fixture = TestBed.createComponent(InvoicesComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

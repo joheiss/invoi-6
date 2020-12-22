@@ -6,8 +6,8 @@ import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {Store} from '@ngrx/store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Login} from '../store/actions';
-import {AppState} from '../../app/store/reducers';
+import {Login} from '../store';
+import {AppState} from '../../app/store';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 
@@ -17,7 +17,7 @@ describe('LoginComponent', () => {
   let store: Store<AppState>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, MaterialModule, FlexLayoutModule, FormsModule, ReactiveFormsModule],
       declarations: [LoginComponent],
       providers: [
@@ -34,7 +34,7 @@ describe('LoginComponent', () => {
   });
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

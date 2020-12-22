@@ -50,7 +50,7 @@ describe('Abstract Details Items Form Component', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ContractItemsFormComponent);
-    service = TestBed.get(ContractsBusinessService);
+    service = TestBed.inject(ContractsBusinessService);
     component = fixture.componentInstance;
   });
 

@@ -19,8 +19,8 @@ describe('Settings Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(SettingsService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(SettingsService);
   });
 
   it('should create the service', async () => {

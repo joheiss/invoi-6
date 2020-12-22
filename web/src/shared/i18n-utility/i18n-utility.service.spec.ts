@@ -24,7 +24,7 @@ describe('I18N Utilities', async () => {
         I18nUtilityService
       ]
     });
-    service = TestBed.get(I18nUtilityService);
+    service = TestBed.inject(I18nUtilityService);
     // f...ing node does only support english natively ...
     // @ts-ignore
     service.formattingInfo = {

@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {UsersService, UsersUiService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -19,7 +19,7 @@ import {
   UpdateUserSuccess
 } from '../actions';
 import {UserEffects} from './user.effects';
-import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
 import {mockAllUsers, mockSingleUser} from '../../../test/factories/mock-users.factory';
 
 describe('User Effects', () => {
@@ -64,10 +64,10 @@ describe('User Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(UserEffects);
-    store = TestBed.get(Store);
-    usersService = TestBed.get(UsersService);
-    usersUiService = TestBed.get(UsersUiService);
+    effects = TestBed.inject(UserEffects);
+    store = TestBed.inject(Store);
+    usersService = TestBed.inject(UsersService);
+    usersUiService = TestBed.inject(UsersUiService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });

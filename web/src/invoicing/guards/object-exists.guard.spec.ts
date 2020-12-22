@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {ContractExistsGuard} from './contract-exists.guard';
 import {ActivatedRoute} from '@angular/router';
 import {combineLatest, of} from 'rxjs/index';
@@ -39,9 +39,9 @@ describe('Object Exists Guard', () => {
         ContractExistsGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(ContractExistsGuard);
-    route = TestBed.get(ActivatedRoute);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(ContractExistsGuard);
+    route = TestBed.inject(ActivatedRoute);
 
     // Mock implementation of console.error to return undefined to stop printing out to console log during test
     jest.spyOn(console, 'error').mockImplementation(() => undefined);

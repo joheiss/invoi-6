@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../material.module';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ConfirmationDialogPopupComponent} from './confirmation-dialog-popup.component';
 
 describe('ConfirmationDialogPopupComponent', () => {
@@ -10,7 +10,7 @@ describe('ConfirmationDialogPopupComponent', () => {
   let dialogRef: MatDialogRef<any>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, MaterialModule],
       declarations: [ConfirmationDialogPopupComponent],
       providers: [
@@ -32,7 +32,7 @@ describe('ConfirmationDialogPopupComponent', () => {
   });
 
   beforeEach(() => {
-    dialogRef = TestBed.get(MatDialogRef);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(ConfirmationDialogPopupComponent);
     component = fixture.componentInstance;
   });

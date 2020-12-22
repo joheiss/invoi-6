@@ -6,7 +6,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {ContractCardComponent} from '../components';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {Contract, ContractFactory} from 'jovisco-domain';
+import {ContractFactory, ContractSummary} from 'jovisco-domain';
 
 describe('Abstract Master Card Component', () => {
 
@@ -39,7 +39,7 @@ describe('Abstract Master Card Component', () => {
         receiverName: 'Test Receiver',
         changeable: true,
         revenue: 123456.78,
-        lastInvoiceId: '5909' };
+        lastInvoiceId: '5909' } as ContractSummary;
     });
 
     it('should emit copy event if onCopy is handled', async() => {

@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {NumberRangesGuard} from './number-ranges.guard';
 
 describe('Number Ranges Guard', () => {
@@ -21,8 +21,8 @@ describe('Number Ranges Guard', () => {
         NumberRangesGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(NumberRangesGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(NumberRangesGuard);
   });
 
   it('should create the guard', () => {

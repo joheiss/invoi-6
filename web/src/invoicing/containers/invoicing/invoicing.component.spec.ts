@@ -5,7 +5,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {InvoicingComponent} from './invoicing.component';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../../store/reducers';
+import {InvoicingState} from '../../store';
 
 describe('Invoicing Component', () => {
 
@@ -32,7 +32,7 @@ describe('Invoicing Component', () => {
   });
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(InvoicingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

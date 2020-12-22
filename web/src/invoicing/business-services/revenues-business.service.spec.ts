@@ -1,5 +1,5 @@
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {RevenuesBusinessService} from './revenues-business.service';
@@ -26,8 +26,8 @@ describe('Revenues Business Service', () => {
         RevenuesBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(RevenuesBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(RevenuesBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

@@ -21,7 +21,7 @@
     "commander": "^6.1.0",
     "firebase": "^7.20.0",
     "firebase-admin": "^9.2.0",
-    "jovisco-domain": "^1.0.69"
+    "jovisco-domain": "^1.0.70"
   },
   "bin": {
     "reporting-refresh": "dist/batches/src/index.js",

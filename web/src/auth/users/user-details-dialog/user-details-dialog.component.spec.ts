@@ -1,12 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {UserDetailsDialogComponent} from './user-details-dialog.component';
-import {UsersBusinessService} from '../../business-services/users-business.service';
+import {UsersBusinessService} from '../../business-services';
 import {UsersUiService} from '../../services';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {By} from '@angular/platform-browser';
 import {mockSingleUser} from '../../../test/factories/mock-users.factory';
 import {UserFactory} from 'jovisco-domain';
@@ -271,6 +271,7 @@ describe('User Details Dialog Component', () => {
         const spyClose = jest.spyOn(dialogRef, 'close');
         await component.ngOnInit();
         component.onSave(component.form);
+        // @ts-ignore
         await expect(spyChangeObject).toHaveBeenCalledWith(component.form.value);
         return expect(spyClose).toHaveBeenCalled();
       });

@@ -34,8 +34,8 @@ describe('Objects Api Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(ContractsService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(ContractsService);
   });
 
   beforeEach(() => {
@@ -73,7 +73,7 @@ describe('Objects Api Service', () => {
     const mock = contract;
     persistence.documentExists = jest.fn(() => Promise.resolve(true));
     service.create(mock).subscribe(
-      next => {
+      _ => {
       },
       err => {
         expect(err).toEqual(new Error(`Document with id ${mock.id} already exists. Check number ranges.`));
@@ -97,7 +97,7 @@ describe('Objects Api Service', () => {
     const mock = contract;
     persistence.documentExists = jest.fn(() => Promise.resolve(false));
     service.delete(mock).subscribe(
-      next => {
+      _ => {
       },
       err => {
         expect(err).toEqual(new Error(`Document with id ${mock.id} does not exist.`));

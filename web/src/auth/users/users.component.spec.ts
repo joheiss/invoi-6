@@ -3,7 +3,7 @@ import {UsersComponent} from './users.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {UsersBusinessService} from '../business-services/users-business.service';
+import {UsersBusinessService} from '../business-services';
 import {UsersUiService} from '../services';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -45,8 +45,8 @@ describe('Users Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(UsersBusinessService);
-    uiService = TestBed.get(UsersUiService);
+    service = TestBed.inject(UsersBusinessService);
+    uiService = TestBed.inject(UsersUiService);
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
   });

@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {InvoicesService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -20,8 +20,8 @@ import {
 } from '../actions';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
-import {firestore} from 'firebase';
-import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import firebase from 'firebase/app';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
 import {InvoicesEffects} from './invoices.effects';
 import {mockAllInvoices, mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
 
@@ -59,9 +59,9 @@ describe('Invoices Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(InvoicesEffects);
-    store = TestBed.get(Store);
-    invoicesService = TestBed.get(InvoicesService);
+    effects = TestBed.inject(InvoicesEffects);
+    store = TestBed.inject(Store);
+    invoicesService = TestBed.inject(InvoicesService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -77,7 +77,8 @@ describe('Invoices Effects', () => {
       const outcome = mockAllInvoices().slice(0, 3).map(i => {
         const type = 'Added';
         const payload = {doc: {id: i.id, data: jest.fn(() => i)}};
-        payload.doc.data().issuedAt = firestore.Timestamp.fromDate(payload.doc.data().issuedAt);
+        // @ts-ignore
+        payload.doc.data().issuedAt = firebase.firestore.Timestamp.fromDate(payload.doc.data().issuedAt);
         return {type, payload};
       });
       const mapped = mockAllInvoices().slice(0, 3).map(i => {
@@ -85,6 +86,7 @@ describe('Invoices Effects', () => {
         return {type, payload: i};
       });
       const expected = cold('-(cde)', {c: mapped[0], d: mapped[1], e: mapped[2]});
+      // @ts-ignore
       invoicesService.queryAll = jest.fn(() => of(outcome));
       return expect(effects.queryInvoices$).toBeObservable(expected);
     });

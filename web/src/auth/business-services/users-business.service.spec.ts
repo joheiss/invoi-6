@@ -1,10 +1,10 @@
 import {UsersBusinessService} from './users-business.service';
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {IdState} from '../store/reducers';
+import {IdState} from '../store';
 import {cold} from 'jasmine-marbles';
-import {ChangeMyPassword, ChangePassword, CreateUser, QueryUsers, UpdateUser, UpdateUserProfile} from '../store/actions';
-import {DeleteFile, UploadImage} from '../../storage/store/actions';
+import {ChangeMyPassword, ChangePassword, CreateUser, QueryUsers, UpdateUser, UpdateUserProfile} from '../store';
+import {DeleteFile, UploadImage} from '../../storage/store';
 import {UploadPopupData} from '../../storage/models/upload-popup-data';
 import {mockSingleUser} from '../../test/factories/mock-users.factory';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
@@ -32,8 +32,8 @@ describe('Users Business Service', () => {
         UsersBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(UsersBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(UsersBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

@@ -7,6 +7,7 @@ export class TestActions extends Actions {
     super(EMPTY);
   }
   set stream(source: Observable<any>) {
+    // @ts-ignore
     this.source = source;
   }
 }

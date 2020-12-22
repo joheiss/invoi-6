@@ -1,11 +1,11 @@
 import {Store} from '@ngrx/store';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {ContractsBusinessService} from './contracts-business.service';
 import {InvoicesBusinessService} from './invoices-business.service';
-import {ChangeContractSuccess, CopyContractSuccess, CreateContract, NewContractSuccess, UpdateContract} from '../store/actions';
-import {OpenConfirmationDialog} from '../../app/store/actions';
+import {ChangeContractSuccess, CopyContractSuccess, CreateContract, NewContractSuccess, UpdateContract} from '../store';
+import {OpenConfirmationDialog} from '../../app/store';
 import * as fromStore from '../store';
 import {mockNumberRangeEntity} from '../../test/factories/mock-number-ranges.factory';
 import {filter, map, take} from 'rxjs/operators';
@@ -49,9 +49,9 @@ describe('Contracts Business Service', () => {
         ContractsBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(ContractsBusinessService);
-    invoicesService = TestBed.get(InvoicesBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(ContractsBusinessService);
+    invoicesService = TestBed.inject(InvoicesBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

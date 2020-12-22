@@ -6,7 +6,7 @@ import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import {SharedModule} from '../../../shared/shared.module';
 import {mockAllVatSettings, mockSingleVatSetting} from '../../../test/factories/mock-settings.factory';
 import {of, Subscription} from 'rxjs/index';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {VatListComponent} from './vat-list.component';
 import {SettingsBusinessService} from '../../business-services';
 import {DateTime} from 'luxon';
@@ -48,8 +48,8 @@ describe('VAT List Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(SettingsBusinessService);
-    dialog = TestBed.get(MatDialog);
+    service = TestBed.inject(SettingsBusinessService);
+    dialog = TestBed.inject(MatDialog);
     fixture = TestBed.createComponent(VatListComponent);
     component = fixture.componentInstance;
     component['subscription'] = new Subscription();

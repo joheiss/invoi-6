@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {ReceiversService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -23,7 +23,8 @@ import {
 import {mockAllReceivers, mockSingleReceiver} from '../../../test/factories/mock-receivers.factory';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
-import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 
 describe('Receiver Effects', () => {
 
@@ -57,9 +58,9 @@ describe('Receiver Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(ReceiversEffects);
-    store = TestBed.get(Store);
-    receiversService = TestBed.get(ReceiversService);
+    effects = TestBed.inject(ReceiversEffects);
+    store = TestBed.inject(Store);
+    receiversService = TestBed.inject(ReceiversService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -83,6 +84,7 @@ describe('Receiver Effects', () => {
         return {type, payload: r};
       });
       const expected = cold('-(cd)', {c: mapped[0], d: mapped[1]});
+      // @ts-ignore
       receiversService.queryAll = jest.fn(() => of(outcome));
       return expect(effects.queryReceivers$).toBeObservable(expected);
     });

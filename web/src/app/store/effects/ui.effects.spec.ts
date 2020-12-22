@@ -27,8 +27,8 @@ describe('Ui Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(UiEffects);
-    service = TestBed.get(UiService);
+    effects = TestBed.inject(UiEffects);
+    service = TestBed.inject(UiService);
   });
 
   it('should be created', () => {

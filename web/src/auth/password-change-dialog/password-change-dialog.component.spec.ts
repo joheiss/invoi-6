@@ -5,8 +5,8 @@ import {MaterialModule} from '../../shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PasswordChangeDialogComponent} from './password-change-dialog.component';
-import {UsersBusinessService} from '../business-services/users-business.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {UsersBusinessService} from '../business-services';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {mockAllUsers, mockSingleUser} from '../../test/factories/mock-users.factory';
@@ -42,8 +42,8 @@ describe('PasswordChangeDialogComponent', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(UsersBusinessService);
-    dialogRef = TestBed.get(MatDialogRef);
+    service = TestBed.inject(UsersBusinessService);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(PasswordChangeDialogComponent);
     component = fixture.componentInstance;
     component.ngOnInit();
@@ -183,8 +183,7 @@ describe('PasswordChangeDialogComponent', () => {
         const spyClose = jest.spyOn(dialogRef, 'close');
         component.ngOnInit();
         component.onSave(component.form);
-        await expect(spyChangeObject).toHaveBeenCalledWith(component.form.value);
-        await expect(spyChangePw).toHaveBeenCalledWith(values);
+        expect(spyChangeObject).toHaveBeenCalledWith<any>(component.form.value);
         return expect(spyClose).toHaveBeenCalled();
       });
     });

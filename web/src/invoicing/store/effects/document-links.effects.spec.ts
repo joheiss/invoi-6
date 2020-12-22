@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {DocumentLinksService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -23,6 +23,7 @@ import {mockAuth} from '../../../test/factories/mock-auth.factory';
 import {DocumentLinksEffects} from './document-links.effects';
 import {mockAllDocumentLinks, mockSingleDocumentLink} from '../../../test/factories/mock-document-links.factory';
 import {mockSingleInvoice} from '../../../test/factories/mock-invoices.factory';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 
 describe('Document Links Effects', () => {
 
@@ -57,9 +58,9 @@ describe('Document Links Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(DocumentLinksEffects);
-    store = TestBed.get(Store);
-    documentLinksService = TestBed.get(DocumentLinksService);
+    effects = TestBed.inject(DocumentLinksEffects);
+    store = TestBed.inject(Store);
+    documentLinksService = TestBed.inject(DocumentLinksService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -82,6 +83,7 @@ describe('Document Links Effects', () => {
         return {type, payload: dl};
       });
       const expected = cold('-(cde)', {c: mapped[0], d: mapped[1], e: mapped[2]});
+      // @ts-ignore
       documentLinksService.queryAll = jest.fn(() => of(outcome));
       return expect(effects.queryDocumentLinks$).toBeObservable(expected);
     });
@@ -108,6 +110,7 @@ describe('Document Links Effects', () => {
         })
         .slice(0, 1);
       const expected = cold('-(c)', {c: mapped[0]});
+      // @ts-ignore
       documentLinksService.queryForObject = jest.fn(() => of(outcome));
       return expect(effects.queryDocumentLinksForObject$).toBeObservable(expected);
     });

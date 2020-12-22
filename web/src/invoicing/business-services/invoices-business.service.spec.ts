@@ -1,7 +1,7 @@
 import {Store} from '@ngrx/store';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {InvoicesBusinessService} from './invoices-business.service';
 import {
   CopyInvoiceSuccess,
@@ -11,8 +11,8 @@ import {
   NewQuickInvoiceSuccess,
   SendInvoiceEmail,
   UpdateInvoice
-} from '../store/actions';
-import {OpenConfirmationDialog} from '../../app/store/actions';
+} from '../store';
+import {OpenConfirmationDialog} from '../../app/store';
 import * as fromStore from '../store';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
@@ -35,6 +35,8 @@ import {
   NumberRangeFactory,
   PaymentMethod
 } from 'jovisco-domain';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import {ConfirmationDialogPopupComponent} from '../../shared/popups/confirmation-dialog-popup/confirmation-dialog-popup.component';
 
 let store: Store<InvoicingState>;
 let service: InvoicesBusinessService;
@@ -43,7 +45,10 @@ let invoice: Invoice;
 describe('Invoices Business Service', () => {
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
+      // declarations: [
+      //  ConfirmationDialogPopupComponent
+      // ],
       providers: [
         {
           provide: Store,
@@ -55,21 +60,29 @@ describe('Invoices Business Service', () => {
         InvoicesBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(InvoicesBusinessService);
-
+      /*
+      .overrideModule(BrowserDynamicTestingModule, {
+          set: {entryComponents: [ConfirmationDialogPopupComponent]}
+        }
+      )
+      .compileComponents();
+      */
+    store = TestBed.inject(Store);
+    service = TestBed.inject(InvoicesBusinessService);
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
   beforeEach(() => {
-    // @ts-ignore
-    service.auth = {...mockAuth()[0]};
-    // @ts-ignore
-    service.nextIds = ['5905', '6905'];
-    invoice = InvoiceFactory.fromData(mockSingleInvoice());
-    service['currentData'] = invoice.data;
+    if (service) {
+      // @ts-ignore
+      service.auth = {...mockAuth()[0]};
+      // @ts-ignore
+      service.nextIds = ['5905', '6905'];
+      invoice = InvoiceFactory.fromData(mockSingleInvoice());
+      service['currentData'] = invoice.data;
+    }
   });
 
   it('should create the service', async () => {
@@ -136,9 +149,9 @@ describe('Invoices Business Service', () => {
   it('should invoke newItem and change if item addition is processed', async () => {
     const spyNew = jest.spyOn(service, 'newItem');
     const spyChange = jest.spyOn(service, 'change');
-    service.addItem(invoice);
+    service?.addItem(invoice);
     await expect(spyNew).toHaveBeenCalledWith(invoice);
-    invoice.items.push(service.newItem(invoice));
+    invoice.items.push(service?.newItem(invoice));
     return expect(spyChange).toHaveBeenCalledWith(invoice);
   });
 
@@ -154,7 +167,7 @@ describe('Invoices Business Service', () => {
     const newInvoiceData = {...invoice.data, ...defaults, organization: 'THQ'};
     const event = new CopyInvoiceSuccess(newInvoiceData);
     const spy = jest.spyOn(store, 'dispatch');
-    service.copy(invoice);
+    service?.copy(invoice);
     return expect(spy).toHaveBeenCalledWith(event);
   });
 
@@ -164,14 +177,14 @@ describe('Invoices Business Service', () => {
     newInvoice.header.isDeletable = true;
     const action = new CreateInvoice(newInvoice.data);
     const spy = jest.spyOn(store, 'dispatch');
-    service.create(newInvoice);
+    service?.create(newInvoice);
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
   it('should dispatch CreateInvoicePdf action if PDF creation is processed', async () => {
     const action = new CreateInvoicePdf(invoice.data);
     const spy = jest.spyOn(store, 'dispatch');
-    service.createPdf(invoice);
+    service?.createPdf(invoice);
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
@@ -181,58 +194,58 @@ describe('Invoices Business Service', () => {
       title: `Soll die Rechnung ${invoice.header.id} wirklich gelöscht werden?`
     });
     const spy = jest.spyOn(store, 'dispatch');
-    service.delete(invoice);
+    service?.delete(invoice);
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
   it('should invoke store selector if getContract is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.getContract();
+    service?.getContract();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should invoke store selector if getContracts is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.getContracts();
+    service?.getContracts();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should invoke store selector if getCurrent is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.getCurrent();
+    service?.getCurrent();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should return the next id for an invoice', () => {
     // @ts-ignore
-    expect(service.getNextId(invoice)).toEqual('5905');
+    expect(service?.getNextId(invoice)).toEqual('5905');
     invoice.header.billingMethod = BillingMethod.CreditNote;
     // @ts-ignore
-    expect(service.getNextId(invoice)).toEqual('6905');
+    expect(service?.getNextId(invoice)).toEqual('6905');
   });
 
   it('should invoke store selector if getReceiver is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.getReceiver();
+    service?.getReceiver();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should invoke store selector if getReceivers is processed', async () => {
     store.pipe = jest.fn();
     const spy = jest.spyOn(store, 'pipe');
-    service.getReceivers();
+    service?.getReceivers();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should invoke store selector if getSummary is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.getSummary();
+    service?.getSummary();
     return expect(spy).toHaveBeenCalled();
   });
 
   it('should invoke store selector if isChangeable is processed', async () => {
     const spy = jest.spyOn(store, 'pipe');
-    service.isChangeable();
+    service?.isChangeable();
     return expect(spy).toHaveBeenCalled();
   });
 
@@ -246,7 +259,7 @@ describe('Invoices Business Service', () => {
     const newInvoice = Object.assign({}, Invoice.defaultValues());
     const event = new NewInvoiceSuccess(newInvoice);
     const spy = jest.spyOn(store, 'dispatch');
-    service.new(InvoiceFactory.fromData(newInvoice));
+    service?.new(InvoiceFactory.fromData(newInvoice));
     return expect(spy).toHaveBeenCalledWith(event);
   });
 
@@ -272,16 +285,18 @@ describe('Invoices Business Service', () => {
           description: contract.items[0].description,
           quantityUnit: contract.items[0].priceUnit,
           pricePerUnit: contract.items[0].pricePerUnit,
-          cashDiscountAllowed: contract.items[0].cashDiscountAllowed
+          cashDiscountAllowed: contract.items[0].cashDiscountAllowed,
+          vatPercentage: 19.0
         }
       ]
     };
     const invoice = InvoiceFactory.fromData(newInvoice);
     // service['getVatPercentage'] = jest.fn(() => cold('-b|', {b: 19.0}));
-    service['getVatPercentage'] = jest.fn(() => of(19.0));
+    const vatPercentage = 19.0;
+    service['getVatPercentage'] = jest.fn(() => of(vatPercentage));
     const event = new NewQuickInvoiceSuccess(invoice.data);
     const spy = jest.spyOn(store, 'dispatch');
-    service.newInvoiceFromContract(ContractFactory.fromData(contract));
+    service?.newInvoiceFromContract(ContractFactory.fromData(contract));
     expect(spy).toHaveBeenCalledWith(event);
   });
 
@@ -291,14 +306,14 @@ describe('Invoices Business Service', () => {
       id: invoice.getNextItemId()
     } as InvoiceItemData;
     const item = InvoiceItemFactory.fromData(itemData);
-    expect(service.newItem(invoice)).toEqual(item);
+    expect(service?.newItem(invoice)).toEqual(item);
   });
 
   it('should invoke change if removeItem is processed', async () => {
     const updatedInvoice = Object.assign({}, invoice);
     updatedInvoice.items = updatedInvoice.items.filter(item => item.data.id !== 4);
     const spy = jest.spyOn(service, 'change');
-    service.removeItem(invoice, 4);
+    service?.removeItem(invoice, 4);
     return expect(spy).toHaveBeenCalledWith(updatedInvoice);
   });
 
@@ -311,22 +326,24 @@ describe('Invoices Business Service', () => {
   it('should dispatch SendInvoiceEmail action when sendEmail is processed', async () => {
     const action = new SendInvoiceEmail(invoice.data);
     const spy = jest.spyOn(store, 'dispatch');
-    service.sendEmail(invoice);
+    service?.sendEmail(invoice);
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
   it('should dispatch UpdateInvoice action when update is processed', async () => {
     const action = new UpdateInvoice(invoice.data);
     const spy = jest.spyOn(store, 'dispatch');
-    service.update(invoice);
+    service?.update(invoice);
     return expect(spy).toHaveBeenCalledWith(action);
   });
 
   it('should detect change of receiver on an invoice and handle it', async () => {
-    service['getVatPercentage'] = jest.fn(() => cold('-a|', {a: 18.0}));
-    const currentInvoice = InvoiceFactory.fromData(mockSingleInvoice());
-    service.getCurrent = jest.fn(() => of(currentInvoice));
-    service['currentData'] = currentInvoice.data;
+    if (service) {
+      service['getVatPercentage'] = jest.fn(() => cold('-a|', {a: 18.0}));
+      const currentInvoice = InvoiceFactory.fromData(mockSingleInvoice());
+      service.getCurrent = jest.fn(() => of(currentInvoice));
+      service['currentData'] = currentInvoice.data;
+    }
     const changedInvoice = InvoiceFactory.fromData(mockSingleInvoice());
     changedInvoice.header.receiverId = '1902';
     const expectedInvoice = InvoiceFactory.fromData(mockSingleInvoice());

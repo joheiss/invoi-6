@@ -31,8 +31,8 @@ describe('Invoice Card Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(InvoiceCardComponent);
     component = fixture.componentInstance;
-    datePipe = TestBed.get(DatePipe);
-    decimalPipe = TestBed.get(DecimalPipe);
+    datePipe = TestBed.inject(DatePipe);
+    decimalPipe = TestBed.inject(DecimalPipe);
   });
 
   it('should create the component', async () => {

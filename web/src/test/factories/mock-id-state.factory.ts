@@ -1,4 +1,4 @@
-import {IdState} from '../../auth/store/reducers';
+import {IdState} from '../../auth/store';
 import {mockAuthState} from './mock-auth-state.factory';
 import {mockUsersState, mockUsersStateWithOnlyAuthUser} from './mock-users-state.factory';
 

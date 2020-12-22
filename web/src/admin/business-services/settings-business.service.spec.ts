@@ -1,12 +1,12 @@
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../../invoicing/store/reducers';
+import {InvoicingState} from '../../invoicing/store';
 import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {SettingsBusinessService} from './settings-business.service';
 import {LOCALE_ID} from '@angular/core';
 import {of} from 'rxjs/index';
 import {map, take} from 'rxjs/operators';
-import {UpdateSetting, UpdateSettingFail} from '../../invoicing/store/actions';
+import {UpdateSetting, UpdateSettingFail} from '../../invoicing/store';
 import {mockAllCountries} from '../../test/factories/mock-settings.factory';
 import {SettingData} from 'jovisco-domain';
 
@@ -29,8 +29,8 @@ describe('Settings Business Service', () => {
         SettingsBusinessService
       ]
     });
-    store = TestBed.get(Store);
-    service = TestBed.get(SettingsBusinessService);
+    store = TestBed.inject(Store);
+    service = TestBed.inject(SettingsBusinessService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test

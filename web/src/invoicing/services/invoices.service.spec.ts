@@ -31,9 +31,9 @@ describe('Invoices Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    cloudFunctions = TestBed.get(FbFunctionsService);
-    service = TestBed.get(InvoicesService);
+    persistence = TestBed.inject(FbStoreService);
+    cloudFunctions = TestBed.inject(FbFunctionsService);
+    service = TestBed.inject(InvoicesService);
   });
 
   beforeEach(() => {

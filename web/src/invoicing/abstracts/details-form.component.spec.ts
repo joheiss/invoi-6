@@ -5,17 +5,17 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ContractFormComponent} from '../components';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../app/store/reducers';
+import {AppState} from '../../app/store';
 import {I18nUtilityService} from '../../shared/i18n-utility/i18n-utility.service';
 import {SharedModule} from '../../shared/shared.module';
 import {FormGroup} from '@angular/forms';
-import {Back} from '../../app/store/actions';
+import {Back} from '../../app/store';
 import {mockSingleContract} from '../../test/factories/mock-contracts.factory';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {of} from 'rxjs/internal/observable/of';
 import {mockAuth} from '../../test/factories/mock-auth.factory';
-import {ContractFactory} from 'jovisco-domain';
+import {Contract, ContractFactory} from 'jovisco-domain';
 
 describe('Abstract Details Form Component', () => {
 
@@ -58,9 +58,9 @@ describe('Abstract Details Form Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(ContractsBusinessService);
-    utility = TestBed.get(I18nUtilityService);
-    store = TestBed.get(Store);
+    service = TestBed.inject(ContractsBusinessService);
+    utility = TestBed.inject(I18nUtilityService);
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(ContractFormComponent);
     component = fixture.componentInstance;
   });
@@ -135,13 +135,14 @@ describe('Abstract Details Form Component', () => {
     });
 
     it('should emit create event and reset the form when onSave is handled for a newly created object', async() => {
-      const newObject = { header: { id: undefined } };
+      const newObject = { header: { id: undefined } } as Contract;
       const spyCreate = jest.spyOn(component.create, 'emit');
       const spyUpdate = jest.spyOn(component.update, 'emit');
      // const spyReset = jest.spyOn(component.form, 'reset');
+      // @ts-ignore
       component['changeObject'] = jest.fn(() => newObject);
       component.onSave(component.form);
-      await expect(spyCreate).toHaveBeenCalledWith(newObject);
+      expect(spyCreate).toHaveBeenCalledWith(newObject);
       return expect(spyUpdate).not.toHaveBeenCalled();
       // return expect(spyReset).toHaveBeenCalled();
     });

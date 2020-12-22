@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {StorageApiService, StorageUiService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -20,7 +20,7 @@ import {
   UpdateMetadataFileSuccess,
   UploadFile, UploadFileFail, UploadFileSuccess, UploadImage, UploadImageFail, UploadImageSuccess
 } from '../actions';
-import {OpenSnackBar, OpenUrl, StartSpinning, StopSpinning} from '../../../app/store/actions';
+import {OpenSnackBar, OpenUrl, StartSpinning, StopSpinning} from '../../../app/store';
 import {StorageEffects} from './storage.effects';
 import {of} from 'rxjs/index';
 
@@ -64,10 +64,10 @@ describe('Storage Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(StorageEffects);
-    store = TestBed.get(Store);
-    uiService = TestBed.get(StorageUiService);
-    apiService = TestBed.get(StorageApiService);
+    effects = TestBed.inject(StorageEffects);
+    store = TestBed.inject(Store);
+    uiService = TestBed.inject(StorageUiService);
+    apiService = TestBed.inject(StorageApiService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });

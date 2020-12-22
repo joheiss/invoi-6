@@ -55,7 +55,7 @@ describe('Receivers Component', () => {
   });
 
   beforeEach(() => {
-    service = TestBed.get(ReceiversBusinessService);
+    service = TestBed.inject(ReceiversBusinessService);
     fixture = TestBed.createComponent(ReceiversComponent);
     component = fixture.componentInstance;
     component.ngOnInit();

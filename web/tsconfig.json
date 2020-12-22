@@ -9,26 +9,21 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
-//    "skipLibCheck": true,
-    // "typeRoots": [
-    //  "node_modules/@types"
-    // ],
+    "target": "esnext",
     "types": [
       "jest",
       "node"
     ],
     "lib": [
-      "es2017",
+      "esnext",
       "dom"
-    ]
+    ],
   },
-//  "include": [
-//    "**/*.ts",
-//    "**/*.d.ts"
-//  ],
+  "exclude": [
+    "cypress",
+    "e2e"
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true
-    // "enableIvy": true -- lazy loading won't work if this flag is set
   }
 }

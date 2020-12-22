@@ -184,7 +184,7 @@ export class InvoicesBusinessService extends AbstractTransactionBusinessService<
       item.contractItemId = itemId;
     }
     return this.changeContractItemRelatedData(invoice, itemId).pipe(
-      retryWhen((err) => {
+      retryWhen((_) => {
         if (item.contractItemId > 1) {
           item.contractItemId--;
           return of(true);

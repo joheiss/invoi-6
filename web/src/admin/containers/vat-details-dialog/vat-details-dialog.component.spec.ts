@@ -130,21 +130,21 @@ describe('VAT Details Dialog Component', () => {
         validTo: DateTime.utc(9999, 12, 31).endOf('day').toJSDate()
       }) as VatData;
       const data = {task: 'new', vat: vatToCreate};
-      return testForm(data);
+      testForm(data);
     });
 
     describe('When existing vat entry is to be edited ...', () => {
 
       const vatToEdit = mockSingleVatSetting();
       const data = {task: 'edit', vat: vatToEdit};
-      return testForm(data);
+      testForm(data);
     });
 
     describe('When a new validity period is entered for an existing vat entry ...', () => {
 
       const vatToEdit = mockSingleVatSetting();
       const data = {task: 'period', vat: vatToEdit};
-      return testForm(data);
+      testForm(data);
     });
   });
 

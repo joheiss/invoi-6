@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {of} from 'rxjs/index';
 import {map, take, tap} from 'rxjs/operators';
 import {SelectInvoice} from '../store';
@@ -26,8 +26,8 @@ describe('Invoice Exists Guard', () => {
         InvoiceExistsGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(InvoiceExistsGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(InvoiceExistsGuard);
   });
 
   it('should create the guard', () => {

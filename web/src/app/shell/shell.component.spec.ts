@@ -58,7 +58,7 @@ describe('ShellComponent', () => {
   });
 
   it('should select the current state of the spinner', () => {
-    const store = TestBed.get(Store);
+    const store = TestBed.inject(Store);
     const isSpinning = true;
     store.pipe = jest.fn(() => hot('-a', {a: isSpinning}));
     fixture.detectChanges();
@@ -67,7 +67,7 @@ describe('ShellComponent', () => {
   });
 
   it('should select the current auth object', () => {
-    const store = TestBed.get(Store);
+    const store = TestBed.inject(Store);
     const auth = mockAuth()[0];
     store.pipe = jest.fn(() => hot('-a', {a: auth}));
     fixture.detectChanges();
@@ -76,7 +76,7 @@ describe('ShellComponent', () => {
   });
 
   it('should select the currently authenticated user', () => {
-    const store = TestBed.get(Store);
+    const store = TestBed.inject(Store);
     const user = mockSingleUser();
     store.pipe = jest.fn(() => hot('-a', {a: user}));
     fixture.detectChanges();
@@ -86,7 +86,7 @@ describe('ShellComponent', () => {
 
   describe('user$', () => {
     it('should be an observable of a single UserProfile object', done => {
-      const store = TestBed.get(Store);
+      const store = TestBed.inject(Store);
       const user = mockSingleUser();
       const bullshit = { ...mockSingleUser(), displayName: 'Bullshit' };
       store.pipe = jest.fn(() => cold('-a|', {a: user}));

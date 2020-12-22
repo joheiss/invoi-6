@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {Store} from '@ngrx/store';
-import {InvoicingState} from '../store/reducers';
+import {InvoicingState} from '../store';
 import {ContractsGuard} from './contracts.guard';
 
 describe('Contracts Guard', () => {
@@ -21,8 +21,8 @@ describe('Contracts Guard', () => {
         ContractsGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(ContractsGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(ContractsGuard);
   });
 
   it('should create the guard', () => {

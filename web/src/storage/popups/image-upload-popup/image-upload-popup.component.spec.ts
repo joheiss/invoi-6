@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from '../../../shared/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ImageUploadPopupComponent} from './image-upload-popup.component';
 
 describe('ImageUploadPopupComponent', () => {
@@ -11,7 +11,7 @@ describe('ImageUploadPopupComponent', () => {
   let dialogRef: MatDialogRef<any>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule],
       declarations: [ImageUploadPopupComponent],
       providers: [
@@ -35,7 +35,7 @@ describe('ImageUploadPopupComponent', () => {
   });
 
   beforeEach(() => {
-    dialogRef = TestBed.get(MatDialogRef);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(ImageUploadPopupComponent);
     component = fixture.componentInstance;
   });

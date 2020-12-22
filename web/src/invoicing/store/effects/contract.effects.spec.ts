@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {ContractsService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -23,9 +23,8 @@ import {
 import {mockAllContracts, mockSingleContract} from '../../../test/factories/mock-contracts.factory';
 import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
-import {firestore} from 'firebase';
-import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store/actions';
-import {DocumentChangeAction} from '@angular/fire/firestore';
+import firebase from 'firebase/app';
+import {Go, OpenSnackBar, StartSpinning, StopSpinning} from '../../../app/store';
 
 describe('Contract Effects', () => {
 
@@ -59,9 +58,9 @@ describe('Contract Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(ContractsEffects);
-    store = TestBed.get(Store);
-    contractsService = TestBed.get(ContractsService);
+    effects = TestBed.inject(ContractsEffects);
+    store = TestBed.inject(Store);
+    contractsService = TestBed.inject(ContractsService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -79,9 +78,9 @@ describe('Contract Effects', () => {
         const type = 'Added';
         const dto = ContractsService.mapToDTO(c);
         const payload = {doc: {id: dto.id, data: jest.fn(() => dto)}};
-        payload.doc.data().issuedAt = firestore.Timestamp.fromDate(payload.doc.data().issuedAt);
-        payload.doc.data().startDate = firestore.Timestamp.fromDate(payload.doc.data().startDate);
-        payload.doc.data().endDate = firestore.Timestamp.fromDate(payload.doc.data().endDate);
+        payload.doc.data().issuedAt = firebase.firestore.Timestamp.fromDate(payload.doc.data().issuedAt);
+        payload.doc.data().startDate = firebase.firestore.Timestamp.fromDate(payload.doc.data().startDate);
+        payload.doc.data().endDate = firebase.firestore.Timestamp.fromDate(payload.doc.data().endDate);
         return {type, payload: ContractsService.mapToBDO(payload)};
       });
       const mapped = mockAllContracts().slice(0, 3).map(c => {
@@ -89,6 +88,7 @@ describe('Contract Effects', () => {
         return {type, payload: c};
       });
       const expected = cold('-(cde)', {c: mapped[0], d: mapped[1], e: mapped[2]});
+      // @ts-ignore
       contractsService.queryAll = jest.fn(() => of(outcome));
       return expect(effects.queryContracts$).toBeObservable(expected);
     });

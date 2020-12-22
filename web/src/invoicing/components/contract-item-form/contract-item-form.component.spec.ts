@@ -49,8 +49,8 @@ describe('Contract Item Form Component', () => {
 
   beforeEach(() => {
     // registerLocaleData(localeDe, 'de-DE', localeDeExtra);
-    decimalPipe = TestBed.get(DecimalPipe);
-    utility = TestBed.get(I18nUtilityService);
+    decimalPipe = TestBed.inject(DecimalPipe);
+    utility = TestBed.inject(I18nUtilityService);
     fixture = TestBed.createComponent(ContractItemFormComponent);
     component = fixture.componentInstance;
   });

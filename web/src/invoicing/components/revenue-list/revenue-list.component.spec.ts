@@ -26,7 +26,7 @@ describe('Revenue List Component', () => {
   });
 
   beforeEach(() => {
-   utility = TestBed.get(I18nUtilityService);
+   utility = TestBed.inject(I18nUtilityService);
     fixture = TestBed.createComponent(RevenueListComponent);
     component = fixture.componentInstance;
   });

@@ -1,5 +1,5 @@
 import {
-  AddedContract, ChangeContractSuccess, CopyContract, CopyContractSuccess,
+  AddedContract, ChangeContractSuccess, CopyContractSuccess,
   ModifiedContract, NewContractSuccess,
   QueryContracts, RemoveAllContracts,
   RemovedContract, SelectContract,

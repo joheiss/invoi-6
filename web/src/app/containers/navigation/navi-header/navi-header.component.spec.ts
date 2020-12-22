@@ -12,7 +12,7 @@ import {IfAuthorizedForAdminDirective} from '../../../../auth/directives/if-auth
 import {IfAuthorizedForSalesDirective} from '../../../../auth/directives/if-authorized-for-sales.directive';
 import {IfAuthorizedAsDirective} from '../../../../shared/directives/if-authorized-as.directive';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/reducers';
+import {AppState} from '../../../store';
 
 describe('NaviHeaderComponent', () => {
   let component: NaviHeaderComponent;
@@ -44,7 +44,7 @@ describe('NaviHeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NaviHeaderComponent);
     component = fixture.componentInstance;
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
   });
 
   it('should create the component', waitForAsync(() => {
@@ -68,6 +68,7 @@ describe('NaviHeaderComponent', () => {
     it('should display only the sales items if authenticated as sales-user', async () => {
       const auth = mockAuth()[0];
       auth.roles = ['sales-user'];
+      // @ts-ignore
       store.pipe = jest.fn(() => of(mockAuth(['sales-user'])[0]));
       component.auth$ = of(auth);
       fixture.detectChanges();
@@ -83,6 +84,7 @@ describe('NaviHeaderComponent', () => {
     it('should display only the admin items if authenticated as admin user', async () => {
       const auth = mockAuth()[0];
       auth.roles = ['sys-admin'];
+      // @ts-ignore
       store.pipe = jest.fn(() => of(mockAuth(['sys-admin'])[0]));
       component.auth$ = of(auth);
       fixture.detectChanges();

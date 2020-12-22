@@ -29,7 +29,7 @@ describe('File Upload Dialog Component', () => {
   });
 
   beforeEach(() => {
-    dialogRef = TestBed.get(MatDialogRef);
+    dialogRef = TestBed.inject(MatDialogRef);
     fixture = TestBed.createComponent(FileUploadDialogComponent);
     component = fixture.componentInstance;
   });

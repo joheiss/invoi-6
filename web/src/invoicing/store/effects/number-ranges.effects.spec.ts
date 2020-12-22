@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../app/store/reducers';
+import {AppState} from '../../../app/store';
 import {NumberRangesService} from '../../services';
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
@@ -10,6 +10,7 @@ import {of} from 'rxjs/index';
 import {mockAuth} from '../../../test/factories/mock-auth.factory';
 import {NumberRangesEffects} from './number-ranges.effects';
 import {mockAllNumberRanges} from '../../../test/factories/mock-number-ranges.factory';
+import {DocumentChangeAction} from '@angular/fire/firestore';
 
 describe('Number Ranges Effects', () => {
 
@@ -43,9 +44,9 @@ describe('Number Ranges Effects', () => {
         }
       ]
     });
-    effects = TestBed.get(NumberRangesEffects);
-    store = TestBed.get(Store);
-    numberRangesService = TestBed.get(NumberRangesService);
+    effects = TestBed.inject(NumberRangesEffects);
+    store = TestBed.inject(Store);
+    numberRangesService = TestBed.inject(NumberRangesService);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -68,6 +69,7 @@ describe('Number Ranges Effects', () => {
         return {type, payload: nr};
       });
       const expected = cold('-(cde)', {c: mapped[0], d: mapped[1], e: mapped[2]});
+      // @ts-ignore
       numberRangesService.queryAll = jest.fn(() => of(outcome));
       return expect(effects.queryNumberRanges$).toBeObservable(expected);
     });

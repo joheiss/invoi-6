@@ -30,11 +30,11 @@ describe('Auth Service', () => {
         AuthService
       ]
     });
-    fbAuth = TestBed.get(FbAuthService);
-    fbStore = TestBed.get(FbStoreService);
-    fbFunctions = TestBed.get(FbFunctionsService);
-    uiService = TestBed.get(UiService);
-    service = TestBed.get(AuthService);
+    fbAuth = TestBed.inject(FbAuthService);
+    fbStore = TestBed.inject(FbStoreService);
+    fbFunctions = TestBed.inject(FbFunctionsService);
+    uiService = TestBed.inject(UiService);
+    service = TestBed.inject(AuthService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test
@@ -46,7 +46,7 @@ describe('Auth Service', () => {
   });
 
   describe('queryAuth', async () => {
-    it(`should invoke FbAuthService.getAuthState, FBStoreService.getOneUserProfile, setIdToken 
+    it(`should invoke FbAuthService.getAuthState, FBStoreService.getOneUserProfile, setIdToken
     and return the current user's profile`, async () => {
 
       const spyGetAuthState = jest.spyOn(fbAuth, 'getAuthState');

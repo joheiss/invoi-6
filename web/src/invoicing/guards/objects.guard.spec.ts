@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {select, Store} from '@ngrx/store';
-import {AppState} from '../../app/store/reducers';
+import {AppState} from '../../app/store';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
@@ -26,8 +26,8 @@ describe('Objects Guard', () => {
         ContractsGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(ContractsGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(ContractsGuard);
 
     // Mock implementation of console.error to return undefined to stop printing out to console log during test
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
@@ -44,6 +44,7 @@ describe('Objects Guard', () => {
       const outcome = cold('-(a|)', {a: state});
       const spy = jest.spyOn(store, 'dispatch');
       const action = guard['getQueryAction']();
+      // @ts-ignore
       store.pipe = jest.fn(() => outcome.pipe(
         select(guard['getObjectLoadedSelector']()),
         tap(loaded => !loaded && store.dispatch(guard['getQueryAction']())),

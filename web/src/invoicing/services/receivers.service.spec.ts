@@ -19,8 +19,8 @@ describe('Receivers Service', () => {
       ]
     });
 
-    persistence = TestBed.get(FbStoreService);
-    service = TestBed.get(ReceiversService);
+    persistence = TestBed.inject(FbStoreService);
+    service = TestBed.inject(ReceiversService);
   });
 
   it('should create the service', async () => {

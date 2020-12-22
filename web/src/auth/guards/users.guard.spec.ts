@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {select, Store} from '@ngrx/store';
-import {AppState} from '../../app/store/reducers';
+import {AppState} from '../../app/store';
 import {cold} from 'jasmine-marbles';
 import {RouterTestingModule} from '@angular/router/testing';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
@@ -26,8 +26,8 @@ describe('Users Guard', () => {
         UsersGuard
       ]
     });
-    store = TestBed.get(Store);
-    guard = TestBed.get(UsersGuard);
+    store = TestBed.inject(Store);
+    guard = TestBed.inject(UsersGuard);
 
     // Mock implementation of console.error to return undefined to stop printing out to console log during test
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
@@ -43,6 +43,7 @@ describe('Users Guard', () => {
       const outcome = cold('-(a|)', {a: idState});
       const spy = jest.spyOn(store, 'dispatch');
       const action = guard['getQueryAction']();
+      // @ts-ignore
       store.pipe = jest.fn(() => outcome.pipe(
         select(guard['getObjectLoadedSelector']()),
         tap(loaded => !loaded && store.dispatch(guard['getQueryAction']())),
@@ -63,6 +64,7 @@ describe('Users Guard', () => {
       const spy = jest.spyOn(store, 'dispatch');
       // @ts-ignore
       const action = guard.getQueryAction();
+      // @ts-ignore
       store.pipe = jest.fn(() => outcome.pipe(
         // @ts-ignore
         select(guard.getObjectLoadedSelector()),
@@ -91,7 +93,7 @@ describe('Users Guard', () => {
         // @ts-ignore
         select(guard.getObjectLoadedSelector()),
         // @ts-ignore
-        tap(loaded => store.dispatch(guard.getQueryAction())),
+        tap(_ => store.dispatch(guard.getQueryAction())),
         filter(loaded => loaded),
         take(1)
       ));
@@ -110,7 +112,7 @@ describe('Users Guard', () => {
         // @ts-ignore
         select(guard.getObjectLoadedSelector()),
         // @ts-ignore
-        tap(loaded => store.dispatch(guard.getQueryAction())),
+        tap(_ => store.dispatch(guard.getQueryAction())),
         filter(loaded => loaded),
         take(1)
       ));

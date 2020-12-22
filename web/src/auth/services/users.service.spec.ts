@@ -21,9 +21,9 @@ describe('Users Service', () => {
         UsersService
       ]
     });
-    fbStore = TestBed.get(FbStoreService);
-    fbFunctions = TestBed.get(FbFunctionsService);
-    service = TestBed.get(UsersService);
+    fbStore = TestBed.inject(FbStoreService);
+    fbFunctions = TestBed.inject(FbFunctionsService);
+    service = TestBed.inject(UsersService);
 
     // Mock implementation of console.error to
     // return undefined to stop printing out to console log during test
