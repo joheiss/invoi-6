@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "invoi-p",
+    "default": "jovisco-invoicing",
     "dev": "jovisco-invoicing",
     "prod": "invoi-p"
   }
