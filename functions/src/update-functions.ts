@@ -1,10 +1,11 @@
 import * as admin from 'firebase-admin';
-import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
-import {Change} from 'firebase-functions/lib/cloud-functions';
-import {EventContext} from 'firebase-functions';
+// import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
+// import {Change} from 'firebase-functions/lib/cloud-functions';
+import { Change, EventContext } from 'firebase-functions';
 import * as _ from 'lodash';
-import {Invoice, InvoiceFactory} from 'jovisco-domain';
-import {getRevenues, setRevenues} from '../../shared/src';
+import { Invoice, InvoiceFactory } from 'jovisco-domain';
+import { getRevenues, setRevenues } from '../../shared/src';
+import { DocumentSnapshot } from 'firebase-functions/v1/firestore';
 
 export async function handleReceiverCreation(snap: DocumentSnapshot, context: EventContext): Promise<any> {
   return updateNumberRange('receivers', context);
@@ -18,7 +19,7 @@ export async function handleReceiverDeletion(snap: DocumentSnapshot, context: Ev
 }
 
 export async function handleContractCreation(snap: DocumentSnapshot, context: EventContext): Promise<any> {
-    return updateNumberRange('contracts', context);
+  return updateNumberRange('contracts', context);
 }
 
 export async function handleContractDeletion(snap: DocumentSnapshot, context: EventContext): Promise<any> {
@@ -87,7 +88,7 @@ export async function handleUserProfileCreation(snap: DocumentSnapshot, context:
 export async function handleUserProfileDeletion(snap: DocumentSnapshot, context: EventContext): Promise<any> {
   try {
     const uid = context.params.id;
-    return admin.auth().setCustomUserClaims(uid, {isAdmin: false, isSales: false});
+    return admin.auth().setCustomUserClaims(uid, { isAdmin: false, isSales: false });
   } catch (err) {
     console.log(err);
   }
@@ -161,7 +162,7 @@ async function resetNumberRange(rangeId: string, context: EventContext): Promise
   const range = await rangeRef.get();
   if (range.data().lastUsedId === id) {
     const lastId = (+id - 1).toString();
-    return rangeRef.update({lastUsedId: lastId});
+    return rangeRef.update({ lastUsedId: lastId });
   }
   return false;
 }
@@ -169,7 +170,7 @@ async function resetNumberRange(rangeId: string, context: EventContext): Promise
 async function updateNumberRange(rangeId: string, context: EventContext): Promise<any> {
   const id = context.params.id;
   const rangeRef = admin.firestore().collection('number-ranges').doc(rangeId);
-  return rangeRef.update({lastUsedId: id});
+  return rangeRef.update({ lastUsedId: id });
 }
 
 async function updateAuth(uid: string, userProfile: any): Promise<any> {
@@ -182,7 +183,7 @@ async function updateAuth(uid: string, userProfile: any): Promise<any> {
     });
     const isAdmin = userProfile.roles.indexOf('sys-admin') >= 0;
     const isSales = userProfile.roles.indexOf('sales-user') >= 0;
-    return admin.auth().setCustomUserClaims(uid, {isAdmin: isAdmin, isSales: isSales});
+    return admin.auth().setCustomUserClaims(uid, { isAdmin: isAdmin, isSales: isSales });
   } catch (err) {
     throw new Error(err);
   }
@@ -223,11 +224,11 @@ async function updateRevenueReporting(newInvoiceData: any, oldInvoiceData: any):
       revenues = {
         id: values.new.year,
         organization: values.new.organization,
-        months: {[values.new.month]: {[values.new.receiverId]: values.new.revenue}}
+        months: { [values.new.month]: { [values.new.receiverId]: values.new.revenue } }
       };
     } else if (!revenues.months[values.new.month]) {
       // create new entry for month
-      revenues.months[values.new.month] = {[values.new.receiverId]: values.new.revenue};
+      revenues.months[values.new.month] = { [values.new.receiverId]: values.new.revenue };
     } else if (!revenues.months[values.new.month][values.new.receiverId]) {
       // create new entry for receiver
       revenues.months[values.new.month][values.new.receiverId] = values.new.revenue;

@@ -1,10 +1,11 @@
 import * as admin from 'firebase-admin';
-import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
+// import {ObjectMetadata} from 'firebase-functions/lib/providers/storage';
 import * as path from 'path';
 import * as os from 'os';
 import * as _ from 'lodash';
 import * as sharp from 'sharp';
-import {EventContext} from 'firebase-functions';
+import { EventContext } from 'firebase-functions';
+import { ObjectMetadata } from 'firebase-functions/v1/storage';
 
 export async function handleDocumentDeletion(object: ObjectMetadata, context: EventContext): Promise<any> {
   const filePath = object.name;
@@ -61,7 +62,7 @@ export async function handleUserThumbnail(object: ObjectMetadata, context: Event
   const fileName = filePath.split('/').pop();
   const tempFilePath = path.join(os.tmpdir(), fileName);
   const bucket = admin.storage().bucket(fileBucket);
-  return bucket.file(filePath).download({destination: tempFilePath})
+  return bucket.file(filePath).download({ destination: tempFilePath })
     .then(() => {
       _.each(SIZES, (size, index) => {
         const newFileName = `profile-image_${size}_thumb.png`;
@@ -70,7 +71,7 @@ export async function handleUserThumbnail(object: ObjectMetadata, context: Event
         sharp(tempFilePath)
           .resize(size, null)
           .toFile(newFileTemp, (err, info) => {
-            bucket.upload(newFileTemp, {destination: newFilePath})
+            bucket.upload(newFileTemp, { destination: newFilePath })
               .then(file => file[0].makePublic())
               .then(response => {
                 if (index === 0) {
@@ -117,5 +118,5 @@ function updateUserProfile(filePath: string) {
   // const projectId = 'jovisco-invoicing';
   const downloadUrl = `https://storage.googleapis.com/${projectId}.appspot.com/${filePath}`;
   const uid = filePath.split('/')[2];
-  return admin.firestore().collection('user-profiles').doc(uid).update({imageUrl: downloadUrl});
+  return admin.firestore().collection('user-profiles').doc(uid).update({ imageUrl: downloadUrl });
 }

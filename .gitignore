@@ -51,6 +51,8 @@ Thumbs.db
 # secrets
 /batches/credentials*.json
 /web/src/environments/*.*
+/web/coverage/src/environments/*.*
+
 *.pem
 *.key
 
