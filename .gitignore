@@ -57,3 +57,5 @@ Thumbs.db
 *.key
 
 dist-server
+web/coverage/src/environments/environment.prod.ts.html
+web/coverage/src/environments/environment.ts.html
