@@ -132,6 +132,16 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 
 ### Task 5 (Backend): Domain package and Cloud Functions
 
+**Done 2026-11-14** (new repo). Domain: `packages/domain` (ported `jovisco-domain` 1.0.70: all 71 old tests unchanged on Vitest with luxon 3 and TypeScript 6, plus 18 tests for decisions C1/C2/C6 and golden records of the old package for the 123 anonymized invoices). Functions: `functions/src` on the v2 API with the old export names, bundled with esbuild into `lib/index.js` (lodash and luxon are bundled; a Node ESM import of `lodash` named exports fails in the real runtime, found by the Functions-emulator tests). Tests: `npm test` (unit), `npm run test:backend` (81 tests on Auth/Firestore/Storage emulators), `npm run test:functions` (6 end-to-end tests of the built bundle in the Functions emulator), all in CI. Step 7 (email) skipped as decided: `POST /invoice-email/:id` answers 501.
+
+Implementation decisions (not in the owner decision table, flagged for confirmation):
+- **B1 fixed:** the triggers convert Firestore Timestamps to Dates before using the domain; no `revenues/NaN_*` documents can be created. `isInvoiceUpdateRelevantForRevenue` compares the issue date by value (the old reference comparison made every non-identical update relevant; the effect on the reporting was the same).
+- **Document link paths** are matched in both spellings (with and without leading slash, finding R4); stored files are addressed without the slash. Finalizing a Storage object still only updates existing links (never creates one), so Step 5's "finalize creates the link" in the list below does not apply.
+- **Profile mirror:** an empty phone number or image url is sent as `null` (the old code sent an empty string, which the Auth API rejects), and claims are set in every case. `disabled` is `!!isLocked`.
+- **PDF:** dates are formatted in `Europe/Berlin` (the old code always fell back to UTC + 120 minutes); the PDF is built in memory and uploaded with the metadata in one call. Letterhead images: placeholders are committed, the real images (in the git history of this repo under `functions/src/assets/img/`) go to the git-ignored `functions/assets/img/`.
+- **Thumbnails** are awaited; the image url uses the bucket of the object (B8/B9).
+- **HTTP 500** answers `{error: <message>}` instead of `{}`; user endpoints require `isAdmin` (A5); `__session` cookie support was dropped because it never worked.
+
 **Files:**
 - Create: `packages/domain/src/**` (or dependency on `jovisco-domain@2` per Task 1 Step 6), `functions/src/index.ts`, `functions/src/http/{users,invoices}.ts`, `functions/src/triggers/{receivers,contracts,invoices,user-profiles,document-links}.ts`, `functions/src/storage/{finalize,delete,metadata}.ts`, `functions/src/printforms/**`, `functions/src/lib/{number-ranges,revenues,auth-claims}.ts`, tests beside each
 - Spec: `ai/spec/04-backend-behavior.md`
