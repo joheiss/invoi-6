@@ -33,6 +33,7 @@ Counts: 3 user-profiles, 2 settings (`countries`, `vat`), 4 number-ranges, 12 re
 | R6 | Some receivers have no `isDeletable` field (2 of 6). The rules and the UI must treat a missing value like the old code does (see 03). |
 | R7 | The 5 open-invoice documents (4 stored) show `paymentAmount` as integer or double; amounts are mixed integer/double throughout (use number, not integer, types). |
 | R8 | Number ranges: `receivers` 1000–1999 (last 1014), `contracts` 4000–4999 (last 4134), `invoices` 5000–5999 (last 5231), `credit-requests` 6000–6999 (last 6058). |
+| R9 | Production profiles: 1 administrator with roles `sys-admin` + `sales-user` (claims `isAdmin` and `isSales`) and **2 users with the role `auditor` only**. Under the deployed rules these auditors can read nothing (A1); the rebuild fixes this (read-only access, claim `isAuditor`). The test administrator has both roles like the real one, because the rules need `sales-user` to read settings. |
 
 ## A. Security and authorization
 

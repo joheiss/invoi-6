@@ -115,6 +115,8 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 
 ### Task 4: Security rules and rules tests
 
+**Done 2026-11-14** (new repo: `firestore.rules`, `storage.rules`, `functions/test/rules/*.test.ts`; run `npm run test:rules`, 261 tests on the emulators, also in CI). Rules are the old ones plus decision A1 (auditor reads what sales-user reads in Firestore; claim `isAuditor` reads `docs/**` in Storage; no writes). Tests are table-driven over collection x operation x caller (unauthenticated, no profile, auditor, sales, admin, admin+sales), plus delete restrictions (missing `isDeletable` is denied, finding R6), profile access, roles-from-profile, and the A3 profile-image quirk. A mutation check (removing the A1 and delete rules) makes 11 tests fail. The test administrator now has `sys-admin` + `sales-user` like the real one (R9).
+
 **Files:**
 - Create: `firestore.rules`, `storage.rules`, `functions/test/rules/*.test.ts`
 - Spec: `ai/spec/03-security.md`
