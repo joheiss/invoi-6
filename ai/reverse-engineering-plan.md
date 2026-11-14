@@ -98,6 +98,8 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 
 ### Task 3: Scaffold the new repo
 
+**Done 2026-11-14** (commit `chore: scaffold ...` in the new repo). Deviations from the steps below: (1) **`@angular/fire` is not used**: version 21 supports Angular 21 only (peer `@angular/core ^21.2`, `typescript >=5.8 <6`) and Angular 22 requires TypeScript 6; Firebase goes through the modular `firebase` SDK in `apps/web/src/app/core/firebase` and lint rejects `@angular/fire` imports. (2) Angular 22 is zoneless by default and OnPush is the default change detection, so no explicit zoneless provider is needed. (3) Environment files (`environment.ts` = emulators, `.staging.ts`, `.prod.ts`, `.local.example.ts`) were created here, completing Task 2 Step 7. (4) File naming follows the 2016 style guide (`*.component.ts`) as used in this plan. (5) Initial bundle budget raised to 900 kB/1.5 MB (Firebase SDK).
+
 **Files (new repo):**
 - Create: `package.json` (npm workspaces: `apps/web`, `functions`, `packages/domain`, `tools/batches`), `apps/web/` (Angular CLI), `functions/`, `packages/domain/`, `tools/batches/`, `eslint.config.js`, `.editorconfig`, `.gitignore`, `README.md`, `.github/workflows/ci.yml` (or equivalent)
 
