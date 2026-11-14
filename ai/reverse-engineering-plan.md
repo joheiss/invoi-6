@@ -167,6 +167,16 @@ Every feature task follows the same loop: (1) read the section of `01-features.m
 
 ### Task 6: Core: Firebase, auth, shell, layout
 
+**Done 2026-11-14** (new repo). Delivered: `AuthStore` (signal store; roles from the profile document, claims from the ID token; locked or missing profile is signed out again), `AuthGateway` (the only Firebase Auth/profile access, faked in unit tests), `UiStore` (spinner counter, sidebar, snackbar by usage with the old durations and styles, yes/no confirmation), `authGuard`, `roleGuard` (decision A4), `homeGuard` (decision D1), `authInterceptor`, message catalog (`AUTH_MSGS` ported 1:1, including the old missing space in two texts), shell with header (wide screens), sidebar (narrow screens), login, goodbye/logout, password-change dialog and confirmation dialog (Ja/Nein), green header and dark page like the old app. Tests: 76 unit tests, 12 Playwright tests against the emulators with the real security rules (`npm run e2e`), covering stories A01, A02, A06 (dialog; entry point comes with Task 13), A09, H04, H06.
+
+Implementation decisions (flagged for confirmation):
+- A locked user is signed out and sees "Der Benutzer ist gesperrt." (the old app waited forever behind the spinner); new message id `user-locked`.
+- The domain `Messages` class returned a broken object for unknown ids (the catalog entry was a string); fixed and tested in `packages/domain`.
+- `/home` forwards a signed-in user to the landing screen of the role (`/invoicing`, `/invoicing/settings` for an administrator without sales role) as soon as that route exists; until then it stays blank.
+- The profile menu has only "Abmelden"; "Meine Daten" and the password change entry come with Task 13.
+- The domain package is built into `dist` (esbuild bundle + declarations) because the web build type-checks imported TypeScript with its stricter options; `npm install` and the `pretest`/`prebuild` hooks build it.
+- Entries of the menu use the Material icons font self-hosted; sidebar and header share `NAV_ITEMS`.
+
 **Stories:** `A01`, `A02`, `A09`, `H04`, `H06`, `A06` (own password change dialog)
 
 **Files (new repo, `apps/web/src/app/`):**
