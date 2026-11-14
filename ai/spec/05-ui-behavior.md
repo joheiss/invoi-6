@@ -1,6 +1,6 @@
 # 05 UI Behavior
 
-Source: components, templates, validators, business services and selectors in `web/src` (Angular 11, Material). Screenshots of every screen are still to be taken from the running old app against the staging copy (Task 2) and stored in `ai/spec/screens/`.
+Source: components, templates, validators, business services and selectors in `web/src` (Angular 11, Material). Screenshots of every screen (51 images, taken 2026-11-14 from the old app running against the anonymized emulator data) are in `ai/spec/screens/`; see `ai/spec/screens/README.md` for setup and observations.
 
 ## Shared form mechanics (`DetailsFormComponent`, used by receiver, contract, invoice, quick-invoice forms)
 
