@@ -191,6 +191,16 @@ Implementation decisions (flagged for confirmation):
 
 ### Task 7: Admin: settings, countries, VAT
 
+**Done 2026-11-15** (new repo, `apps/web/src/app/features/admin/`). Delivered: `AdminStore` (live `settings` collection, countries and VAT lists, every change writes the whole list back with the old messages `setting-update-success/fail`), `SettingsGateway` (the only Firestore access, faked in unit tests), pure rules in `admin.logic.ts`, `settingsResolver` (waits for the first answer, also on errors), settings page, country list and dialog, VAT list and dialog (Luxon date adapter, German date input), routes `/invoicing/settings[/countries|/vats]` under a new parent route `/invoicing` (signed-in users; each child has its roles, so an administrator without the sales role can open the settings), `routeResolves` for `/home` (forwards to a landing screen only once it resolves), number format and input patterns (`shared/format`, `shared/validators`), the full `INVOICING_MSGS` catalog. Tests: 204 unit tests, 24 Playwright tests (including the settings flows and the role checks) with the real security rules. Stories G01 and G02.
+
+Implementation decisions (flagged for confirmation):
+- The ISO code of a new country is required (at least 2 characters). The old form let an empty code through (`Anlegen` was enabled) and then saved a country without code.
+- Deleting a country or a VAT entry still happens at once without confirmation (as before); DE cannot be deleted in the UI.
+- New defaults and validity: a new tax code or period starts today (UTC start of day) until 31.12.9999 23:59:59.999 UTC, as before; dates typed in the picker are local midnight (as before with Moment).
+- Number ranges are not loaded here (the plan mentioned them with the settings): the `NumberRangesStore` comes with Task 8, where it is first needed.
+- Login now always goes to `/home`, which forwards to the landing screen of the role as soon as that screen exists.
+- Bundle budget raised to 1.6 MB (warning) / 2.2 MB (error) because Material, Luxon and the domain package are in the initial bundle; revisit when the features are lazy.
+
 **Stories:** `G01`, `G02`
 
 **Files:** `features/admin/{settings,country-list,country-details-dialog,vat-list,vat-details-dialog}/*`, `features/admin/admin.store.ts`, `features/admin/admin.routes.ts`
