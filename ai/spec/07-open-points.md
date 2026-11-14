@@ -19,6 +19,21 @@ These fixes are intended differences from the old app and are excluded from the 
 
 Legend for the default: `keep` = reproduce as is (with a characterization test), `fix` = proposed correction (needs your OK).
 
+## Findings from real data (2026-11-14, staging copy of `invoi-p`)
+
+Counts: 3 user-profiles, 2 settings (`countries`, `vat`), 4 number-ranges, 12 revenues, 4 open-invoices, 6 receivers, 36 contracts, 123 invoices (121 paid, 2 created; 80 invoice, 43 credit note; 1 organization `GHQ`; max 3 items), 229 document-links. Dates are Firestore Timestamps. Counts and Storage (234 files) match `invoi-p`.
+
+| # | Finding |
+|---|---|
+| R1 (B1 verified) | **Revenue reporting through triggers did fail in production:** `revenues/NaN_GHQ` exists (month `NaN`, 3 receiver entries). This confirms the Timestamp/luxon issue. Further small drifts between stored revenues and sums recomputed from invoices: 2022 (receiver 1010: 100 in month 7 instead of month 8), 2023 (19360 booked on receiver 1010 instead of 1007), 2024 (2 cells), 2025 (1 cell 12880 vs 12280). 2016 and 2017 revenue docs predate the stored invoices (earliest invoice 2017-12-31), so they cannot be recomputed. |
+| R2 (D7 verified) | Settings document ids are `countries` and `vat`. VAT tax codes in use: `DE_full` (16 %, 19 %), `DE_reduced` (5 %, 7 %), `DE_none` (0 %). Countries: `DE` only, names `de` and `en`. |
+| R3 | No invoice has VAT 0 % today, but a `DE_none` (0 %) tax code exists, which makes decision C2 (honor 0 %) relevant. |
+| R4 | `document-links.path` begins with a slash in 175 of 229 links (`/docs/...`), the others have no slash (`docs/invoices/...`). The rebuild must accept both forms when reading and write `docs/...` without a slash. 3 links lack the field `id`. |
+| R5 | Some contracts carry junk fields: a map `texts` and the literal dotted keys `texts.internalText` and `texts.invoiceText` (written by an update with dotted paths). The anonymizer keeps them; the rebuild ignores them. |
+| R6 | Some receivers have no `isDeletable` field (2 of 6). The rules and the UI must treat a missing value like the old code does (see 03). |
+| R7 | The 5 open-invoice documents (4 stored) show `paymentAmount` as integer or double; amounts are mixed integer/double throughout (use number, not integer, types). |
+| R8 | Number ranges: `receivers` 1000–1999 (last 1014), `contracts` 4000–4999 (last 4134), `invoices` 5000–5999 (last 5231), `credit-requests` 6000–6999 (last 6058). |
+
 ## A. Security and authorization
 
 | # | Finding | Default | Needed |
@@ -26,6 +41,7 @@ Legend for the default: `keep` = reproduce as is (with a characterization test),
 | A1 | The `auditor` role is allowed on `/invoicing` routes and in the sidebar, but Firestore rules require `sales-user` for every read, and `auditor` gets no Storage claim. An auditor sees nothing or errors. | keep | **DECIDE:** is `auditor` meant to be read-only? If yes, the rules need `auditor` on reads (propose `fix`). |
 | A2 | UI "deletable" for invoices = status is not paid; the rule allows delete only for `status == 0`. A billed invoice shows a Delete button that the server then rejects. | keep | **DECIDE** (propose `fix`: align the UI to the rule). |
 | A3 | Storage rule for `images/users/{uid}` matches only an object named exactly `{uid}`, so the owner cannot upload their own profile image from `images/users/{uid}/...`; only admins can. | keep | **VERIFY** how the app uploads user images (path and who does it). |
+| A3b | **Verified in real data (2026-11-14):** Storage contains `docs/undefined/1014/...` next to `docs/receivers/1014/...`: an upload once wrote the object type `undefined` into the path. | the rebuild always writes `docs/{objectType}/{id}/...`; keep the sample as a test case for the anonymizer | none |
 | A4 | `AuthorizationGuard` computes `intersection(...).length >= 0`, which is always true. Route-level role checks do nothing. | keep, characterize | **DECIDE** (propose `fix`: use `> 0`; note that this will also lock auditors out of everything, see A1). |
 | A5 | `POST /users/new` and `POST /users/:id` accept any signed-in user. Any signed-in user can create users or reset any user's password. | keep | **DECIDE** (strongly propose `fix`: require `isAdmin` claim; password change for oneself must stay possible via the client SDK). |
 | A6 | Firestore rules read roles from the profile document (one extra read per request) while Storage rules use custom claims. A role change takes effect at once in Firestore and only after the next ID token refresh in Storage. | keep | none |
