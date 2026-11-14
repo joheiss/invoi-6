@@ -9,4 +9,4 @@ Als Benutzer möchte ich ein abgelegtes Dokument herunterladen.
 1. **Gegeben** ein Dokument steht in der Liste, **wenn** ich „Herunterladen" wähle, **dann** wird die Datei geladen.
 2. **Gegeben** der Download war erfolgreich, **dann** erscheint die Meldung `file-download-success`.
 
-*Hinweis:* Lesezugriff für `auditor` auf Storage `docs/**` hängt an der offenen Entscheidung zum Claim `isAuditor` (siehe `ai/spec/07-open-points.md`, A1).
+*Hinweis:* Lesezugriff für `auditor` auf Storage `docs/**` erfolgt über den Claim `isAuditor` (Entscheidung A1, bestätigt am 2026-11-14).

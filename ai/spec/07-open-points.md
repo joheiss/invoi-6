@@ -6,7 +6,7 @@ Findings from reading the old code. The owner said no behavior changes are wante
 
 | Item | Decision |
 |---|---|
-| A1 | **fix:** `auditor` is read-only. Firestore rules allow `auditor` to read the same collections as `sales-user` (no writes). Follow-up needed: Storage `docs/**` read for auditors requires a claim (proposal: new custom claim `isAuditor`, set from role `auditor`); to confirm when Task 4/5 starts. |
+| A1 | **fix:** `auditor` is read-only. Firestore rules allow `auditor` to read the same collections as `sales-user` (no writes). Follow-up needed: Storage `docs/**` read for auditors requires a claim (new custom claim `isAuditor`, set from role `auditor`); **confirmed by the owner 2026-11-14.** |
 | A4 | **fix:** the route authorization guard uses `intersection(...).length > 0`. |
 | A5 | **fix:** user-management endpoints require the `isAdmin` claim (a user's own password change keeps working through the client SDK). |
 | C1 | **fix:** `getNextItemId` returns the smallest unused positive id. |
