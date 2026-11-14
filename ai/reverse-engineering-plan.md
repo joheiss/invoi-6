@@ -16,15 +16,29 @@
 - The Firebase CLI user can export from `invoi-p` and a new staging project may be created (confirmed).
 - The `jovisco-domain` source repository is available (confirmed; its local path or URL is still needed for Task 1 Step 6).
 - **Email sending is out of scope for now.** `POST /invoice-email/:id` and the SendGrid dependency are skipped; the UI keeps the button hidden or disabled.
-- No behavior changes are wanted: the new app reproduces the old behavior.
+- No behavior changes are wanted: the new app reproduces the old behavior, **except** for the fixes listed under "Owner decisions on found defects" below.
 - The backend (Cloud Functions, shared code, batch jobs) is **rewritten with the same behavior**.
 - Frontend: **Angular Material + NgRx SignalStore** (`@ngrx/signals`), no classic NgRx store/effects.
 - `jovisco-domain` reuse is **undecided**: Task 1 answers it.
 
+## Owner decisions on found defects (2026-11-14)
+
+Source: `ai/spec/07-open-points.md`. These are intended differences from the old app; they are excluded from the parity comparison in Task 15. All other open points keep the old behavior (pinned by a characterization test).
+
+| ID | Decision | Owning task |
+|---|---|---|
+| A1 | `auditor` is read-only: Firestore rules let `auditor` read what `sales-user` reads, no writes. Storage `docs/**` read for auditors likely needs a new claim `isAuditor` (set from role `auditor`): **confirm with the owner when Task 4 starts.** | 4, 5 |
+| A4 | The route role guard allows access only when `intersection(userRoles, routeRoles).length > 0` (the old guard was always true). | 6 |
+| A5 | User endpoints (`POST /users/new`, `POST /users/:id`) require the `isAdmin` claim. A user's own password change still works through the client SDK. | 5, 13 |
+| C1 | `getNextItemId` returns the smallest unused positive id. | 5 (domain), 10 |
+| C2 | VAT 0 % is honored (fallback to 19 only when the value is undefined). | 5 (domain), 10 |
+| C6 | Ids are compared numerically. | 5 (domain), 8, 9, 10 |
+| D1 | `/home` stays only as a redirect target without placeholder text; `/invoicing/confirmations` is removed. | 6, 11 |
+
 ## Global Constraints
 
 - Angular code style: standalone components only, `inject()` for DI, `input()`/`output()`/`model()`/`viewChild()`, `computed()`, built-in control flow (`@if`, `@for` with `track`, `@switch`), `ChangeDetectionStrategy.OnPush`, zoneless (`provideZonelessChangeDetection()`), typed reactive forms, functional guards/interceptors/resolvers. No `NgModule`, no `*ngIf`, no `@Input()` decorators.
-- Firestore collections and field names stay exactly as today: `user-profiles`, `settings`, `number-ranges`, `revenues`, `open-invoices`, `receivers`, `contracts`, `invoices`, `document-links`. Custom claims stay `isAdmin` and `isSales`. Storage paths stay `assets/`, `docs/`, `images/users/`, `docs/invoices/{id}/R{id}.pdf`.
+- Firestore collections and field names stay exactly as today: `user-profiles`, `settings`, `number-ranges`, `revenues`, `open-invoices`, `receivers`, `contracts`, `invoices`, `document-links`. Custom claims stay `isAdmin` and `isSales` (plus `isAuditor`, only if the owner confirms it for decision A1). Storage paths stay `assets/`, `docs/`, `images/users/`, `docs/invoices/{id}/R{id}.pdf`.
 - Roles stay `sys-admin`, `sales-user`, `auditor`. Locale `de-DE`.
 - Development and tests never touch `invoi-p` or the staging copy: they run on emulators. The code reads the target from environment files; **no secrets, service-account keys or real customer data are committed** (seed data is anonymized, `.gitignore` covers `credentials*.json`, `*.pem`, raw exports).
 - Every feature task starts with tests derived from the specs (characterization tests) and ends with a green `npm test`, `npm run lint` and `npm run build`.
@@ -107,9 +121,9 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 **Interfaces:**
 - Produces: rules identical in behavior to `db-rules.txt` and `storage-rules.txt`, verified by `@firebase/rules-unit-testing` against the emulator.
 
-- [ ] **Step 1: Write the failing tests** from the matrix in `03-security.md`. Required cases (Review Focus 2 and 4): a `sales-user` can create/read/update `receivers`, but deleting a receiver with `isDeletable: false` is denied and with `true` is allowed; deleting an invoice with `status: 0` is allowed and with `status: 1` denied; `sys-admin` only can write `settings`, `revenues`, `open-invoices`; a user reads their own `user-profiles/{uid}` but not another one; an unauthenticated request is denied everywhere; Storage: `docs/**` needs the `isSales` claim, `assets/**` write needs `isAdmin`, `images/users/{uid}` write allowed for the owner.
+- [ ] **Step 1: Write the failing tests** from the matrix in `03-security.md`. Required cases (Review Focus 2 and 4): a `sales-user` can create/read/update `receivers`, but deleting a receiver with `isDeletable: false` is denied and with `true` is allowed; deleting an invoice with `status: 0` is allowed and with `status: 1` denied; `sys-admin` only can write `settings`, `revenues`, `open-invoices`; a user reads their own `user-profiles/{uid}` but not another one; an unauthenticated request is denied everywhere; Storage: `docs/**` needs the `isSales` claim, `assets/**` write needs `isAdmin`, `images/users/{uid}` write allowed for the owner. **Decision A1:** an `auditor` can read `receivers`, `contracts`, `invoices`, `revenues`, `open-invoices`, `document-links`, `settings` and `number-ranges` but every write is denied (confirm the `isAuditor` claim for Storage `docs/**` read first).
 - [ ] **Step 2:** Run: `npx firebase emulators:exec --only firestore,storage "npm test -w functions -- rules"`. Expected: FAIL (rules files empty).
-- [ ] **Step 3:** Port the rules from `db-rules.txt` and `storage-rules.txt` to `firestore.rules` and `storage.rules`, keeping behavior identical. Do not "improve" them in this task; list suspected gaps in `ai/spec/07-open-points.md`.
+- [ ] **Step 3:** Port the rules from `db-rules.txt` and `storage-rules.txt` to `firestore.rules` and `storage.rules`, keeping behavior identical **except decision A1** (auditor read access). Do not "improve" them otherwise; list suspected gaps in `ai/spec/07-open-points.md`.
 - [ ] **Step 4:** Run the tests again. Expected: PASS. Commit.
 
 ### Task 5 (Backend): Domain package and Cloud Functions
@@ -124,10 +138,10 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 
 Split into sub-steps by group. Each group: tests first against the Firestore/Auth/Storage emulators, then implementation.
 
-- [ ] **Step 1 (domain):** Build the domain types, enums, factories and calculations (`InvoiceFactory.fromData(data)`, item and VAT totals, status transitions). Characterization tests use the sample documents from Task 2 and assert the totals the old code computed (take the expected values from running the old `jovisco-domain` on the same documents).
+- [ ] **Step 1 (domain):** Build the domain types, enums, factories and calculations (`InvoiceFactory.fromData(data)`, item and VAT totals, status transitions). Characterization tests use the sample documents from Task 2 and assert the totals the old code computed (take the expected values from running the old `jovisco-domain` on the same documents). **Decisions C1, C2, C6** are pinned by tests that expect the corrected behavior: `getNextItemId([1,3]) === 2`, `[2,3] === 1`, `[1,2,10] === 3`, `[] === 1`; an invoice with `vatPercentage: 0` has `vatAmount === 0` and `vatPercentage: undefined` falls back to 19; ids `'9999'` and `'10000'` compare numerically (`'10000'` is the latest).
 - [ ] **Step 2 (number ranges, Review Focus 1):** Test: creating `invoices/{id}` raises the `invoices` range by one; `billingMethod: 1` raises `credit-requests` instead; deleting restores the previous value; same for receivers and contracts. Implement the triggers on top of `lib/number-ranges.ts`.
 - [ ] **Step 3 (revenue reporting, Review Focus 3):** Test: creating an invoice adds its amount to `revenues`/`open-invoices`; an update that changes only a text field changes nothing; an update that changes status or amount adjusts reporting by the difference; deleting removes its contribution. Port `isInvoiceUpdateRelevantForRevenue` logic as a pure function with its own unit tests.
-- [ ] **Step 4 (users and claims, Review Focus 4):** Test: creating a profile with roles `['sales-user']` sets `{isSales: true, isAdmin: false}`; `['sys-admin']` sets `isAdmin: true`; deleting the profile sets both to `false`; `POST /new` creates an Auth user and profile and is refused for non-admins; `POST /:id` updates the user.
+- [ ] **Step 4 (users and claims, Review Focus 4):** Test: creating a profile with roles `['sales-user']` sets `{isSales: true, isAdmin: false}`; `['sys-admin']` sets `isAdmin: true`; deleting the profile sets both to `false`; `POST /new` creates an Auth user and profile and is refused (403) for callers without the `isAdmin` claim (decision A5), likewise `POST /:id`; `POST /:id` updates the user for admins; `['auditor']` sets neither `isAdmin` nor `isSales` (and `isAuditor: true` if confirmed for A1).
 - [ ] **Step 5 (documents):** Test: deleting a `document-links` doc deletes the Storage file; deleting an invoice, contract or receiver deletes the links with `owner == 'invoices/{id}'` (and so on); finalizing a Storage object creates the `document-links` doc; metadata updates are reflected.
 - [ ] **Step 6 (PDF, Review Focus 5):** Test: `POST /invoice-pdf/:id` for a seeded invoice returns 200, stores `docs/invoices/{id}/R{id}.pdf` with metadata `owner`, `type: 0`, `attachToEmail: true`, creates the `document-link`, and the PDF text contains the German formatted total (for example `1.234,50`) and the invoice number. Port `InvoiceFormDataMapper`, `InvoiceForm`, `BaseForm` with PDFKit.
 - [ ] **Step 7 (email): SKIPPED for now (owner decision).** Do not implement `POST /invoice-email/:id` or add `@sendgrid/mail`. Document the old behavior in `ai/spec/04-backend-behavior.md` so it can be added later behind a `MailSender` interface.
@@ -147,7 +161,7 @@ Every feature task follows the same loop: (1) read the section of `01-features.m
 **Interfaces:**
 - Produces: `AuthStore` (SignalStore) with state `{ user: AppUser | null, claims, roles: string[], loading: boolean, error: string | null }`, computed `isAuthenticated`, `hasRole`, and methods `login(email, password)`, `logout()`, `changePassword(old, new)`; `authGuard: CanActivateFn`; `roleGuard: CanActivateFn` reading `route.data['roles']`; `authInterceptor: HttpInterceptorFn` adding the ID token to calls to the functions URL; `UiStore` (sidebar open, busy, snack messages). Firebase providers connect to emulators when `environment.useEmulators` is true (Auth `9099`, Firestore `8080`, Storage `9199`, Functions `5001`).
 
-- [ ] **Step 1: Write failing tests (Review Focus 4).** `roleGuard` allows `sales-user` on a route with `roles: ['sales-user','auditor']`, redirects a `sys-admin`-only user to `/home`, and redirects an unauthenticated user to the login route; `authInterceptor` adds `Authorization: Bearer <token>` for the functions URL only; `AuthStore.login` against the emulator with `sales@test.local` sets `roles` from the user profile.
+- [ ] **Step 1: Write failing tests (Review Focus 4).** `roleGuard` allows `sales-user` on a route with `roles: ['sales-user','auditor']`, redirects a `sys-admin`-only user to `/home` (decision A4: allowed only if the role intersection is non-empty; a user without roles is denied; `/home` itself shows no placeholder text, decision D1), and redirects an unauthenticated user to the login route; `authInterceptor` adds `Authorization: Bearer <token>` for the functions URL only; `AuthStore.login` against the emulator with `sales@test.local` sets `roles` from the user profile.
 - [ ] **Step 2:** Implement per the interfaces. Material theme, responsive shell (flex/grid CSS, no flex-layout library), German texts via `$localize` or a typed message map.
 - [ ] **Step 3:** Playwright: log in as each test user and check the visible menu entries per role. Commit.
 
@@ -192,11 +206,11 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 
 - [ ] **Steps:** tests (item add/remove updates totals and VAT with German formatting; status transitions allowed per spec; delete disabled unless status `0`; quick invoice from a contract prefilled; PDF button creates a document link visible in the list), implement, Playwright flow (create invoice → PDF → appears under documents), commit.
 
-### Task 11: Overview, revenues, confirmations
+### Task 11: Overview and revenues (confirmations dropped, decision D1)
 
 **Stories:** `B01`, `B02`, `H05` (the confirmations placeholder is dropped, decision D1)
 
-**Files:** `features/overview/*`, `features/revenues/revenue-list/*`, `features/confirmations/*`, `revenues.store.ts`
+**Files:** `features/overview/*`, `features/revenues/revenue-list/*`, `revenues.store.ts` (no `confirmations` feature and no `/invoicing/confirmations` route)
 
 **Interfaces:**
 - Produces: `RevenuesStore` (reads `revenues` and `open-invoices`, read-only for `sales-user` and `auditor`), overview tiles as `computed` values.
@@ -244,7 +258,7 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 **Files:** `docs/parity-checklist.md`, `apps/web/e2e/parity/*.spec.ts`
 
 - [ ] **Step 1:** Turn every row of `01-features.md` and every story in `ai/user-stories/` (53 stories) into a checklist row with status (`done`, `changed-by-decision`, `missing`) and the test that covers it. No `missing` rows allowed at the end.
-- [ ] **Step 2:** Run the old app and the new app against the **same staging copy** and compare, for the same inputs: list contents and order, invoice totals, generated PDFs (text content), number ranges after create/delete, revenue sums. Record differences; each is either fixed or entered into `ai/spec/07-open-points.md` as an intended change.
+- [ ] **Step 2:** Run the old app and the new app against the **same staging copy** and compare, for the same inputs: list contents and order, invoice totals, generated PDFs (text content), number ranges after create/delete, revenue sums. Record differences; each is either fixed or entered into `ai/spec/07-open-points.md` as an intended change. Differences from the "Owner decisions on found defects" table (A1, A4, A5, C1, C2, C6, D1) are expected and excluded.
 - [ ] **Step 3:** Performance and accessibility pass: Lighthouse on the production build, keyboard navigation on forms, Material contrast checks.
 - [ ] **Step 4:** Commit.
 
@@ -284,3 +298,5 @@ Task 1 and Task 2 can run in parallel (Task 1 Step 2 wants the sample data from 
 Answered by the owner: Firebase export access and staging project (yes), `jovisco-domain` source available (yes), email (skipped), repo URL (`jovisco-invoicing-ai`), changes wanted (none).
 
 `jovisco-domain` source: https://github.com/joheiss/jovisco-domain (public; clone it into its own empty folder outside both repos for Task 1 Step 6). Nothing else is needed to start Task 1.
+
+Still open: (1) Decision A1 follow-up: new custom claim `isAuditor` for Storage `docs/**` read access, to confirm at the start of Task 4. (2) Staging project details (project ID, logins, export bucket) and the go-ahead for Task 2.
