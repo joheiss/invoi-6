@@ -8,7 +8,7 @@
 
 **Tech Stack (verified on npm 2026-11-14; re-check when starting):** Angular 22.x (`@angular/core` 22.2.6), Angular Material 22.x, `@ngrx/signals` 22.x (SignalStore), `@angular/fire` 21.x (check Angular 22 peer range) and `firebase` 13.x (modular), RxJS 7.x only where Angular APIs need it, TypeScript as required by Angular 22, Vitest (Angular's default unit-test runner), Playwright (e2e), Node `^22.22.3 || ^24.15.0`, `firebase-functions` 7.x (v2 API) and `firebase-admin` 14.x, `firebase-tools` current (Emulator Suite), PDFKit, SendGrid (or SMTP, see Open Questions).
 
-**Spec:** Produced by Task 1 in the old repo: `ai/spec/*.md` (feature inventory, data model, rules, functions behavior, UI behavior). Existing inputs: `ai/project-description.md`.
+**Spec:** Produced by Task 1 in the old repo: `ai/spec/*.md` (feature inventory, data model, rules, functions behavior, UI behavior). Existing inputs: `ai/project-description.md`. **User stories with acceptance criteria (happy path, German):** `ai/user-stories/` (index: `ai/user-stories/README.md`). Each feature task lists its story IDs under "Stories"; the acceptance criteria of those stories are the acceptance tests of the task (Vitest component tests and Playwright flows), and Task 15 checks that every story is covered.
 
 ## Decisions (already made by the owner)
 
@@ -102,6 +102,7 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 **Files:**
 - Create: `firestore.rules`, `storage.rules`, `functions/test/rules/*.test.ts`
 - Spec: `ai/spec/03-security.md`
+- Stories: `H05` (auditor read-only), `H06` (locked user), `A09` (roles and navigation), `F02` (document read access)
 
 **Interfaces:**
 - Produces: rules identical in behavior to `db-rules.txt` and `storage-rules.txt`, verified by `@firebase/rules-unit-testing` against the emulator.
@@ -116,6 +117,7 @@ Behaviors the code implies but nobody tested. Each is pinned by a test in the ow
 **Files:**
 - Create: `packages/domain/src/**` (or dependency on `jovisco-domain@2` per Task 1 Step 6), `functions/src/index.ts`, `functions/src/http/{users,invoices}.ts`, `functions/src/triggers/{receivers,contracts,invoices,user-profiles,document-links}.ts`, `functions/src/storage/{finalize,delete,metadata}.ts`, `functions/src/printforms/**`, `functions/src/lib/{number-ranges,revenues,auth-claims}.ts`, tests beside each
 - Spec: `ai/spec/04-backend-behavior.md`
+- Stories: `I01` (number ranges, Step 2), `I02` (revenue reporting, Step 3), `I05` (claims and user images, Step 4), `I04` (document links, Step 5), `E09` (PDF, Step 6), `A04`/`A05`/`A06` (user endpoints, Step 4)
 
 **Interfaces:**
 - Produces, exported with the same names as today so Firebase triggers and HTTP URLs are unchanged: `invoicing` and `users` (HTTPS, Express with ID-token validation; routes `POST /new`, `POST /:id`, `POST /invoice-pdf/:id`; `POST /invoice-email/:id` is deferred), `onCreateReceiver`, `onDeleteReceiver`, `onCreateContract`, `onDeleteContract`, `onCreateInvoice`, `onDeleteInvoice`, `onUpdateInvoice`, `onCreateUserProfile`, `onDeleteUserProfile`, `onUpdateUserProfile`, `onDeleteDocumentLink`, `onDeleteDocument`, `onFinalizedDocument`, `onMetadataUpdate`. Implemented with the `firebase-functions` v2 API where a v2 equivalent exists (`onDocumentCreated`, `onDocumentUpdated`, `onDocumentDeleted`, `onRequest`, `onObjectFinalized`, `onObjectDeleted`, `onObjectMetadataUpdated`). Internal helpers: `updateNumberRange(rangeId: string, docId: string): Promise<void>`, `resetNumberRange(rangeId: string, docId: string): Promise<void>`, `updateRevenueReporting(newInvoice: InvoiceData | null, oldInvoice: InvoiceData | null): Promise<void>`, `updateAuthClaims(uid: string, profile: UserProfileData): Promise<void>`.
@@ -133,9 +135,11 @@ Split into sub-steps by group. Each group: tests first against the Firestore/Aut
 
 ## Phase 3: Frontend, feature by feature
 
-Every feature task follows the same loop: (1) read the section of `01-features.md` and `05-ui-behavior.md`; (2) write component tests (Vitest, `TestBed`, SignalStore tests) and one Playwright flow against the seeded emulators; (3) implement; (4) compare to the old screen using `ai/spec/screens/`; (5) green build, lint, tests; (6) commit.
+Every feature task follows the same loop: (1) read the section of `01-features.md` and `05-ui-behavior.md` and the task's user stories in `ai/user-stories/` (each acceptance criterion becomes at least one test; cross-cutting stories `H01`–`H04` apply to every task with forms); (2) write component tests (Vitest, `TestBed`, SignalStore tests) and one Playwright flow against the seeded emulators; (3) implement; (4) compare to the old screen using `ai/spec/screens/`; (5) green build, lint, tests; (6) commit.
 
 ### Task 6: Core: Firebase, auth, shell, layout
+
+**Stories:** `A01`, `A02`, `A09`, `H04`, `H06`, `A06` (own password change dialog)
 
 **Files (new repo, `apps/web/src/app/`):**
 - Create: `app.config.ts`, `app.routes.ts`, `core/firebase.providers.ts`, `core/auth/auth.store.ts`, `core/auth/auth.guard.ts`, `core/auth/role.guard.ts`, `core/auth/auth.interceptor.ts`, `core/ui/ui.store.ts`, `core/shell/shell.component.ts`, `core/shell/navi-header.component.ts`, `core/shell/navi-sidebar.component.ts`, `features/home/home.component.ts`, `features/auth/login/login.component.ts`, `features/auth/password-change/password-change.component.ts`, `features/auth/goodbye/goodbye.component.ts`, `shared/ui/confirmation-dialog.component.ts`, `shared/ui/layout.scss`
@@ -149,6 +153,8 @@ Every feature task follows the same loop: (1) read the section of `01-features.m
 
 ### Task 7: Admin: settings, countries, VAT
 
+**Stories:** `G01`, `G02`
+
 **Files:** `features/admin/{settings,country-list,country-details-dialog,vat-list,vat-details-dialog}/*`, `features/admin/admin.store.ts`, `features/admin/admin.routes.ts`
 
 **Interfaces:**
@@ -157,6 +163,8 @@ Every feature task follows the same loop: (1) read the section of `01-features.m
 - [ ] **Steps:** tests (store loads and saves through the emulator; only `sys-admin` can open the routes), implement, Playwright flow (edit a VAT rate and see it persisted), commit.
 
 ### Task 8: Receivers
+
+**Stories:** `C01`–`C07` (`C07` quick invoice completes with Task 10), `H01`, `H02`, `H03`
 
 **Files:** `features/receivers/{receiver-list,receiver-card,receiver-details,receiver-form}/*`, `receivers.store.ts`, `receivers.routes.ts`, `unsaved-changes.guard.ts` (shared)
 
@@ -167,11 +175,15 @@ Every feature task follows the same loop: (1) read the section of `01-features.m
 
 ### Task 9: Contracts
 
+**Stories:** `D01`–`D06` (`D06` completes with Task 10)
+
 Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items sub-form (`contract-items-form`, `contract-item-form`), link to receiver (`receiver-card`). Interfaces mirror Task 8, plus `ContractsStore.byReceiver(receiverId): Signal<Contract[]>`.
 
 - [ ] **Steps:** tests (item totals, receiver link, delete rule, number range), implement, Playwright flow, commit.
 
 ### Task 10: Invoices
+
+**Stories:** `E01`–`E10`, `C07`, `D06`
 
 **Files:** `features/invoices/{invoice-list,open-invoice-list,invoice-card,invoice-details,invoice-form,invoice-items-form,invoice-item-form,quick-invoice-form,texts-form}/*`, `invoices.store.ts`, `invoices.routes.ts`, `features/documents/*` (see Task 12)
 
@@ -182,6 +194,8 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 
 ### Task 11: Overview, revenues, confirmations
 
+**Stories:** `B01`, `B02`, `H05` (the confirmations placeholder is dropped, decision D1)
+
 **Files:** `features/overview/*`, `features/revenues/revenue-list/*`, `features/confirmations/*`, `revenues.store.ts`
 
 **Interfaces:**
@@ -190,6 +204,8 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 - [ ] **Steps:** tests with the seeded data (expected sums per year), implement, Playwright, commit.
 
 ### Task 12: Documents and storage
+
+**Stories:** `F01`, `F02`, `F03`
 
 **Files:** `features/documents/{document-link-list,document-upload,document-preview}/*`, `documents.store.ts`, `core/storage/storage.service.ts`
 
@@ -200,6 +216,8 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 
 ### Task 13: User management
 
+**Stories:** `A03`, `A04`, `A05`, `A06`, `A07`, `A08`
+
 **Files:** `features/users/{user-list,user-details-dialog}/*`, `users.store.ts`, `users.routes.ts`, validators (`password.validator.ts`)
 
 **Interfaces:**
@@ -208,6 +226,8 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 - [ ] **Steps:** tests (password rules; only `sys-admin` can create a user; claims update after role change, checked through the emulator), implement, Playwright, commit.
 
 ### Task 14: Batch jobs
+
+**Stories:** `J01`, `J02`, `J03`, `I03`
 
 **Files:** `tools/batches/src/{reporting-refresh,users-list,export}.ts`, `tools/batches/src/lib/*`
 
@@ -223,7 +243,7 @@ Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items su
 
 **Files:** `docs/parity-checklist.md`, `apps/web/e2e/parity/*.spec.ts`
 
-- [ ] **Step 1:** Turn every row of `01-features.md` into a checklist row with status (`done`, `changed-by-decision`, `missing`) and the test that covers it. No `missing` rows allowed at the end.
+- [ ] **Step 1:** Turn every row of `01-features.md` and every story in `ai/user-stories/` (53 stories) into a checklist row with status (`done`, `changed-by-decision`, `missing`) and the test that covers it. No `missing` rows allowed at the end.
 - [ ] **Step 2:** Run the old app and the new app against the **same staging copy** and compare, for the same inputs: list contents and order, invoice totals, generated PDFs (text content), number ranges after create/delete, revenue sums. Record differences; each is either fixed or entered into `ai/spec/07-open-points.md` as an intended change.
 - [ ] **Step 3:** Performance and accessibility pass: Lighthouse on the production build, keyboard navigation on forms, Material contrast checks.
 - [ ] **Step 4:** Commit.
