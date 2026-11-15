@@ -319,6 +319,19 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 13: User management
 
+**Done 2026-11-15** (new repo, `apps/web/src/app/features/users/`). Delivered: `UsersStore` (live `user-profiles`, create and set password through the Cloud Function `/users/new` and `/users/{uid}`, profile save and lock through Firestore, image upload and delete in Storage), `passwordValidator` (and a state matcher that shows the mismatch at the confirmation field), user list (`/auth/users`, administrators only), user dialog (new, edit, my profile), password dialog (own: with old password; other user: set), image upload dialog, `UserDialogs` service, the header entry "Meine Daten", `AuthStore.reloadProfile()`, `StorageGateway.listPaths`. Tests: 484 unit tests, 106 Playwright tests (users: list, access, create incl. password mismatch and function failure, edit, lock, set password, own password against the Auth emulator, image upload and delete against the Storage emulator, my profile). Stories A03-A08, H05 (users).
+
+Findings and implementation decisions (flagged for confirmation):
+- **E2E without the functions emulator:** the calls to `/users/...` are answered inside the browser tests and checked for what the application sends; creating a user, setting a password, the claims after a role change and the thumbnails are covered by the backend tests (Task 5). Role changes are saved to the profile and the existing trigger updates Auth and the claims, as before.
+- **Roles are a multi-select** (`sys-admin`, `sales-user`, `auditor`) instead of the old comma separated text field (as in the UI spec); at least one is required.
+- **Edit saves to Firestore** (as before), so the message is the old `Die Benutzerdaten zu {E-Mail} wurden geändert.` (the user story names `user-update-success`).
+- **The lock button in the list works** (it only logged "to be implemented" before): it flips `isLocked` in the profile, the trigger disables or enables the Auth user. No confirmation question.
+- **Profile image delete removes all image files of the user** (original and thumbnails) and clears `imageUrl`; the old code deleted only the 32 pixel thumbnail and left the rest. The upload messages `image-upload-success/-fail` and `image-delete-success/-fail` are new (the old app had no texts: "Unbekannte Nachricht").
+- **A non-administrator cannot upload an own profile image:** the Storage rules (frozen) allow `images/users/{uid}/...` for administrators only, so the button of "Meine Daten" works only for them, as in the old app.
+- **Own password** goes through Firebase Auth (sign in again with the old password, then set the new one), another user's password through the function; a failure keeps the dialog open (the old dialog closed anyway).
+- The old dialog showed the user id ("Benutzerkennung") for every task but my profile; now only for editing. A blank profile picture is an icon instead of two image files.
+- The sample users `admin@`, `sales@`, `auditor@test.local` are not changed by the tests; temporary profiles and an Auth user are created and removed.
+
 **Stories:** `A03`, `A04`, `A05`, `A06`, `A07`, `A08`
 
 **Files:** `features/users/{user-list,user-details-dialog}/*`, `users.store.ts`, `users.routes.ts`, validators (`password.validator.ts`)
