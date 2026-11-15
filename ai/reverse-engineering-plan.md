@@ -243,7 +243,7 @@ Findings and implementation decisions (flagged for confirmation):
 - **A contract with invoices is shown read-only** (fields, item buttons, no "Speichern", no "Löschen"; "Neu" and "Kopieren" stay). The old form left the fields editable and only hid "Speichern".
 - **"Löschen" is not shown for a new, unsaved contract** (the old form offered it).
 - **The receiver of an existing contract stays selectable even when it became inactive** (the old list offered active receivers only, so the field went blank).
-- A new contract has no payment terms (they are required, as before); the contract list no longer breaks when a receiver is missing (the domain factory threw for the whole list).
+- A new contract starts with the payment terms "30 Tage: netto" (owner decision 2026-11-15; the old form had none and required them); the contract list no longer breaks when a receiver is missing (the domain factory threw for the whole list).
 - The hidden `documentUrl` of the old form is kept with the contract; the date inputs are German (`1.7.2026`), the term is stored as whole days (start 00:00, end 23:59:59.999).
 
 **Stories:** `D01`–`D06` (`D06` completes with Task 10)
