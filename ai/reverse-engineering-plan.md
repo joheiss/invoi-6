@@ -278,6 +278,14 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 11: Overview and revenues (confirmations dropped, decision D1)
 
+**Done 2026-11-15** (new repo, `apps/web/src/app/features/overview/`). Delivered: `RevenuesStore` (live `revenues` of the own organization, read only; the document `{year}_{organization}` is numbered by its year; `perYear` = current and two previous years via the domain `Revenue.calculateTotalRevenuesPerYear`), pure rules in `overview.logic.ts` (open invoices with receiver name, due date ascending; revenues of three years; German month abbreviations), `OpenInvoiceListComponent` ("Offene Rechnungen": Nr., Datum, Kunde, Leistungszeitraum, Nettobetrag, Zahlungsbetrag, Fällig am; past due marked), `RevenueListComponent` ("Umsätze": twelve months and the year sum), `OverviewComponent`, `revenuesResolver`, route `/invoicing` (sales users and auditors). Tests: 436 unit tests, 87 Playwright tests (overview: open list against the data, order, link to an invoice, three revenue rows compared with the stored documents, auditor, reload, anonymous). Stories B01, B02, H05 (overview).
+
+Findings and implementation decisions (flagged for confirmation):
+- **The landing page after the login is now the overview** for sales users and auditors (as in the old app); `/home` stays the blank target for users without such a role (D1). Two earlier e2e tests expected `/home` and were adapted.
+- **The open-invoice list is derived from the live invoices** (as the old app did), not from the `open-invoices` collection that the batch job writes; a missing receiver gives an empty name instead of breaking the list.
+- The revenue list shows whole euros (`1.0-0`) as before; the old component mutated its input when adding the year sum, the new one does not.
+- The revenues are loaded only for the overview route (not part of `loadInvoicingData`), the open list needs only receivers and invoices.
+
 **Stories:** `B01`, `B02`, `H05` (the confirmations placeholder is dropped, decision D1)
 
 **Files:** `features/overview/*`, `features/revenues/revenue-list/*`, `revenues.store.ts` (no `confirmations` feature and no `/invoicing/confirmations` route)
