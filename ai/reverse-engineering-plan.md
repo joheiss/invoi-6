@@ -212,6 +212,19 @@ Implementation decisions (flagged for confirmation):
 
 ### Task 8: Receivers
 
+**Done 2026-11-15** (new repo). Delivered: `ReceiversStore` (live receivers of the own organization, summaries with counts, drafts for new/copy, create/save/remove with the old messages), pure rules in `receiver.logic.ts` (active, recent, open, last invoice, deletable, quick-invoice qualification), card list, form with the tabs Details, Kommunikation and the related contracts and invoices, details page, `receiverGuard`, `unsavedChangesGuard`, `/invoicing/receivers[/:id]`. Shared groundwork: `DocumentsGateway` and the store feature `withFirestoreCollection` (live collection, organization filter, mapping), `NumberRangesStore`, minimal `ContractsStore` (flat `startDate`/`endDate` mapped to the domain `term`) and `InvoicesStore`, `invoicingDataResolver`, contract and invoice tables, id avatar, `toDates`. Tests: 284 unit tests, 45 Playwright tests (receivers: list, create, edit, copy, delete, related lists, unsaved changes, auditor, direct visits). Stories C01-C06, H01, H02 (receivers), H05 (receivers). C07 (quick invoice) comes with Task 10, the Dokumente tab with Task 12.
+
+Findings and implementation decisions (flagged for confirmation):
+- **The old list offered "Löschen" for the wrong receivers** (those that have contracts or invoices; `ReceiverSummary.deletable` means "has documents"). The new card offers it only for a receiver without contracts and invoices.
+- **The old copy overwrote the original:** the copy kept the number of the source and "Speichern" then updated that document. The copy now has no number and gets the next one from the range.
+- **All business collections are filtered by the organization of the user** on the client (receivers, contracts, invoices, revenues), as the old effects did; contracts are stored with flat `startDate` and `endDate` and mapped to a `term` object.
+- **Order and numbers:** the list is sorted by name (the old entity adapter sorted by name, not by number); "recent contracts" and "last invoice" compare numbers numerically (C6).
+- **No snackbar after creating a receiver** (as before); after saving an existing receiver the list opens with "wurde geändert"; the new receiver replaces the form in the browser history, so "Zurück" returns to the list.
+- **"Löschen" is not shown for a new, unsaved receiver** (the old form offered it and then failed).
+- The plan's `query`/`orderBy` signals and filtered list were left out: the old app has no search or filter.
+- **Guards run before resolvers in Angular:** a child guard that needs the data has to start the loading itself (`loadInvoicingData`).
+- Domain: the `*Query` classes are exported now; `ContractQuery`, `ReceiverQuery`, `InvoiceQuery` were unused by the old app.
+
 **Stories:** `C01`–`C07` (`C07` quick invoice completes with Task 10), `H01`, `H02`, `H03`
 
 **Files:** `features/receivers/{receiver-list,receiver-card,receiver-details,receiver-form}/*`, `receivers.store.ts`, `receivers.routes.ts`, `unsaved-changes.guard.ts` (shared)
