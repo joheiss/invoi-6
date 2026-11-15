@@ -367,6 +367,14 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 15: Parity verification
 
+**Done 2026-11-15** (new repo: `docs/parity-checklist.md`, `apps/web/e2e/parity/*.spec.ts`, `scripts/__tests__/parity-checklist.test.ts`). Delivered: the checklist with all 53 stories and the rows of the feature inventory (status `done` or `changed-by-decision`, no `missing`; a test checks completeness and that the named test files exist); parity tests against the values of the OLD domain package for all 123 invoices (list cards, open invoices, form totals of every fifth invoice) and the stored revenues; axe accessibility checks (WCAG 2.1 A/AA) of the main screens and keyboard tests. 485 unit tests, 115 Playwright tests.
+
+Findings (flagged for confirmation):
+- **A real difference found and fixed:** the invoice form recalculated with the header VAT rate on every item. Seven invoices of 2020 have 16 % in the header and 19 % on the items; the old package uses the item rate, so the form showed a different payment amount and a save would have changed the items. An item now keeps its own rate; a new item takes the rate of the invoice. **The Task 10 decision "items carry the VAT of the invoice" is withdrawn.**
+- **Visual changes for accessibility:** the active navigation entry is bold and underlined instead of amber, the orange and grey id badges are darker, item fields have accessible names.
+- **Not done:** the old application was not run side by side in the browser (comparison on data level with the golden values instead); no pixel comparison of PDFs (text content is tested); **Lighthouse was not run** (the session's sandbox allows no local web server for it): run it against staging in Task 16. The old app's two defects in story J01 ("years up to the year before last") stay as decided in Task 14.
+- Test data: the parity tests use the sample data as it is; invoices created by other specs in parallel are tolerated.
+
 **Files:** `docs/parity-checklist.md`, `apps/web/e2e/parity/*.spec.ts`
 
 - [ ] **Step 1:** Turn every row of `01-features.md` and every story in `ai/user-stories/` (53 stories) into a checklist row with status (`done`, `changed-by-decision`, `missing`) and the test that covers it. No `missing` rows allowed at the end.
