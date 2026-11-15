@@ -236,6 +236,16 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 9: Contracts
 
+**Done 2026-11-15** (new repo, `apps/web/src/app/features/contracts/`). Delivered: `ContractsStore` extended (draft for new/copy, create/save/remove with flat `startDate`/`endDate` storage and the old messages), pure rules in `contract.logic.ts` (summaries sorted by issue date then number, invoices of a contract, changeable, selectable receivers, next item number, drafts, storage mapping), validators (`endDateValidator`, `minOneItemValidator`), card list, form with the tabs Details (partner, dates, payment terms, items) and Texte plus tabs for open and all invoices, details page, `contractGuard`, routes `/invoicing/contracts[/:id]`. Tests: 352 unit tests, 60 Playwright tests (contracts: list, create, validation, items, edit, read-only with invoices, copy, delete, unsaved changes, auditor, direct visits). Stories D01-D05 and H01/H05 for contracts. D06 (new invoice from a contract) comes with Task 10, the Dokumente tab with Task 12.
+
+Findings and implementation decisions (flagged for confirmation):
+- **Same two old bugs as for receivers:** the old list offered "Löschen" for contracts that HAVE invoices (`ContractSummary.changeable` means "has invoices"), and a copy kept the number of the source so that "Speichern" overwrote the original. Now "Löschen" is offered only for a contract without invoices, and a copy gets the next number.
+- **A contract with invoices is shown read-only** (fields, item buttons, no "Speichern", no "Löschen"; "Neu" and "Kopieren" stay). The old form left the fields editable and only hid "Speichern".
+- **"Löschen" is not shown for a new, unsaved contract** (the old form offered it).
+- **The receiver of an existing contract stays selectable even when it became inactive** (the old list offered active receivers only, so the field went blank).
+- A new contract has no payment terms (they are required, as before); the contract list no longer breaks when a receiver is missing (the domain factory threw for the whole list).
+- The hidden `documentUrl` of the old form is kept with the contract; the date inputs are German (`1.7.2026`), the term is stored as whole days (start 00:00, end 23:59:59.999).
+
 **Stories:** `D01`–`D06` (`D06` completes with Task 10)
 
 Same structure as Task 8 with `features/contracts/*`, `ContractsStore`, items sub-form (`contract-items-form`, `contract-item-form`), link to receiver (`receiver-card`). Interfaces mirror Task 8, plus `ContractsStore.byReceiver(receiverId): Signal<Contract[]>`.
