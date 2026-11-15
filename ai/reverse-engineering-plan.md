@@ -297,6 +297,17 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 12: Documents and storage
 
+**Done 2026-11-15** (new repo, `apps/web/src/app/features/documents/`, `core/storage/`). Delivered: `StorageGateway` (upload with custom metadata, download URL, delete; faked in unit tests), `DocumentLinksStore` (live `document-links`, `forOwner(owner)`, `upload`, `download`, `remove`, `setType`, `setAttachToEmail` with the old messages), `DocumentLinkListComponent` (tab "Dokumente": select, "Hochladen", "Herunterladen", "Löschen", type select, e-mail checkbox), `DocumentUploadDialogComponent` (file, name, type, "E-Mail Anhang?"), the tab "Dokumente" in the receiver, contract and invoice forms (existing objects only), `DocumentsGateway.add` (generated ids). Tests: 450 unit tests, 94 Playwright tests (documents: upload with file and metadata checked in the Storage emulator, listing as "Sonstiges", download, type and e-mail change, delete of file and link, auditor reads and downloads under the real rules, tab on receivers and contracts, no tab for a new object). Stories F01-F03, H05 (documents).
+
+Findings and implementation decisions (flagged for confirmation):
+- **Link first, then file:** upload creates the link document, then the file (the Storage trigger then completes the link from the file metadata, as before). The old code did both at once, so the trigger could run before the link existed; a failed upload now removes the link again.
+- **Delete removes the file, then the link** (the old code sent both deletes independently); a file that is already gone does not keep the link, other errors keep both and are reported.
+- **Messages name the file** (`Die Datei {Name} wurde …`) for upload, download and delete (the old download message showed the storage path).
+- Download opens the file in a new window as before (the browser downloads files of most content types, so the window stays empty).
+- **A change of type or e-mail flag is saved in Firestore only** (as before); the Storage metadata keeps the values of the upload. The e-mail sending that reads the links is deferred.
+- **All document links are loaded live and filtered by owner in the browser** (the old list queried per owner); the collection has no organization field. Numbers are unique across organizations, but the rules let any signed-in reader see all links (unchanged).
+- The Cloud Function trigger is not part of the browser tests (no functions emulator there); the sample invoice 5231 already has two documents of its own, the tests look only at their own file.
+
 **Stories:** `F01`, `F02`, `F03`
 
 **Files:** `features/documents/{document-link-list,document-upload,document-preview}/*`, `documents.store.ts`, `core/storage/storage.service.ts`
