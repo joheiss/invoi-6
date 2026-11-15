@@ -343,6 +343,16 @@ Findings and implementation decisions (flagged for confirmation):
 
 ### Task 14: Batch jobs
 
+**Done 2026-11-15** (new repo, `tools/batches/`). Delivered: CLI with `commander` (`reporting-refresh [--test [flag]]`, `list-users`, `export [-o <dir>]`), run with `npm run batch -- <command>`; `lib/firebase.ts` (emulator hosts or `GOOGLE_APPLICATION_CREDENTIALS`, otherwise a clear error; no key in the repo), pure functions `buildRevenues`, `buildOpenInvoices`, `toInvoice` (timestamps to dates), `refreshReporting`, `listUsers`, `exportCollections`. Tests: 12 unit tests and 9 emulator tests (`npm run test:batches`, also in CI): revenues of this year rebuilt from the invoices (month split at day 15/16, sums per receiver, paid invoices count), the year before stays untouched, open invoices replaced with receiver names, test mode writes nothing, 620 open invoices (chunked batches), repeatable, users sorted with status, export of all six collections, the CLI itself (test mode, refusal without credentials). Stories J01, J02, J03, I03.
+
+Findings and implementation decisions (flagged for confirmation):
+- **Story J01 contradicts the old code and the task text:** the story says "years up to the year before last stay unchanged", the code (`revenuePeriod.year > currentYear - 1`) and this task rebuild **only the current year** and lock the year before. Implemented as the code and the task text.
+- **`--test` really writes nothing** (old defect B2: the flag was read but never checked); `--test`, `--test true` and `-t` are test mode, `--test false` is not. The result of a test run is printed.
+- **Export is fixed (old: options broken, `forEach(async)` without waiting, output path hard-coded):** every collection is written and awaited into `-o <dir>` (default `./exports`, git-ignored; the files hold real data and must stay outside of the repository when used against production). Documents are exported as stored (timestamps as `_seconds/_nanoseconds`, as before).
+- **Old limits removed:** one write batch for all open invoices (failed above 500 documents) is now chunked by 400; `list-users` prints all pages (old: first 100) with e-mail, name, status (`aktiv`/`gesperrt`) and uid; a receiver that no longer exists gives an empty name instead of aborting the run.
+- **Credentials:** the old programs required `credentials.json` / `credentials-prod.json` two folders above the repository; now only `GOOGLE_APPLICATION_CREDENTIALS` or the emulators. The jobs still never ask which project they run against: check the environment before running them against production (Task 16).
+- Documents for `open-invoices` and `revenues` keep the old fields (`organization`, `status`, receiver name, amounts, due date; `{year}_{organization}`).
+
 **Stories:** `J01`, `J02`, `J03`, `I03`
 
 **Files:** `tools/batches/src/{reporting-refresh,users-list,export}.ts`, `tools/batches/src/lib/*`
