@@ -384,6 +384,17 @@ Findings (flagged for confirmation):
 
 ### Task 16: Staging release and cutover plan
 
+**Prepared 2026-11-16, not finished** (new repo: `docs/cutover.md`, `.github/workflows/deploy.yml`, `firebase.json` hosting section, `.firebaserc` alias `prod`, `scripts/write-environment.ts`). Done: Step 2 (the cutover document: changes, risks, freeze window, backups, owner sign-off, deploy order, smoke checklist, rollback), the deploy workflow (manual, targets `staging` and `prod`, `prod` needs confirmed backups and the approval of the GitHub environment), the hosting configuration, generation of the environment file from a secret. **Nothing was deployed and nothing touched `staging` or `invoi-p`.** Open: Step 1 (deploy to staging and smoke test), Step 3 (owner sign-off and cutover), Step 4 (README status, tag `v1.0.0`).
+
+What blocks Step 1 and needs the owner:
+- `jovisco-invoi-staging` has **no registered web app**, so there is no web config for the build (creating one changes the project).
+- Functions need the **Blaze plan** on staging (not checked).
+- The staging project holds **real customer data**; the environments document forbids automated tests against it, while the plan says "run the full e2e suite against staging with the test users". Proposed: a manual smoke test with a staging user instead (checklist in `docs/cutover.md`), no automated suite.
+- **A 1st generation function cannot be replaced by a 2nd generation function of the same name:** the old functions in `invoi-p` must be deleted before the new ones are deployed (function gap inside the freeze window); `projectId` of the old index disappears. Rehearse it on staging by deploying the old functions there first.
+- The two production auditors need the new claim `isAuditor` (touch their profiles after the deploy).
+- The old repository has no tag for a rollback point: tag `legacy-final` before the cutover.
+- Lighthouse and a side-by-side run of old and new are still open (Task 15).
+
 **Files:** `docs/cutover.md`, `.github/workflows/deploy.yml`
 
 - [ ] **Step 1:** Deploy rules, functions and hosting to the staging project only. Run the full e2e suite against staging with the test users.
